@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pss_project.settings.local')
+env = os.environ.get("ENV", "local")
+os.environ['DJANGO_SETTINGS_MODULE'] = 'pss_project.settings.{}'.format(env)
 
 application = get_wsgi_application()
