@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: performance-storage-service
-          image: cmu-db/performance-storage-service:latest
+          image: "cmu-db/performance-storage-service:latest"
           ports:
             - containerPort: 8080
           env:
