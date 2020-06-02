@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: performance-storage-service
+  labels:
+    app: pss
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: pss
+  template:
+    metadata:
+      labels:
+        app: pss
+    spec:
+      containers:
+        - name: performance-storage-service
+          image: performance-storage-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

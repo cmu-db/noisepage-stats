@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: performance-storage-service
+  namespace: performance
+  labels:
+    app: pss
+    env: local
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: pss
+  template:
+    metadata:
+      labels:
+        app: pss
+    spec:
+      containers:
+        - name: performance-storage-service
+          image: cmu-db/performance-storage-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SECRET_KEY
+              value: "super-secret"
