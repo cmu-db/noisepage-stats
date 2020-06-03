@@ -1,9 +1,12 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: performance-storage-service
+  namespace: performance
   labels:
     app: pss
+    env: local
 spec:
   replicas: 1
   strategy:
@@ -11,14 +14,20 @@ spec:
   selector:
     matchLabels:
       app: pss
+      env: local
   template:
     metadata:
       labels:
         app: pss
+        env: local
     spec:
       containers:
         - name: performance-storage-service
-          image: performance-storage-service:latest
+          image: "cmu-db/performance-storage-service:latest"
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
+          env:
+            - name: SECRET_KEY
+              value: "super-secret"

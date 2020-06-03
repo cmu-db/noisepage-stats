@@ -22,8 +22,6 @@ spec:
       containers:
         - name: performance-storage-service
           image: "cmu-db/performance-storage-service:latest"
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
-          env:
-            - name: SECRET_KEY
-              value: "super-secret"
