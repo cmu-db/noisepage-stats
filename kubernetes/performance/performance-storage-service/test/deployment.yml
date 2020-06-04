@@ -6,7 +6,7 @@ metadata:
   namespace: performance
   labels:
     app: pss
-    env: local
+    env: test
 spec:
   replicas: 1
   strategy:
@@ -14,14 +14,16 @@ spec:
   selector:
     matchLabels:
       app: pss
+      env: test
   template:
     metadata:
       labels:
         app: pss
+        env: test
     spec:
       containers:
         - name: performance-storage-service
           image: "cmu-db/performance-storage-service:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080

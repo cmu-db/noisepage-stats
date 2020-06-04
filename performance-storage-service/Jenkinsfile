@@ -1,32 +1,60 @@
 #!groovy
 
 node {
+  agent ???
+  environment{
+    registry = "????"
+  }
+  try {
+      stage('Checkout'){
+        checkout scm
 
-    try {
-        stage 'Checkout'
-            checkout scm
+        sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+        def lastChanges = readFile('GIT_CHANGES')
+        //slackSend color: "warning", message: "Started `${env.JOB_NAME}#${env.BUILD_NUMBER}`\n\n_The changes:_\n${lastChanges}"
+      }
 
-            sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-            def lastChanges = readFile('GIT_CHANGES')
-            slackSend color: "warning", message: "Started `${env.JOB_NAME}#${env.BUILD_NUMBER}`\n\n_The changes:_\n${lastChanges}"
+      stage('Test'){
+        sh 'virtualenv env -p python3.7'
+        sh '. env/bin/activate'
+        sh 'pip install -r requirements.txt'
+        sh 'python3 manage.py test'
+        sh 'env/bin/deactivate'
+      }
 
-        stage 'Test'
-            sh 'virtualenv env -p python3.7'
-            sh '. env/bin/activate'
-            sh 'env/bin/pip install -r requirements.txt'
-            sh 'env/bin/python3.7 manage.py test
+      stage('Publish'){
+        environment {
+            registryCredential = '????'
+        }
+        steps{
+            script {
+                def appimage = docker.build registry + ":${BUILD_NUMBER}"
+                docker.withRegistry( '', registryCredential ) {
+                    appimage.push()
+                    appimage.push('latest')
+                }
+            }
+        }
+      }
 
-        stage 'Deploy'
-            sh './deployment/deploy_prod.sh'
+      stage ('Deploy'){
+        steps{
+          script{
+            def image_id = registry + ":$BUILD_NUMBER"
+            sh "ansible-playbook  playbook.yml --extra-vars \"image_id=${image_id}\""
+          }
+        }
+      }
 
-        stage 'Publish results'
-            slackSend color: "good", message: "Build successful: `${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
-    }
+      stage ('Publish results'){
+        //slackSend color: "good", message: "Build successful: `${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
+      }
+  }
 
-    catch (err) {
-        slackSend color: "danger", message: "Build failed :face_with_head_bandage: \n`${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
+  catch (err) {
+      //slackSend color: "danger", message: "Build failed :face_with_head_bandage: \n`${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
 
-        throw err
-    }
+      throw err
+  }
 
 }
