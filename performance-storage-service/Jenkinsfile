@@ -1,6 +1,16 @@
 #!groovy
 
 node {
+  def branches = [
+    test: 'testing',
+    staging: 'staging',
+    master: 'production'
+  ]
+
+  environment {
+    ENV = branches["${env.BRANCH_NAME}"]
+  }
+
   agent 'macOS' //check if this build machine has Python3.7
   try {
       stage('Checkout'){
@@ -41,7 +51,7 @@ node {
         steps{
           script{
             def image_id = registry + ":$BUILD_NUMBER"
-            sh "ansible-playbook  deployment/deployment-test.yml -e env=test"
+            sh "ansible-playbook -i inventory playbooks/deploymen.yml -e env=${env.ENV}"
           }
         }
       }

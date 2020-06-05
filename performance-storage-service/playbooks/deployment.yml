@@ -1,11 +1,16 @@
-- hosts: "{{host_name}}"
+- name: Deploy Performance Storage Service
+  vars:
+    dir_repo: "{{ inventory_dir }}"
+    dir_k8s: "{{ dir_repo }}/kubernetes/performance"
+    dir_k8s_deployment: "{{ dir_k8s }}/deployment"
+  hosts: "{{ env }}"
   tasks:
-  - name: Create Performance Storage Service Deployment
-    k8s:
-      state: present
-      src: ../../kubernetes/performance/performance-storage-service/local/deployment.yml
+    - name: Create Performance Storage Service Deployment
+      k8s:
+        state: present
+        src: "{{ dir_k8s }}/{{ env }}/deployment.yml"
 
-  - name: Create Performance Service
-    k8s:
-      state: present
-      src: ../../kubernetes/performance/service.yml
+    - name: Create Performance Service
+      k8s:
+        state: present
+        src: "{{ dir_k8s }}/service.yml"

@@ -14,5 +14,3 @@ spec:
     targetPort: http
     nodePort: 30001
   externalTrafficPolicy: Cluster
-  selector:
-    app: pss

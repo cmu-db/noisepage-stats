@@ -1,0 +1,28 @@
+[all:children]
+k8s_master
+k8s_worker
+
+[k8s_master:children]
+# list of k8s master hostname/ip
+
+[k8s_worker:children]
+local
+testing
+staging
+production
+
+[all:vars]
+# TODO: create an account for ansible on the k8s_master nodes
+ansible_user =
+
+[local]
+localhost
+
+[testing]
+# list of testing env hostname/ip
+
+[staging]
+# list of staging env hostname/ip
+
+[production]
+# list of production env hostname/ip
