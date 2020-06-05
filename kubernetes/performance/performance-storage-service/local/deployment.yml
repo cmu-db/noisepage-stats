@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: performance-storage-service
-          image: "cmu-db/performance-storage-service:latest"
+          image: "cmudb/performance-storage-service:latest"
           imagePullPolicy: Never
           ports:
             - name: http

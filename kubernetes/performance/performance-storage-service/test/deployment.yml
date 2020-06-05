@@ -23,7 +23,8 @@ spec:
     spec:
       containers:
         - name: performance-storage-service
-          image: "cmu-db/performance-storage-service:latest"
+          image: "cmudb/performance-storage-service:latest"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          # TODO: I need to do something about the SECRET_KEY but I'm not sure what

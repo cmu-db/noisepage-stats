@@ -1,7 +1,7 @@
 #!groovy
 
 node {
-  agent ???
+  agent 'macOS' //check if this build machine has Python3.7
   environment{
     registry = "????"
   }
@@ -11,7 +11,6 @@ node {
 
         sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
         def lastChanges = readFile('GIT_CHANGES')
-        //slackSend color: "warning", message: "Started `${env.JOB_NAME}#${env.BUILD_NUMBER}`\n\n_The changes:_\n${lastChanges}"
       }
 
       stage('Test'){
@@ -22,17 +21,24 @@ node {
         sh 'env/bin/deactivate'
       }
 
+      stage('Build'){
+        steps{
+          script{
+            myapp = docker.build("CMU-DB/performance-storage-service:${env.BUILD_ID}")
+          }
+        }
+      }
+
       stage('Publish'){
         environment {
             registryCredential = '????'
         }
         steps{
             script {
-                def appimage = docker.build registry + ":${BUILD_NUMBER}"
-                docker.withRegistry( '', registryCredential ) {
-                    appimage.push()
-                    appimage.push('latest')
-                }
+              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                myapp.push("latest")
+                myapp.push("${env.BUILD_ID}")
+              }
             }
         }
       }
@@ -41,18 +47,13 @@ node {
         steps{
           script{
             def image_id = registry + ":$BUILD_NUMBER"
-            sh "ansible-playbook  playbook.yml --extra-vars \"image_id=${image_id}\""
+            sh "ansible-playbook  deployment/deployment-test.yml"
           }
         }
-      }
-
-      stage ('Publish results'){
-        //slackSend color: "good", message: "Build successful: `${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
       }
   }
 
   catch (err) {
-      //slackSend color: "danger", message: "Build failed :face_with_head_bandage: \n`${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
 
       throw err
   }
