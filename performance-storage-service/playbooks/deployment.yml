@@ -1,11 +1,11 @@
-- hosts: localhost
+- hosts: "{{host_name}}"
   tasks:
-  - name: Create a Deployment by reading the definition from a local file
+  - name: Create Performance Storage Service Deployment
     k8s:
       state: present
       src: ../../kubernetes/performance/performance-storage-service/local/deployment.yml
 
-  - name: Create a Service object by reading the definition from a file
+  - name: Create Performance Service
     k8s:
       state: present
       src: ../../kubernetes/performance/service.yml

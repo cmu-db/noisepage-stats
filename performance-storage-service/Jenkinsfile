@@ -2,9 +2,6 @@
 
 node {
   agent 'macOS' //check if this build machine has Python3.7
-  environment{
-    registry = "????"
-  }
   try {
       stage('Checkout'){
         checkout scm
@@ -30,9 +27,6 @@ node {
       }
 
       stage('Publish'){
-        environment {
-            registryCredential = '????'
-        }
         steps{
             script {
               docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
@@ -47,7 +41,7 @@ node {
         steps{
           script{
             def image_id = registry + ":$BUILD_NUMBER"
-            sh "ansible-playbook  deployment/deployment-test.yml"
+            sh "ansible-playbook  deployment/deployment-test.yml -e env=test"
           }
         }
       }
