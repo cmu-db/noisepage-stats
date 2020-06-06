@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: performance-storage-service
-          image: "cmudb/performance-storage-service:latest"
+          image: "{{container_image}}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

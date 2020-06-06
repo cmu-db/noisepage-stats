@@ -9,9 +9,13 @@ node {
 
   environment {
     ENV = branches["${env.BRANCH_NAME}"]
+    registry = "cmudb/performance-storage-service"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
   }
 
-  agent 'macOS' //check if this build machine has Python3.7
+  agent any
+
   try {
       stage('Checkout'){
         checkout scm
@@ -21,44 +25,42 @@ node {
       }
 
       stage('Test'){
-        sh 'virtualenv env -p python3.7'
-        sh '. env/bin/activate'
-        sh 'pip install -r requirements.txt'
-        sh 'python3 manage.py test'
-        sh 'env/bin/deactivate'
+        agent {
+            docker { image 'maven:3-alpine' }
+        }
+        steps{
+          sh 'virtualenv env -p python3.7'
+          sh '. env/bin/activate'
+          sh 'pip install -r requirements.txt'
+          sh 'python3 manage.py test'
+          sh 'env/bin/deactivate'
+        }
       }
 
       stage('Build'){
         steps{
-          script{
-            myapp = docker.build("CMU-DB/performance-storage-service:${env.BUILD_ID}")
-          }
+          dockerImage = docker.build registry + ":${env.BUILD_ID}"
         }
       }
 
       stage('Publish'){
         steps{
-            script {
-              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                myapp.push("latest")
-                myapp.push("${env.BUILD_ID}")
-              }
-            }
+          docker.withRegistry('', registryCredential) {
+              dockerImage.push("latest")
+              dockerImage.push("${env.BUILD_ID}")
+          }
         }
       }
 
       stage ('Deploy'){
         steps{
-          script{
-            def image_id = registry + ":$BUILD_NUMBER"
-            sh "ansible-playbook -i inventory playbooks/deploymen.yml -e env=${env.ENV}"
-          }
+          def image_id = registry + ":$BUILD_ID"
+          sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${registry}"
         }
       }
   }
 
   catch (err) {
-
       throw err
   }
 
