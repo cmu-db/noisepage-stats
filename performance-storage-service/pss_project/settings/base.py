@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_jenkins',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pep8',
+    'django_jenkins.tasks.run_pyflakes',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
