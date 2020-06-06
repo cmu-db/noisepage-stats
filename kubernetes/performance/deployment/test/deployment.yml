@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: performance-storage-service
+  namespace: performance
+  labels:
+    app: pss
+    env: test
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: pss
+      env: test
+  template:
+    metadata:
+      labels:
+        app: pss
+        env: test
+    spec:
+      containers:
+        - name: performance-storage-service
+          image: "{{container_image}}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          # TODO: I need to do something about the SECRET_KEY but I'm not sure what

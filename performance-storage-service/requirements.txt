@@ -1,0 +1,15 @@
+ansible==2.9.9
+asgiref==3.2.7
+cffi==1.14.0
+cryptography==2.9.2
+Django==3.0.6
+django-jenkins==0.110.0
+djangorestframework==3.11.0
+gunicorn==20.0.4
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+pycparser==2.20
+pytz==2020.1
+PyYAML==5.3.1
+six==1.15.0
+sqlparse==0.3.1
