@@ -46,8 +46,8 @@ node {
       stage('Publish'){
         steps{
           docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
-              dockerImage.push("latest")
-              dockerImage.push("${env.BUILD_ID}")
+              env.dockerImage.push("latest")
+              env.dockerImage.push("${env.BUILD_ID}")
           }
         }
       }
