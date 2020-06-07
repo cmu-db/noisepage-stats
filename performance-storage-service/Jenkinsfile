@@ -10,7 +10,7 @@ node {
   environment {
     ENV = branches["${env.BRANCH_NAME}"]
     REGISTRY = "cmudb/performance-storage-service"
-    REGISTRY_CREDENTIAL = 'dockerhub'
+    REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
     dockerImage = '' //should this be all caps cause its not a constant
   }
 
