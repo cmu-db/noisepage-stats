@@ -14,7 +14,11 @@ node {
     dockerImage = '' //should this be all caps cause its not a constant
   }
 
-  agent { label 'docker' }
+  agent {
+    docker {
+      image 'ubuntu:bionic'
+    }
+  }
 
   try {
       stage('Checkout'){
