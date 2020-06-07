@@ -8,8 +8,6 @@ def branches = [
 
 pipeline {
   environment {
-
-
     ENV = branches["${env.BRANCH_NAME}"]
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
@@ -25,8 +23,8 @@ pipeline {
       steps{
         checkout scm
 
-        sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-        def lastChanges = readFile('GIT_CHANGES')
+        //sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+        //def lastChanges = readFile('GIT_CHANGES')
       }
     }
 
