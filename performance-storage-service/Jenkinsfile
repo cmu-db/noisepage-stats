@@ -1,71 +1,62 @@
 #!groovy
 
-node {
-  def branches = [
-    test: 'testing',
-    staging: 'staging',
-    master: 'production'
-  ]
+def branches = [
+  test: 'testing',
+  staging: 'staging',
+  master: 'production'
+]
 
+pipeline {
   environment {
     ENV = branches["${env.BRANCH_NAME}"]
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
     dockerImage = '' //should this be all caps cause its not a constant
   }
-
   agent {
     docker {
       image 'ubuntu:bionic'
     }
   }
+  stages{
+    stage('Checkout'){
+      checkout scm
 
-  try {
-      stage('Checkout'){
-        checkout scm
+      sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+      def lastChanges = readFile('GIT_CHANGES')
+    }
 
-        sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-        def lastChanges = readFile('GIT_CHANGES')
+    stage('Build'){
+      steps{
+        env.dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
       }
+    }
 
-      stage('Build'){
-        steps{
-          env.dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
+    stage('Test'){
+      steps{
+        sh "docker run --entrypoint python ${env.dockerImage} manage.py jenkins --enable-coverage"
+        // sh 'virtualenv env -p python3.7'
+        // sh '. env/bin/activate'
+        // sh 'pip install -r requirements.txt'
+        // sh 'python3 manage.py test'
+        // sh 'env/bin/deactivate'
+      }
+    }
+    
+    stage('Publish'){
+      steps{
+        docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
+            env.dockerImage.push("latest")
+            env.dockerImage.push("${env.BUILD_ID}")
         }
       }
+    }
 
-      stage('Test'){
-        steps{
-          sh "docker run --entrypoint python ${env.dockerImage} manage.py jenkins --enable-coverage"
-          // sh 'virtualenv env -p python3.7'
-          // sh '. env/bin/activate'
-          // sh 'pip install -r requirements.txt'
-          // sh 'python3 manage.py test'
-          // sh 'env/bin/deactivate'
-        }
+    stage ('Deploy'){
+      steps{
+        def image_id = env.REGISTRY + ":${env.BUILD_ID}"
+        sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
       }
-
-
-
-      stage('Publish'){
-        steps{
-          docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
-              env.dockerImage.push("latest")
-              env.dockerImage.push("${env.BUILD_ID}")
-          }
-        }
-      }
-
-      stage ('Deploy'){
-        steps{
-          def image_id = env.REGISTRY + ":${env.BUILD_ID}"
-          sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
-        }
-      }
+    }
   }
-
-  catch (err) {
-      throw err
-  }
-
 }
