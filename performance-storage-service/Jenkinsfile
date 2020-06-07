@@ -1,15 +1,15 @@
 #!groovy
-
+def branches = [
+  test: 'testing',
+  staging: 'staging',
+  master: 'production'
+]
 
 
 pipeline {
   environment {
-    def branches = [
-      test: 'testing',
-      staging: 'staging',
-      master: 'production'
-    ]
-    
+
+
     ENV = branches["${env.BRANCH_NAME}"]
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
