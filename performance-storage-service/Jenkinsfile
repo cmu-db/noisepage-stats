@@ -1,13 +1,15 @@
 #!groovy
 
-def branches = [
-  test: 'testing',
-  staging: 'staging',
-  master: 'production'
-]
+
 
 pipeline {
   environment {
+    def branches = [
+      test: 'testing',
+      staging: 'staging',
+      master: 'production'
+    ]
+    
     ENV = branches["${env.BRANCH_NAME}"]
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
@@ -20,10 +22,12 @@ pipeline {
   }
   stages{
     stage('Checkout'){
-      checkout scm
+      steps{
+        checkout scm
 
-      sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-      def lastChanges = readFile('GIT_CHANGES')
+        sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+        def lastChanges = readFile('GIT_CHANGES')
+      }
     }
 
     stage('Build'){
@@ -42,7 +46,7 @@ pipeline {
         // sh 'env/bin/deactivate'
       }
     }
-    
+
     stage('Publish'){
       steps{
         docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
