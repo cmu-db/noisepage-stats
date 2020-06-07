@@ -14,7 +14,7 @@ node {
     dockerImage = '' //should this be all caps cause its not a constant
   }
 
-  agent any
+  agent { label 'docker' }
 
   try {
       stage('Checkout'){
