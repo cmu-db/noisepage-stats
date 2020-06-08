@@ -24,13 +24,12 @@ pipeline {
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
      //should this be all caps cause its not a constant
   }
-  agent { label 'macos' }
-
-    // docker {
-    //   image 'docker'
-    //   args '-v /var/run/docker.sock:/var/run/docker.sock'
-    // }
-  //}
+  agent {
+    docker {
+      image 'docker'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
   stages{
     stage('Checkout'){
       steps{
@@ -45,6 +44,7 @@ pipeline {
       steps{
         dir('performance-storage-service'){
           sh "pwd"
+          sh "ls var/run"
           script{
             dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
           }
