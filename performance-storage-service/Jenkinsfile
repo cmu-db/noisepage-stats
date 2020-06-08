@@ -41,7 +41,9 @@ pipeline {
 
     stage('Build'){
       steps{
-        dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
+        script{
+          dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
+        }
       }
     }
 
@@ -58,9 +60,11 @@ pipeline {
 
     stage('Publish'){
       steps{
-        docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
-            dockerImage.push("latest")
-            dockerImage.push("${env.BUILD_ID}")
+        script{
+          docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
+              dockerImage.push("latest")
+              dockerImage.push("${env.BUILD_ID}")
+          }
         }
       }
     }
