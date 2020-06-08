@@ -26,7 +26,7 @@ pipeline {
   }
   agent {
     docker {
-      image 'ubuntu:bionic'
+      image 'docker:latest'
     }
   }
   stages{
