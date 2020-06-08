@@ -25,10 +25,11 @@ pipeline {
      //should this be all caps cause its not a constant
   }
   agent {
-    docker {
-      image 'docker'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
+    label:'macos'
+    // docker {
+    //   image 'docker'
+    //   args '-v /var/run/docker.sock:/var/run/docker.sock'
+    // }
   }
   stages{
     stage('Checkout'){
