@@ -42,31 +42,35 @@ pipeline {
     stage('Build'){
       steps{
         dir('performance-storage-service'){
-            sh "pwd"
+          sh "pwd"
+          script{
+            dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
           }
-        script{
-          dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
         }
       }
     }
 
     stage('Test'){
       steps{
-        sh "docker run --entrypoint python ${dockerImage} manage.py jenkins --enable-coverage"
+        dir('performance-storage-service'){
+          sh "docker run --entrypoint python ${dockerImage} manage.py jenkins --enable-coverage"
         // sh 'virtualenv env -p python3.7'
         // sh '. env/bin/activate'
         // sh 'pip install -r requirements.txt'
         // sh 'python3 manage.py test'
         // sh 'env/bin/deactivate'
+        }
       }
     }
 
     stage('Publish'){
       steps{
         script{
-          docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
-              dockerImage.push("latest")
-              dockerImage.push("${env.BUILD_ID}")
+          dir('performance-storage-service'){
+            docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
+                dockerImage.push("latest")
+                dockerImage.push("${env.BUILD_ID}")
+            }
           }
         }
       }
@@ -74,10 +78,12 @@ pipeline {
 
     stage ('Deploy'){
       steps{
-        script {
-          def image_id = env.REGISTRY + ":${env.BUILD_ID}"
+        dir('performance-storage-service'){
+          script {
+            def image_id = env.REGISTRY + ":${env.BUILD_ID}"
+          }
+          sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
         }
-        sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
       }
     }
   }
