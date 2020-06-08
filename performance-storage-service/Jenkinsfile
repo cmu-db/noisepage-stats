@@ -24,13 +24,13 @@ pipeline {
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
      //should this be all caps cause its not a constant
   }
-  agent {
-    label:'macos'
+  agent { label 'macos' }
+
     // docker {
     //   image 'docker'
     //   args '-v /var/run/docker.sock:/var/run/docker.sock'
     // }
-  }
+  //}
   stages{
     stage('Checkout'){
       steps{
