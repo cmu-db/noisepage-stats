@@ -44,7 +44,7 @@ pipeline {
       steps{
         dir('performance-storage-service'){
           sh "pwd"
-          sh "ls var/run"
+          sh "ls -a"
           script{
             dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
           }
