@@ -41,6 +41,7 @@ pipeline {
 
     stage('Build'){
       steps{
+        sh ls -alt
         script{
           dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
         }
