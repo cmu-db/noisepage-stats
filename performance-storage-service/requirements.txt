@@ -1,6 +1,7 @@
 ansible==2.9.9
 asgiref==3.2.7
 cffi==1.14.0
+coverage==5.1
 cryptography==2.9.2
 Django==3.0.6
 django-jenkins==0.110.0
