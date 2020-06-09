@@ -22,7 +22,6 @@ pipeline {
     ENV = getEnvFromBranch(env.BRANCH_NAME)
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-     //should this be all caps cause its not a constant
   }
   agent {
     label 'docker'
@@ -31,9 +30,6 @@ pipeline {
     stage('Checkout'){
       steps{
         checkout scm
-
-        //sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-        //def lastChanges = readFile('GIT_CHANGES')
       }
     }
 
@@ -52,7 +48,7 @@ pipeline {
     stage('Test'){
       steps{
         dir('performance-storage-service'){
-          sh "docker run --entrypoint python ${dockerImage} manage.py jenkins --enable-coverage"
+          sh "docker run --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage"
         // sh 'virtualenv env -p python3.7'
         // sh '. env/bin/activate'
         // sh 'pip install -r requirements.txt'
