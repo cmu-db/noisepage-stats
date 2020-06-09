@@ -1,3 +1,4 @@
+---
 - name: Deploy Performance Storage Service
   vars:
     dir_repo: "{{ inventory_dir }}"
