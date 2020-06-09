@@ -75,6 +75,8 @@ pipeline {
           script {
             def image_id = env.REGISTRY + ":${env.BUILD_ID}"
           }
+          sh ""
+          sh "apt-get install ansible"
           sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
         }
       }
