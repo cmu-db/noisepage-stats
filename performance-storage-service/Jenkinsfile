@@ -46,7 +46,7 @@ pipeline {
     stage('Test'){
       steps{
         dir('performance-storage-service'){
-          sh "docker run --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage -e SECRET_KEY=shhh"
+          sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage"
         // sh 'virtualenv env -p python3.7'
         // sh '. env/bin/activate'
         // sh 'pip install -r requirements.txt'
