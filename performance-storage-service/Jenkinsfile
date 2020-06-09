@@ -36,8 +36,6 @@ pipeline {
     stage('Build'){
       steps{
         dir('performance-storage-service'){
-          sh "pwd"
-          sh "ls -a"
           script{
             dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
           }
@@ -48,7 +46,7 @@ pipeline {
     stage('Test'){
       steps{
         dir('performance-storage-service'){
-          sh "docker run --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage"
+          sh "docker run --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage -e SECRET_KEY=shhh"
         // sh 'virtualenv env -p python3.7'
         // sh '. env/bin/activate'
         // sh 'pip install -r requirements.txt'
