@@ -71,13 +71,13 @@ pipeline {
         }
       }
     }
-    post {
-      cleanup {
-        echo "deleting directory"
-        deleteDir()
-        echo "removing docker image"
-        sh "docker rmi ${env.REGISTRY}:${env.BUILD_ID}"
-      }
+  }
+  post {
+    cleanup {
+      echo "deleting directory"
+      deleteDir()
+      echo "removing docker image"
+      sh "docker rmi ${env.REGISTRY}:${env.BUILD_ID}"
     }
   }
 }
