@@ -21,14 +21,11 @@ pipeline {
   agent {
     label 'docker'
   }
+  triggers {
+   githubPush()
+ }
   stages{
     stage('Checkout'){
-      when {
-        anyOf{
-          changeset "performance-storage-service/**"
-          changeset "kubernetes/performance/**"
-        }
-      }
       steps{
         checkout scm
       }
