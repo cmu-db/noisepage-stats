@@ -1,67 +1,90 @@
 #!groovy
+// def branches = [
+//   test: 'testing',
+//   staging: 'staging',
+//   master: 'production'
+// ]
 
-node {
-  def branches = [
-    test: 'testing',
-    staging: 'staging',
-    master: 'production'
-  ]
+def getEnvFromBranch(branch){
+  if (branch =='test'){
+    return 'testing'
+  } else if(branch == 'staging'){
+    return 'staging'
+  } else if(branch == 'master'){
+    return 'production'
+  }
+}
 
+def dockerImage = ''
+
+pipeline {
   environment {
-    ENV = branches["${env.BRANCH_NAME}"]
+    ENV = getEnvFromBranch(env.BRANCH_NAME)
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-    dockerImage = '' //should this be all caps cause its not a constant
   }
-
-  agent { label 'docker' }
-
-  try {
-      stage('Checkout'){
+  agent {
+    label 'docker'
+  }
+  stages{
+    stage('Checkout'){
+      steps{
         checkout scm
-
-        sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
-        def lastChanges = readFile('GIT_CHANGES')
       }
+    }
 
-      stage('Build'){
-        steps{
-          env.dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
-        }
-      }
-
-      stage('Test'){
-        steps{
-          sh "docker run --entrypoint python ${env.dockerImage} manage.py jenkins --enable-coverage"
-          // sh 'virtualenv env -p python3.7'
-          // sh '. env/bin/activate'
-          // sh 'pip install -r requirements.txt'
-          // sh 'python3 manage.py test'
-          // sh 'env/bin/deactivate'
-        }
-      }
-
-
-
-      stage('Publish'){
-        steps{
-          docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
-              env.dockerImage.push("latest")
-              env.dockerImage.push("${env.BUILD_ID}")
+    stage('Build'){
+      steps{
+        dir('performance-storage-service'){
+          script{
+            dockerImage = docker.build env.REGISTRY + ":${env.BUILD_ID}"
           }
         }
       }
+    }
 
-      stage ('Deploy'){
-        steps{
-          def image_id = env.REGISTRY + ":${env.BUILD_ID}"
-          sh "ansible-playbook -i inventory playbooks/deployment.yml -e env=${env.ENV} container_name=${env.REGISTRY}"
+    stage('Test'){
+      steps{
+        dir('performance-storage-service'){
+          sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage"
+        // sh 'virtualenv env -p python3.7'
+        // sh '. env/bin/activate'
+        // sh 'pip install -r requirements.txt'
+        // sh 'python3 manage.py test'
+        // sh 'env/bin/deactivate'
         }
       }
-  }
+    }
 
-  catch (err) {
-      throw err
-  }
+    stage('Publish'){
+      steps{
+        script{
+          dir('performance-storage-service'){
+            docker.withRegistry('', env.REGISTRY_CREDENTIAL) {
+                dockerImage.push("latest")
+                dockerImage.push("${env.BUILD_ID}")
+            }
+          }
+        }
+      }
+    }
 
+    stage ('Deploy'){
+      steps{
+        dir('performance-storage-service'){
+          script {
+            def image_id = env.REGISTRY + ":${env.BUILD_ID}"
+          }
+          sh "sudo apt-add-repository ppa:ansible/ansible"
+          sh "sudo apt-get -y install ansible"
+          sh "ansible-playbook -i inventory playbooks/deployment.yml -e \"env=${env.ENV} container_name=${env.REGISTRY}\""
+        }
+      }
+      post {
+        cleanup {
+          deleteDir()
+        }
+      }
+    }
+  }
 }
