@@ -70,10 +70,13 @@ pipeline {
           sh "ansible-playbook -i inventory playbooks/deployment.yml -e \"env=${env.ENV} container_name=${env.REGISTRY}\""
         }
       }
-      post {
-        cleanup {
-          deleteDir()
-        }
+    }
+    post {
+      cleanup {
+        echo "deleting directory"
+        deleteDir()
+        echo "removing docker image"
+        sh "docker rmi ${env.REGISTRY}:${env.BUILD_ID}"
       }
     }
   }
