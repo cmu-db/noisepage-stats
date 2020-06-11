@@ -28,12 +28,24 @@ pipeline {
   }
   stages{
     stage('Checkout'){
+      when {
+        anyOf{
+          changeset "performance-storage-service/**"
+          changeset "kubernetes/performance/**"
+        }
+      }
       steps{
         checkout scm
       }
     }
 
     stage('Build'){
+      when {
+        anyOf{
+          changeset "performance-storage-service/**"
+          changeset "kubernetes/performance/**"
+        }
+      }
       steps{
         dir('performance-storage-service'){
           script{
@@ -44,6 +56,12 @@ pipeline {
     }
 
     stage('Test'){
+      when {
+        anyOf{
+          changeset "performance-storage-service/**"
+          changeset "kubernetes/performance/**"
+        }
+      }
       steps{
         dir('performance-storage-service'){
           sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${env.BUILD_ID} manage.py jenkins --enable-coverage"
@@ -57,6 +75,12 @@ pipeline {
     }
 
     stage('Publish'){
+      when {
+        anyOf{
+          changeset "performance-storage-service/**"
+          changeset "kubernetes/performance/**"
+        }
+      }
       steps{
         script{
           dir('performance-storage-service'){
@@ -70,6 +94,12 @@ pipeline {
     }
 
     stage ('Deploy'){
+      when {
+        anyOf{
+          changeset "performance-storage-service/**"
+          changeset "kubernetes/performance/**"
+        }
+      }
       steps{
         dir('performance-storage-service'){
           script {
