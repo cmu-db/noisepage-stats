@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: performance-storage-service
-          image: "{{container_image}}"
+          image: "{{ container_image }}"
           imagePullPolicy: Never
           ports:
             - name: http

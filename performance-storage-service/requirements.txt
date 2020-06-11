@@ -1,4 +1,3 @@
-ansible==2.9.9
 asgiref==3.2.7
 cffi==1.14.0
 coverage==4.5.4

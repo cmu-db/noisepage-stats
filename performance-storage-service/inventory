@@ -18,8 +18,13 @@ container_name = "cmudb/performance-storage-service"
 container_tag = "latest"
 container_image = "{{container_name}}:{{container_tag}}"
 
+
 [local]
-localhost
+127.0.0.1
+[local:vars]
+ansible_connection=local
+ansible_python_interpreter=/usr/local/bin/python3
+
 
 [testing]
 # list of testing env hostname/ip
