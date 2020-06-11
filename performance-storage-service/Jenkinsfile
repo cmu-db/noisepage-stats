@@ -21,6 +21,9 @@ pipeline {
   agent {
     label 'docker'
   }
+  triggers {
+   githubPush()
+ }
   stages{
     stage('Checkout'){
       when {
