@@ -22,7 +22,7 @@ pipeline {
     label 'docker'
   }
   triggers {
-    githubPush()
+    //githubPush()
   }
   stages{
     stage('Checkout'){
