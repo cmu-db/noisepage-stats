@@ -12,27 +12,27 @@ pipeline {
     stage('Trigger Build Pipelines') {
       parallel {
         stage('Performance Storage Service'){
+          when{
+            changeset "/performance-storage-service"
+          }
           steps{
-            when{
-              changeset "/performance-storage-service"
-            }
-            build job: 'performance-storage-service', wait: true
+            build job: "performance-storage-service", wait: true
           }
         }
         stage('TimescaleDB'){
+          when{
+            changeset "/timescale"
+          }
           steps{
-            when{
-              changeset "/timescale"
-            }
-            build job: 'noisepage-test-timescale', wait: true
+            build job: "noisepage-test-timescale", wait: true
           }
         }
         stage('Grafana'){
+          when{
+            changeset "/grafana"
+          }
           steps{
-            when{
-              changeset "/grafana"
-            }
-            build job: 'noisepage-test-grafana', wait: true
+            build job: "noisepage-test-grafana", wait: true
           }
         }
       }
