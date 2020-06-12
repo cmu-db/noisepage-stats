@@ -17,7 +17,7 @@ pipeline {
             changeset "performance-storage-service/**"
           }
           steps{
-            build job: "performance-storage-service/${env.BRANCH_NAME}", wait: true
+            build job: "performance-storage-service/${env.BRANCH_NAME}", wait: true, propagate: true
           }
         }
         stage('TimescaleDB'){
@@ -25,7 +25,7 @@ pipeline {
             changeset "timescale/**"
           }
           steps{
-            build job: "noisepage-test-timescale", wait: true
+            build job: "noisepage-test-timescale/${env.BRANCH_NAME}", wait: true, propagate: true
           }
         }
         stage('Grafana'){
@@ -33,7 +33,7 @@ pipeline {
             changeset "grafana/**"
           }
           steps{
-            build job: "noisepage-test-grafana", wait: true
+            build job: "noisepage-test-grafana/${env.BRANCH_NAME}", wait: true,  propagate: true
           }
         }
       }
