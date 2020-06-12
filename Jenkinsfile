@@ -16,7 +16,7 @@ pipeline {
             changeset "performance-storage-service/**"
           }
           steps{
-            build job: "performance-storage-service", wait: true
+            build job: "performance-storage-service/${branch}", wait: true
           }
         }
         stage('TimescaleDB'){
