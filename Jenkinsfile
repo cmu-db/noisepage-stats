@@ -14,7 +14,7 @@ pipeline {
         stage('Performance Storage Service'){
           steps{
             when{
-              changeset: '/performance-storage-service'
+              changeset "/performance-storage-service"
             }
             build job: 'performance-storage-service', wait: true
           }
@@ -22,7 +22,7 @@ pipeline {
         stage('TimescaleDB'){
           steps{
             when{
-              changeset: '/timescale'
+              changeset "/timescale"
             }
             build job: 'noisepage-test-timescale', wait: true
           }
@@ -30,7 +30,7 @@ pipeline {
         stage('Grafana'){
           steps{
             when{
-              changeset: '/grafana'
+              changeset "/grafana"
             }
             build job: 'noisepage-test-grafana', wait: true
           }
