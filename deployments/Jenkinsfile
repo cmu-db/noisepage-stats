@@ -6,7 +6,7 @@ def getEnvFromBranch(branch){
   } else if(branch == 'master'){
     return 'production'
   } else {
-    return 'test'
+    return 'testing'
   }
 }
 
