@@ -28,6 +28,7 @@ ansible_python_interpreter=/usr/local/bin/python3
 
 [testing]
 # list of testing env hostname/ip
+incrudibles-testing.db.pdl.cmu.edu
 
 [staging]
 # list of staging env hostname/ip
