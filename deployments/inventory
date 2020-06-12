@@ -18,6 +18,7 @@ ansible_user = jenkins
 pss_container_name = "cmudb/performance-storage-service"
 pss_container_tag = "latest"
 pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
+ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
 
 
 [local]
