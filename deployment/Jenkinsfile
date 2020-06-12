@@ -1,12 +1,12 @@
 #!groovy
 
 def getEnvFromBranch(branch){
-  if (branch =='test'){
-    return 'testing'
-  } else if(branch == 'staging'){
+  if(branch == 'staging'){
     return 'staging'
   } else if(branch == 'master'){
     return 'production'
+  } else {
+    return 'test'
   }
 }
 
@@ -18,6 +18,9 @@ pipeline {
   }
   agent {
     label 'docker'
+  }
+  triggers {
+    upstream(upstreamProjects: "performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
