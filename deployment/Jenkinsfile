@@ -11,6 +11,7 @@ def getEnvFromBranch(branch){
 }
 
 def dockerImage = ''
+def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
   environment {
@@ -24,22 +25,62 @@ pipeline {
   }
   stages{
     stage('Checkout'){
+      when {
+        anyOf {
+          allOf {
+            triggeredBy "UpstreamCause"
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
       steps{
         checkout scm
       }
     }
     stage('Install Deployment Dependencies') {
+      when {
+        anyOf {
+          allOf {
+            triggeredBy "UpstreamCause"
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
       steps {
         sh "sudo apt-add-repository ppa:ansible/ansible"
         sh "sudo apt-get -y install ansible"
       }
     }
     stage('Create Namespaces') {
+      when {
+        anyOf {
+          allOf {
+            triggeredBy "UpstreamCause"
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
       steps {
         sh "ansible-playbook -i inventory playbooks/creaet-namespaces.yml -e \"env=${env.ENV}\""
       }
     }
     stage ('Deploy Apps'){
+      when {
+        anyOf {
+          allOf {
+            triggeredBy "UpstreamCause"
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
       parallel {
         stage('Performance Storage Service') {
           steps{
