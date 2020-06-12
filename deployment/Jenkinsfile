@@ -15,7 +15,7 @@ def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$Upstrea
 
 pipeline {
   environment {
-    REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
+    //REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
   }
   agent {
     label 'docker'
