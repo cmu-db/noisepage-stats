@@ -1,8 +1,12 @@
 #!groovy
 pipeline {
+  environment{
+    BRANCH_NAME = branch
+  }
   agent {
     label 'docker'
   }
+
   stages{
     stage('Checkout'){
       steps{
@@ -16,7 +20,7 @@ pipeline {
             changeset "performance-storage-service/**"
           }
           steps{
-            build job: "performance-storage-service/${branch}", wait: true
+            build job: "performance-storage-service/${BRANCH_NAME}", wait: true
           }
         }
         stage('TimescaleDB'){
