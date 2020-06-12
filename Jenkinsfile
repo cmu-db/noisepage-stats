@@ -13,7 +13,7 @@ pipeline {
       parallel {
         stage('Performance Storage Service'){
           when{
-            changeset "/performance-storage-service"
+            changeset "/performance-storage-service/**"
           }
           steps{
             build job: "performance-storage-service", wait: true
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('TimescaleDB'){
           when{
-            changeset "/timescale"
+            changeset "/timescale/**"
           }
           steps{
             build job: "noisepage-test-timescale", wait: true
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Grafana'){
           when{
-            changeset "/grafana"
+            changeset "/grafana/**"
           }
           steps{
             build job: "noisepage-test-grafana", wait: true
