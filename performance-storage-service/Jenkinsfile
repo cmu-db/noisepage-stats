@@ -7,7 +7,7 @@ pipeline {
     //TODO: maybe read this from file
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-    VERSION = 0.1.0
+    VERSION = "0.1.0"
   }
   agent {
     label 'docker'
@@ -52,24 +52,12 @@ pipeline {
         }
       }
     }
-
-    // TODO: I'm going to try to set upstream trigger on deploy pipeline to see  if that works
-    // stage('Trigger Deploy'){
-    //   when{
-    //     branch 'test'
-    //   }
-    //   steps{
-    //     step{
-    //       build job: 'noisepage-testing-deploy', propagate: false, wait: false
-    //     }
-    //   }
-    // }
   }
 
   post {
     cleanup{
       script{
-        if (branch == 'test') {
+        if (env.BRANCH_NAME == 'test') {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
