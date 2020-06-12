@@ -17,7 +17,7 @@ pipeline {
             changeset "performance-storage-service/**"
           }
           steps{
-            build job: "performance-storage-service/${env.BRANCH_NAME}", wait: true, propagate: true
+            build job: "noisepage-test-performance-storage-service/${env.BRANCH_NAME}", wait: true, propagate: true
           }
         }
         stage('TimescaleDB'){
