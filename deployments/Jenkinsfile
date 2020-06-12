@@ -14,9 +14,6 @@ def dockerImage = ''
 //def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
-  environment {
-    //REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-  }
   agent {
     label 'docker'
   }
