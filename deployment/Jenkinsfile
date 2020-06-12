@@ -11,7 +11,7 @@ def getEnvFromBranch(branch){
 }
 
 def dockerImage = ''
-def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
+//def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
   environment {
@@ -21,7 +21,7 @@ pipeline {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
