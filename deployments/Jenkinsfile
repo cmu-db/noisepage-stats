@@ -14,6 +14,9 @@ def dockerImage = ''
 //def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
+  environment{
+    ENV = getEnvFromBranch(branch)
+  }
   agent {
     label 'docker'
   }
@@ -64,7 +67,7 @@ pipeline {
         }
       }
       steps {
-        dir('performance-storage-service'){
+        dir('deployments'){
           sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\""
         }
       }
@@ -83,7 +86,7 @@ pipeline {
       parallel {
         stage('Performance Storage Service') {
           steps{
-            dir('performance-storage-service'){
+            dir('deployments'){
               sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\""
             }
           }
