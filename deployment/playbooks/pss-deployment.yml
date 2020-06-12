@@ -3,7 +3,7 @@
   name: Deploy Performance Storage Service
   vars:
     dir_repo: "{{ inventory_dir }}"
-    dir_k8s: "{{ dir_repo }}/../kubernetes/performance"
+    dir_k8s: "{{ dir_repo }}/kubernetes/performance"
     dir_k8s_deployment: "{{ dir_k8s }}/performance-storage-service/deployment"
   tasks:
   - name: Create Performance Storage Service Deployment

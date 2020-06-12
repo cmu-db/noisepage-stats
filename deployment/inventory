@@ -14,9 +14,10 @@ production
 [all:vars]
 # TODO: create an account for ansible on the k8s_master nodes
 ansible_user =
-container_name = "cmudb/performance-storage-service"
-container_tag = "latest"
-container_image = "{{container_name}}:{{container_tag}}"
+
+pss_container_name = "cmudb/performance-storage-service"
+pss_container_tag = "latest"
+pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
 
 
 [local]
