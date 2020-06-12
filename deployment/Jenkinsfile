@@ -1,0 +1,55 @@
+#!groovy
+
+def getEnvFromBranch(branch){
+  if (branch =='test'){
+    return 'testing'
+  } else if(branch == 'staging'){
+    return 'staging'
+  } else if(branch == 'master'){
+    return 'production'
+  }
+}
+
+def dockerImage = ''
+
+pipeline {
+  environment {
+    REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
+  }
+  agent {
+    label 'docker'
+  }
+  stages{
+    stage('Checkout'){
+      steps{
+        checkout scm
+      }
+    }
+    stage('Install Deployment Dependencies') {
+      steps {
+        sh "sudo apt-add-repository ppa:ansible/ansible"
+        sh "sudo apt-get -y install ansible"
+      }
+    }
+    stage('Create Namespaces') {
+      steps {
+        sh "ansible-playbook -i inventory playbooks/creaet-namespaces.yml -e \"env=${env.ENV}\""
+      }
+    }
+    stage ('Deploy Apps'){
+      parallel {
+        stage('Performance Storage Service') {
+          steps{
+            sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\""
+          }
+        }
+      }
+    }
+  }
+  post {
+    cleanup{
+      echo "deleting directory"
+      deleteDir()
+    }
+  }
+}
