@@ -71,6 +71,7 @@ pipeline {
           withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
             sh "curl http://incrudibles-testing.db.pdl.cmu.edu/sqlsmith/results/test.txt"
             sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${ANSIBLE_SSH}\" -vvvv"
+          }
         }
       }
     }
