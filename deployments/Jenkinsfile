@@ -69,6 +69,7 @@ pipeline {
       }
       steps {
         dir('deployments'){
+          sh "curl http://incrudibles-testing.db.pdl.cmu.edu/sqlsmith/results/test.txt"
           sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvv"
         }
       }
