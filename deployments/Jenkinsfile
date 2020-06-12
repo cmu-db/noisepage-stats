@@ -64,7 +64,7 @@ pipeline {
         }
       }
       steps {
-        sh "ansible-playbook -i inventory playbooks/creaet-namespaces.yml -e \"env=${env.ENV}\""
+        sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\""
       }
     }
     stage ('Deploy Apps'){
