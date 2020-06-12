@@ -64,7 +64,9 @@ pipeline {
         }
       }
       steps {
-        sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\""
+        dir('performance-storage-service'){
+          sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\""
+        }
       }
     }
     stage ('Deploy Apps'){
@@ -81,7 +83,9 @@ pipeline {
       parallel {
         stage('Performance Storage Service') {
           steps{
-            sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\""
+            dir('performance-storage-service'){
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\""
+            }
           }
         }
       }
