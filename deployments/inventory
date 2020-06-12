@@ -4,6 +4,7 @@ k8s_worker
 
 [k8s_master:children]
 # list of k8s master hostname/ip
+incrudibles-k8s.db.pdl.cmu.edu
 
 [k8s_worker:children]
 local
