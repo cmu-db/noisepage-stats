@@ -16,7 +16,6 @@ def dockerImage = ''
 pipeline {
   environment{
     ENV = getEnvFromBranch(branch)
-    ANSIBLE_SSH  = 'jenkins_k8s'
   }
   agent {
     label 'docker'
@@ -69,8 +68,9 @@ pipeline {
       }
       steps {
         dir('deployments'){
-          sh "curl http://incrudibles-testing.db.pdl.cmu.edu/sqlsmith/results/test.txt"
-          sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvv"
+          withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
+            sh "curl http://incrudibles-testing.db.pdl.cmu.edu/sqlsmith/results/test.txt"
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${ANSIBLE_SSH}\" -vvvv"
         }
       }
     }
@@ -89,7 +89,9 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
+              withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
+                sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
+              }
             }
           }
         }
