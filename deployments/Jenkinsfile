@@ -68,7 +68,7 @@ pipeline {
       }
       steps {
         dir('deployments'){
-          sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\" -v"
+          sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV}\" -vvvv"
         }
       }
     }
@@ -87,7 +87,7 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\" -v"
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV}\" -vvvvv"
             }
           }
         }
