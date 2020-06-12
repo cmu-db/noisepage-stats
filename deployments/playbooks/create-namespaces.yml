@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ env }}"
+- hosts: k8s_master
   name: Create Namespaces
   vars:
     dir_k8s: "{{ inventory_dir }}/kubernetes"

@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ env }}"
+- hosts: k8s_master
   name: Deploy Performance Storage Service
   vars:
     dir_repo: "{{ inventory_dir }}"
