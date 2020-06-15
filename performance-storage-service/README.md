@@ -2,6 +2,9 @@
 
 This serivce will be used to accept data from the Jenkins pipeline and store it in TimeScaleDB.
 
+### API Documentation
+The openapi.yaml file documents all the endpoints of the API
+
 
 ### Related Kubernetes Files
 `/kubernetes/performance/performance-storage-service/*`
