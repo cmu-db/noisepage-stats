@@ -25,7 +25,7 @@ grafana_container_name = "grafana/grafana"
 grafana_container_tag = "7.0.3"
 grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
 
-#ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
+ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
 
 
 [local]
