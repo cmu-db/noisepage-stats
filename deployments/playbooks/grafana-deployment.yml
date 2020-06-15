@@ -1,0 +1,20 @@
+---
+- hosts: k8s_master
+  name: Deploy Grafana
+  vars:
+    dir_repo: "{{ inventory_dir }}"
+    dir_k8s: "{{ dir_repo }}/kubernetes/grafana"
+    dir_k8s_deployment: "{{ dir_k8s }}/grafana/deployment"
+    # TODO figure out the reason for this folder organization
+  tasks:
+  - name: Create Grafana Deployment
+    vars:
+      deployment_file: "{{ dir_k8s_deployment }}/{{ env }}/deployment.yml"
+    k8s_raw:
+      state: present
+      definition: "{{ lookup('template', '{{ deployment_file }}') | from_yaml }}"
+
+  - name: Create Grafana Service
+    k8s:
+      state: present
+      src: "{{ dir_k8s }}/service.yml"

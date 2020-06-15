@@ -1,12 +1,29 @@
+#!groovy
+
+def dockerImage = ''
+
 pipeline {
+
+  environment {
+  }
+
   agent {
     label 'docker'
-  } 
-  stages {
-    stage('Check') {
-      when { changeset "grafana/**" }
+  }
+
+  stages{
+    stage('Checkout'){
       steps{
-        echo 'Checking grafana..'
+        checkout scm
+      }
+    }
+  }
+
+  post {
+    cleanup{
+      script{
+        echo "deleting directory"
+        deleteDir()
       }
     }
   }

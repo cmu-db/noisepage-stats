@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app: grafana
+    env: local
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: grafana
+      env: local
+  template:
+    metadata:
+      labels:
+        app: grafana
+        env: local
+    spec:
+      containers:
+        - name: grafana
+          image: "{{ grafana_container_image }}"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: SECRET_KEY
+              value: "super-secret"

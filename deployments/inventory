@@ -15,9 +15,16 @@ production
 # TODO: create an account for ansible on the k8s_master nodes
 ansible_user = jenkins
 
+#performance storage server
 pss_container_name = "cmudb/performance-storage-service"
 pss_container_tag = "latest"
 pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
+
+#grafana
+grafana_container_name = "grafana/grafana"
+grafana_container_tag = "7.0.3"
+grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
+
 ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
 
 
