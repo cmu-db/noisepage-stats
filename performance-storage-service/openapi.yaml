@@ -48,6 +48,8 @@ components:
       type: object
       required:
         - name
+        - test_settings
+        - metrics
       properties:
         name:
           type: string
@@ -62,6 +64,7 @@ components:
       required:
         - scale_factor
         - terminals
+        - transaction_weights
       properties:
         scale_factor:
           type: number
@@ -69,6 +72,23 @@ components:
           description: A scale factor for the size of the database
         terminals:
           type: integer
+        transaction_weights:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transactions'
+    Transactions:
+      type: object
+      description: An object containing information about the performance test transaction weights
+      required:
+        - name
+        - weight
+      properties:
+        name:
+          type: string
+          description: The name of the transaction (i.e. DELETE_CALL_FORWARDING)
+        weight:
+          type: integer
+          description: The weight of the transaction type for the run of OLTPBench
     OLTPBenchMetrics:
       type: object
       description: An object containing all test metrics for OLTPBench performance tests
