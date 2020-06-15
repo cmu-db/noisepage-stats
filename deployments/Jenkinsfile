@@ -16,7 +16,6 @@ def dockerImage = ''
 pipeline {
   environment{
     ENV = getEnvFromBranch(branch)
-    ANSIBLE_SSH = credentials('jenkins_k8s')
   }
   agent {
     label 'docker'
@@ -66,6 +65,9 @@ pipeline {
           branch "staging"
           branch "master"
         }
+      }
+      environment {
+        ANSIBLE_SSH = credentials('jenkins_k8s')
       }
       steps {
         dir('deployments'){
