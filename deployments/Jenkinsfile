@@ -67,7 +67,7 @@ pipeline {
         }
       }
       environment {
-        ANSIBLE_SSH = credentials('jenkins-k8s')
+        ANSIBLE_SSH = credentialsId('jenkins-k8s')
       }
       steps {
         dir('deployments'){
