@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  description: "This service takes in performance test result data and stores it in TimescaleDB"
+  version: "1.0.0"
+  title: "InCRUDibles Dash"
+servers:
+  - url: https://incrudibles-testing.db.pdl.cmu.edu
+    description: Test server
+paths:
+  /oltpbench:
+    post:
+      summary: "Report a new set of OLTPBench results from a build"
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OLTPBenchSummary'
+      responses: 
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+
+components:
+  schemas:
+    OLTPBenchSummary:
+      description: A build result from running all the OLTPBench results
+      type: object
+      required: 
+        - build_link
+        - performance_results
+      properties:
+        build_link:
+          type: string
+          description: A hyperlink to the build results in Jenkins
+        github_link:
+          type: string
+          description: A hyperlink to the pull request that triggered the build
+        performance_results:
+          type: array
+          description: The array of results from the different OLTPBench tests
+          items:
+            $ref: '#/components/schemas/OLTPBenchResult'
+    OLTPBenchResult:
+      description: A single OLTPBench test result
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the test that was run (e.g. TATP)
+        test_settings:
+          $ref: '#/components/schemas/OLTPBenchTestSettings'
+        metrics:
+          $ref: '#/components/schemas/OLTPBenchMetrics'
+    OLTPBenchTestSettings:
+      description: The settings that the test was run with
+      type: object
+      required:
+        - scale_factor
+        - terminals
+      properties:
+        scale_factor:
+          type: number
+          format: float
+          description: A scale factor for the size of the database
+        terminals:
+          type: integer
+    OLTPBenchMetrics:
+      type: object
+      description: An object containing all test metrics for OLTPBench performance tests
+      properties:
+        throughput:
+          type: number
+          format: float
+          description: The transactions per second that the test completed
+        
+      
+    
+    
+    
+    
+      
