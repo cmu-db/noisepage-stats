@@ -69,7 +69,7 @@ pipeline {
       steps {
         dir('deployments'){
           script{
-            withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
+            withCredentials([string(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
               sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${ANSIBLE_SSH}\" -vvvv"
             }
           }
