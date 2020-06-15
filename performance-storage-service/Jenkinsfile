@@ -1,0 +1,69 @@
+#!groovy
+
+def dockerImage = ''
+
+pipeline {
+  environment {
+    //TODO: maybe read this from file
+    REGISTRY = "cmudb/performance-storage-service"
+    REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
+    VERSION = "0.1.0"
+  }
+  agent {
+    label 'docker'
+  }
+  stages{
+    stage('Checkout'){
+      steps{
+        checkout scm
+      }
+    }
+
+    stage('Build'){
+      steps{
+        dir('performance-storage-service'){
+          script{
+            dockerImage = docker.build REGISTRY + ":${VERSION}"
+          }
+        }
+      }
+    }
+
+    stage('Test'){
+      steps{
+        dir('performance-storage-service'){
+          sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
+        }
+      }
+    }
+
+    stage('Publish'){
+      when{
+        branch 'test'
+      }
+      steps{
+        script{
+          dir('performance-storage-service'){
+            docker.withRegistry('', REGISTRY_CREDENTIAL) {
+                dockerImage.push("latest")
+                dockerImage.push("${VERSION}")
+            }
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    cleanup{
+      script{
+        if (env.BRANCH_NAME == 'test') {
+          echo "removing docker image"
+          sh "docker rmi ${REGISTRY}:${VERSION}"
+        }
+        echo "deleting directory"
+        deleteDir()
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+---
+- hosts: k8s_master
+  name: Create Namespaces
+  vars:
+    dir_k8s: "{{ inventory_dir }}/kubernetes"
+  tasks:
+  - name: Create Namespaces
+    register: create_namespaces
+    vars:
+      namespaces_file: "{{ dir_k8s }}/namespaces.yml"
+    k8s:
+      state: present
+      src: "{{ namespaces_file }}"
+
+  - name: Changes
+    debug:
+      msg:
+      - "Were namespaces changed?"
+      - "{{ create_namespaces.changed }}"
+
+  - name: Change Details
+    debug:
+      msg:
+      - "The '{{ item.result.metadata.name}}' namespace
+         was {{ '' if item.changed else 'not' }} changed."
+      - "It's status is {{ item.result.status}}"
+    with_items: "{{ create_namespaces.result.results }}"

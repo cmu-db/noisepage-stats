@@ -1,0 +1,39 @@
+[all:children]
+k8s_master
+k8s_worker
+
+[k8s_master]
+incrudibles-k8s.db.pdl.cmu.edu
+
+[k8s_worker:children]
+local
+testing
+staging
+production
+
+[all:vars]
+# TODO: create an account for ansible on the k8s_master nodes
+ansible_user = jenkins
+
+pss_container_name = "cmudb/performance-storage-service"
+pss_container_tag = "latest"
+pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
+ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
+
+
+[local]
+127.0.0.1
+[local:vars]
+ansible_connection=local
+ansible_python_interpreter=/usr/local/bin/python3
+
+
+[testing]
+# list of testing env hostname/ip
+incrudibles-testing.db.pdl.cmu.edu
+
+[staging]
+# list of staging env hostname/ip
+
+[production]
+# list of production env hostname/ip
