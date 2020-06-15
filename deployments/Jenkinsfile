@@ -16,6 +16,7 @@ def dockerImage = ''
 pipeline {
   environment{
     ENV = getEnvFromBranch(branch)
+    ANSIBLE_SSH = credentials('jenkins_k8s')
   }
   agent {
     label 'docker'
@@ -69,10 +70,10 @@ pipeline {
       steps {
         dir('deployments'){
           script{
-            withCredentials([string(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
+            //withCredentials([string(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
               sh "echo ${ANSIBLE_SSH}"
-              //sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${ANSIBLE_SSH}\" -vvvv"
-            }
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml -e \"env=${env.ENV} jenkins_ansible_key=${ANSIBLE_SSH}\" -vvvv"
+            //}
           }
         }
       }
