@@ -4,9 +4,6 @@ def dockerImage = ''
 
 pipeline {
 
-  environment {
-  }
-
   agent {
     label 'docker'
   }
