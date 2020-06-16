@@ -78,6 +78,7 @@ pipeline {
         script{
           sh "pwd"
           sh "ls -alt deployments/kubernetes/"
+          sh "chmod +rwx ./deployments/kubernetes/namespaces.yml"
           sh "ansible-playbook -i ./deployments/inventory ./deployments/playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\" -vvvv"
         }
         //}
