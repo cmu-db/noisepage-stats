@@ -5,7 +5,7 @@
     dir_k8s: "{{ inventory_dir }}/kubernetes"
   tasks:
   - name: directory
-    shell: "pwd"
+    shell: "ls -a"
     register: files
   - name: Files
     debug:
