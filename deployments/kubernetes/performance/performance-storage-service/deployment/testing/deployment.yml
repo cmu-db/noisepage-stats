@@ -27,4 +27,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: SECRET_KEY
+              value: "super-secret"
           # TODO: I need to do something about the SECRET_KEY but I'm not sure what
