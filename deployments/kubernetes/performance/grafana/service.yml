@@ -12,6 +12,6 @@ spec:
   - protocol: TCP
     port: 3000
     targetPort: http
-    nodePort: 30011
+    nodePort: 32000
   #TODO nodeport information is missing in our deployment view 
   externalTrafficPolicy: Cluster

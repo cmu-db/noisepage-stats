@@ -12,5 +12,5 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: http
-    nodePort: 30001
+    nodePort: 31000
   externalTrafficPolicy: Cluster
