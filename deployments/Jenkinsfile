@@ -16,6 +16,7 @@ def dockerImage = ''
 pipeline {
   environment{
     ENV = getEnvFromBranch(branch)
+    ANSIBLE_SSH = credentials('jenkins-k8s')
   }
   agent {
     label 'docker'
@@ -54,10 +55,6 @@ pipeline {
         sh "ansible --version"
         //sh "sudo apt-add-repository ppa:ansible/ansible"
         //sh "sudo apt-get -y install ansible"
-        // sh "sudo apt-get -y install python3-pip"
-        // sh "python3 --version"
-        // sh "pip3 --version"
-        // sh "pip3 install openshift"
       }
     }
     stage('Create Namespaces') {
@@ -71,18 +68,12 @@ pipeline {
           branch "master"
         }
       }
-      environment {
-        ANSIBLE_SSH = credentials('jenkins-k8s')
-      }
       steps {
-        //dir('deployments'){
-        script{
-          sh "pwd"
-          sh "ls -alt deployments/kubernetes/"
-          sh "chmod +rwx ./deployments/kubernetes/namespaces.yml"
-          sh "ansible-playbook -i ./deployments/inventory ./deployments/playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\" -vvvv"
+        dir('deployments'){
+          script{
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\" -vvvv"
+          }
         }
-        //}
       }
     }
     stage ('Deploy Apps'){
@@ -100,9 +91,7 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
-                sh "ansible-playbook -i inventory playbooks/pss-deployment.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
-              }
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
             }
           }
         }
@@ -110,9 +99,7 @@ pipeline {
         stage('Grafana') {
           steps{
             dir('deployments'){
-              withCredentials([usernameColonPassword(credentialsId: 'jenkins_k8s', variable: 'ANSIBLE_SSH')]) {
-                sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
-              }
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\" -vvvvv"
             }
           }
         } 
