@@ -4,6 +4,13 @@
   vars:
     dir_k8s: "{{ inventory_dir }}/kubernetes"
   tasks:
+  - name: directory
+    shell: "ls {{ dir_k8s}}"
+    register: files
+  - name: Files
+    debug:
+      msg:
+      - "{{ files }}"
   - name: Create Namespaces
     register: create_namespaces
     vars:
