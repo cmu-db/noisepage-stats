@@ -77,7 +77,7 @@ pipeline {
         dir('deployments'){
           script{
             sh "ls -alt kubernetes/"
-            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\" -vvvv"
+            sh "ansible-playbook -i inventory ./playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\" -vvvv"
           }
         }
       }
