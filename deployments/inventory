@@ -3,7 +3,7 @@ k8s_master
 k8s_worker
 
 [k8s_master]
-incrudibles-k8s.db.pdl.cmu.edu ansible_ssh_private_key="{{ jenkins_ansible_key }}"
+incrudibles-k8s.db.pdl.cmu.edu
 
 [k8s_worker:children]
 local
@@ -24,8 +24,6 @@ pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
 grafana_container_name = "grafana/grafana"
 grafana_container_tag = "7.0.3"
 grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
-
-#ansible_ssh_private_key = "{{ jenkins_ansible_key }}"
 
 
 [local]
