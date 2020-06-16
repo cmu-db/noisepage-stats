@@ -51,6 +51,7 @@ pipeline {
         }
       }
       steps {
+        sh "ansible --version"
         //sh "sudo apt-add-repository ppa:ansible/ansible"
         //sh "sudo apt-get -y install ansible"
         // sh "sudo apt-get -y install python3-pip"
