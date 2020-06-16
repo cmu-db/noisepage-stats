@@ -4,20 +4,13 @@
   vars:
     dir_k8s: "{{ inventory_dir }}/kubernetes"
   tasks:
-  - name: directory
-    shell: "ls -a"
-    register: files
-  - name: Files
-    debug:
-      msg:
-      - "{{ files }}"
   - name: Create Namespaces
     register: create_namespaces
     vars:
       namespaces_file: "{{ dir_k8s }}/namespaces.yml"
     k8s:
       state: present
-      definition: "{{ lookup('template', {{ namespaces_file }}) }}"
+      definition: "{{ lookup('template', '{{ namespaces_file }}') }}"
 
   - name: Changes
     debug:
