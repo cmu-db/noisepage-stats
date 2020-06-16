@@ -3,8 +3,8 @@
   name: Deploy Performance Storage Service
   vars:
     dir_repo: "{{ inventory_dir }}"
-    dir_k8s: "{{ dir_repo }}/kubernetes/performance"
-    dir_k8s_deployment: "{{ dir_k8s }}/performance-storage-service/deployment"
+    dir_k8s: "{{ dir_repo }}/kubernetes/performance/performance-storage-service"
+    dir_k8s_deployment: "{{ dir_k8s }}/deployment"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
@@ -16,9 +16,11 @@
       deployment_file: "{{ dir_k8s_deployment }}/{{ env }}/deployment.yml"
     k8s:
       state: present
-      definition: "{{ lookup('template', '{{ deployment_file }}') | from_yaml }}"
+      definition: "{{ lookup('template', '{{ deployment_file }}') }}"
 
   - name: Create Performance Service
+    vars:
+      service_file: "{{ dir_k8s }}/service.yml"
     k8s:
       state: present
-      src: "{{ dir_k8s }}/service.yml"
+      definition: "{{ lookup('template', '{{ service_file }}') }}"
