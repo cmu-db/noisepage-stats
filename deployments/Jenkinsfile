@@ -53,7 +53,9 @@ pipeline {
       steps {
         sh "sudo apt-add-repository ppa:ansible/ansible"
         sh "sudo apt-get -y install ansible"
-        sh "pip3 install openshift"
+        sh "python --version"
+        sh "pip --version"
+        sh "pip install openshift"
       }
     }
     stage('Create Namespaces') {
