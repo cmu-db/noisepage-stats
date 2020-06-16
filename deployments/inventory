@@ -4,6 +4,8 @@ k8s_worker
 
 [k8s_master]
 incrudibles-k8s.db.pdl.cmu.edu
+[k8s_master:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 [k8s_worker:children]
 local
