@@ -5,6 +5,11 @@
     dir_repo: "{{ inventory_dir }}"
     dir_k8s: "{{ dir_repo }}/kubernetes/performance"
     dir_k8s_deployment: "{{ dir_k8s }}/performance-storage-service/deployment"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
   tasks:
   - name: Create Performance Storage Service Deployment
     vars:

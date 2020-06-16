@@ -6,6 +6,11 @@
     dir_k8s: "{{ dir_repo }}/kubernetes/performance"
     dir_k8s_deployment: "{{ dir_k8s }}/grafana/deployment"
     # TODO figure out the reason for this folder organization
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
   tasks:
   - name: Create Grafana Deployment
     vars:

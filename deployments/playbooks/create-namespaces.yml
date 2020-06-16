@@ -3,6 +3,11 @@
   name: Create Namespaces
   vars:
     dir_k8s: "{{ inventory_dir }}/kubernetes"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
   tasks:
   - name: Create Namespaces
     register: create_namespaces
