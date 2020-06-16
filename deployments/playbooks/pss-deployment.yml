@@ -9,7 +9,7 @@
   - name: Create Performance Storage Service Deployment
     vars:
       deployment_file: "{{ dir_k8s_deployment }}/{{ env }}/deployment.yml"
-    k8s_raw:
+    k8s:
       state: present
       definition: "{{ lookup('template', '{{ deployment_file }}') | from_yaml }}"
 
