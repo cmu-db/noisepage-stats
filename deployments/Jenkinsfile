@@ -54,9 +54,9 @@ pipeline {
         sh "sudo apt-add-repository ppa:ansible/ansible"
         sh "sudo apt-get -y install ansible"
         sh "sudo apt-get -y install python3-pip"
-        sh "python --version"
-        sh "pip --version"
-        sh "pip install openshift"
+        sh "python3 --version"
+        sh "pip3 --version"
+        sh "pip3 install openshift"
 
       }
     }
