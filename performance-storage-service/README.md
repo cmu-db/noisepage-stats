@@ -21,7 +21,7 @@ kubectl apply -f ../kubernetes/namespaces.yml
 
 docker build -t cmudb/performance-storage-service:latest .
 
-ansible-playbook -i inventory playbooks/deployment.yml -e "env=local container_name=cmudb/performanc
+ansible-playbook -i inventory playbooks/pss-deployment.yml -e "env=local container_name=cmudb/performanc
 e-storage-service"
 ```
 To verify try hitting `http://localhost:30001/health`
