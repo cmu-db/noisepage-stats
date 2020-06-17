@@ -6,7 +6,7 @@ metadata:
   namespace: performance
   labels:
     app: pss
-    env: test
+    env: testing
 spec:
   replicas: 1
   strategy:
@@ -14,13 +14,15 @@ spec:
   selector:
     matchLabels:
       app: pss
-      env: test
+      env: testing
   template:
     metadata:
       labels:
         app: pss
-        env: test
+        env: testing
     spec:
+      nodeSelector:
+        env: testing
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
