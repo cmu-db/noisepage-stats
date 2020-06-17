@@ -6,7 +6,7 @@ metadata:
   namespace: grafana
   labels:
     app: grafana
-    env: test
+    env: testing
 spec:
   replicas: 1
   strategy:
@@ -14,13 +14,15 @@ spec:
   selector:
     matchLabels:
       app: grafana
-      env: test
+      env: testing
   template:
     metadata:
       labels:
         app: grafana
-        env: test
+        env: testing
     spec:
+      nodeSelector:
+        env: testing
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
