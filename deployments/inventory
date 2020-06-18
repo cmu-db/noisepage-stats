@@ -33,14 +33,21 @@ grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
 [local:vars]
 ansible_connection=local
 ansible_python_interpreter=/usr/local/bin/python3
+image_pull_policy= "IfNotPresent"
 
 
 [testing]
 # list of testing env hostname/ip
 incrudibles-testing.db.pdl.cmu.edu
+[testing:vars]
+image_pull_policy="Always"
 
 [staging]
 # list of staging env hostname/ip
+[staging:vars]
+image_pull_policy="Always"
 
 [production]
 # list of production env hostname/ip
+[production:vars]
+image_pull_policy="Always"

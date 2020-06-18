@@ -6,7 +6,7 @@ metadata:
   namespace: performance
   labels:
     app: pss
-    env: testing
+    env: "{{ env }}"
 spec:
   replicas: 1
   strategy:
@@ -14,22 +14,24 @@ spec:
   selector:
     matchLabels:
       app: pss
-      env: testing
+      env: "{{ env }}"
   template:
     metadata:
       labels:
         app: pss
-        env: testing
+        env: "{{ env }}"
     spec:
       nodeSelector:
-        env: testing
+        env: "{{ env }}"
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
-          imagePullPolicy: Always
+          imagePullPolicy: "{{ image_pull_policy }}"
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
           env:
             - name: SECRET_KEY
               value: "super-secret"
-          # TODO: I need to do something about the SECRET_KEY but I'm not sure what
+            - name: ENV
+              value: "{{ env }}"

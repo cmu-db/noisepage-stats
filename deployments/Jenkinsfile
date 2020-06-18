@@ -28,10 +28,7 @@ pipeline {
     stage('Checkout'){
       when {
         anyOf {
-          allOf {
-            triggeredBy "UpstreamCause"
-            branch "test"
-          }
+          branch "test"
           branch "staging"
           branch "master"
         }
@@ -44,7 +41,13 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
           }
           branch "staging"
@@ -61,7 +64,13 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
           }
           branch "staging"
@@ -80,7 +89,13 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
           }
           branch "staging"
@@ -91,7 +106,7 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\""
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
             }
           }
         }
@@ -99,7 +114,7 @@ pipeline {
         stage('Grafana') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} jenkins_ansible_key=${env.ANSIBLE_SSH}\""
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
             }
           }
         } 
