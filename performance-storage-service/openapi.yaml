@@ -139,6 +139,9 @@ components:
           description: An array of the different transaction types and their weights
           items:
             $ref: '#/components/schemas/Transactions'
+        duration:
+          type: integer
+          description: The number of seconds the test was run for.
             
     Transactions:
       type: object
