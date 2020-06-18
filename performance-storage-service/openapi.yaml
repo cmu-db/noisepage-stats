@@ -29,20 +29,61 @@ components:
       description: A build result from running all the OLTPBench results
       type: object
       required: 
-        - build_link
-        - performance_results
+        - build_id
       properties:
-        build_link:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: number
+          format: date-time
+          description: The time according to Jenkins that the test completed
+        type:
           type: string
-          description: A hyperlink to the build results in Jenkins
-        github_link:
+          description: The type of OLTPBench result this is (TATP)
+
+        parameters:
+          $ref: '#/components/schemas/OLTPBenchTestSettings'
+        results:
+          $ref: '#/components/schemas/OLTPBenchResult'
+
+    Metadata:
+      description: metadata about the test results
+      type: object
+      required:
+        - build_id 
+      properties:
+        jenkins:
+          $ref: '#/components/schemas/JenkinsMetadata'
+        github:
+          $ref: '#/components/schemas/GithubMetadata'
+        noisepage:
+          $ref: '#/components/schemas/NoisePageMetadata'
+
+    JenkinsMetadata:
+      description: Information gathered from Jenkins
+      type: object
+      required:
+        - build_id 
+      properties:
+        build_id:
           type: string
-          description: A hyperlink to the pull request that triggered the build
-        performance_results:
-          type: array
-          description: The array of results from the different OLTPBench tests
-          items:
-            $ref: '#/components/schemas/OLTPBenchResult'
+          description: A unique identifier for the build so a user can find the build on the Jenkins server
+    
+    GithubMetadata:
+      description: Information gathered from Github
+      type: object
+      properties:
+        commit_id:
+          type: string
+          description: The unique identifier for the last commit to the branch.
+        branch:
+          type: string
+          description: The branch that the performance test was run on
+
+    NoisePageMetadata:
+      description: Information about NoisePage relating to the test
+      type: objecrt
+    
     OLTPBenchResult:
       description: A single OLTPBench test result
       type: object
