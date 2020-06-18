@@ -22,7 +22,7 @@ pipeline {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test, noisepage-test-grafana/test", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test, noisepage-test-grafana/test, noisepage-test-timescale/test", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
@@ -115,6 +115,13 @@ pipeline {
           steps{
             dir('deployments'){
               sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            }
+          }
+        } 
+        stage('TimescaleDB') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
             }
           }
         } 
