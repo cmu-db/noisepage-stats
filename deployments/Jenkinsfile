@@ -47,6 +47,9 @@ pipeline {
           allOf {
             changeset "deployment/**"
             branch "test"
+            not { changeset "grafana/**" }
+            not { changeset "performance-storage-service/**" }
+            not { changeset "timescale/**" }
           }
           branch "staging"
           branch "master"
@@ -68,6 +71,9 @@ pipeline {
           allOf {
             changeset "deployment/**"
             branch "test"
+            not { changeset "grafana/**" }
+            not { changeset "performance-storage-service/**" }
+            not { changeset "timescale/**" }
           }
           branch "staging"
           branch "master"
@@ -91,6 +97,9 @@ pipeline {
           allOf {
             changeset "deployment/**"
             branch "test"
+            not { changeset "grafana/**" }
+            not { changeset "performance-storage-service/**" }
+            not { changeset "timescale/**" }
           }
           branch "staging"
           branch "master"
