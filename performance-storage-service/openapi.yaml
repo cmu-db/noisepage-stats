@@ -40,11 +40,10 @@ components:
         type:
           type: string
           description: The type of OLTPBench result this is (TATP)
-
         parameters:
-          $ref: '#/components/schemas/OLTPBenchTestSettings'
-        results:
-          $ref: '#/components/schemas/OLTPBenchResult'
+          $ref: '#/components/schemas/OLTPBenchTestParameters'
+        metrics:
+          $ref: '#/components/schemas/OLTPBenchMetrics'
 
     Metadata:
       description: metadata about the test results
@@ -82,29 +81,44 @@ components:
 
     NoisePageMetadata:
       description: Information about NoisePage relating to the test
-      type: objecrt
-    
-    OLTPBenchResult:
-      description: A single OLTPBench test result
       type: object
       required:
-        - name
-        - test_settings
-        - metrics
+        - version 
       properties:
-        name:
+        version:
           type: string
-          description: The name of the test that was run (e.g. TATP)
-        test_settings:
-          $ref: '#/components/schemas/OLTPBenchTestSettings'
-        metrics:
-          $ref: '#/components/schemas/OLTPBenchMetrics'
-    OLTPBenchTestSettings:
+          description: The version number of NoisePage
+    
+    OLTPBenchMetrics:
+      description: The summary statistics from a run of OLTPBench 
+      type: object
+      required:
+        - throughput
+      properties:
+        throughput:
+          type: number
+          format: float
+          description: The number of requests per second processed
+        99_latency:
+          type: integer
+          description: The 99th percentile latency (microseconds)
+        95_latency:
+          type: integer
+          description: The 95th percentile latency (microseconds)
+        avg_latency:
+          type: integer
+          description: The average latency of a request (microseconds)
+        max_latency:
+          type: integer
+          description: The maximum latency of a request (microseconds)
+    
+    OLTPBenchTestParameters:
       description: The settings that the test was run with
       type: object
       required:
         - scale_factor
         - terminals
+        - query_mode
         - transaction_weights
       properties:
         scale_factor:
@@ -113,10 +127,19 @@ components:
           description: A scale factor for the size of the database
         terminals:
           type: integer
+          description: The number of cores the test was run with
+        query_mode:
+          default: extended
+          description: The query mode the test was executed with
+          enum:
+            - extended
+            - simple
         transaction_weights:
           type: array
+          description: An array of the different transaction types and their weights
           items:
             $ref: '#/components/schemas/Transactions'
+            
     Transactions:
       type: object
       description: An object containing information about the performance test transaction weights
@@ -130,15 +153,6 @@ components:
         weight:
           type: integer
           description: The weight of the transaction type for the run of OLTPBench
-    OLTPBenchMetrics:
-      type: object
-      description: An object containing all test metrics for OLTPBench performance tests
-      properties:
-        throughput:
-          type: number
-          format: float
-          description: The transactions per second that the test completed
-        
       
     
     
