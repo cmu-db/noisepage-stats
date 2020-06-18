@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: grafana-service
-  namespace: grafana
+  namespace: performance
 spec:
   type: NodePort
   selector:
@@ -11,7 +11,7 @@ spec:
   ports:
   - protocol: TCP
     port: 3000
-    targetPort: http
+    #targetPort: 3000
     nodePort: 32000
   #TODO nodeport information is missing in our deployment view 
-  externalTrafficPolicy: Cluster
+  #externalTrafficPolicy: Cluster
