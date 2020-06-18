@@ -1,25 +1,25 @@
 ---
 - hosts: "{{ host_override | default('k8s_master') }}"
-  name: Deploy Grafana
+  name: Deploy TimescaleDB
   vars:
     dir_repo: "{{ inventory_dir }}"
-    dir_k8s_grafana: "{{ dir_repo }}/kubernetes/performance/grafana"
+    dir_k8s_timescaledb: "{{ dir_repo }}/kubernetes/performance/timescaledb"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
         name: openshift
         state: present
   tasks:
-  - name: Create Grafana Deployment
+  - name: Create TimescaleDB Deployment
     vars:
-      deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
+      deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
     k8s:
       state: present
       definition: "{{ lookup('template', '{{ deployment_file }}') }}"
 
-  - name: Create Grafana Service
+  - name: Create TimescaleDB Service
     vars:
-      service_file: "{{ dir_k8s_grafana }}/service.yml"
+      service_file: "{{ dir_k8s_timescaledb }}/service.yml"
     k8s:
       state: present
       definition: "{{ lookup('template', '{{ service_file }}') }}"

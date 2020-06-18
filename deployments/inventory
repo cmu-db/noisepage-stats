@@ -28,6 +28,11 @@ grafana_container_name = "grafana/grafana"
 grafana_container_tag = "7.0.3"
 grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
 
+#timescaledb
+timescaledb_container_name = "timescale/timescaledb"
+timescaledb_container_tag = "latest-pg12"
+timescaledb_container_image = "{{timescaledb_container_name}}:{{timescaledb_container_tag}}"
+
 
 [local]
 127.0.0.1
