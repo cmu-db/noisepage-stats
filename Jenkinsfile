@@ -22,7 +22,7 @@ pipeline {
         }
         stage('TimescaleDB'){
           when{
-            changeset "timescale/**"
+            changeset "timescaledb/**"
           }
           steps{
             build job: "noisepage-test-timescale/${env.BRANCH_NAME}", wait: true, propagate: true
