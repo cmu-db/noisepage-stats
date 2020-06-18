@@ -41,13 +41,14 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
-          }
-          allOf {
-            changeset "deployment/**"
-            branch "test"
-            not { changeset "performance-storage-service/**" }
           }
           branch "staging"
           branch "master"
@@ -63,13 +64,14 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
-          }
-          allOf {
-            changeset "deployment/**"
-            branch "test"
-            not { changeset "performance-storage-service/**" }
           }
           branch "staging"
           branch "master"
@@ -87,13 +89,14 @@ pipeline {
       when {
         anyOf {
           allOf {
-            triggeredBy "UpstreamCause"
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
             branch "test"
-          }
-          allOf {
-            changeset "deployment/**"
-            branch "test"
-            not { changeset "performance-storage-service/**" }
           }
           branch "staging"
           branch "master"
