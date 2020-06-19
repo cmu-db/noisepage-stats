@@ -42,6 +42,7 @@ incrudibles-testing.db.pdl.cmu.edu
 
 [staging]
 # list of staging env hostname/ip
+incrudibles-staging.db.pdl.cmu.edu
 
 [production]
 # list of production env hostname/ip
