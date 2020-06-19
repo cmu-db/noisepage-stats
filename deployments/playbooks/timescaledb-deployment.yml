@@ -10,27 +10,48 @@
         name: openshift
         state: present
   tasks:
-  - name: Create TimescaleDB Deployment
+  - name: Config postgres
     vars:
-      deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
+      deployment_config_file: "{{ dir_k8s_timescaledb }}/postgres-config.yml"
     k8s:
       state: present
-      definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+      definition: "{{ lookup('template', '{{ deployment_config_file }}') }}"
 
-  - name: Create TimescaleDB Service
-    vars:
-      service_file: "{{ dir_k8s_timescaledb }}/service.yml"
+  - name: Create Postgres Service
+    vars: 
+      deployment_service_file: "{{ dir_k8s_timescaledb }}/postgres-service.yml"
     k8s:
       state: present
-      definition: "{{ lookup('template', '{{ service_file }}') }}"
+      definition: "{{ lookup('template', '{{ deployment_service_file }}') }}"
 
-  - name: Create Extension
-    become: true
-    become_user: postgres
-    postgresql_ext:
-      name: timescaledb
-      db: 
-    with_items: 
-      - user: postgres
-        password: postgres
-        database: root
+  - name: Create Postgres Statefulset
+    vars: 
+      deployment_stateful_file: "{{ dir_k8s_timescaledb }}/postgres-stateful.yml"
+    k8s:
+      state: present
+      definition: "{{ lookup('template', '{{ deployment_stateful_file }}') }}"
+
+  # - name: Create TimescaleDB Deployment
+  #   vars:
+  #     deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
+  #   k8s:
+  #     state: present
+  #     definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+
+  # - name: Create TimescaleDB Service
+  #   vars:
+  #     service_file: "{{ dir_k8s_timescaledb }}/service.yml"
+  #   k8s:
+  #     state: present
+  #     definition: "{{ lookup('template', '{{ service_file }}') }}"
+
+  # - name: Create Extension
+  #   become: true
+  #   become_user: postgres
+  #   postgresql_ext:
+  #     name: timescaledb
+  #     db: 
+  #   with_items: 
+  #     - user: postgres
+  #       password: postgres
+  #       database: root
