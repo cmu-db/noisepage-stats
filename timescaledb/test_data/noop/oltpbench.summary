@@ -1,0 +1,21 @@
+{
+ "Benchmark Type": "noop",
+ "Current Timestamp (milliseconds)": 1592322443228,
+ "DBMS Type": "noisepage",
+ "DBMS Version": "9.5",
+ "Latency Distribution": {
+  "Minimum Latency (microseconds)": 29,
+  "25th Percentile Latency (microseconds)": 53,
+  "Median Latency (microseconds)": 54,
+  "Average Latency (microseconds)": 64,
+  "75th Percentile Latency (microseconds)": 61,
+  "90th Percentile Latency (microseconds)": 98,
+  "95th Percentile Latency (microseconds)": 105,
+  "99th Percentile Latency (microseconds)": 128,
+  "Maximum Latency (microseconds)": 7002
+ },
+ "Throughput (requests/second)": 15488.670879496794,
+ "isolation": "TRANSACTION_SERIALIZABLE",
+ "scalefactor": "1.0",
+ "terminals": "1"
+}

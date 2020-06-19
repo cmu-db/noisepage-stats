@@ -1,0 +1,21 @@
+{
+ "Benchmark Type": "smallbank",
+ "Current Timestamp (milliseconds)": 1592478048174,
+ "DBMS Type": "noisepage",
+ "DBMS Version": "9.5",
+ "Latency Distribution": {
+  "Minimum Latency (microseconds)": 43864,
+  "25th Percentile Latency (microseconds)": 200404,
+  "Median Latency (microseconds)": 267164,
+  "Average Latency (microseconds)": 256545,
+  "75th Percentile Latency (microseconds)": 308972,
+  "90th Percentile Latency (microseconds)": 358955,
+  "95th Percentile Latency (microseconds)": 400800,
+  "99th Percentile Latency (microseconds)": 467660,
+  "Maximum Latency (microseconds)": 559380
+ },
+ "Throughput (requests/second)": 61.9037569946028,
+ "isolation": "TRANSACTION_SERIALIZABLE",
+ "scalefactor": "1.0",
+ "terminals": "16"
+}
