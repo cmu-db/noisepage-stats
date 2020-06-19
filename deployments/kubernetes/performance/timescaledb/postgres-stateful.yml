@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-demo
+  namespace: performance
 spec:
   serviceName: "postgres"
   replicas: 2
