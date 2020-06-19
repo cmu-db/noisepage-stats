@@ -86,76 +86,48 @@ pipeline {
       }
     }
     stage ('Deploy Apps'){
-      stage('Performance Storage Service') {
-        when {
-          anyOf {
-            allOf {
-              anyOf {
-                triggeredBy "UpstreamCause"
-                allOf {
-                  changeset "deployment/**"
-                  not { changeset "performance-storage-service/**" }
-                }
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployment/**"
+                not { changeset "performance-storage-service/**" }
               }
-              branch "test"
             }
-            branch "staging"
-            branch "master"
+            branch "test"
           }
-        }
-        steps{
-          dir('deployments'){
-            sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
-          }
+          branch "staging"
+          branch "master"
         }
       }
-      //TODO two ansible-playbook instances run in parallel. will this cause problem?
-      stage('Grafana') {
-        when {
-          anyOf {
-            allOf {
-              anyOf {
-                triggeredBy "UpstreamCause"
-                allOf {
-                  changeset "deployment/**"
-                  not { changeset "performance-storage-service/**" }
-                }
-              }
-              branch "test"
+      stages {
+        stage('Performance Storage Service') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
             }
-            branch "staging"
-            branch "master"
           }
         }
-        steps{
-          dir('deployments'){
-            sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
-          }
-        }
-      } 
-      stage('TimescaleDB') {
-        when {
-          anyOf {
-            allOf {
-              anyOf {
-                triggeredBy "UpstreamCause"
-                allOf {
-                  changeset "deployment/**"
-                  not { changeset "performance-storage-service/**" }
-                }
-              }
-              branch "test"
+        //TODO two ansible-playbook instances run in parallel. will this cause problem?
+        stage('Grafana') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
             }
-            branch "staging"
-            branch "master"
           }
-        }
-        steps{
-          dir('deployments'){
-            sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+        } 
+        stage('TimescaleDB') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            }
           }
-        }
-      } 
+        } 
+
+      }
+      
     }
   }
   post {
