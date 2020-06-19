@@ -23,7 +23,7 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
-      volums:
+      volumes:
         - name: timescaledb-volume
       containers:
         - name: timescaledb
@@ -33,10 +33,9 @@ spec:
             - name: http
               containerPort: 5432
           env:
-            - name: POSTGRES_USER
-              value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: timescaledb-volume
+            - name: timescaledb-volume
+              mountPath: /pg-data
+              
