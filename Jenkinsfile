@@ -11,7 +11,7 @@ pipeline {
       }
     }
     stage('Trigger Build Pipelines') {
-      parallel {
+      // parallel {
         stage('Performance Storage Service'){
           when{
             changeset "performance-storage-service/**"
@@ -36,7 +36,7 @@ pipeline {
             build job: "noisepage-test-grafana/${env.BRANCH_NAME}", wait: true,  propagate: true
           }
         }
-      }
+      // }
     }
   }
 }

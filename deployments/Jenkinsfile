@@ -102,7 +102,7 @@ pipeline {
           branch "master"
         }
       }
-      parallel {
+      // parallel {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
@@ -125,7 +125,7 @@ pipeline {
             }
           }
         } 
-      }
+      // }
     }
   }
   post {
