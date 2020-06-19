@@ -23,6 +23,8 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
+      volums:
+        - name: timescaledb-volume
       containers:
         - name: timescaledb
           image: "{{ timescaledb_container_image }}"
@@ -37,4 +39,4 @@ spec:
               value: postgres
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: timescale-volume
+              name: timescaledb-volume
