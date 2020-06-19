@@ -45,7 +45,7 @@ pipeline {
             anyOf {
               triggeredBy "UpstreamCause"
               allOf {
-                changeset "deployment/**"
+                changeset "deployments/**"
                 not { changeset "performance-storage-service/**" }
               }
             }
@@ -68,7 +68,7 @@ pipeline {
             anyOf {
               triggeredBy "UpstreamCause"
               allOf {
-                changeset "deployment/**"
+                changeset "deployments/**"
                 not { changeset "performance-storage-service/**" }
               }
             }
@@ -93,7 +93,7 @@ pipeline {
             anyOf {
               triggeredBy "UpstreamCause"
               allOf {
-                changeset "deployment/**"
+                changeset "deployments/**"
                 not { changeset "performance-storage-service/**" }
               }
             }
