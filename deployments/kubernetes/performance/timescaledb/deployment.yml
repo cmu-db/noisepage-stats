@@ -33,8 +33,10 @@ spec:
             - name: http
               containerPort: 5432
           env:
+            - name: POSTGRES_USER
+              value: postgres_user
             - name: POSTGRES_PASSWORD
-              value: postgres
+              value: postgres_user            
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /pg-data
