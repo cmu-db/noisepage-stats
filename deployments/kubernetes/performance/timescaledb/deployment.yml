@@ -30,8 +30,7 @@ spec:
           image: "{{ timescaledb_container_image }}"
           imagePullPolicy: "{{ image_pull_policy }}"
           ports:
-            - name: http
-              containerPort: 5432
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               value: postgres
@@ -39,5 +38,5 @@ spec:
               value: postgres
           volumeMounts:
             - name: timescaledb-volume
-              mountPath: /pg-data
+              mountPath: /var/lib/postgresql/data
               

@@ -5,12 +5,10 @@ metadata:
   name: timescaledb-service
   namespace: performance
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: timescaledb
   ports:
   - protocol: TCP
     port: 5432
-    #targetPort: 3000
-    # nodePort: 30000
-  #externalTrafficPolicy: Cluster
+    nodePort: 32233
