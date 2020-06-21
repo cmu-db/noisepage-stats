@@ -99,16 +99,16 @@ components:
           type: number
           format: float
           description: The number of requests per second processed
-        99_latency:
+        latency_99:
           type: integer
           description: The 99th percentile latency (microseconds)
-        95_latency:
+        latency_95:
           type: integer
           description: The 95th percentile latency (microseconds)
-        avg_latency:
+        latency_avg:
           type: integer
           description: The average latency of a request (microseconds)
-        max_latency:
+        latency_max:
           type: integer
           description: The maximum latency of a request (microseconds)
     
