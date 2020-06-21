@@ -5,4 +5,4 @@ class OLTPBenchSerializer(ModelSerializer):
     class Meta:
         model = OLTPBenchResult
         fields = ['time','branch','query_mode','build_id','git_commit_id',
-            'benchmark_type','scale_factor','terminals','weights','metris']
+            'benchmark_type','scale_factor','terminals','duration','weights','metrics']
