@@ -5,7 +5,6 @@ from rest_framework.serializers import DateTimeField, ValidationError
 class UnixEpochDateTimeField(DateTimeField):
     def to_representation(self, value):
         """ Return epoch time for a datetime object or ``None``"""
-        import time
         try:
             return int(mktime(value.timetuple())*1e3 + value.microsecond/1e3)
         except (AttributeError, TypeError):
