@@ -23,7 +23,7 @@ spec:
     spec:
       nodeSelector:
         app: pss
-        #env: "{{ env }}"
+        env: "{{ env }}"
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
