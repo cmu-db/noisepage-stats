@@ -15,15 +15,14 @@ def dockerImage = ''
 
 pipeline {
   environment{
-    ENV = getEnvFromBranch(branch)
+    ENV = getEnvFromBranch(env.BRANCH_NAME)
     ANSIBLE_SSH = credentials('jenkins-k8s')
   }
   agent {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test, noisepage-test-grafana/test, noisepage-test-timescale/test", threshold: hudson.model.Result.SUCCESS)
-    // upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
