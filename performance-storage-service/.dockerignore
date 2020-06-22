@@ -1,0 +1,49 @@
+# Ansible
+ansible.cfg
+inventory
+playbooks/
+
+# Django
+src/{{ project_name }}/settings/local.py
+
+# Docker
+Dockerfile
+
+# General
+README.md
+
+# GitHub
+.git/
+
+# Jenkins
+Jenkinsfile
+
+# Mac
+.DS_Store
+
+# Python
+env
+__pycache__
+
+#Tests
+reports/
+
+# Unknown (copied from template)
+*.pyc
+*.pyo
+*.mo
+*.db
+*.css.map
+*.egg-info
+*.sql.gz
+.cache
+.project
+.idea
+.pydevproject
+.idea/workspace.xml
+.sass-cache
+dist
+docs
+logs
+web/media
+web/static/CACHE

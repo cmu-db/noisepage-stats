@@ -1,0 +1,140 @@
+#!groovy
+
+def getEnvFromBranch(branch){
+  if(branch == 'staging'){
+    return 'staging'
+  } else if(branch == 'master'){
+    return 'production'
+  } else {
+    return 'testing'
+  }
+}
+
+def dockerImage = ''
+//def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
+
+pipeline {
+  environment{
+    ENV = getEnvFromBranch(branch)
+    ANSIBLE_SSH = credentials('jenkins-k8s')
+  }
+  agent {
+    label 'docker'
+  }
+  triggers {
+    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test, noisepage-test-grafana/test, noisepage-test-timescale/test", threshold: hudson.model.Result.SUCCESS)
+    // upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
+  }
+  stages{
+    stage('Checkout'){
+      when {
+        anyOf {
+          branch "test"
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps{
+        checkout scm
+      }
+    }
+    stage('Install Deployment Dependencies') {
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps {
+        sh "ansible --version"
+        //sh "sudo apt-add-repository ppa:ansible/ansible"
+        //sh "sudo apt-get -y install ansible"
+      }
+    }
+    stage('Create Namespaces') {
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps {
+        dir('deployments'){
+          script{
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+          }
+        }
+      }
+    }
+    stage ('Deploy Apps'){
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      stages {
+        stage('Performance Storage Service') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            }
+          }
+        }
+        //TODO two ansible-playbook instances run in parallel. will this cause problem?
+        stage('Grafana') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            }
+          }
+        } 
+        stage('TimescaleDB') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            }
+          }
+        } 
+
+      }
+      
+    }
+  }
+  post {
+    cleanup{
+      echo "deleting directory"
+      deleteDir()
+    }
+  }
+}

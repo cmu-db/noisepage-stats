@@ -1,0 +1,27 @@
+#!groovy
+
+def dockerImage = ''
+
+pipeline {
+
+  agent {
+    label 'docker'
+  }
+
+  stages{
+    stage('Checkout'){
+      steps{
+        checkout scm
+      }
+    }
+  }
+
+  post {
+    cleanup{
+      script{
+        echo "deleting directory"
+        deleteDir()
+      }
+    }
+  }
+}
