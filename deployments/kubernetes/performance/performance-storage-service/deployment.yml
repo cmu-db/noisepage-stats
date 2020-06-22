@@ -22,7 +22,6 @@ spec:
         env: "{{ env }}"
     spec:
       nodeSelector:
-        app: pss
         env: "{{ env }}"
       containers:
         - name: performance-storage-service
