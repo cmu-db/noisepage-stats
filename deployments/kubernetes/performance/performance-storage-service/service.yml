@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: performance-service
-  #namespace: "{{ env }}-performance"
+  namespace: performance
   labels:
     app: pss
     #env: "{{ env }}"
