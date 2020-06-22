@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app: pss
-      env: "{{ env }}"
+      #env: "{{ env }}"
   template:
     metadata:
       labels:

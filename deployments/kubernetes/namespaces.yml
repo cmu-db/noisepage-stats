@@ -20,12 +20,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: all-performance
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: testing-fuzzing
 
 ---
