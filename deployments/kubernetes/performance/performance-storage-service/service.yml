@@ -11,7 +11,7 @@ spec:
   type: NodePort
   selector:
     app: pss
-    #env: "{{ env }}"
+    ##env: "{{ env }}"
   ports:
   - protocol: TCP
     port: 8080
