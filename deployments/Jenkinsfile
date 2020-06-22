@@ -11,7 +11,6 @@ def getEnvFromBranch(branch){
 }
 
 def dockerImage = ''
-//def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
   environment{
@@ -110,7 +109,6 @@ pipeline {
             }
           }
         }
-        //TODO two ansible-playbook instances run in parallel. will this cause problem?
         stage('Grafana') {
           steps{
             dir('deployments'){
