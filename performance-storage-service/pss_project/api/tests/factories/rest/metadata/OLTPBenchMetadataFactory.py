@@ -8,6 +8,6 @@ class OLTPBenchMetadataFactory(Factory):
     class Meta:
         model = OLTPBenchMetadata
 
-    jenkins = SubFactory(JenkinsMetadataFactory)
-    github = SubFactory(GithubMetadataFactory)
-    noisepage = SubFactory(NoisePageMetadataFactory)
+    jenkins = JenkinsMetadataFactory().__dict__
+    github = GithubMetadataFactory().__dict__
+    noisepage = NoisePageMetadataFactory().__dict__

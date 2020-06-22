@@ -22,7 +22,7 @@ from pss_project.api.serializers.rest.OLTPBenchSerializer \
 from pss_project.api.tests.utils.utils import generate_dict_factory
 
 
-class TestNoisePageMetadataSerializer(SimpleTestCase):
+class TestBasicSerializer(SimpleTestCase):
     # list of tests in the form (test_name, class_factory, class_serializer, excluded_fields)ƒ
     serializer_test_params = [
         ('GithubMetadataSerializer', GithubMetadataFactory, GithubMetadataSerializer, []),

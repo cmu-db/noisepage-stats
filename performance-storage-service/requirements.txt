@@ -14,6 +14,7 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 mccabe==0.6.1
 pep8==1.7.1
+psycopg2==2.8.5
 pycodestyle==2.6.0
 pycparser==2.20
 pyflakes==2.2.0

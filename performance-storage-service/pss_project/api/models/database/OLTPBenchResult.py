@@ -1,7 +1,11 @@
-from django.db import models
+from django.db.models import Model, DateTimeField, CharField, DecimalField, PositiveSmallIntegerField
 from django.contrib.postgres.fields import JSONField
+from django.core.serializers.json import DjangoJSONEncoder
 
-class OLTPBenchResult(models.Model):
+class OLTPBenchResult(Model):
+    class Meta:
+        db_table = 'oltpbench_results'
+
     # Constants
     SIMPLE_MODE = 'simple'
     EXTENDED_MODE = 'extended'
@@ -11,13 +15,14 @@ class OLTPBenchResult(models.Model):
     ]
 
     # Fields
-    time = models.DateTimeField(auto_now=False)
-    branch = models.CharField()
-    query_mode = models.CharField(Choices=QUERY_MODE_CHOICES)
-    build_id = models.CharField()
-    git_commit_id = models.CharField()
-    benchmark_type = models.CharField()
-    scale_factor = models.DecimalField(max_digits=10,decimal_places=4)
-    terminals = models.PositiveSmallIntegerField()
+    time = DateTimeField(auto_now=False)
+    branch = CharField(max_length=255)
+    query_mode = CharField(max_length=30,choices=QUERY_MODE_CHOICES)
+    build_id = CharField(max_length=15)
+    git_commit_id = CharField(max_length=40)
+    benchmark_type = CharField(max_length=20)
+    scale_factor = DecimalField(max_digits=10,decimal_places=4)
+    terminals = PositiveSmallIntegerField()
+    duration = PositiveSmallIntegerField()
     weights = JSONField()
-    metrics = JSONField()
+    metrics = JSONField(encoder=DjangoJSONEncoder)

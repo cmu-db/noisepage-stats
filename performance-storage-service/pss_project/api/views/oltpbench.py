@@ -3,9 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
+from pss_project.api.serializers.database.OLTPBenchResultSerializer import OLTPBenchResultSerializer
 from datetime import datetime
-
-service_start_time = datetime.now()
 
 class OLTPBenchViewSet(viewsets.ViewSet):
     """
@@ -13,13 +12,21 @@ class OLTPBenchViewSet(viewsets.ViewSet):
     """
     def create(self,request):
         data = JSONParser().parse(request)
-        serializer = OLTPBenchSerializer(data=data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        api_serializer = OLTPBenchSerializer(data=data)
+        if not api_serializer.is_valid():
+            return Response(api_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        #oltp_bench_result = serializer.save()
-        # TODO: Transform the object into a database object
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        api_serializer.save()
+        db_serializer = OLTPBenchResultSerializer(data=api_serializer.instance.convert_to_db_json())
+        if not db_serializer.is_valid():
+            return Response(db_serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        try:
+            db_serializer.save()
+        except Exception as e:
+            return Response({'message':str(e)},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(api_serializer.validated_data, status=status.HTTP_201_CREATED)
 
 
 

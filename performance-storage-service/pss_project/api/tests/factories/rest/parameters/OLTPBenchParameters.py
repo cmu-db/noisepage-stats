@@ -15,9 +15,9 @@ class OLTPBenchParametersFactory(Factory):
     terminals = Faker('random_int', min=1, max=16)
     duration = Faker('random_int', min=30, step=30)
     transaction_weights = Faker('random_elements', elements=(
-        TransactionWeightFactory(),
-        TransactionWeightFactory(),
-        TransactionWeightFactory(),
-        TransactionWeightFactory(),
-        TransactionWeightFactory(),
+        TransactionWeightFactory().__dict__,
+        TransactionWeightFactory().__dict__,
+        TransactionWeightFactory().__dict__,
+        TransactionWeightFactory().__dict__,
+        TransactionWeightFactory().__dict__,
     ), unique=True)
