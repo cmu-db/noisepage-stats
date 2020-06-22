@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: performance-service
-  namespace: performance
+  namespace: all-performance
   labels:
     app: pss
     #env: "{{ env }}"
@@ -16,4 +16,4 @@ spec:
   - protocol: TCP
     port: 8080
     nodePort: 31000
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
