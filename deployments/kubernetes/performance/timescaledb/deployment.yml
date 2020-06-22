@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: timescaledb
-  namespace: "{{ env }}-performance"
+  name: "{{ env }}-timescaledb"
+  namespace: performance
   labels:
     app: timescaledb
     env: "{{ env }}"
