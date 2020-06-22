@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
-  namespace: performance
+  namespace: "{{ env }}-performance"
   labels:
     app: grafana
     env: "{{ env }}"
