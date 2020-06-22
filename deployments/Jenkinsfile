@@ -11,7 +11,6 @@ def getEnvFromBranch(branch){
 }
 
 def dockerImage = ''
-//def upstreamBuildCause = currentBuild.getBuildCauses('hudson.model.Cause$UpstreamCause')
 
 pipeline {
   environment{
@@ -22,8 +21,7 @@ pipeline {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test, noisepage-test-grafana/test, noisepage-test-timescale/test", threshold: hudson.model.Result.SUCCESS)
-    // upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "noisepage-test-performance-storage-service/test", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
@@ -111,7 +109,6 @@ pipeline {
             }
           }
         }
-        //TODO two ansible-playbook instances run in parallel. will this cause problem?
         stage('Grafana') {
           steps{
             dir('deployments'){
