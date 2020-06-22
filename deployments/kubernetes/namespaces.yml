@@ -2,10 +2,34 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: performance
+  name: testing-performance
 
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fuzzing
+  name: staging-performance
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production-performance
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testing-fuzzing
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: staging-fuzzing
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production-fuzzing
