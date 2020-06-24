@@ -35,3 +35,8 @@ spec:
           volumeMounts:
             - name: grafana-volume
               mountPath: /var/lib/grafana
+          env:
+            - name: GF_PATHS_LOGS
+              value: /var/log/grafana/
+            - name: GF_LOG_MODE
+              value: "console file"
