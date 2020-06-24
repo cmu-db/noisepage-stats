@@ -234,7 +234,7 @@ def main():
     # drop_table(conn)
     table_existence = check_table_exist(conn)
     if table_existence == False:
-        create_table(conn)
+        create_table(conn) 
         print("Finish creating")
     read_and_insert_from_folder(conn, (BASEPATH / 'test_data').resolve())
     view_all_results(conn)
