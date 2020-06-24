@@ -16,7 +16,7 @@ class TestOLTPBenchResultSerializer(TestCase):
         for key in serializer.data.keys():
             input_value = getattr(input,key)
             if isinstance(input_value,float):
-                self.assertEqual(serializer.data[key],str(input_value))
+                self.assertEqual(float(serializer.data[key]),input_value)
             else:
                 self.assertEqual(serializer.data[key],input_value)
 

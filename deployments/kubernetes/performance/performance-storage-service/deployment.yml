@@ -35,3 +35,11 @@ spec:
               value: "super-secret"
             - name: ENV
               value: "{{ env }}"
+            - name: PSS_DATABASE_NAME
+              value: dash_database
+            - name: PSS_DATABASE_USER
+              value: "{{ pss_db_user }}"
+            - name: PSS_DATABASE_PASSWORD
+              value: "{{ pss_db_password }}"
+            - name: PSS_DATABASE_PORT
+              value: 5432

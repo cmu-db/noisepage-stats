@@ -34,9 +34,9 @@ spec:
               containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: postgres
+              value: "{{ pss_db_user }}"
             - name: POSTGRES_PASSWORD
-              value: postgres
+              value: "{{ pss_db_password }}"
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /pg-data
