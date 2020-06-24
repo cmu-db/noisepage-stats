@@ -40,3 +40,5 @@ spec:
               value: /var/log/grafana/
             - name: GF_LOG_MODE
               value: "console file"
+            - name: GF_COOKIE_SAMESITE 
+              value: "none"
