@@ -40,5 +40,5 @@ spec:
               value: /var/log/grafana/
             - name: GF_LOG_MODE
               value: "console file"
-            - name: GF_ROOT_URL
-              value: "http://incrudibles-testing.db.pdl.cmu.edu:30002"
+            - name: GF_SERVER_DOMAIN
+              value: "incrudibles-testing.db.pdl.cmu.edu"
