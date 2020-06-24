@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grafana
-  namespace: performance
+  name: "{{ env }}-grafana"
+  namespace: "performance"
   labels:
     app: grafana
     env: "{{ env }}"
@@ -23,6 +23,8 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
+      volumes:
+        - name: grafana-volume
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
@@ -30,3 +32,15 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          volumeMounts:
+            - name: grafana-volume
+              mountPath: /var/lib/grafana
+          env:
+            - name: GF_PATHS_LOGS
+              value: /var/log/grafana/
+            - name: GF_LOG_MODE
+              value: "console file"
+            - name: GF_SERVER_DOMAIN
+              value: "incrudibles-testing.db.pdl.cmu.edu"
+            - name: GF_SERVER_HTTP_PORT
+              value: "30002"
