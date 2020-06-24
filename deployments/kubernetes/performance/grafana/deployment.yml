@@ -42,3 +42,5 @@ spec:
               value: "console file"
             - name: GF_SERVER_DOMAIN
               value: "incrudibles-testing.db.pdl.cmu.edu"
+            - name: GF_SERVER_HTTP_PORT
+              value: "30002"
