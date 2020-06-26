@@ -246,7 +246,7 @@ def main():
 
     table_existence = check_table_exist(conn)
     if table_existence == False:
-        create_table(conn)
+        create_table(conn) 
         print("Finish creating")
     read_and_insert_from_folder(conn, '/tmp/archive/build/oltp_result')
     if args.show_detail:
@@ -259,3 +259,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
