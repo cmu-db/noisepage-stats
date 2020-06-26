@@ -12,5 +12,5 @@ spec:
     app: timescaledb
   ports:
   - protocol: TCP
-    port: 5433
-    nodePort: 30004
+    port: 5432
+    nodePort: 30003
