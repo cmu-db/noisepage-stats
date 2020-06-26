@@ -36,14 +36,7 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
-            - name: TS_TUNE_MEMORY
-              value: "8GB"
-            - name: TS_TUNE_NUM_CPUS
-              value: "4"
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data
-          volume:
-            - name: timescaledb
-              persistentVolumeCliam:
-                claimName: timescaledb
+              
