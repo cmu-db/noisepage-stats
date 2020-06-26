@@ -3,10 +3,12 @@ import psycopg2
 from pathlib import Path
 import xml.etree.ElementTree as et
 import os
+import argparse
+import wget
+import subprocess
 
 
-CONNECTION = "postgres://postgres:postgres@localhost:5433/test_db"
-BASEPATH = Path(__file__).parent
+CONNECTION = "postgres://postgres:postgres@localhost:30003/test_db"
 TABLENAME = 'test_table'
 
 
@@ -21,6 +23,7 @@ def create_table(conn):
         CREATE TABLE %s (
             id SERIAL,
             time TIMESTAMPTZ,
+            duration NUMERIC,
             db_version TEXT,
             branch TEXT,
             query_mode TEXT,
@@ -68,6 +71,7 @@ def read_and_insert_from_folder(conn, path):
     query_mode = 'extended'
     build_id = 35
     git_commit_id = '4ed4617'
+    duration = 200
 
     for subdir, dirs, files in os.walk(path):
         if subdir != str(path):
@@ -75,7 +79,7 @@ def read_and_insert_from_folder(conn, path):
                 os.path.join(subdir, 'oltpbench.summary'))
             weight = read_from_expconfig(
                 os.path.join(subdir, 'oltpbench.expconfig'))
-            insert_data(conn, time=timestamp, db_version=db_version, 
+            insert_data(conn, time=timestamp, duration=duration, db_version=db_version, 
                         branch=branch, query_mode=query_mode, build_id=35, 
                         git_commit_id=git_commit_id, benchmark_type=benchmark_type, 
                         scalefactor=scalefactor, terminals=terminals, weight=weight, 
@@ -97,10 +101,9 @@ def read_from_summary(path):
         terminals (str): The number of terminals used for benchmark testing.
 
     """
-    f = open((BASEPATH / path).resolve())
+    f = open(path)
     summary = json.load(f)
     f.close()
-    result = {}
     return summary['Benchmark Type'], summary['Current Timestamp (milliseconds)'], summary['DBMS Version'], summary['Throughput (requests/second)'], summary['scalefactor'], summary['terminals']
 
 
@@ -115,7 +118,7 @@ def read_from_expconfig(path):
 
     """
     weight_data = {}
-    root = et.parse((BASEPATH / path).resolve()).getroot()
+    root = et.parse(path).getroot()
     transactiontypes = root.find('transactiontypes').findall('transactiontype')
     weights = root.find('works').find('work').findall('weights')
     for weight, transactiontype in zip(weights, transactiontypes):
@@ -124,7 +127,7 @@ def read_from_expconfig(path):
     return json_data
 
 
-def insert_data(conn, time, db_version, branch, query_mode, build_id, git_commit_id, benchmark_type, scalefactor, terminals, weight, result):
+def insert_data(conn, time, duration, db_version, branch, query_mode, build_id, git_commit_id, benchmark_type, scalefactor, terminals, weight, result):
     """Insert data to TimeScaleDB.
 
     # TODO(benliangw): Use pgcopy to insert rows faster (https://docs.timescale.com/latest/tutorials/quickstart-python#create_table)
@@ -132,6 +135,7 @@ def insert_data(conn, time, db_version, branch, query_mode, build_id, git_commit
     Args:
         conn (psycopg2.extensions.connection): The connection to PostgreSQL database.
         time (int): Start time of the performance testing.
+        duration (int): The number of seconds the test was run for.
         db_version (str): The version of NoisePage.
         branch (str): The branch name of the tested pull request.
         query_mode (str): The query mode when running the run_junit.py.
@@ -146,13 +150,13 @@ def insert_data(conn, time, db_version, branch, query_mode, build_id, git_commit
     """
     INSERT_SQL = """
         INSERT INTO %s (
-            time, db_version, branch, query_mode, build_id, git_commit_id, 
+            time, duration, db_version, branch, query_mode, build_id, git_commit_id, 
             benchmark_type, scalefactor, terminals, weight, result
         ) VALUES (
-            to_timestamp(%s/1000), '%s', '%s', '%s', '%s', '%s', '%s', 
+            to_timestamp(%s/1000), %s, '%s', '%s', '%s', '%s', '%s', '%s', 
             %s, %s, '%s', '%s'
         );
-    """ % (TABLENAME, time, db_version, branch, query_mode, build_id, 
+    """ % (TABLENAME, duration, time, db_version, branch, query_mode, build_id, 
         git_commit_id, benchmark_type, scalefactor, terminals, weight, result)
     cur = conn.cursor()
     try:
@@ -206,22 +210,14 @@ def drop_table(conn):
 
 
 # TODO(benliangw): This is only used for testing purpose.
-def view_all_results(conn):
+def query_database(conn, QUERY_SQL):
     """View all results within the TimeScaleDB. This is only used for testing purpose.
 
     Args:
         conn (psycopg2.extensions.connection): The connection to PostgreSQL database.
+        QUERY_SQL (str): The SQL to be executed.
 
     """
-    QUERY_SQL = """
-        SELECT * FROM %s;
-    """ % TABLENAME
-    # QUERY_SQL = """
-    #     SELECT * FROM %s WHERE weight @> '{"Others": 25}';
-    # """ % TABLENAME
-    # QUERY_SQL = """
-    #     SELECT * FROM %s WHERE weight ? 'Others';
-    # """ % TABLENAME
     cur = conn.cursor()
     cur.execute(QUERY_SQL)
     for i in cur.fetchall():
@@ -230,15 +226,35 @@ def view_all_results(conn):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Load sample data into timescaledb.')
+    parser.add_argument('--drop', action='store_true', help='Drop old table.')
+    parser.add_argument('--url', type=str, help='The location of data that need to be stored.')
+    parser.add_argument('--show_detail', action='store_true', help='Display the data in the database.')
+    parser.add_argument('--show_size', action='store_true', help='Display how many data are there in the database.')
+    args = parser.parse_args()
+
+    if args.url:
+        subprocess.run(["wget", "-O", "/tmp/archive.zip", args.url])
+        # Is this safe? Or do we have a better method to wget and unzip files?
+        subprocess.run(["rm", "-rf", "/tmp/archive"])
+        subprocess.run(["unzip", "-q", "/tmp/archive.zip", "-d", "/tmp/"])
+
     conn = psycopg2.connect(CONNECTION)
-    # drop_table(conn)
+
+    if args.drop:
+        drop_table(conn)
+
     table_existence = check_table_exist(conn)
     if table_existence == False:
         create_table(conn)
         print("Finish creating")
-    read_and_insert_from_folder(conn, (BASEPATH / 'test_data').resolve())
-    view_all_results(conn)
+    read_and_insert_from_folder(conn, '/tmp/archive/build/oltp_result')
+    if args.show_detail:
+        query_database(conn, "SELECT * FROM %s;" % TABLENAME)
+    if args.show_size:
+        query_database(conn, "SELECT COUNT(*) FROM %s;" % TABLENAME)
     print("Done")
+    conn.close()
 
 
 if __name__ == "__main__":
