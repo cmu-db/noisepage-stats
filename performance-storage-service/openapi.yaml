@@ -89,29 +89,6 @@ components:
           type: string
           description: The version number of NoisePage
     
-    OLTPBenchMetrics:
-      description: The summary statistics from a run of OLTPBench 
-      type: object
-      required:
-        - throughput
-      properties:
-        throughput:
-          type: number
-          format: float
-          description: The number of requests per second processed
-        latency_99:
-          type: integer
-          description: The 99th percentile latency (microseconds)
-        latency_95:
-          type: integer
-          description: The 95th percentile latency (microseconds)
-        latency_avg:
-          type: integer
-          description: The average latency of a request (microseconds)
-        latency_max:
-          type: integer
-          description: The maximum latency of a request (microseconds)
-    
     OLTPBenchTestParameters:
       description: The settings that the test was run with
       type: object
@@ -157,7 +134,51 @@ components:
           type: integer
           description: The weight of the transaction type for the run of OLTPBench
       
-    
+    OLTPBenchMetrics:
+      description: The summary statistics from a run of OLTPBench 
+      type: object
+      required:
+        - throughput
+      properties:
+        throughput:
+          type: number
+          format: float
+          description: The number of requests per second processed
+        latency:
+          $ref: '#/components/schemas/LatencyMetrics'
+
+    LatencyMetrics:
+      description: The mertics relating to latency
+      type: object
+      properties:
+        l_25:
+          type: integer
+          description: The 25th percentile latency (microseconds)
+        l_75:
+          type: integer
+          description: The 75th percentile latency (microseconds)
+        l_90:
+          type: integer
+          description: The 90th percentile latency (microseconds)
+        l_95:
+          type: integer
+          description: The 95th percentile latency (microseconds)
+        l_99:
+          type: integer
+          description: The 99th percentile latency (microseconds)
+        avg:
+          type: integer
+          description: The average latency (microseconds)
+        median:
+          type: integer
+          description: The median latency (microseconds)
+        min:
+          type: integer
+          description: The minimum latency (microseconds)
+        max: 
+          type: integer
+          description: The maximum latency (microseconds)
+
     
     
     
