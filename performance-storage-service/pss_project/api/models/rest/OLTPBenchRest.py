@@ -22,7 +22,7 @@ class OLTPBenchRest(object):
             'terminals': self.parameters.terminals,
             'duration': self.parameters.duration,
             'weights': convert_weights_to_dict(self.parameters.transaction_weights),
-            'metrics': self.metrics.__dict__,
+            'metrics': convert_metrics_to_dict(self.metrics),
         }
         return data
 
@@ -33,3 +33,10 @@ def convert_weights_to_dict( weights_list ):
         weight_value = weight_details.weight
         db_formatted_weights[weight_name] = weight_value
     return db_formatted_weights
+
+def convert_metrics_to_dict( metrics ):
+    db_formatted_metrics = {
+        'throughput': metrics.throughput,
+        'latency': metrics.latency.__dict__
+    }
+    return db_formatted_metrics

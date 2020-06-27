@@ -16,7 +16,7 @@ The openapi.yaml file documents all the endpoints of the API
 `/deployments/playbooks/create-namespaces.yml`
 
 
-### Running locally
+### Running locally - Kubernetes
 Make sure you have docker desktop, and ansible installed.
 
 #### Prerequisite
@@ -37,4 +37,21 @@ To verify try hitting `http://localhost:31000/health`
 To delete the local deployment
 ```
 kubectl delete pods,service,deployment -n performance --all
+```
+
+### Running Locally - Django runserver
+
+```bash
+source env/bin/activate
+
+# install requirements
+pip install -r requirements.txt
+
+# download docker container if you don't already have it
+# docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg12
+
+# start timescale docker container
+docker start timescaledb
+
+python manage.py runserver
 ```

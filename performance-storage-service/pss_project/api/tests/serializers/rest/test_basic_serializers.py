@@ -7,6 +7,7 @@ from pss_project.api.tests.factories.rest.metadata.OLTPBenchMetadataFactory impo
 from pss_project.api.tests.factories.rest.parameters.TransactionWeightFactory import TransactionWeightFactory
 from pss_project.api.tests.factories.rest.parameters.OLTPBenchParameters import OLTPBenchParametersFactory
 from pss_project.api.tests.factories.rest.metrics.OLTPBenchMetricsFactory import OLTPBenchMetricsFactory
+from pss_project.api.tests.factories.rest.metrics.LatencyMetricsFactory import LatencyMetricsFactory
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
@@ -16,6 +17,7 @@ from pss_project.api.serializers.rest.metadata.OLTPBenchMetadataSerializer impor
 from pss_project.api.serializers.rest.parameters.TransactionWeightSerializer import TransactionWeightSerializer
 from pss_project.api.serializers.rest.parameters.OLTPBenchParametersSerializer import OLTPBenchParametersSerializer
 from pss_project.api.serializers.rest.metrics.OLTPBenchMetricsSerializer import OLTPBenchMetricsSerializer
+from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import LatencyMetricsSerializer
 from pss_project.api.serializers.rest.OLTPBenchSerializer \
     import OLTPBenchSerializer
 
@@ -32,6 +34,7 @@ class TestBasicSerializer(SimpleTestCase):
         ('TransactionWeightSerializer',TransactionWeightFactory,TransactionWeightSerializer, []),
         ('OLTPBenchParametersSerializer',OLTPBenchParametersFactory,OLTPBenchParametersSerializer, []),
         ('OLTPBenchMetricsSerializer',OLTPBenchMetricsFactory,OLTPBenchMetricsSerializer, []),
+        ('LatencyMetricsSerializer',LatencyMetricsFactory,LatencyMetricsSerializer,[]),
         ('OLTPBenchSerializer',OLTPBenchRestFactory,OLTPBenchSerializer,['timestamp']),
     ]
 
