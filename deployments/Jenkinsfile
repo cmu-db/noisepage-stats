@@ -14,7 +14,7 @@ def dockerImage = ''
 
 pipeline {
   environment{
-    ENV = getEnvFromBranch(branch)
+    ENV = getEnvFromBranch(env.BRANCH_NAME)
     ANSIBLE_SSH = credentials('jenkins-k8s')
     PSS_DATABASE = credentials('timescale-db')
   }
@@ -55,6 +55,7 @@ pipeline {
         }
       }
       steps {
+        sh "echo ${env.ENV}"
         sh "ansible --version"
         //sh "sudo apt-add-repository ppa:ansible/ansible"
         //sh "sudo apt-get -y install ansible"
