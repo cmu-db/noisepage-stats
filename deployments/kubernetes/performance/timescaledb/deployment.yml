@@ -29,7 +29,10 @@ spec:
         - name: timescaledb
           image: "{{ timescaledb_container_image }}"
           imagePullPolicy: "{{ image_pull_policy }}"
-          args: ["-c", "max_connections=500"]
+          # args: ["-c", "max_connections=500"]
+          args:
+            - -c
+            - max_connections=500
           ports:
             - containerPort: 5432
           env:
