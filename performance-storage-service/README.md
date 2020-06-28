@@ -54,4 +54,6 @@ pip install -r requirements.txt
 docker start timescaledb
 
 python manage.py runserver
+
+docker stop timescaledb
 ```
