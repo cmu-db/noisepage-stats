@@ -36,6 +36,7 @@ spec:
             - name: grafana-volume
               mountPath: /var/lib/grafana
           env:
+            GF_server_serve_from_sub_path: "true"
             - name: GF_PATHS_LOGS
               value: /var/log/grafana/
             - name: GF_LOG_MODE
