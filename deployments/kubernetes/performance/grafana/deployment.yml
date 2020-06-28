@@ -48,3 +48,6 @@ spec:
               value: "true"
             - name: GF_SERVER_HTTP_PORT
               value: "3000"
+
+
+              
