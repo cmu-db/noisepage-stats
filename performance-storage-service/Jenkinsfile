@@ -32,6 +32,14 @@ pipeline {
     stage('Test'){
       steps{
         dir('performance-storage-service'){
+          docker.image('timescaledb:latest-pg12').withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
+            /* Wait until timescale service is up */
+            sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
+            sh 'until psql -h $PG_HOST -U $PG_USER -d $PG_DATABASE -c "select 1" > /dev/null 2>&1; do
+              echo "Waiting for postgres server"
+              sleep 1
+            done'
+          }
           sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
         }
       }

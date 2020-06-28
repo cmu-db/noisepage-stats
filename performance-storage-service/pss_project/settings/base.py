@@ -23,6 +23,7 @@ SECRET_KEY = get_environ_value('SECRET_KEY','shh')
 
 ALLOWED_HOSTS = []
 
+
 # Application definition
 
 INSTALLED_APPS = [
