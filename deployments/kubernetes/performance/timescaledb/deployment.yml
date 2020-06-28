@@ -31,7 +31,7 @@ spec:
           imagePullPolicy: "{{ image_pull_policy }}"
           args: ["-c", "max_connections=500"]
           ports:
-            - containerPort: 5440
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               value: postgres
