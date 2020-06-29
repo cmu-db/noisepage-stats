@@ -82,7 +82,7 @@ pipeline {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
-        sh "docker stop ${TIMESCALE_IMAGE} || true"
+        sh "docker stop timescaledb || true"
         sh "docker rmi ${TIMESCALE_IMAGE} -f"
         echo "deleting directory"
         deleteDir()
