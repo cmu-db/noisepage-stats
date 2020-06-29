@@ -78,7 +78,7 @@ spec:
       volumes:
       - name: timescaledb
         persistentVolumeClaim:
-          claimName: timescaledb
+          claimName: timescaledb 
 ---
 apiVersion: v1
 kind: Service
