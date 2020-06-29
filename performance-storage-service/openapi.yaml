@@ -29,41 +29,73 @@ components:
       description: A build result from running all the OLTPBench results
       type: object
       required: 
-        - build_link
-        - performance_results
+        - build_id
       properties:
-        build_link:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: number
+          format: date-time
+          description: The time according to Jenkins that the test completed
+        type:
           type: string
-          description: A hyperlink to the build results in Jenkins
-        github_link:
-          type: string
-          description: A hyperlink to the pull request that triggered the build
-        performance_results:
-          type: array
-          description: The array of results from the different OLTPBench tests
-          items:
-            $ref: '#/components/schemas/OLTPBenchResult'
-    OLTPBenchResult:
-      description: A single OLTPBench test result
-      type: object
-      required:
-        - name
-        - test_settings
-        - metrics
-      properties:
-        name:
-          type: string
-          description: The name of the test that was run (e.g. TATP)
-        test_settings:
-          $ref: '#/components/schemas/OLTPBenchTestSettings'
+          description: The type of OLTPBench result this is (TATP)
+        parameters:
+          $ref: '#/components/schemas/OLTPBenchTestParameters'
         metrics:
           $ref: '#/components/schemas/OLTPBenchMetrics'
-    OLTPBenchTestSettings:
+
+    Metadata:
+      description: metadata about the test results
+      type: object
+      required:
+        - build_id 
+      properties:
+        jenkins:
+          $ref: '#/components/schemas/JenkinsMetadata'
+        github:
+          $ref: '#/components/schemas/GithubMetadata'
+        noisepage:
+          $ref: '#/components/schemas/NoisePageMetadata'
+
+    JenkinsMetadata:
+      description: Information gathered from Jenkins
+      type: object
+      required:
+        - build_id 
+      properties:
+        build_id:
+          type: string
+          description: A unique identifier for the build so a user can find the build on the Jenkins server
+    
+    GithubMetadata:
+      description: Information gathered from Github
+      type: object
+      properties:
+        commit_id:
+          type: string
+          description: The unique identifier for the last commit to the branch.
+        branch:
+          type: string
+          description: The branch that the performance test was run on
+
+    NoisePageMetadata:
+      description: Information about NoisePage relating to the test
+      type: object
+      required:
+        - version 
+      properties:
+        version:
+          type: string
+          description: The version number of NoisePage
+    
+    OLTPBenchTestParameters:
       description: The settings that the test was run with
       type: object
       required:
         - scale_factor
         - terminals
+        - query_mode
         - transaction_weights
       properties:
         scale_factor:
@@ -72,10 +104,22 @@ components:
           description: A scale factor for the size of the database
         terminals:
           type: integer
+          description: The number of cores the test was run with
+        query_mode:
+          default: extended
+          description: The query mode the test was executed with
+          enum:
+            - extended
+            - simple
         transaction_weights:
           type: array
+          description: An array of the different transaction types and their weights
           items:
             $ref: '#/components/schemas/Transactions'
+        duration:
+          type: integer
+          description: The number of seconds the test was run for.
+            
     Transactions:
       type: object
       description: An object containing information about the performance test transaction weights
@@ -89,17 +133,52 @@ components:
         weight:
           type: integer
           description: The weight of the transaction type for the run of OLTPBench
+      
     OLTPBenchMetrics:
+      description: The summary statistics from a run of OLTPBench 
       type: object
-      description: An object containing all test metrics for OLTPBench performance tests
+      required:
+        - throughput
       properties:
         throughput:
           type: number
           format: float
-          description: The transactions per second that the test completed
-        
-      
-    
+          description: The number of requests per second processed
+        latency:
+          $ref: '#/components/schemas/LatencyMetrics'
+
+    LatencyMetrics:
+      description: The mertics relating to latency
+      type: object
+      properties:
+        l_25:
+          type: integer
+          description: The 25th percentile latency (microseconds)
+        l_75:
+          type: integer
+          description: The 75th percentile latency (microseconds)
+        l_90:
+          type: integer
+          description: The 90th percentile latency (microseconds)
+        l_95:
+          type: integer
+          description: The 95th percentile latency (microseconds)
+        l_99:
+          type: integer
+          description: The 99th percentile latency (microseconds)
+        avg:
+          type: integer
+          description: The average latency (microseconds)
+        median:
+          type: integer
+          description: The median latency (microseconds)
+        min:
+          type: integer
+          description: The minimum latency (microseconds)
+        max: 
+          type: integer
+          description: The maximum latency (microseconds)
+
     
     
     
