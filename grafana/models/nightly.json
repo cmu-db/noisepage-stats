@@ -1557,8 +1557,8 @@
     "list": []
   },
   "time": {
-    "from": "now-7d",
-    "to": "now"
+    "from": "2020-06-26T04:00:00.000Z",
+    "to": "2020-07-01T03:59:59.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1576,5 +1576,5 @@
   "timezone": "",
   "title": "Nightly",
   "uid": "8y7UE-WGz",
-  "version": 26
+  "version": 28
 }
