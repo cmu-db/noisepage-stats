@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ env }}-timescaledb"
+  name: timescaledb
   namespace: performance
   labels:
     app: timescaledb
@@ -30,7 +30,8 @@ spec:
           image: "{{ timescaledb_container_image }}"
           imagePullPolicy: "{{ image_pull_policy }}"
           ports:
-            - containerPort: 5432
+            - name: http
+              containerPort: 5432
           env:
             - name: POSTGRES_USER
               value: postgres
@@ -38,5 +39,5 @@ spec:
               value: postgres
           volumeMounts:
             - name: timescaledb-volume
-              mountPath: /var/lib/postgresql/data
+              mountPath: /pg-data
               

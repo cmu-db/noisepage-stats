@@ -23,8 +23,6 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
-      volumes:
-        - name: grafana-volume
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
@@ -32,32 +30,3 @@ spec:
           ports:
             - name: http
               containerPort: 3000
-          volumeMounts:
-            - name: grafana-volume
-              mountPath: /var/lib/grafana
-          env:
-            - name: GF_PATHS_LOGS
-              value: /var/log/grafana/
-            - name: GF_LOG_MODE
-              value: "console file"
-            - name: GF_SERVER_DOMAIN
-              value: "incrudibles-testing.db.pdl.cmu.edu"
-            - name: GF_SERVER_ROOT_URL
-              value: "http://incrudibles-testing.db.pdl.cmu.edu:30002/grafana"
-            - name: GF_SERVER_SERVE_FROM_SUB_PATH
-              value: "true"
-            - name: GF_SERVER_HTTP_PORT
-              value: "3000"
-            #GitHub Login
-            - name: GF_AUTH_GITHUB_ENABLED
-              value: "true"
-            - name: GF_AUTH_GITHUB_ALLOW_SIGN_UP
-              value: "true"
-            - name: GF_AUTH_GITHUB_CLIENT_ID
-              value: "686b64e4cd6a244c746a" #TODO change 
-            - name: GF_AUTH_GITHUB_CLIENT_SECRET
-              value: "7ffdd71821a54b1dec786be735a5518acda97150" #TODO change
-            - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
-              value: "cmu-db"
-
-              

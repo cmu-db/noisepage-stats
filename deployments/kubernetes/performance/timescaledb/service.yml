@@ -14,4 +14,3 @@ spec:
   - protocol: TCP
     port: 5432
     nodePort: 30003
-  externalTrafficPolicy: Local
