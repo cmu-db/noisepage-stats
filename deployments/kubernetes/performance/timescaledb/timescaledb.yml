@@ -63,9 +63,10 @@ spec:
         envFrom:
           - configMapRef:
             name: timescaledb
+        args: ["-c", "max_connections=1000"]
         env:
-          - name: PGOPTIONS
-            value: "-c max_connections=1000 -c shared_buffers=1024MB"
+          # - name: PGOPTIONS
+          #   value: "-c max_connections=1000 -c shared_buffers=1024MB"
           - name: "MAX_CONNECTIONS"
             value: "1000"
         volumeMounts:
