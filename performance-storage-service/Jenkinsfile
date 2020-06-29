@@ -35,7 +35,6 @@ pipeline {
           dir('performance-storage-service'){
             docker.withRegistry('', REGISTRY_CREDENTIAL) {
               sh "docker ps"
-              sh "echo ${dockerImage.id}"
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { ts ->
                 /* Wait until timescale service is up */
                 sh """
@@ -46,8 +45,7 @@ pipeline {
                   sleep 1
                 done"""
                 sh "echo ${ts.id}"
-                docker.image("${REGISTRY}:${VERSION}").inside("--link ${ts.id}:db -e SECRET_KEY=shhh --entrypoint=''"){
-                  sh 'echo welllll....'
+                docker.image("${REGISTRY}:${VERSION}").inside("--link ${ts.id} -e SECRET_KEY=shhh --entrypoint=''"){
                   sh 'python manage.py jenkins --enable-coverage'
                 }
                 //sh "docker run --net=host -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
