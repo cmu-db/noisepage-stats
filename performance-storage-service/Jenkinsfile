@@ -35,7 +35,8 @@ pipeline {
         script{
           dir('performance-storage-service'){
             docker.withRegistry('', REGISTRY_CREDENTIAL) {
-              sh "docker stop 01ddc9e59268"
+              sh "docker ps"
+              sh "docker stop ${TIMESCALE_IMAGE}"
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
                 /* Wait until timescale service is up */
                 tsImage = c
