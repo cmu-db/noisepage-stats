@@ -37,7 +37,6 @@ spec:
           #   - "-c"
           #   - "max_connections=500"
           # args: ["-c", "max_connections=500"]
-          # Trigger
           ports:
             - containerPort: 5432
           env:
