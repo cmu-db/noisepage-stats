@@ -44,11 +44,9 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                sh "echo ${ts.id}"
-                docker.image("${REGISTRY}:${VERSION}").inside("--link ${ts.id} -e SECRET_KEY=shhh --entrypoint=''"){
+                docker.image("${REGISTRY}:${VERSION}").inside("--net=host -e SECRET_KEY=shhh --entrypoint=''"){
                   sh 'python manage.py jenkins --enable-coverage'
                 }
-                //sh "docker run --net=host -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
               }
             }
           }
@@ -80,7 +78,9 @@ pipeline {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
+        echo "stopping timescaledb if it wasn't already stopped"
         sh "docker stop timescaledb || true"
+        echo "removing timescale image"
         sh "docker rmi ${TIMESCALE_IMAGE} -f"
         echo "deleting directory"
         deleteDir()
