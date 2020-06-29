@@ -32,8 +32,6 @@ grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
 timescaledb_container_name = "timescale/timescaledb"
 timescaledb_container_tag = "latest-pg12"
 timescaledb_container_image = "{{timescaledb_container_name}}:{{timescaledb_container_tag}}"
-pss_db_user = "" #passed in through env variables
-pss_db_password = "" #passed in through env variables
 
 
 [local]

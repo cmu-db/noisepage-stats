@@ -9,7 +9,7 @@ DATABASES = {
         'NAME': get_environ_value('PSS_DATABASE_NAME'),
         'USER': get_environ_value('PSS_DATABASE_USER'),
         'PASSWORD': get_environ_value('PSS_DATABASE_PASSWORD'),
-        'HOST': '127.0.0.1',
+        'HOST': 'timescaledb-service.performance',
         'PORT': int(get_environ_value('PSS_DATABASE_PORT', 5432)),
     }
 }
