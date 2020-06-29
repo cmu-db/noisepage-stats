@@ -49,5 +49,16 @@ spec:
             - name: GF_SERVER_HTTP_PORT
               value: "3000"
 
+            #GitHub Login
+            - name: GF_AUTH_GITHUB_ENABLED
+              value: true
+            - name: GF_AUTH_GITHUB_ALLOW_SIGN_UP
+              value: true
+            - name: GF_AUTH_GITHUB_CLIENT_ID
+              value: "686b64e4cd6a244c746a" #TODO change 
+            - name: GF_AUTH_GITHUB_CLIENT_SECRET
+              value: "7ffdd71821a54b1dec786be735a5518acda97150" #TODO change
+            - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
+              value: "cmu-db"
 
               
