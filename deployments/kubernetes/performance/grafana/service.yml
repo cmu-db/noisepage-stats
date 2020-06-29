@@ -14,4 +14,3 @@ spec:
   - protocol: TCP
     port: 3000
     nodePort: 30002
-  externalTrafficPolicy: Local
