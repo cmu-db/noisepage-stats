@@ -44,9 +44,9 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
+                sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
               }
             }
-            sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
           }
         }
       }
