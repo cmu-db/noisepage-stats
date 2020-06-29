@@ -7,6 +7,7 @@ pipeline {
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
     VERSION = "1.0.0"
+    TIMESCALE_IMAGE = 'timescaledb:latest-pg12'
   }
   agent {
     label 'docker'
@@ -32,13 +33,15 @@ pipeline {
       steps{
         script{
           dir('performance-storage-service'){
-            docker.image('timescaledb:latest-pg12').withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
-              /* Wait until timescale service is up */
-              sh """
-                until psql -h 127.0.0.1 -U postgres -d postgres -c "select 1" > /dev/null 2>&1; do
-                echo "Waiting for postgres server"
-                sleep 1
-              done"""
+            docker.withRegistry('', REGISTRY_CREDENTIAL) {
+              docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
+                /* Wait until timescale service is up */
+                sh """
+                  until psql -h 127.0.0.1 -U postgres -d postgres -c "select 1" > /dev/null 2>&1; do
+                  echo "Waiting for postgres server"
+                  sleep 1
+                done"""
+              }
             }
             sh "docker run -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
           }
@@ -70,6 +73,7 @@ pipeline {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
+        sh "docker rmi ${TIMESCALE_IMAGE}"
         echo "deleting directory"
         deleteDir()
       }
