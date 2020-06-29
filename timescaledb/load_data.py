@@ -79,6 +79,8 @@ def read_and_insert_from_folder(conn, path):
                 os.path.join(subdir, 'oltpbench.summary'))
             weight = read_from_expconfig(
                 os.path.join(subdir, 'oltpbench.expconfig'))
+            # print('=====================')
+            # print(timestamp)
             insert_data(conn, time=timestamp, duration=duration, db_version=db_version, 
                         branch=branch, query_mode=query_mode, build_id=35, 
                         git_commit_id=git_commit_id, benchmark_type=benchmark_type, 
@@ -156,7 +158,7 @@ def insert_data(conn, time, duration, db_version, branch, query_mode, build_id, 
             to_timestamp(%s/1000), %s, '%s', '%s', '%s', '%s', '%s', '%s', 
             %s, %s, '%s', '%s'
         );
-    """ % (TABLENAME, duration, time, db_version, branch, query_mode, build_id, 
+    """ % (TABLENAME, time, duration, db_version, branch, query_mode, build_id, 
         git_commit_id, benchmark_type, scalefactor, terminals, weight, result)
     cur = conn.cursor()
     try:
@@ -243,6 +245,7 @@ def main():
 
     if args.drop:
         drop_table(conn)
+        subprocess.run(["rm", "-rf", "/tmp/archive"])
 
     table_existence = check_table_exist(conn)
     if table_existence == False:
