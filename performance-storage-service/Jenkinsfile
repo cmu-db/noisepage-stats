@@ -40,6 +40,7 @@ pipeline {
                 sh """
                   until psql -h 127.0.0.1 -U postgres -d postgres -c "select 1" > /dev/null 2>&1; do
                   echo "Waiting for postgres server"
+                  docker ps
                   sleep 1
                 done"""
               }
