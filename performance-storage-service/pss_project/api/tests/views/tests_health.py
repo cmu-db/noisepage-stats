@@ -2,7 +2,7 @@ from rest_framework.test import APISimpleTestCase
 
 # Create your tests here.
 class HealthViewTest(APISimpleTestCase):
-    url = '/performance-results/health/'
+    url = '/health/'
     def test_200_response(self):
         """
         Ensure the health endpoint sends back a 200
