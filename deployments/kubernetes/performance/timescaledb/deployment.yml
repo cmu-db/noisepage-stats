@@ -23,10 +23,6 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
-      volumes:
-        - name: timescaledb-volume
-          persistentVolumeClaim:
-            claimName: timescaledb-pv-claim
       containers:
         - name: timescaledb
           image: "{{ timescaledb_container_image }}"
@@ -47,3 +43,7 @@ spec:
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: timescaledb-volume
+          # persistentVolumeClaim:
+          #   claimName: timescaledb-pv-claim
