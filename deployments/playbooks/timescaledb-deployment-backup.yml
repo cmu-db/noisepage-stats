@@ -1,0 +1,47 @@
+---
+
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Deploy TimescaleDB
+  vars:
+    dir_repo: "{{ inventory_dir }}"
+    dir_k8s_timescaledb: "{{ dir_repo }}/kubernetes/performance/timescaledb"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
+  tasks:
+    # - name: Create TimescaleDB (Test version)
+    #   vars:
+    #     timescaledb_file: "{{ dir_k8s_timescaledb }}/timescaledb.yml"
+    #   k8s:
+    #     state: present
+    #     definition: "{{ lookup('template', '{{ timescaledb_file }}') }}"
+    
+    # - name: Create Persistent Volume
+    #   vars:
+    #     persistent_volume_file: "{{ dir_k8s_timescaledb }}/persistent-volume.yml"
+    #   k8s:
+    #     state: present
+    #     definition: "{{ lookup('template', '{{ persistent_volume_file }}') }}"
+
+    # - name: Create Persistent Volume Claim
+    #   vars:
+    #     persistent_volume_claim_file: "{{ dir_k8s_timescaledb }}/persistent-volume-claim.yml"
+    #   k8s:
+    #     state: present
+    #     definition: "{{ lookup('template', '{{ persistent_volume_claim_file }}') }}"
+
+    - name: Create TimescaleDB Deployment
+      vars:
+        deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+
+    - name: Create TimescaleDB Service
+      vars:
+        service_file: "{{ dir_k8s_timescaledb }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
