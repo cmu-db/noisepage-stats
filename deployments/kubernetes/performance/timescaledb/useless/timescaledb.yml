@@ -72,6 +72,7 @@ spec:
           #   value: "-c max_connections=1000 -c shared_buffers=1024MB"
           # - name: "MAX_CONNECTIONS" 
           #   value: "1000"
+          # Trigger
         volumeMounts:
         - name: timescaledb
           mountPath: /var/lib/postgresql/data/
