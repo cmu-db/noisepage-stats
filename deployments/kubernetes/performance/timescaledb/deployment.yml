@@ -43,7 +43,7 @@ spec:
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data
-      volumes:
-        - name: timescaledb-volume
+      # volumes:
+      #   - name: timescaledb-volume
           # persistentVolumeClaim:
           #   claimName: timescaledb-pv-claim
