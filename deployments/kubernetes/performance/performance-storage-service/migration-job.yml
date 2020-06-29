@@ -4,6 +4,7 @@ metadata:
   name: django-migrations
   namespace: performance
 spec:
+  ttlSecondsAfterFinished: 86400
   template:
     spec:
       containers:
