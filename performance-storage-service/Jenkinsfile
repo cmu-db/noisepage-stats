@@ -1,6 +1,7 @@
 #!groovy
 
 def dockerImage = ''
+def tsImage = ''
 
 pipeline {
   environment {
@@ -37,6 +38,7 @@ pipeline {
               sh "docker ps"
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
                 /* Wait until timescale service is up */
+                tsImage = c
                 sh """
                   apt-get install postgresql-client-9.6
                   until pg_isready -d postgres -h 127.0.0.1 -p 5432 -U postgres > 1; do
@@ -75,6 +77,7 @@ pipeline {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
+        tsImage.stop
         sh "docker rmi ${TIMESCALE_IMAGE} -f"
         echo "deleting directory"
         deleteDir()
