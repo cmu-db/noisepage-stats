@@ -34,7 +34,7 @@ pipeline {
         script{
           dir('performance-storage-service'){
             docker.withRegistry('', REGISTRY_CREDENTIAL) {
-              sh "docker pull ${TIMESCALE_IMAGE}"
+              sh "docker ps"
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
                 /* Wait until timescale service is up */
                 sh """
@@ -74,7 +74,7 @@ pipeline {
           echo "removing docker image"
           sh "docker rmi ${REGISTRY}:${VERSION}"
         }
-        sh "docker rmi ${TIMESCALE_IMAGE}"
+        sh "docker rmi ${TIMESCALE_IMAGE} -f"
         echo "deleting directory"
         deleteDir()
       }
