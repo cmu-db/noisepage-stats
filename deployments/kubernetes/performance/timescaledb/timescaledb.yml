@@ -1,0 +1,93 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-pv-volume
+  namespace: performance
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/postgresPV"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: performance
+  name: timescaledb
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: performance
+  name: timescaledb
+# type: Opaque
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+---
+apiVersion: apps/v1
+# kind: Deployment
+kind: StatefulSet
+metadata:
+  namespace: performance
+  name: timescaledb
+  labels:
+    app: timescaledb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timescaledb
+  template:
+    metadata:
+      labels:
+        app: timescaledb
+    spec:
+      containers:
+      - name: timescaledb
+        image: timescale/timescaledb:latest-pg12
+        imagePullPolicy: "{{ image_pull_policy }}"
+        ports:
+        - containerPort: 5432
+        envFrom:
+          - configMapRef:
+            name: timescaledb
+        env:
+          - name: PGOPTIONS
+            value: "-c max_connections=1000 -c shared_buffers=1024MB"
+          - name: "MAX_CONNECTIONS"
+            value: "1000"
+        volumeMounts:
+        - name: timescaledb
+          mountPath: /var/lib/postgresql/data/
+      volumes:
+      - name: timescaledb
+        persistentVolumeClaim:
+          claimName: timescaledb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: performance
+  name: timescaledb
+  labels:
+    app: timescaledb
+spec:
+  type: NodePort
+  selector:
+    app: timescaledb
+  ports:
+  - protocol: TCP
+    port: 5432
+    nodePort: 30010
