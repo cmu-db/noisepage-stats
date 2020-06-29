@@ -131,8 +131,8 @@ pipeline {
   post {
     cleanup{
       script{
-      echo "deleting directory"
-      deleteDir()
+        echo "deleting directory"
+        deleteDir()
       }
     }
   }
