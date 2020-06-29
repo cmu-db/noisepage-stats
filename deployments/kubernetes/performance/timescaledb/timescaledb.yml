@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-pv-volume
+  name: timescaledb
   namespace: performance
 spec:
   storageClassName: manual
@@ -60,15 +60,18 @@ spec:
         imagePullPolicy: "{{ image_pull_policy }}"
         ports:
         - containerPort: 5432
+        args:
+          - -c
+          - max_connections=1000
         envFrom:
           - configMapRef:
             name: timescaledb
-        args: ["-c", "max_connections=1000"]
-        env:
+        # args: ["-c", "max_connections=1000"]
+        # env:
           # - name: PGOPTIONS
           #   value: "-c max_connections=1000 -c shared_buffers=1024MB"
-          - name: "MAX_CONNECTIONS"
-            value: "1000"
+          # - name: "MAX_CONNECTIONS"
+          #   value: "1000"
         volumeMounts:
         - name: timescaledb
           mountPath: /var/lib/postgresql/data/
