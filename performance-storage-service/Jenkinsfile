@@ -36,7 +36,7 @@ pipeline {
             docker.withRegistry('', REGISTRY_CREDENTIAL) {
               sh "docker ps"
               sh "echo ${dockerImage.id}"
-              docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
+              docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { ts ->
                 /* Wait until timescale service is up */
                 sh """
                   sudo apt-get update
@@ -45,7 +45,7 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                dockerImage.inside('-e SECRET_KEY=shhh --entrypoint python'){
+                dockerImage.inside('--net=host -e SECRET_KEY=shhh --entrypoint python'){ pss ->
                   sh 'manage.py jenkins --enable-coverage'
                 }
                 //sh "docker run --net=host -e SECRET_KEY=shhh --entrypoint python ${REGISTRY}:${VERSION} manage.py jenkins --enable-coverage"
