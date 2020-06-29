@@ -1,8 +1,7 @@
-from rest_framework.test import APITestCase
-from django.urls import reverse
+from rest_framework.test import APISimpleTestCase
 
 # Create your tests here.
-class HealthViewTest(APITestCase):
+class HealthViewTest(APISimpleTestCase):
     url = '/health/'
     def test_200_response(self):
         """

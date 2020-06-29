@@ -1,4 +1,6 @@
 import os
+from .utils import get_environ_value
+
 """
 Django settings for pss_project project.
 
@@ -17,9 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = get_environ_value('SECRET_KEY','shh')
 
 ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -32,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_jenkins',
+    'pss_project.api'
 ]
 
 MIDDLEWARE = [
