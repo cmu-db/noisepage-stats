@@ -60,9 +60,9 @@ spec:
         imagePullPolicy: "{{ image_pull_policy }}"
         ports:
         - containerPort: 5432
-        args:
-          - -c
-          - max_connections=1000
+        # args:
+        #   - -c
+        #   - max_connections=1000
         envFrom:
           - configMapRef:
             name: timescaledb
