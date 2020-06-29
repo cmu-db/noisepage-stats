@@ -42,7 +42,7 @@ spec:
               value: "console file"
             - name: GF_SERVER_DOMAIN
               value: "incrudibles-testing.db.pdl.cmu.edu"
-            - name: GF_ROOT_URL
+            - name: GF_SERVER_ROOT_URL
               value: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
             - name: GF_SERVER_SERVE_FROM_SUB_PATH
               value: "true"
