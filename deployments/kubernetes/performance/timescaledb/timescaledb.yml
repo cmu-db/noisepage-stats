@@ -29,7 +29,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: performance
-  name: timescaledb
+  name: timescaledb-configmap
 # type: Opaque
 data:
   POSTGRES_DB: postgres
@@ -65,7 +65,7 @@ spec:
         #   - max_connections=1000
         envFrom:
           - configMapRef:
-            name: timescaledb
+            name: timescaledb-configmap
         # args: ["-c", "max_connections=1000"]
         # env:
           # - name: PGOPTIONS
