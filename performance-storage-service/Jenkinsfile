@@ -15,6 +15,7 @@ pipeline {
   stages{
     stage('Checkout'){
       steps{
+        sh "apt-get install postgresql-client-9.6"
         checkout scm
       }
     }
@@ -38,7 +39,6 @@ pipeline {
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { c ->
                 /* Wait until timescale service is up */
                 sh """
-                  apt-get install postgresql-client-9.6
                   until pg_isready -d postgres -h 127.0.0.1 -p 5432 -U postgres > 1; do
                   echo "Waiting for postgres server"
                   sleep 1
