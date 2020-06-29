@@ -11,6 +11,26 @@
         name: openshift
         state: present
   tasks:
+    # - name: Create TimescaleDB (Test version)
+    #   vars:
+    #     timescaledb_file: "{{ dir_k8s_timescaledb }}/timescaledb.yml"
+    #   k8s:
+    #     state: present
+    #     definition: "{{ lookup('template', '{{ timescaledb_file }}') }}"
+    - name: Create Persistent Volume
+      vars:
+        persistent_volume_file: "{{ dir_k8s_timescaledb }}/persistent-volume.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ persistent_volume_file }}') }}"
+
+    - name: Create Persistent Volume Claim
+      vars:
+        persistent_volume_claim_file: "{{ dir_k8s_timescaledb }}/persistent-volume-claim.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ persistent_volume_claim_file }}') }}"
+
     - name: Create TimescaleDB Deployment
       vars:
         deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
