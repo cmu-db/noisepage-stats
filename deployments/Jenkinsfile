@@ -116,6 +116,9 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
+              echo "${PSS_DATABASE_USR}"
+              echo "${PSS_DATABASE}"
+              sh "cat kubernetes/performance/performance-storage-service/deployment.yml"
               sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} pss_db_user=${PSS_DATABASE_USR} pss_db_password=${PSS_DATABASE}\""
             }
           }
