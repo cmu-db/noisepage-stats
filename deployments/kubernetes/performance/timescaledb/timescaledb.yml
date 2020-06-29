@@ -37,8 +37,8 @@ data:
   POSTGRES_PASSWORD: postgres
 ---
 apiVersion: apps/v1
-# kind: Deployment
-kind: StatefulSet
+kind: Deployment
+# kind: StatefulSet
 metadata:
   namespace: performance
   name: timescaledb
