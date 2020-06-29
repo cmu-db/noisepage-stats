@@ -30,11 +30,11 @@ spec:
           image: "{{ timescaledb_container_image }}"
           imagePullPolicy: "{{ image_pull_policy }}"
           # command: postgres -c logging_collector=on -c log_destination=stderr -c log_directory=/logs
-          command:
-            - "postgres"
-            - "-c"
-            - "max_connections=500"
-          args: ["-c", "max_connections=500"]
+          # command:
+          #   - "postgres"
+          #   - "-c"
+          #   - "max_connections=500"
+          # args: ["-c", "max_connections=500"]
           ports:
             - containerPort: 5432
           env:

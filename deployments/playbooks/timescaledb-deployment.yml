@@ -11,23 +11,23 @@
         name: openshift
         state: present
   tasks:
-    - name: Create TimescaleDB (Test version)
+    # - name: Create TimescaleDB (Test version)
+    #   vars:
+    #     timescaledb_file: "{{ dir_k8s_timescaledb }}/timescaledb.yml"
+    #   k8s:
+    #     state: present
+    #     definition: "{{ lookup('template', '{{ timescaledb_file }}') }}"
+
+    - name: Create TimescaleDB Deployment
       vars:
-        timescaledb_file: "{{ dir_k8s_timescaledb }}/timescaledb.yml"
+        deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
       k8s:
         state: present
-        definition: "{{ lookup('template', '{{ timescaledb_file }}') }}"
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
 
-    # - name: Create TimescaleDB Deployment
-    #   vars:
-    #     deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
-    #   k8s:
-    #     state: present
-    #     definition: "{{ lookup('template', '{{ deployment_file }}') }}"
-
-    # - name: Create TimescaleDB Service
-    #   vars:
-    #     service_file: "{{ dir_k8s_timescaledb }}/service.yml"
-    #   k8s:
-    #     state: present
-    #     definition: "{{ lookup('template', '{{ service_file }}') }}"
+    - name: Create TimescaleDB Service
+      vars:
+        service_file: "{{ dir_k8s_timescaledb }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
