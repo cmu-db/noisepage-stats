@@ -33,6 +33,14 @@ pipeline {
           branch "test"
           branch "staging"
           branch "master"
+          // allOf{
+          //   not {triggeredBy "UpstreamCause"}
+          //   anyOf{
+          //     branch "staging"
+          //     branch "master"
+          //   }
+
+          // }
         }
       }
       steps{
