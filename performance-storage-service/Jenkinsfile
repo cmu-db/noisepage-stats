@@ -46,7 +46,7 @@ pipeline {
                   sleep 1
                 done"""
                 sh "echo ${ts.id}"
-                docker.image("${REGISTRY}:${VERSION}").inside('--entrypoint python --net=host -e SECRET_KEY=shhh '){
+                docker.image("${REGISTRY}:${VERSION}").inside('--entrypoint=python --net=host -e SECRET_KEY=shhh '){
                   sh 'echo welllll....'
                   sh 'manage.py jenkins --enable-coverage'
                 }
