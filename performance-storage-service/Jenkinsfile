@@ -45,7 +45,8 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                docker.image("${REGISTRY}:${VERSION}").inside('--link ${ts.id}:db -e SECRET_KEY=shhh --entrypoint python'){
+                sh "echo ${ts.id}"
+                docker.image("${REGISTRY}:${VERSION}").inside('--net=host -e SECRET_KEY=shhh --entrypoint python'){
                   sh 'echo welllll....'
                   sh 'manage.py jenkins --enable-coverage'
                 }
