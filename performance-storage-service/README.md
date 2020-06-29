@@ -30,9 +30,9 @@ docker build -t cmudb/performance-storage-service:latest .
 
 ansible-playbook -i inventory playbooks/create-namespaces.yml -e "env=local host_override=local"
 
-ansible-playbook -i inventory playbooks/pss-deployment.yml -e "env=local host_override=local"
+ansible-playbook -i inventory playbooks/pss-deployment.yml -e "env=local host_override=local pss_db_user=postgres pss_db_password=password"
 ```
-To verify try hitting `http://localhost:31000/health`
+To verify try hitting `http://localhost:31000/performance-results/health`
 
 To delete the local deployment
 ```

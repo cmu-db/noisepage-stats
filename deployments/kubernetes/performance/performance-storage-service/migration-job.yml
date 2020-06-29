@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-migrations
+  namespace: performance
+spec:
+  template:
+    spec:
+      containers:
+        - name: performance-storage-service
+          image: "{{ pss_container_image }}"
+          command: ["python",  "manage.py", "migrate", "--noinput"]
+          env:
+            - name: ENV
+              value: "{{ env }}"
+            - name: PSS_DATABASE_NAME
+              value: "pss_database"
+            - name: PSS_DATABASE_USER
+              value: "{{ pss_db_user }}"
+            - name: PSS_DATABASE_PASSWORD
+              value: "{{ pss_db_password }}"
+            - name: PSS_DATABASE_PORT
+              value: "5432"
+      restartPolicy: Never
+  backoffLimit: 5
