@@ -4,7 +4,9 @@ from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchR
 from pss_project.api.tests.utils.utils import generate_dict_factory
 
 class OLTPBenchViewTest(APITransactionTestCase):
+    
     url = '/oltpbench/'
+
     def test_201_response(self):
         """
         Ensure that a valid request sends back a 201
