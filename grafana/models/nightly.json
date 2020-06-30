@@ -20,11 +20,84 @@
   "panels": [
     {
       "datasource": null,
-      "description": "",
+      "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "displayName": "Terminals =  6",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^throughput$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   CAST(result->>'throughput' AS DOUBLE PRECISION) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '16'\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last TATP",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -34,14 +107,89 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 3,
-        "x": 0,
+        "x": 3,
+        "y": 0
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Best TATP",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
         "y": 0
       },
       "id": 10,
@@ -65,7 +213,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '6'\nGROUP BY terminals\nORDER BY 1",
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -89,15 +237,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average tatp",
+      "title": "AVG TATP",
       "type": "stat"
     },
     {
       "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "displayName": "Terminals = 8",
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -108,20 +256,21 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 0
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 3,
-        "x": 3,
+        "x": 9,
         "y": 0
       },
-      "id": 12,
+      "id": 27,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -142,7 +291,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   max(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'smallbank' AND\n   terminals = '8'\nGROUP BY terminals\nORDER BY 1",
+          "rawSql": "SELECT\n   min(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -166,15 +315,163 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Max smallbank",
+      "title": "Worst TATP",
       "type": "stat"
     },
     {
       "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "displayName": "Terminals = 6",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 12,
+        "y": 0
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^throughput$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   CAST(result->>'throughput' AS DOUBLE PRECISION) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'noop' AND\n   terminals = '16'\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last NOOP",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'noop' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Best NOOP",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -185,17 +482,18 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 0
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 3,
-        "x": 6,
+        "x": 18,
         "y": 0
       },
       "id": 16,
@@ -219,7 +517,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n   terminals = '6'\nGROUP BY terminals\nORDER BY 1",
+          "rawSql": "SELECT\n   min(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'noop' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -243,93 +541,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min ycsb",
+      "title": "Worst NOOP",
       "type": "stat"
     },
     {
       "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "displayName": "Terminals = 16",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 9,
-        "y": 0
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tpcc' AND\n   terminals = '16'\nGROUP BY terminals\n",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Max tpcc",
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "displayName": "Terminals = 8",
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -339,17 +559,18 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 3,
-        "x": 12,
+        "x": 21,
         "y": 0
       },
-      "id": 13,
+      "id": 21,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -370,7 +591,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'noop' AND\n   terminals = '8'\nGROUP BY terminals\nORDER BY 1",
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'noop' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -394,7 +615,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Avg noop",
+      "title": "AVG NOOP",
       "type": "stat"
     },
     {
@@ -403,7 +624,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PostgreSQL",
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -416,242 +636,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 4
-      },
-      "hiddenSeries": false,
-      "id": 4,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": [
-          {
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 1\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '1'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "result"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "test_table",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "benchmark_type",
-                "=",
-                "'tatp'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 2\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '2'\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 4\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '4'\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 8\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '8'\nORDER BY 1",
-          "refId": "D",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 16\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '16'\nORDER BY 1",
-          "refId": "E",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "tpcc",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "throughput",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PostgreSQL",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 4
+        "y": 3
       },
       "hiddenSeries": false,
       "id": 5,
@@ -831,7 +816,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "tatp",
+      "title": "TATP",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -885,8 +870,8 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 13
+        "x": 12,
+        "y": 3
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1066,7 +1051,843 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "noop",
+      "title": "NOOP",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "throughput",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 12
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^throughput$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   CAST(result->>'throughput' AS DOUBLE PRECISION) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tpcc' AND\n   terminals = '16'\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last TPCC",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 12
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tpcc' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Best TPCC",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 12
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tpcc' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "AVG TPCC",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 9,
+        "y": 12
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   min(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'tpcc' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Worst TPCC",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 12,
+        "y": 12
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^throughput$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   CAST(result->>'throughput' AS DOUBLE PRECISION) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'smallbank' AND\n   terminals = '16'\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Smallbank",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 12
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'smallbank' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Best Smallbank",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 12
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'smallbank' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "AVG Smallbank",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 12
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   min(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'smallbank' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Worst Smallbank",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "PostgreSQL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 1\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '1'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "result"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "test_table",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "benchmark_type",
+                "=",
+                "'tatp'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 2\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '2'\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 4\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '4'\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 8\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '8'\nORDER BY 1",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 16\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  terminals = '16'\nORDER BY 1",
+          "refId": "E",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "TPC-C",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -1121,7 +1942,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 15
       },
       "hiddenSeries": false,
       "id": 7,
@@ -1301,7 +2122,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "smallbank",
+      "title": "SmallBank",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -1339,6 +2160,306 @@
       }
     },
     {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 24
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^throughput$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   CAST(result->>'throughput' AS DOUBLE PRECISION) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'ycsb' AND\n   terminals = '16'\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last YCSB",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 24
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   MAX(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'ycsb' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Best YCSB",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 24
+      },
+      "id": 34,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'ycsb' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "AVG YCSB",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "terminals = 16\n\nclient-time = 60",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 9,
+        "y": 24
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   min(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = 'ycsb' AND\n   terminals = '16'\nGROUP BY terminals\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Worst YCSB",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1356,7 +2477,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 6,
@@ -1536,7 +2657,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ycsb",
+      "title": "YCSB",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -1582,8 +2703,8 @@
     "list": []
   },
   "time": {
-    "from": "2020-06-26T04:00:00.000Z",
-    "to": "2020-07-01T03:59:59.000Z"
+    "from": "now-7d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1601,5 +2722,5 @@
   "timezone": "",
   "title": "Nightly",
   "uid": "8y7UE-WGz",
-  "version": 58
+  "version": 126
 }
