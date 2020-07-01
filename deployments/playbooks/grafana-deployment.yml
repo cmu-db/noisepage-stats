@@ -4,22 +4,27 @@
   vars:
     dir_repo: "{{ inventory_dir }}"
     dir_k8s_grafana: "{{ dir_repo }}/kubernetes/performance/grafana"
+    service_port_dict:
+      testing: 30002
+      staging: 31002
+      production: 32002
+    service_port: "{{ service_port_dict[env] }}"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
         name: openshift
         state: present
   tasks:
-  - name: Create Grafana Deployment
-    vars:
-      deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
-    k8s:
-      state: present
-      definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+    - name: Create Grafana Deployment
+      vars:
+        deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
 
-  - name: Create Grafana Service
-    vars:
-      service_file: "{{ dir_k8s_grafana }}/service.yml"
-    k8s:
-      state: present
-      definition: "{{ lookup('template', '{{ service_file }}') }}"
+    - name: Create Grafana Service
+      vars:
+        service_file: "{{ dir_k8s_grafana }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
