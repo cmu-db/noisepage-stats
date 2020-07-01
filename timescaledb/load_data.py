@@ -8,7 +8,7 @@ import wget
 import subprocess
 
 
-CONNECTION = "postgres://postgres:postgres@localhost:30003/test_db"
+CONNECTION = "postgres://postgres:password@localhost:30003/test_db"
 TABLENAME = 'test_table'
 
 
@@ -103,9 +103,8 @@ def read_from_summary(path):
         terminals (str): The number of terminals used for benchmark testing.
 
     """
-    f = open(path)
-    summary = json.load(f)
-    f.close()
+    with open(path) as f:
+        summary = json.load(f)
     return summary['Benchmark Type'], summary['Current Timestamp (milliseconds)'], summary['DBMS Version'], summary['Throughput (requests/second)'], summary['scalefactor'], summary['terminals']
 
 
@@ -235,17 +234,17 @@ def main():
     parser.add_argument('--show_size', action='store_true', help='Display how many data are there in the database.')
     args = parser.parse_args()
 
-    if args.url:
-        subprocess.run(["wget", "-O", "/tmp/archive.zip", args.url])
-        # Is this safe? Or do we have a better method to wget and unzip files?
-        subprocess.run(["rm", "-rf", "/tmp/archive"])
-        subprocess.run(["unzip", "-q", "/tmp/archive.zip", "-d", "/tmp/"])
-
     conn = psycopg2.connect(CONNECTION)
 
     if args.drop:
         drop_table(conn)
         subprocess.run(["rm", "-rf", "/tmp/archive"])
+
+    if args.url:
+        subprocess.run(["wget", "-O", "/tmp/archive.zip", args.url])
+        # Is this safe? Or do we have a better method to wget and unzip files?
+        subprocess.run(["rm", "-rf", "/tmp/archive"])
+        subprocess.run(["unzip", "-q", "/tmp/archive.zip", "-d", "/tmp/"])
 
     table_existence = check_table_exist(conn)
     if table_existence == False:
