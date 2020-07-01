@@ -5,6 +5,11 @@
   vars:
     dir_repo: "{{ inventory_dir }}"
     dir_k8s_timescaledb: "{{ dir_repo }}/kubernetes/performance/timescaledb"
+    service_port_dict:
+      testing: 30003
+      staging: 31003
+      production: 32003
+    service_port: "{{ service_port_dict[env] }}"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
