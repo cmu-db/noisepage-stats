@@ -5,7 +5,7 @@ from pss_project.api.tests.utils.utils import generate_dict_factory
 
 class OLTPBenchViewTest(APITransactionTestCase):
     
-    url = '/oltpbench/'
+    url = '/performance-results/oltpbench/'
 
     def test_201_response(self):
         """
