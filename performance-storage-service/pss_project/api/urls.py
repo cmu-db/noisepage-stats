@@ -7,5 +7,5 @@ router.register(r'health', views.HealthViewSet, 'health')
 router.register(r'oltpbench', views.OLTPBenchViewSet, 'oltpbench')
 
 urlpatterns = [
-    path('performance-results/', include(router.urls)),
+    path('', include(router.urls)),
 ]
