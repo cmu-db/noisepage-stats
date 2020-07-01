@@ -1,0 +1,21 @@
+{
+ "Benchmark Type": "tatp",
+ "Current Timestamp (milliseconds)": 1592474752242,
+ "DBMS Type": "noisepage",
+ "DBMS Version": "9.5",
+ "Latency Distribution": {
+  "Minimum Latency (microseconds)": 821,
+  "25th Percentile Latency (microseconds)": 1775,
+  "Median Latency (microseconds)": 2340,
+  "Average Latency (microseconds)": 14944,
+  "75th Percentile Latency (microseconds)": 32536,
+  "90th Percentile Latency (microseconds)": 38479,
+  "95th Percentile Latency (microseconds)": 43817,
+  "99th Percentile Latency (microseconds)": 78607,
+  "Maximum Latency (microseconds)": 158452
+ },
+ "Throughput (requests/second)": 133.64677310920695,
+ "isolation": "TRANSACTION_SERIALIZABLE",
+ "scalefactor": "1.0",
+ "terminals": "2"
+}
