@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: django-migrations
-  namespace: "performance-{{ env }}"
+  namespace: performance
 spec:
   ttlSecondsAfterFinished: 86400
   template:
