@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ env }}-performance-storage-service"
-  namespace: performance
+  namespace: "performance-{{ env }}"
   labels:
     app: pss
     env: "{{ env }}"

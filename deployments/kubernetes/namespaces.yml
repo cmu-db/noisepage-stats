@@ -9,3 +9,15 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: fuzzing
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: performance-testing
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: performance-staging
