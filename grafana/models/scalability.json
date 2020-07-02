@@ -15,97 +15,17 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
+  "iteration": 1593663062607,
   "links": [],
   "panels": [
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "unit": "dateTimeAsIso"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 0
-      },
-      "id": 4,
-      "links": [
-        {
-          "title": "Git commit",
-          "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-        }
-      ],
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^time$/",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "id"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "test_table",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Time of last point",
-      "type": "stat"
-    },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "This is the last Benchmark result recorded for TATP in the time range selected.",
+      "description": "This is the last Benchmark result recorded for $Type in the time range selected.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -131,9 +51,9 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 4,
+        "h": 12,
+        "w": 13,
+        "x": 0,
         "y": 0
       },
       "hiddenSeries": false,
@@ -173,7 +93,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tatp'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = '$Type'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -201,7 +121,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "TATP Scalability ",
+      "title": "$Type scalability ",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -240,13 +160,202 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeFromNow"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 9,
+        "x": 13,
+        "y": 0
+      },
+      "id": 4,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^time$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time,\n  git_commit_id\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "test_table",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Time",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [
+            {
+              "title": "Git commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeFromNow"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 22,
+        "y": 0
+      },
+      "id": 5,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^git_commit_id$/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  git_commit_id\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "test_table",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Commit ID",
+      "transformations": [],
+      "type": "stat"
     }
   ],
+  "refresh": false,
   "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "noop",
+          "value": "noop"
+        },
+        "datasource": "PostgreSQL",
+        "definition": "SELECT benchmark_type FROM test_table;",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Type",
+        "options": [],
+        "query": "SELECT benchmark_type FROM test_table;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-7d",
@@ -266,7 +375,7 @@
     ]
   },
   "timezone": "",
-  "title": "TATP",
+  "title": "Terminals scalability",
   "uid": "djDf5vGGk",
-  "version": 16
+  "version": 14
 }
