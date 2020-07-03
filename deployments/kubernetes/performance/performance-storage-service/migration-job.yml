@@ -13,6 +13,11 @@ spec:
       app: django-migrations
       env: "{{ env }}"
   template:
+    metadata:
+      labels:
+        env: "{{ env }}"
+        controller-uid: e5910172-4f81-4f5c-b691-cc01d1e25deb
+        job-name: django-migrations
     spec:
       labels:
         app: django-migrations
