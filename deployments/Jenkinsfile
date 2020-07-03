@@ -16,9 +16,9 @@ pipeline {
   environment{
     ENV = getEnvFromBranch(env.BRANCH_NAME)
     ANSIBLE_SSH = credentials('jenkins-k8s')
-    PSS_DATABASE = credentials('timescaledb')
-    // PSS_DATABASE = 'password'
-    // PSS_DATABASE_USR = 'postgres'
+    // PSS_DATABASE = credentials('timescaledb')
+    PSS_DATABASE = 'password'
+    PSS_DATABASE_USR = 'postgres'
   }
   agent {
     label 'docker'
@@ -109,14 +109,14 @@ pipeline {
         stage('TimescaleDB') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} pss_db_user=${PSS_DATABASE_USR} pss_db_password=${PSS_DATABASE}\""
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} pss_db_user=${PSS_DATABASE_USR} pss_db_password=\"${PSS_DATABASE}\"\""
             }
           }
         }
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} pss_db_user=${PSS_DATABASE_USR} pss_db_password=${PSS_DATABASE}\""
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV} pss_db_user=${PSS_DATABASE_USR} pss_db_password=\"${PSS_DATABASE}\"\""
             }
           }
         } 
