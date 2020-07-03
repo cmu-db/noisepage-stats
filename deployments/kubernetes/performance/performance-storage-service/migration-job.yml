@@ -8,8 +8,15 @@ metadata:
     env: "{{ env }}"
 spec:
   ttlSecondsAfterFinished: 86400
+  selector:
+    matchLabels:
+      app: django-migrations
+      env: "{{ env }}"
   template:
     spec:
+      labels:
+        app: django-migrations
+        env: "{{ env }}"
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
