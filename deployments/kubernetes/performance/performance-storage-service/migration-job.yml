@@ -3,11 +3,10 @@ kind: Job
 metadata:
   name: django-migrations
   namespace: performance
+  labels:
+    app: django-migrations
+    env: "{{ env }}"
 spec:
-  selector:
-    matchLabels:
-      app: pss
-      env: "{{ env }}"
   ttlSecondsAfterFinished: 86400
   template:
     spec:
