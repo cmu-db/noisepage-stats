@@ -60,7 +60,7 @@ pipeline {
         sh "echo ${env.ENV}"
         sh "ansible --version"
         //sh "sudo apt-add-repository ppa:ansible/ansible"
-        //sh "sudo apt-get -y install ansible"
+        //sh "sudo apt-get -y install ansible"  
       }
     }
     stage('Create Namespaces') {
