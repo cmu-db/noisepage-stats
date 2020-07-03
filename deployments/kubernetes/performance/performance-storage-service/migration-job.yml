@@ -10,7 +10,7 @@ spec:
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
-          command: ["python",  "manage.py", "migrate", "api"]
+          command: ["python",  "manage.py", "migrate"]
           env:
             - name: ENV
               value: "{{ env }}"
