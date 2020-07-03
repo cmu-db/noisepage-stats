@@ -4,13 +4,17 @@ metadata:
   name: django-migrations
   namespace: performance
 spec:
+  selector:
+    matchLabels:
+      app: pss
+      env: "{{ env }}"
   ttlSecondsAfterFinished: 86400
   template:
     spec:
       containers:
         - name: performance-storage-service
           image: "{{ pss_container_image }}"
-          command: ["python",  "manage.py", "migrate"]
+          command: ["python",  "manage.py", "migrate", "api", "--no-input"]
           env:
             - name: ENV
               value: "{{ env }}"
