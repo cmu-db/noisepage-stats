@@ -15,6 +15,14 @@
         name: openshift
         state: present
   tasks:
+
+    - name: Migrate Database
+      vars:
+        job_file: "{{ dir_k8s_pss }}/migration-job.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ job_file }}') }}"
+
     - name: Create Performance Storage Service Deployment
       vars:
         deployment_file: "{{ dir_k8s_pss }}/deployment.yml"
@@ -28,10 +36,3 @@
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
-
-    - name: Migrate Database
-      vars:
-        job_file: "{{ dir_k8s_pss }}/migration-job.yml"
-      k8s:
-        state: present
-        definition: "{{ lookup('template', '{{ job_file }}') }}"
