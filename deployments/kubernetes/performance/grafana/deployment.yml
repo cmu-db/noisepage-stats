@@ -59,5 +59,9 @@ spec:
               value: "7ffdd71821a54b1dec786be735a5518acda97150" #TODO change
             - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
               value: "cmu-db"
+            # Plugin
+            - name: GF_INSTALL_PLUGINS
+              value: "grafana-piechart-panel"
+            
 
               
