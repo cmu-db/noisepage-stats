@@ -1,4 +1,5 @@
-- name: Create timescaledb datasource
+---
+- name: "Create timescaledb datasource"
 grafana_datasource:
     name: "noisepage-db"
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
@@ -7,8 +8,8 @@ grafana_datasource:
     ds_type: "postgres"
     ds_url: "incrudibles-testing.db.pdl.cmu.edu:30003"
     database: "test_db"
-    user: "postgres"
-    password: "password"
+    user: "{{ pss_db_user }}"
+    password: "{{ pss_db_password }}"
     sslmode: "disable"
     jsonData:
-      timescaledb: "true"  
+      timescaledb: "true" 
