@@ -1,6 +1,6 @@
 ---
 - name: "Create timescaledb datasource"
-grafana_datasource:
+  grafana_datasource:
     name: "noisepage-db"
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     grafana_user: "admin"
