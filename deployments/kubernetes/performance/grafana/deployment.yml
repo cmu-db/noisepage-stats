@@ -45,7 +45,7 @@ spec:
             - name: GF_SERVER_DOMAIN
               value: "incrudibles-testing.db.pdl.cmu.edu"
             - name: GF_SERVER_ROOT_URL
-              value: "http://incrudibles-testing.db.pdl.cmu.edu:30002/grafana"
+              value: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
             - name: GF_SERVER_SERVE_FROM_SUB_PATH
               value: "true"
             - name: GF_SERVER_HTTP_PORT
