@@ -11,5 +11,3 @@
     user: "{{ pss_db_user }}"
     password: "{{ pss_db_password }}"
     sslmode: "disable"
-    jsonData:
-      timescaledb: "true" 
