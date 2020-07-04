@@ -28,3 +28,10 @@
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
+
+    - name: Add data source
+      vars:
+        job_file: "{{ dir_k8s_grafana }}/add-datasource.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ job_file }}') }}"

@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+- name: Create timescaledb datasource
+  grafana_datasource:
+    name: "noisepage-db"
+    grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    ds_type: "postgres"
+    ds_url: "incrudibles-testing.db.pdl.cmu.edu:30003"
+    database: "test_db"
+    user: "{{ pss_db_user }}"
+    password: "{{ pss_db_password }}"
+    sslmode: "disable"
+    jsonData:
+      timescaledb: "true"  
