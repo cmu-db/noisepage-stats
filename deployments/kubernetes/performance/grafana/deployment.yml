@@ -63,7 +63,7 @@ spec:
               value: "cmu-db"
             # Plugin
             - name: GF_INSTALL_PLUGINS
-              value: "grafana-piechart-panel"
+              value: "natel-plotly-panel"
             
 
               
