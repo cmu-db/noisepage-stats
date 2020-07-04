@@ -15,13 +15,18 @@
         name: openshift
         state: present
   tasks:
-
+    - name: Remove Old Migration
+      vars:
+        job_file: "{{ dir_k8s_pss }}/migration-job.yml"
+      k8s:
+        state: absent
+        definition: "{{ lookup('template', '{{ job_file }}') }}"
+        
     - name: Migrate Database
       vars:
         job_file: "{{ dir_k8s_pss }}/migration-job.yml"
       k8s:
         state: present
-        force: yes
         definition: "{{ lookup('template', '{{ job_file }}') }}"
 
     - name: Create Performance Storage Service Deployment
