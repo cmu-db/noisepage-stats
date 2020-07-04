@@ -3,7 +3,7 @@
     name: grafana-add-source
     namespace: performance
   grafana_datasource:
-    name: "noisepage-db"
+  - name: "noisepage-db"
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     grafana_user: "admin"
     grafana_password: "admin"
