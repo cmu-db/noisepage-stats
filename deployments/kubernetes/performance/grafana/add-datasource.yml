@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
-- name: Create timescaledb datasource
-  grafana_datasource:
+name: Create timescaledb datasource
+grafana_datasource:
     name: "noisepage-db"
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     grafana_user: "admin"
