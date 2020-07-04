@@ -7,8 +7,8 @@ grafana_datasource:
     ds_type: "postgres"
     ds_url: "incrudibles-testing.db.pdl.cmu.edu:30003"
     database: "test_db"
-    user: "{{ pss_db_user }}"
-    password: "{{ pss_db_password }}"
+    user: "postgres"
+    password: "password"
     sslmode: "disable"
     jsonData:
       timescaledb: "true"  
