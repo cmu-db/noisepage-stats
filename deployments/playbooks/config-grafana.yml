@@ -1,0 +1,61 @@
+---
+- hosts: "{{ env }}"
+  name: Deploy Grafana
+  vars:
+    hostname: "{{ inventory_hostname }}"
+    dir_repo: "{{ inventory_dir | dirname }}"
+    dir_local_grafana_dashboards: "{{ dir_repo }}/grafana/dashboards"
+    dir_remote_grafana_dashboards: "/data/grafana/dashboards"
+    db_service_port_dict:
+      testing: 30003
+      staging: 31003
+      production: 32003
+    db_service_port: "{{ db_service_port_dict[env] }}"
+  tasks:
+    - name: Add grafana data source
+      grafana_datasource:
+        name: "noisepage-db"
+        grafana_url: "http://{{ hostname }}/grafana"
+        url_username: "admin"
+        url_password: "admin"
+        ds_type: "postgres"
+        ds_url: "{{ hostname }}:{{ db_service_port }}"
+        database: "test_db"
+        user: "{{ pss_db_user }}"
+        password: "{{ pss_db_password }}"
+        sslmode: "disable"
+    
+    - name: Import Grafana dashboards
+      block:
+        - name: Ensure grafana dashboard dir exist
+          become: yes
+          file:
+            path: "{{ dir_remote_grafana_dashboards }}"
+            state: directory
+            owner: root
+            mode: 0755
+
+        - name: Upload dashboards JSON files
+          become: yes
+          copy:
+            src: "{{ item }}"
+            dest: "{{ dir_remote_grafana_dashboards }}"
+            owner: root
+            mode: 0644
+          with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
+
+        - name: Find all remote dashboard JSON files
+          find:
+            path: "{{ dir_remote_grafana_dashboards }}"
+          register: result_dashboards
+
+        - name: Add grafana dashboards
+          grafana_dashboard:
+            grafana_url: "http://{{ hostname }}/grafana"
+            url_username: "admin"
+            url_password: "admin"
+            state: present
+            message: Updated by ansible
+            overwrite: yes
+            path: "{{ item.path }}"
+          with_items: "{{ result_dashboards.files }}"

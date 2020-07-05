@@ -1,12 +1,38 @@
 ---
-- name: Add grafana databoard
-  vars:
-    dir_k8s_grafana_dashboards: "{{ inventory_dir | dirname }}/grafana/dashboards"  
-  grafana_dashboard:
-    grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
-    url_username: "admin"
-    url_password: "admin"
-    state: present
-    message: Updated by ansible
-    overwrite: yes
-    path: "{{ lookup('file','{{dir_k8s_grafana_dashboards}}/Scalability.json') }}"
+
+- name: ensure grafana dashboard dir exist
+  become: yes
+  file:
+    path: "{{ dir_remote_grafana_dashboards }}"
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: copy dashboards json
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dir_remote_grafana_dashboards }}"
+    owner: root
+    mode: 0644
+  with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
+
+- name: find all remote dashboard json files
+  find:
+    path: "{{ dir_remote_grafana_dashboards }}"
+  register: result_dashboards
+
+- debug:
+    var: "{{ item.path }}"
+  with_items: "{{ result_dashboards.files }}"
+
+# - name: Add grafana databoard
+#   grafana_dashboard:
+#     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
+#     url_username: "admin"
+#     url_password: "admin"
+#     state: present
+#     message: Updated by ansible
+#     overwrite: yes
+#     path: "{{ item.path }}"
+#   with_items: "{{ result_dashboards.files }}"

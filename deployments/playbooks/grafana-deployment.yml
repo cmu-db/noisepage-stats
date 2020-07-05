@@ -28,11 +28,3 @@
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
-
-    - name: Add data source
-      include_tasks:
-        file: "{{ dir_k8s_grafana }}/add-datasource.yml"
-    
-    - name: Import Grafana dashboard
-      include_tasks:
-        file: "{{ dir_k8s_grafana }}/import-dashboard.yml"
