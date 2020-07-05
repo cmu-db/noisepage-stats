@@ -9,4 +9,4 @@
     state: present
     message: Updated by ansible
     overwrite: yes
-    path: "{{ lookup('file','{{dir_json_model_repo}}/Scalability.json') }}"
+    path: "{{ lookup('file','{{dir_k8s_grafana_dashboards}}/Scalability.json') }}"
