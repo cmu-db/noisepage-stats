@@ -1,5 +1,4 @@
 ---
-- hosts: "{{ host_override | default('k8s_master') }}"
 - name: Add grafana databoard
   vars:
     dir_k8s_grafana_dashboards: "{{ inventory_dir | dirname }}/grafana/dashboards"  
