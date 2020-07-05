@@ -1,7 +1,5 @@
 ---
 - name: Add grafana databoard
-  vars:
-    dir_json_model_repo: "{{inventory_dir | dirname}}/grafana/models"  
   grafana_dashboard:
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     url_username: "admin"
@@ -9,4 +7,4 @@
     state: present
     message: Updated by ansible
     overwrite: yes
-    path: "{{dir_json_model_repo}}/scalability.json"
+    path: "/tmp/temp.json"
