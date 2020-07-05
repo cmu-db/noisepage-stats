@@ -19,7 +19,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -93,7 +93,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -167,7 +167,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -241,7 +241,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -319,7 +319,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -393,7 +393,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -467,7 +467,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -545,7 +545,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -623,7 +623,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PostgreSQL",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -858,7 +858,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PostgreSQL",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1089,7 +1089,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1163,7 +1163,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1237,7 +1237,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1311,7 +1311,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1389,7 +1389,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1463,7 +1463,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1537,7 +1537,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1611,7 +1611,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -1693,7 +1693,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PostgreSQL",
+      "datasource": "noisepage-db",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1929,7 +1929,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PostgreSQL",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -2160,7 +2160,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -2234,7 +2234,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -2308,7 +2308,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -2382,7 +2382,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "terminals = 16\n\nclient-time = 60",
       "fieldConfig": {
         "defaults": {
@@ -2464,7 +2464,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PostgreSQL",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {}
