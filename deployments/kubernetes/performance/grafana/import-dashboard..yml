@@ -1,5 +1,7 @@
 ---
 - name: Add grafana data source
+  vars:
+    dir_json_model_repo: "{{ inventory_dir }}/../grafana/models"
   grafana_datasource:
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     url_username: "admin"
@@ -7,4 +9,4 @@
     state: present
     message: Updated by ansible
     overwrite: yes
-    path: "{{ inventory_dir }}/../"
+    path: "{{dir_json_model_repo}}/nightly.json"
