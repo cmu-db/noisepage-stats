@@ -1,7 +1,8 @@
 ---
+- hosts: "{{ host_override | default('k8s_master') }}"
 - name: Add grafana databoard
   vars:
-    dir_json_model_repo: "{{ inventory_dir | dirname}}/grafana/models"  
+    dir_k8s_grafana_dashboards: "{{ inventory_dir | dirname }}/grafana/dashboards"  
   grafana_dashboard:
     grafana_url: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
     url_username: "admin"
@@ -9,4 +10,4 @@
     state: present
     message: Updated by ansible
     overwrite: yes
-    path: "{{dir_json_model_repo}}/scalability.json"
+    path: "{{lookup('file','{{dir_json_model_repo}}/Scalability.json'}}"

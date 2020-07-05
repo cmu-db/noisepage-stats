@@ -33,6 +33,6 @@
       include_tasks:
         file: "{{ dir_k8s_grafana }}/add-datasource.yml"
     
-    # - name: Import Grafana dashboard
-    #   include_tasks:
-    #     file: "{{ dir_k8s_grafana }}/import-dashboard.yml"
+    - name: Import Grafana dashboard
+      include_tasks:
+        file: "{{ dir_k8s_grafana }}/import-dashboard.yml"
