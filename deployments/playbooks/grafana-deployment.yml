@@ -32,8 +32,7 @@
     - name: Add data source
       include_tasks:
         file: "{{ dir_k8s_grafana }}/add-datasource.yml"
-      # vars:
-      #   job_file: "{{ dir_k8s_grafana }}/add-datasource.yml"
-      # k8s:
-      #   state: present
-      #   definition: "{{ lookup('template', '{{ job_file }}') }}"
+    
+    - name: Import Grafana dashboard
+      include_tasks:
+        file: "{{ dir_k8s_grafana }}/import-dashboard.yml"
