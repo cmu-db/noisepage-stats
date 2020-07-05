@@ -9,4 +9,4 @@
     state: present
     message: Updated by ansible
     overwrite: yes
-    path: "{{dir_json_model_repo}}/nightly.json"
+    path: "{{dir_json_model_repo}/scalability.json"
