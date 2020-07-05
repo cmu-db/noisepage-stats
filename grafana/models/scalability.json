@@ -24,7 +24,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "noisepage-db",
       "description": "This is the last Benchmark result recorded for $Type in the time range selected.",
       "fieldConfig": {
         "defaults": {
@@ -162,7 +162,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -240,7 +240,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -336,7 +336,7 @@
           "text": "noop",
           "value": "noop"
         },
-        "datasource": "PostgreSQL",
+        "datasource": "noisepage-db",
         "definition": "SELECT benchmark_type FROM test_table;",
         "hide": 0,
         "includeAll": false,

@@ -23,7 +23,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": null,
+        "datasource": "noisepage-db",
         "description": "This is the last Benchmark result recorded for TATP in the time range selected.",
         "fieldConfig": {
           "defaults": {
@@ -161,7 +161,7 @@
         }
       },
       {
-        "datasource": null,
+        "datasource": "noisepage-db",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -277,7 +277,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "noisepage-db",
         "description": "terminals = 16\n\nclient-time = 60",
         "fieldConfig": {
           "defaults": {
@@ -372,7 +372,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "noisepage-db",
         "description": "terminals = 16\n\nclient-time = 60",
         "fieldConfig": {
           "defaults": {
