@@ -13,8 +13,14 @@
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
-        name: openshift
         state: present
+        name: openshift
+
+    - name: Ensure psycopg2 is installed
+      pip:
+        state: present
+        name: psycopg2
+        
   tasks:
     - name: Create TimescaleDB Deployment
       vars:
