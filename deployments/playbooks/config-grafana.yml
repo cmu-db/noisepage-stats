@@ -37,12 +37,11 @@
 
         - name: Upload dashboards JSON files
           become: yes
-          copy:
-            src: "{{ item }}"
+          synchronize:
+            src: "{{ dir_local_grafana_dashboards }}"
             dest: "{{ dir_remote_grafana_dashboards }}"
-            owner: root
-            mode: 0644
-          with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
+            recursive: yes
+            delete: yes
 
         - name: Find all remote dashboard JSON files
           find:
