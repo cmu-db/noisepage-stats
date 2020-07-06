@@ -19,8 +19,8 @@
     - name: Ensure psycopg2 is installed
       pip:
         state: present
-        name: psycopg2
-        
+        name: psycopg2-binary
+
   tasks:
     - name: Create TimescaleDB Deployment
       vars:
