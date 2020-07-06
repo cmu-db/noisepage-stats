@@ -45,7 +45,7 @@
         login_user: "{{ pss_db_user }}"
         login_password: "{{ pss_db_password }}"
       register: result
-      until: result.is_available == True
+      until: result['is_available'] == True
       retries: 10
       delay: 10
 
