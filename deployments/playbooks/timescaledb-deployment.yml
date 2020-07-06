@@ -45,11 +45,9 @@
         port: 30003
         login_user: "{{ pss_db_user }}"
         login_password: "{{ pss_db_password }}"
-      # until: result.is_available == True
-      # retries: 10
-      # delay: 10
-    - name: Print SSH public key
-      debug: var=result
+      until: result.is_available == True
+      retries: 10
+      delay: 10
 
     - name: Add pss_datatabase Database
       postgresql_db:
