@@ -12,11 +12,6 @@
       production: 32003
     db_service_port: "{{ db_service_port_dict[env] }}"
   tasks:
-    - apt:
-        name: rsync
-      become: yes
-      delegate_to: localhost
-
     - name: Add grafana data source
       grafana_datasource:
         name: "noisepage-db"
