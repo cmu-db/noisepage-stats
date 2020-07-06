@@ -40,14 +40,17 @@
       register: result
       postgresql_ping:
         state: present
+        ssl_mode: disable
         db: postgres
         login_host: "incrudibles-testing.db.pdl.cmu.edu"
         port: 30003
         login_user: "{{ pss_db_user }}"
         login_password: "{{ pss_db_password }}"
-      until: result.is_available == True
-      retries: 10
-      delay: 10
+      # until: result.is_available == True
+      # retries: 10
+      # delay: 10
+    - name: Print SSH public key
+      debug: var=result
 
     - name: Add pss_datatabase Database
       postgresql_db:
