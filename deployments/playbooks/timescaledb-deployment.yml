@@ -39,7 +39,6 @@
     - name: Wait for postgres to start
       register: result
       postgresql_ping:
-        state: present
         ssl_mode: disable
         db: postgres
         login_host: "incrudibles-testing.db.pdl.cmu.edu"
