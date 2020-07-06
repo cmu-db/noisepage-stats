@@ -27,6 +27,12 @@
     
     - name: Import Grafana dashboards
       block:
+        - name: Purge grafana dashboard dir contents
+          become: yes
+          file:
+            path: "{{ dir_remote_grafana_dashboards }}"
+            state: absent
+
         - name: Ensure grafana dashboard dir exist
           become: yes
           file:
@@ -35,13 +41,23 @@
             owner: root
             mode: 0755
 
-        - name: Upload dashboards JSON files
+        - name: Copy dashboards JSON files
           become: yes
-          synchronize:
-            src: "{{ dir_local_grafana_dashboards }}"
+          copy:
+            src: "{{ item }}"
             dest: "{{ dir_remote_grafana_dashboards }}"
-            recursive: yes
-            delete: yes
+            owner: root
+            mode: 0644
+          with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
+
+        # TODO: ask Chad to install rsync on jenkins agents, then use synchronize later
+        # - name: Upload dashboards JSON files
+        #   become: yes
+        #   synchronize:
+        #     src: "{{ dir_local_grafana_dashboards }}"
+        #     dest: "{{ dir_remote_grafana_dashboards }}"
+        #     recursive: yes
+        #     delete: yes
 
         - name: Find all remote dashboard JSON files
           find:
