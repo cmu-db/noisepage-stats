@@ -25,3 +25,4 @@
 - debug:
     var: "{{ item.path }}"
   with_items: "{{ result_dashboards.files }}"
+  
