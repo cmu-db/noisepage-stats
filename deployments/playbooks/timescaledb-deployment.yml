@@ -36,6 +36,19 @@
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
 
+    - name: Wait for postgres to start
+      postgresql_ping:
+        state: present
+        name: postgres
+        login_host: "incrudibles-testing.db.pdl.cmu.edu"
+        port: 30003
+        login_user: "{{ pss_db_user }}"
+        login_password: "{{ pss_db_password }}"
+      register: result
+      until: result.is_available == True
+      retries: 10
+      delay: 10
+
     - name: Add pss_datatabase Database
       postgresql_db:
         state: present
