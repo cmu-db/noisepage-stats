@@ -15,30 +15,200 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1593967389537,
+  "id": 12,
+  "iteration": 1594008905549,
   "links": [],
   "panels": [
     {
-      "content": "# Lowest $Type, terminals = $Terminals",
-      "datasource": null,
+      "datasource": "noisepage-db",
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "displayName": "Average",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 11,
+        "h": 6,
+        "w": 3,
         "x": 0,
         "y": 0
       },
-      "id": 15,
-      "mode": "markdown",
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_table\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = '$Type' AND\n   terminals = '$Terminals'\nGROUP BY terminals",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "",
-      "type": "text"
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": -10
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "terminals"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "purple",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 3,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT distinct terminals,\n  (FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\n   \nFROM test_table\nWHERE\n   $__timeFilter(time) AND \n   benchmark_type = '$Type'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$Type- % Change",
+      "transformations": [],
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -56,7 +226,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 19,
+        "h": 18,
         "w": 13,
         "x": 11,
         "y": 0
@@ -277,207 +447,6 @@
       }
     },
     {
-      "datasource": "noisepage-db",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "terminals"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "purple",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 2
-      },
-      "id": 13,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  result->>'throughput'\nFROM test_table\nWHERE\n  id IN (SELECT id\n          FROM test_table\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Throughput",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Git Commit",
-              "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-            }
-          ],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "purple",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "git_commit_id"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Git"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "time"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Time"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 7,
-        "x": 4,
-        "y": 2
-      },
-      "id": 19,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "/.*/",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_table\nWHERE\n  id IN (SELECT id\n          FROM test_table\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Commit",
-      "type": "stat"
-    },
-    {
       "content": "# Highest $Type, terminals = $Terminals",
       "datasource": null,
       "fieldConfig": {
@@ -583,7 +552,7 @@
             {
               "targetBlank": true,
               "title": "Git Commit",
-              "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
             }
           ],
           "mappings": [],
@@ -680,6 +649,28 @@
       "type": "stat"
     },
     {
+      "content": "# Lowest $Type, terminals = $Terminals",
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 11,
+        "x": 0,
+        "y": 12
+      },
+      "id": 15,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
       "datasource": "noisepage-db",
       "description": "",
       "fieldConfig": {
@@ -692,14 +683,6 @@
               {
                 "color": "red",
                 "value": null
-              },
-              {
-                "color": "yellow",
-                "value": -10
-              },
-              {
-                "color": "green",
-                "value": 0
               }
             ]
           },
@@ -725,36 +708,24 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Change"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
           }
         ]
       },
       "gridPos": {
-        "h": 7,
-        "w": 11,
+        "h": 4,
+        "w": 4,
         "x": 0,
-        "y": 12
+        "y": 14
       },
-      "id": 4,
+      "id": 13,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "/.*/",
           "values": true
@@ -767,7 +738,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT distinct terminals,\n  (FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\n   \nFROM test_table\nWHERE\n   $__timeFilter(time) AND \n   benchmark_type = '$Type'\nORDER BY 1",
+          "rawSql": "SELECT\n  result->>'throughput'\nFROM test_table\nWHERE\n  id IN (SELECT id\n          FROM test_table\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -791,8 +762,113 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "$Type- % Change",
-      "transformations": [],
+      "title": "Throughput",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Git Commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "git_commit_id"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Git"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 4,
+        "y": 14
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_table\nWHERE\n  id IN (SELECT id\n          FROM test_table\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Commit",
       "type": "stat"
     }
   ],
@@ -805,8 +881,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "tpcc",
+          "value": "tpcc"
         },
         "datasource": "noisepage-db",
         "definition": "SELECT benchmark_type FROM test_table;",
