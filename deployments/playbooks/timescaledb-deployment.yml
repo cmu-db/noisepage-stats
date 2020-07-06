@@ -13,8 +13,14 @@
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
-        name: openshift
         state: present
+        name: openshift
+
+    - name: Ensure psycopg2 is installed
+      pip:
+        state: present
+        name: psycopg2-binary
+
   tasks:
     - name: Create TimescaleDB Deployment
       vars:
@@ -29,3 +35,25 @@
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
+
+    - name: Wait for postgres to start
+      register: result
+      postgresql_ping:
+        ssl_mode: disable
+        db: postgres
+        login_host: "incrudibles-testing.db.pdl.cmu.edu"
+        port: 30003
+        login_user: "{{ pss_db_user }}"
+        login_password: "{{ pss_db_password }}"
+      until: result.is_available == True
+      retries: 10
+      delay: 10
+
+    - name: Add pss_datatabase Database
+      postgresql_db:
+        state: present
+        name: "{{ pss_db_name }}"
+        login_host: "incrudibles-testing.db.pdl.cmu.edu"
+        port: 30003
+        login_user: "{{ pss_db_user }}"
+        login_password: "{{ pss_db_password }}"

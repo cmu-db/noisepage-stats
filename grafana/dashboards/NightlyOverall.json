@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 10,
   "links": [],
   "panels": [
     {
@@ -1201,7 +1202,7 @@
     "list": []
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
@@ -1218,6 +1219,6 @@
     ]
   },
   "timezone": "",
-  "title": "Nightly Overall",
+  "title": "Overall",
   "uid": "IYJlt1MMz"
 }
