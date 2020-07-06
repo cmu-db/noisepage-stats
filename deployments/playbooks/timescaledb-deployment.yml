@@ -40,7 +40,7 @@
       register: result
       postgresql_ping:
         state: present
-        name: postgres
+        db: postgres
         login_host: "incrudibles-testing.db.pdl.cmu.edu"
         port: 30003
         login_user: "{{ pss_db_user }}"
