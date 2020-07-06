@@ -45,6 +45,7 @@
         "x": 0,
         "y": 0
       },
+      "id": 20,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -159,6 +160,7 @@
         "x": 3,
         "y": 0
       },
+      "id": 4,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -229,6 +231,7 @@
         "y": 0
       },
       "hiddenSeries": false,
+      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -457,6 +460,7 @@
         "x": 0,
         "y": 6
       },
+      "id": 16,
       "mode": "markdown",
       "timeFrom": null,
       "timeShift": null,
@@ -489,6 +493,7 @@
         "x": 0,
         "y": 8
       },
+      "id": 17,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -594,6 +599,7 @@
         "x": 4,
         "y": 8
       },
+      "id": 18,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -710,6 +716,7 @@
         "x": 0,
         "y": 14
       },
+      "id": 13,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -815,6 +822,7 @@
         "x": 4,
         "y": 14
       },
+      "id": 19,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -936,10 +944,10 @@
       "30m",
       "1h",
       "2h",
-      "1d",
-      "3d"
+      "1d"
     ]
   },
   "timezone": "",
-  "title": "OLTPBench"
+  "title": "OLTPBench",
+  "uid": "oltpbenchmark"
 }
