@@ -12,8 +12,6 @@ image_pull_policy="Always"
 testing
 staging
 production
-[k8s_worker:vars]
-ansible_python_interpreter=/usr/bin/python3
 
 [all:vars]
 # TODO: create an account for ansible on the k8s_master nodes
@@ -46,10 +44,14 @@ image_pull_policy= "IfNotPresent"
 [testing]
 # list of testing env hostname/ip
 incrudibles-testing.db.pdl.cmu.edu
+[testing:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 [staging]
 # list of staging env hostname/ip
 incrudibles-staging.db.pdl.cmu.edu
+[staging:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 [production]
 # list of production env hostname/ip
