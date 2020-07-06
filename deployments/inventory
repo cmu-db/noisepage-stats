@@ -9,10 +9,11 @@ ansible_python_interpreter=/usr/bin/python3
 image_pull_policy="Always"
 
 [k8s_worker:children]
-local
 testing
 staging
 production
+[k8s_worker:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 [all:vars]
 # TODO: create an account for ansible on the k8s_master nodes
