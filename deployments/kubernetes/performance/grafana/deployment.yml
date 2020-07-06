@@ -25,8 +25,8 @@ spec:
         env: "{{ env }}"
       volumes:
         - name: grafana-volume
-          persistentVolumeClaim:
-            claimName: grafana-volume 
+          # persistentVolumeClaim:
+          #   claimName: grafana-volume 
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
