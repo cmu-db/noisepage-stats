@@ -83,7 +83,8 @@ pipeline {
       steps {
         dir('deployments'){
           script{
-            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} \
+              --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
           }
         }
       }
@@ -109,22 +110,30 @@ pipeline {
         stage('TimescaleDB') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} -e pss_db_password=${PSS_DATABASE}"
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml \
+                --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} \
+                -e pss_db_user=${PSS_DATABASE_USR} -e pss_db_password=${PSS_DATABASE_PSW}"
             }
           }
         }
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} -e pss_db_password=${PSS_DATABASE}"
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} \
+                -e pss_db_password=${PSS_DATABASE_PSW}"
             }
           }
         } 
         stage('Grafana') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} -e pss_db_password=${PSS_DATABASE}"
-              sh "ansible-playbook -i inventory playbooks/config-grafana.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} -e pss_db_password=${PSS_DATABASE}"
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} \
+                -e pss_db_password=${PSS_DATABASE_PSW}"
+              sh "ansible-playbook -i inventory playbooks/config-grafana.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} \
+                -e pss_db_password=${PSS_DATABASE_PSW}"
             }
           }
         } 
