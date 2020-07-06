@@ -39,7 +39,6 @@
         "y": 0
       },
       "hiddenSeries": false,
-      "id": 6,
       "legend": {
         "avg": false,
         "current": false,
@@ -274,7 +273,6 @@
         "y": 9
       },
       "hiddenSeries": false,
-      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -509,7 +507,6 @@
         "y": 17
       },
       "hiddenSeries": false,
-      "id": 4,
       "legend": {
         "avg": false,
         "current": false,
@@ -744,7 +741,6 @@
         "y": 25
       },
       "hiddenSeries": false,
-      "id": 8,
       "legend": {
         "avg": false,
         "current": false,
@@ -979,7 +975,6 @@
         "y": 34
       },
       "hiddenSeries": false,
-      "id": 10,
       "legend": {
         "avg": false,
         "current": false,
