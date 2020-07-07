@@ -23,4 +23,3 @@ spec:
             - name: PSS_DATABASE_PORT
               value: "5432"
       restartPolicy: Never
-  backoffLimit: 5
