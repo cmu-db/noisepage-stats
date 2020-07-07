@@ -4,7 +4,7 @@ metadata:
   name: django-migrations
   namespace: performance
 spec:
-  ttlSecondsAfterFinished: 30
+  ttlSecondsAfterFinished: 43200
   template:
     spec:
       containers:
@@ -23,3 +23,4 @@ spec:
             - name: PSS_DATABASE_PORT
               value: "5432"
       restartPolicy: Never
+  backoffLimit: 5
