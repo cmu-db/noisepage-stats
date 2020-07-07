@@ -67,7 +67,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time,\n  git_commit_id\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "rawSql": "SELECT\n  time,\n  git_commit_id\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
           "refId": "A",
           "select": [
             [
@@ -79,7 +79,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -150,7 +150,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  git_commit_id\nFROM test_table\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "rawSql": "SELECT\n  git_commit_id\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
           "refId": "A",
           "select": [
             [
@@ -162,7 +162,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -259,7 +259,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tatp'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tatp'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -271,7 +271,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "terminals",
           "timeColumnType": "numeric",
           "where": [
@@ -401,7 +401,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'noop'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'noop'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -413,7 +413,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "terminals",
           "timeColumnType": "numeric",
           "where": [
@@ -548,7 +548,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'ycsb'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'ycsb'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -560,7 +560,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "terminals",
           "timeColumnType": "numeric",
           "where": [
@@ -695,7 +695,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'smallbank'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'smallbank'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -707,7 +707,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "terminals",
           "timeColumnType": "numeric",
           "where": [
@@ -842,7 +842,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_table\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tpcc'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tpcc'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -854,7 +854,7 @@
               }
             ]
           ],
-          "table": "test_table",
+          "table": "test_oltpbench_result",
           "timeColumn": "terminals",
           "timeColumnType": "numeric",
           "where": [
