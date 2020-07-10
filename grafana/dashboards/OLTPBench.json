@@ -66,7 +66,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   AVG(CAST(result->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = '$Type' AND\n   terminals = '$Terminals'\nGROUP BY terminals",
+          "rawSql": "SELECT\n   AVG(CAST(metrics->>'throughput' AS DOUBLE PRECISION)) AS \"throughput\"\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(\"time\") AND\n   benchmark_type = '$Type' AND\n   terminals = '$Terminals'\nGROUP BY terminals",
           "refId": "A",
           "select": [
             [
@@ -181,7 +181,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT distinct terminals,\n  (FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(result->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\n   \nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND \n   benchmark_type = '$Type'\nORDER BY 1",
+          "rawSql": "SELECT distinct terminals,\n  (FIRST_VALUE(CAST(metrics->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->>'throughput' AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\n   \nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND \n   benchmark_type = '$Type'\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -266,7 +266,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 1\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '1'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  metrics->>'throughput' AS \"terminals = 1\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '1'\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -304,7 +304,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 2\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '2'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  metrics->>'throughput' AS \"terminals = 2\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '2'\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -330,7 +330,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 4\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '4'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  metrics->>'throughput' AS \"terminals = 4\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '4'\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -356,7 +356,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 8\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '8'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  metrics->>'throughput' AS \"terminals = 8\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '8'\nORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -382,7 +382,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  result->>'throughput' AS \"terminals = 16\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '16'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  metrics->>'throughput' AS \"terminals = 16\",\n  \"git_commit_id\" AS \"git_commit_id\"\nFROM test_oltpbench_result\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = '$Type' AND\n  terminals = '16'\nORDER BY 1",
           "refId": "E",
           "select": [
             [
@@ -514,7 +514,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  result->>'throughput'\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  metrics->>'throughput'\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY metrics->>'throughput' DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -620,7 +620,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY metrics->>'throughput' DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -737,7 +737,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  result->>'throughput'\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  metrics->>'throughput'\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY metrics->>'throughput' ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -843,7 +843,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY result->>'throughput' ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  time,git_commit_id\nFROM test_oltpbench_result\nWHERE\n  id IN (SELECT id\n          FROM test_oltpbench_result\n          WHERE $__timeFilter(time) AND\n                benchmark_type = '$Type' AND\n                terminals = '$Terminals'\n          GROUP BY time, terminals, id\n          ORDER BY terminals, time desc) AND\n  $__timeFilter(time)\nORDER BY metrics->>'throughput' ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [

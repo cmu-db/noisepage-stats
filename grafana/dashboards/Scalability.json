@@ -259,7 +259,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tatp'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tatp'\nGROUP BY time, benchmark_type, terminals, metrics->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -401,7 +401,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'noop'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'noop'\nGROUP BY time, benchmark_type, terminals, metrics->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -548,7 +548,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'ycsb'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'ycsb'\nGROUP BY time, benchmark_type, terminals, metrics->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -695,7 +695,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'smallbank'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'smallbank'\nGROUP BY time, benchmark_type, terminals, metrics->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
@@ -842,7 +842,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(result->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tpcc'\nGROUP BY time, benchmark_type, terminals, result->>'throughput'\nORDER BY terminals, time",
+          "rawSql": "SELECT\n   time,\n   CAST(terminals AS TEXT) as metric,\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM test_oltpbench_result\nWHERE\n   $__timeFilter(time) AND\n   benchmark_type = 'tpcc'\nGROUP BY time, benchmark_type, terminals, metrics->>'throughput'\nORDER BY terminals, time",
           "refId": "A",
           "select": [
             [
