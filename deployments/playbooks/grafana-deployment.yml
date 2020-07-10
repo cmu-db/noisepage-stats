@@ -28,4 +28,3 @@
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}"
-
