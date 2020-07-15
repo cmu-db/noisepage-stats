@@ -17,14 +17,12 @@ pipeline {
     ENV = getEnvFromBranch(env.BRANCH_NAME)
     ANSIBLE_SSH = credentials('jenkins-k8s')
     PSS_DATABASE = credentials('timescaledb')
-    // PSS_DATABASE = 'password'
-    // PSS_DATABASE_USR = 'postgres'
   }
   agent {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "testing-team/noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
