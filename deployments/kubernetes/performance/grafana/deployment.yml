@@ -1,8 +1,6 @@
 ---
 apiVersion: apps/v1
 kind: Deployment
-vars:
-  hostname: "{{ inventory_hostname }}"
 metadata:
   name: "{{ env }}-grafana"
   namespace: "performance"
@@ -45,9 +43,9 @@ spec:
             - name: GF_LOG_MODE
               value: "console file"
             - name: GF_SERVER_DOMAIN
-              value: "{{ hostname }}"
+              value: "{{ inventory_hostname }}"
             - name: GF_SERVER_ROOT_URL
-              value: "http://{{ hostname }}/grafana"
+              value: "http://{{ inventory_hostname }}/grafana"
             - name: GF_SERVER_SERVE_FROM_SUB_PATH
               value: "true"
             - name: GF_SERVER_HTTP_PORT
