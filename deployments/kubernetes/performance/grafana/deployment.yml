@@ -1,6 +1,8 @@
 ---
 apiVersion: apps/v1
 kind: Deployment
+vars:
+  hostname: "{{ inventory_hostname }}"
 metadata:
   name: "{{ env }}-grafana"
   namespace: "performance"
@@ -43,13 +45,17 @@ spec:
             - name: GF_LOG_MODE
               value: "console file"
             - name: GF_SERVER_DOMAIN
-              value: "incrudibles-testing.db.pdl.cmu.edu"
+              value: "{{ hostname }}"
             - name: GF_SERVER_ROOT_URL
-              value: "http://incrudibles-testing.db.pdl.cmu.edu/grafana"
+              value: "http://{{ hostname }}/grafana"
             - name: GF_SERVER_SERVE_FROM_SUB_PATH
               value: "true"
             - name: GF_SERVER_HTTP_PORT
               value: "3000"
+            - name: GF_ADMIN_USER
+              value: "admin"
+            - name: GF_ADMIN_PASSWORD
+              value: "{{ pss_db_password }}"
             #GitHub Login
             - name: GF_AUTH_GITHUB_ENABLED
               value: "true"
@@ -61,9 +67,5 @@ spec:
               value: "7ffdd71821a54b1dec786be735a5518acda97150" #TODO change
             - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
               value: "cmu-db"
-            # Plugin
-            - name: GF_INSTALL_PLUGINS
-              value: "natel-plotly-panel"
-            
 
               
