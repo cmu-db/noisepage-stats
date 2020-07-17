@@ -68,7 +68,7 @@
           grafana_dashboard:
             grafana_url: "http://{{ hostname }}/grafana"
             url_username: "admin"
-            url_password: "admin"
+            password: "{{ pss_db_password }}"
             state: present
             message: Updated by ansible
             overwrite: yes
