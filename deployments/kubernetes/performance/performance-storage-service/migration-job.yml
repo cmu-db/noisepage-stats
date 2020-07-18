@@ -21,12 +21,12 @@ spec:
             - name: PSS_DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  name: "pss-db-secrets-{{ env }}"
+                  name: "secrets-{{ env }}"
                   key: pss_db_user
             - name: PSS_DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: "pss-db-secrets-{{ env }}"
+                  name: "secrets-{{ env }}"
                   key: pss_db_password
       restartPolicy: Never
   backoffLimit: 5

@@ -118,8 +118,7 @@ pipeline {
           steps{
             dir('deployments'){
               sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} \
-                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV} -e pss_db_user=${PSS_DATABASE_USR} \
-                -e pss_db_password=${PSS_DATABASE_PSW}"
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }
           }
         } 
