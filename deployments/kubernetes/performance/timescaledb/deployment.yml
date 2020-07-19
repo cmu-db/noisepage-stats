@@ -36,9 +36,15 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: "{{ pss_db_user }}"
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
             - name: POSTGRES_PASSWORD
-              value: "{{ pss_db_password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data
