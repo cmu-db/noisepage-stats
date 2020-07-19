@@ -13,6 +13,7 @@
       production: 32002
     service_port: "{{ service_port_dict[env] }}"
     timescaledb_port: "{{ service_port | int + 1 }}"
+    ansible_python_interpreter: /usr/bin/python3
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
