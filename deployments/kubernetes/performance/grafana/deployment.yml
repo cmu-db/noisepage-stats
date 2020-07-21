@@ -74,6 +74,3 @@ spec:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
                   key: gf_auth_github_client_secret
-            
-
-              
