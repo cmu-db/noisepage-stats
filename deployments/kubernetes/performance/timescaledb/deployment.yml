@@ -48,4 +48,3 @@ spec:
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data
-# Trigger
