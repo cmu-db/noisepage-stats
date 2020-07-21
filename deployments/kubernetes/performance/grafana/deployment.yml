@@ -56,9 +56,9 @@ spec:
               value: "true"
             - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
               value: "cmu-db"
-            - name: GF_ADMIN_USER
+            - name: GF_SECURITY_ADMIN_USER
               value: "admin"
-            - name: GF_ADMIN_PASSWORD
+            - name: GF_SECURITY_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
