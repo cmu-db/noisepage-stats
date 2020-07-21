@@ -83,5 +83,3 @@
             - result_secret_gf_admin_password is defined
             - result_secret_gf_admin_password.stdout is defined
             
-            
-    
