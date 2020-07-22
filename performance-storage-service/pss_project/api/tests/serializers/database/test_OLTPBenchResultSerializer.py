@@ -14,15 +14,14 @@ class TestOLTPBenchResultSerializer(TestCase):
         input = OLTPBenchDBFactory()
         serializer = OLTPBenchResultSerializer(instance=input)
         for key in serializer.data.keys():
-            input_value = getattr(input,key)
-            if isinstance(input_value,float):
-                self.assertEqual(float(serializer.data[key]),input_value)
+            input_value = getattr(input, key)
+            if isinstance(input_value, float):
+                self.assertEqual(float(serializer.data[key]), input_value)
             else:
-                self.assertEqual(serializer.data[key],input_value)
-
+                self.assertEqual(serializer.data[key], input_value)
 
     def test_deserialize_model_fields(self):
         factory = OLTPBenchRestFactory()
         input = factory.convert_to_db_json()
         serializer = OLTPBenchResultSerializer(data=input)
-        self.assertTrue(serializer.is_valid(),msg=serializer.errors)
+        self.assertTrue(serializer.is_valid(), msg=serializer.errors)

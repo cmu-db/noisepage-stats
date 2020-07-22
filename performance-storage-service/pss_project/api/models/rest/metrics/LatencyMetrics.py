@@ -3,8 +3,8 @@ class LatencyMetrics(object):
         self.l_25 = l_25
         self.l_75 = l_75
         self.l_90 = l_90
-        self.l_95 = l_95 
-        self.l_99 = l_99 
+        self.l_95 = l_95
+        self.l_99 = l_99
         self.avg = avg
         self.median = median
         self.max = max

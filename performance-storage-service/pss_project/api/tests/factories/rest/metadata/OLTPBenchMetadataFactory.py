@@ -4,6 +4,7 @@ from pss_project.api.tests.factories.rest.metadata.JenkinsMetadataFactory import
 from pss_project.api.tests.factories.rest.metadata.GithubMetadataFactory import GithubMetadataFactory
 from pss_project.api.tests.factories.rest.metadata.NoisePageMetadataFactory import NoisePageMetadataFactory
 
+
 class OLTPBenchMetadataFactory(Factory):
     class Meta:
         model = OLTPBenchMetadata
