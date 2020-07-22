@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
 from pss_project.api.serializers.database.OLTPBenchResultSerializer import OLTPBenchResultSerializer
-from datetime import datetime
 
 
 class OLTPBenchViewSet(viewsets.ViewSet):

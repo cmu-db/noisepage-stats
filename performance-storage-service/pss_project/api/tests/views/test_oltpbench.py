@@ -1,4 +1,3 @@
-import json
 from rest_framework.test import APITransactionTestCase
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 from pss_project.api.tests.utils.utils import generate_dict_factory

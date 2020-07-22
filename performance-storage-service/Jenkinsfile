@@ -58,6 +58,7 @@ pipeline {
           junit "**/reports/junit.xml"
           cobertura onlyStable: false, coberturaReportFile: '**/reports/coverage.xml'
           recordIssues enabledForFailure: true, tool: pep8(pattern: 'performance-storage-service/reports/pep8.report')
+          recordIssues enabledForFailure: true, tool: flake8(pattern: 'performance-storage-service/reports/flake8.report')
         }
       }
     }

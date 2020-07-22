@@ -4,8 +4,6 @@ from pss_project.api.tests.factories.database.OLTPBenchDBFactory import OLTPBenc
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 from pss_project.api.serializers.database.OLTPBenchResultSerializer import OLTPBenchResultSerializer
 
-from pss_project.api.tests.utils.utils import generate_dict_factory
-
 
 class TestOLTPBenchResultSerializer(TestCase):
 
