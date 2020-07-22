@@ -50,6 +50,7 @@ pipeline {
                   sh "ls"
                   sh "ls reports"
                 }
+                sh "docker cp ${dockerImage}:/performance-storage-service/reports/junit.xml ${WORKSPACE}/reports/"
               }
             // }
           }
