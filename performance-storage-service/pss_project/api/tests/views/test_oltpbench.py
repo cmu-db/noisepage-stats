@@ -25,7 +25,7 @@ class OLTPBenchViewTest(APITransactionTestCase):
 
     def test_403_forbidden_error(self):
         """
-        Ensure that an invalid request sends back a 400
+        Ensure that an invalid request sends back a 403
         """
         # unset any existing credentials
         self.client.credentials()
