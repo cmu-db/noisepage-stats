@@ -58,10 +58,11 @@ pipeline {
       post{
         always{
           sh "ls performance-storage-service/reports/"
-          xunit (
-              thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
-              tools: [ JUnit(pattern: "performance-storage-service/reports/junit.xml") ]
-          )
+          junit "performance-storage-service/reports/junit.xml"
+          // xunit (
+          //     thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
+          //     tools: [ JUnit(pattern: "performance-storage-service/reports/junit.xml") ]
+          // )
         }
       }
     }
