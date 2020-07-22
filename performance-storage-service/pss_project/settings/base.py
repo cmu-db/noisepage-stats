@@ -112,5 +112,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/pss/'
 
-TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
-

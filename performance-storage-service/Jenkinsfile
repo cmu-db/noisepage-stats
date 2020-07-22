@@ -47,9 +47,7 @@ pipeline {
                 done"""
                 dockerImage.inside("--net=host -e SECRET_KEY=shhh --mount type=bind,source=${WORKSPACE}/performance-storage-service/reports,target=/performance-storage-service/reports --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
-                  sh "ls reports"
                 }
-                sh "ls ${WORKSPACE}/performance-storage-service/reports"
               }
             }
           }
@@ -57,12 +55,7 @@ pipeline {
       }
       post{
         always{
-          sh "ls performance-storage-service/reports/"
           junit "performance-storage-service/reports/junit.xml"
-          // xunit (
-          //     thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
-          //     tools: [ JUnit(pattern: "performance-storage-service/reports/junit.xml") ]
-          // )
         }
       }
     }
