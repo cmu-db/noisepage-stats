@@ -35,6 +35,7 @@ pipeline {
           dir('performance-storage-service'){
             // docker.withRegistry('', REGISTRY_CREDENTIAL) {
             //   sh "docker ps"
+              sh "mkdir reports"
               docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { ts ->
                 /* Wait until timescale service is up */
                 sh """
@@ -44,19 +45,16 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh --entrypoint=''"){
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh --entrypoint='' -v ${WORKSPACE}/reports/:/performance-storage-service/reports/" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
-              sh "docker ps -a"
             // }
           }
         }
       }
       post{
         always{
-          sh "docker ps -a"
-          sh "docker cp ${dockerImage}:/performance-storage-service/reports/ ${WORKSPACE}/reports/"
           xunit (
               thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
               tools: [ JUnit(pattern: 'reports/junit.xml') ]
