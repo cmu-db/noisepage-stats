@@ -48,6 +48,7 @@ pipeline {
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
+              sh "docker ps -a"
             // }
           }
         }
