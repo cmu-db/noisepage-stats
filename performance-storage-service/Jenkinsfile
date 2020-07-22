@@ -45,10 +45,19 @@ pipeline {
                   sleep 1
                 done"""
                 docker.image("${REGISTRY}:${VERSION}").inside("--net=host -e SECRET_KEY=shhh --entrypoint=''"){
-                  sh 'python manage.py jenkins --enable-coverage'
+                  sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
             }
+          }
+        }
+        post{
+          always{
+            sh "docker cp ${dockerImage}:/performance-storage-service/reports/ ${WORKSPACE}/reports/"
+            xunit (
+                thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
+                tools: [ JUnit(pattern: 'reports/junit.xml') ])
+            )
           }
         }
       }
