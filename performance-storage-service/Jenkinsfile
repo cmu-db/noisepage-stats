@@ -36,7 +36,7 @@ pipeline {
             // docker.withRegistry('', REGISTRY_CREDENTIAL) {
             //   sh "docker ps"
               sh "mkdir reports"
-              docker.image(TIMESCALE_IMAGE).withRun("-e POSTGRES_PASSWORD=password -p 5432:5432 -v ${WORKSPACE}/reports/:/reports/") { ts ->
+              docker.image(TIMESCALE_IMAGE).withRun("-e POSTGRES_PASSWORD=password -p 5432:5432 ") { ts ->
                 /* Wait until timescale service is up */
                 sh """
                   sudo apt-get update
@@ -45,11 +45,10 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                sh "pwd"
-                sh "ls"
-                sh "mkdir reports"
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh -v reports/:/performance-storage-service/reports/ --entrypoint=''" ){
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh -v ${WORKSPACE}/reports/:/performance-storage-service/reports/ --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
+                  sh "ls"
+                  sh "ls reports"
                 }
               }
             // }
