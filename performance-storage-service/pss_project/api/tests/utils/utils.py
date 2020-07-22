@@ -11,7 +11,7 @@ from factory.base import StubObject
 
 def generate_dict_factory(factory: Factory):
     def convert_dict_from_stub(stub: StubObject) -> Dict[str, Any]:
-        stub_dict = stub.__dict__ if not isinstance(stub,dict) else stub
+        stub_dict = stub.__dict__ if not isinstance(stub, dict) else stub
         for key, value in stub_dict.items():
             if isinstance(value, StubObject):
                 stub_dict[key] = convert_dict_from_stub(value)
@@ -30,6 +30,7 @@ def generate_dict_factory(factory: Factory):
         return stub_dict
 
     return partial(dict_factory, factory)
+
 
 def get_basic_auth_header(username, password):
     """
