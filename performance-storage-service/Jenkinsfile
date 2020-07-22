@@ -45,8 +45,10 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                sh "mkdir /reports"
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh -v /reports/:/performance-storage-service/reports/ --entrypoint=''" ){
+                sh "pwd"
+                sh "ls"
+                sh "mkdir reports"
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh -v reports/:/performance-storage-service/reports/ --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
