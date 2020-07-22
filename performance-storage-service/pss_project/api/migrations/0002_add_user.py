@@ -2,15 +2,19 @@
 
 from django.db import migrations
 from django.contrib.auth.models import User
-from ...settings.utils import get_environ_value
+from pss_project.settings.utils import get_environ_value
+from django.db import transaction
+from django.utils import timezone
 
 def add_user(apps, schema_editor):
     try:
-        user = User.objects.create_user(username=get_environ_value('PSS_CREATOR_USER'), password=get_environ_value('PSS_CREATOR_PASSWORD'))
+        user = User.objects.create_user(username=get_environ_value('PSS_CREATOR_USER'), password=get_environ_value('PSS_CREATOR_PASSWORD'), last_login=timezone.now())
         user.save()
-    except:
+    except Exception as e:
         msg = 'Migration error: create user failed'
         print(msg) 
+        print(e)
+        raise e
 
 def remove_user(apps,schema_editor):
     try:
