@@ -56,7 +56,7 @@ pipeline {
             sh "docker cp ${dockerImage}:/performance-storage-service/reports/ ${WORKSPACE}/reports/"
             xunit (
                 thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
-                tools: [ JUnit(pattern: 'reports/junit.xml') ])
+                tools: [ JUnit(pattern: 'reports/junit.xml') ]
             )
           }
         }
