@@ -50,7 +50,7 @@ pipeline {
                   sh "ls"
                   sh "ls reports"
                 }
-                sh "ls ${WORKSPACE}/reports"
+                sh "ls ${WORKSPACE}"
               }
             }
           }
