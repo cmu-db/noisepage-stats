@@ -45,7 +45,7 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh -v ${WORKSPACE}/reports/:/performance-storage-service/reports/ --entrypoint=''" ){
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh --mount type=bind,source=${WORKSPACE}/reports,target=/performance-storage-service/reports --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                   sh "ls"
                   sh "ls reports"
