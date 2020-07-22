@@ -28,14 +28,14 @@ class TestBasicSerializer(SimpleTestCase):
     # list of tests in the form (test_name, class_factory, class_serializer, excluded_fields)ƒ
     serializer_test_params = [
         ('GithubMetadataSerializer', GithubMetadataFactory, GithubMetadataSerializer, []),
-        ('JenkinsMetadataSerializer',JenkinsMetadataFactory,JenkinsMetadataSerializer, []),
-        ('NoisePageMetadataSerializer',NoisePageMetadataFactory,NoisePageMetadataSerializer, []),
-        ('OLTPBenchMetadataSerializer',OLTPBenchMetadataFactory,OLTPBenchMetadataSerializer, []),
-        ('TransactionWeightSerializer',TransactionWeightFactory,TransactionWeightSerializer, []),
-        ('OLTPBenchParametersSerializer',OLTPBenchParametersFactory,OLTPBenchParametersSerializer, []),
-        ('OLTPBenchMetricsSerializer',OLTPBenchMetricsFactory,OLTPBenchMetricsSerializer, []),
-        ('LatencyMetricsSerializer',LatencyMetricsFactory,LatencyMetricsSerializer,[]),
-        ('OLTPBenchSerializer',OLTPBenchRestFactory,OLTPBenchSerializer,['timestamp']),
+        ('JenkinsMetadataSerializer', JenkinsMetadataFactory, JenkinsMetadataSerializer, []),
+        ('NoisePageMetadataSerializer', NoisePageMetadataFactory, NoisePageMetadataSerializer, []),
+        ('OLTPBenchMetadataSerializer', OLTPBenchMetadataFactory, OLTPBenchMetadataSerializer, []),
+        ('TransactionWeightSerializer', TransactionWeightFactory, TransactionWeightSerializer, []),
+        ('OLTPBenchParametersSerializer', OLTPBenchParametersFactory, OLTPBenchParametersSerializer, []),
+        ('OLTPBenchMetricsSerializer', OLTPBenchMetricsFactory, OLTPBenchMetricsSerializer, []),
+        ('LatencyMetricsSerializer', LatencyMetricsFactory, LatencyMetricsSerializer, []),
+        ('OLTPBenchSerializer', OLTPBenchRestFactory, OLTPBenchSerializer, ['timestamp']),
     ]
 
     def test_serialize_model_fields(self):
@@ -51,4 +51,4 @@ class TestBasicSerializer(SimpleTestCase):
                 ClassDictFactory = generate_dict_factory(class_factory)
                 input = ClassDictFactory()
                 serializer = class_serializer(data=input)
-                self.assertTrue(serializer.is_valid(),msg=serializer.errors)
+                self.assertTrue(serializer.is_valid(), msg=serializer.errors)

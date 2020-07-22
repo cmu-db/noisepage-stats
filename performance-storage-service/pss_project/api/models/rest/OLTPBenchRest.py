@@ -2,13 +2,14 @@ from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMeta
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
 
+
 class OLTPBenchRest(object):
     def __init__(self, metadata, timestamp, type, parameters, metrics):
         self.metadata = OLTPBenchMetadata(**metadata)
         self.timestamp = timestamp
         self.type = type
         self.parameters = OLTPBenchParameters(**parameters)
-        self.metrics = OLTPBenchMetrics(**metrics) 
+        self.metrics = OLTPBenchMetrics(**metrics)
 
     def convert_to_db_json(self):
         data = {
@@ -26,7 +27,8 @@ class OLTPBenchRest(object):
         }
         return data
 
-def convert_weights_to_dict( weights_list ):
+
+def convert_weights_to_dict(weights_list):
     db_formatted_weights = {}
     for weight_details in weights_list:
         weight_name = weight_details.name
@@ -34,7 +36,8 @@ def convert_weights_to_dict( weights_list ):
         db_formatted_weights[weight_name] = weight_value
     return db_formatted_weights
 
-def convert_metrics_to_dict( metrics ):
+
+def convert_metrics_to_dict(metrics):
     db_formatted_metrics = {
         'throughput': metrics.throughput,
         'latency': metrics.latency.__dict__

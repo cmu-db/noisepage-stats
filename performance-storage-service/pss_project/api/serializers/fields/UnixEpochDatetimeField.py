@@ -1,6 +1,7 @@
 from datetime import datetime
 from time import mktime
-from rest_framework.serializers import DateTimeField, ValidationError
+from rest_framework.serializers import DateTimeField
+
 
 class UnixEpochDateTimeField(DateTimeField):
     def to_representation(self, value):
