@@ -33,8 +33,8 @@ pipeline {
       steps{
         script{
           dir('performance-storage-service'){
-            // docker.withRegistry('', REGISTRY_CREDENTIAL) {
-            //   sh "docker ps"
+            docker.withRegistry('', REGISTRY_CREDENTIAL) {
+              sh "docker ps"
               sh "mkdir reports"
               docker.image(TIMESCALE_IMAGE).withRun("-e POSTGRES_PASSWORD=password -p 5432:5432 ") { ts ->
                 /* Wait until timescale service is up */
@@ -45,14 +45,14 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh --mount type=bind,source=${WORKSPACE}/reports,target=/performance-storage-service/reports --entrypoint=''" ){
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh  --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                   sh "ls"
                   sh "ls reports"
                 }
                 sh "ls ${WORKSPACE}/reports"
               }
-            // }
+            }
           }
         }
       }
