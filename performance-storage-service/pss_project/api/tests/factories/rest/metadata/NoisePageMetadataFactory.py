@@ -5,4 +5,4 @@ class NoisePageMetadataFactory(Factory):
     class Meta:
         model = NoisePageMetadata
 
-    version = Faker('pystr_format',string_format='##.#')
+    db_version = Faker('pystr_format',string_format='##.#')
