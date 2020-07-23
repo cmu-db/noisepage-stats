@@ -37,9 +37,15 @@ spec:
               value: "{{ env }}"
             - name: PSS_DATABASE_NAME
               value: "{{ pss_db_name }}"
-            - name: PSS_DATABASE_USER
-              value: "{{ pss_db_user }}"
-            - name: PSS_DATABASE_PASSWORD
-              value: "{{ pss_db_password }}"
             - name: PSS_DATABASE_PORT
               value: "5432"
+            - name: PSS_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
+            - name: PSS_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password

@@ -60,4 +60,4 @@ class TestBasicSerializer(SimpleTestCase):
                 ClassDictFactory = generate_dict_factory(class_factory)
                 input = ClassDictFactory()
                 serializer = class_serializer(data=input)
-                self.assertTrue(serializer.is_valid(),msg=serializer.errors)
+                self.assertTrue(serializer.is_valid(), msg=serializer.errors)

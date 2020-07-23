@@ -3,6 +3,7 @@ from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import La
 from pss_project.api.serializers.rest.metrics.IncrementalMetricsSerializer import IncrementalMetricsSerializer
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
 
+
 class OLTPBenchMetricsSerializer(Serializer):
     # Fields
     throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)

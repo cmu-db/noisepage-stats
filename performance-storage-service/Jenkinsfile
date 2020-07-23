@@ -35,7 +35,8 @@ pipeline {
           dir('performance-storage-service'){
             docker.withRegistry('', REGISTRY_CREDENTIAL) {
               sh "docker ps"
-              docker.image(TIMESCALE_IMAGE).withRun('-e "POSTGRES_PASSWORD=password" -p 5432:5432') { ts ->
+              sh "mkdir reports"
+              docker.image(TIMESCALE_IMAGE).withRun("-e POSTGRES_PASSWORD=password -p 5432:5432 ") { ts ->
                 /* Wait until timescale service is up */
                 sh """
                   sudo apt-get update
@@ -44,12 +45,20 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                docker.image("${REGISTRY}:${VERSION}").inside("--net=host -e SECRET_KEY=shhh --entrypoint=''"){
-                  sh 'python manage.py jenkins --enable-coverage'
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh --mount type=bind,source=${WORKSPACE}/performance-storage-service/reports,target=/performance-storage-service/reports --entrypoint=''" ){
+                  sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
             }
           }
+        }
+      }
+      post{
+        always{
+          junit "**/reports/junit.xml"
+          cobertura onlyStable: false, coberturaReportFile: '**/reports/coverage.xml'
+          recordIssues enabledForFailure: true, tool: pep8(pattern: 'performance-storage-service/reports/pep8.report')
+          recordIssues enabledForFailure: true, tool: flake8(pattern: 'performance-storage-service/reports/flake8.report'), filters: [excludeFile('.*/usr/local/lib/.*')]
         }
       }
     }

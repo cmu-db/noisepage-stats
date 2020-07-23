@@ -1,8 +1,11 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: timescaledb
+  name: postgres-pv-volume
   namespace: performance
+#   labels:
+#     type: local
+#     app: postgres
 spec:
   storageClassName: manual
   capacity:
@@ -26,19 +29,21 @@ spec:
       storage: 100Gi
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
   namespace: performance
-  name: timescaledb-configmap
-# type: Opaque
+  name: timescaledb
+type: Opaque
 data:
-  POSTGRES_DB: postgres
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
+  username: YWRtaW4=
+  # username: admin
+  password: YWRtaW5wd2Q=
+  # password: adminpwd
+  database: YWRtaW5kYg==
+  # database: admindb
 ---
 apiVersion: apps/v1
 kind: Deployment
-# kind: StatefulSet
 metadata:
   namespace: performance
   name: timescaledb
@@ -57,29 +62,37 @@ spec:
       containers:
       - name: timescaledb
         image: timescale/timescaledb:latest-pg12
-        imagePullPolicy: "{{ image_pull_policy }}"
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: timescaledb
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: timescaledb
+              key: password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: timescaledb
+              key: database
+        - name: TIMESCALEDB_TELEMETRY
+          value: "off"
+        - name: TS_TUNE_MEMORY
+          value: "8GB"
+        - name: TS_TUNE_NUM_CPUS
+          value: "4"
         ports:
-        - containerPort: 5432
-        # args:
-        #   - -c
-        #   - max_connections=1000
-        envFrom:
-          - configMapRef:
-            name: timescaledb-configmap
-        # args: ["-c", "max_connections=1000"]
-        # env:
-          # - name: PGOPTIONS
-          #   value: "-c max_connections=1000 -c shared_buffers=1024MB"
-          # - name: "MAX_CONNECTIONS" 
-          #   value: "1000"
-          # Trigger
+        - containerPort: 5436
         volumeMounts:
         - name: timescaledb
           mountPath: /var/lib/postgresql/data/
       volumes:
       - name: timescaledb
         persistentVolumeClaim:
-          claimName: timescaledb 
+          claimName: timescaledb
 ---
 apiVersion: v1
 kind: Service
@@ -94,5 +107,6 @@ spec:
     app: timescaledb
   ports:
   - protocol: TCP
-    port: 5432
-    nodePort: 30010
+    port: 5436
+    nodePort: 32222
+# Trigger

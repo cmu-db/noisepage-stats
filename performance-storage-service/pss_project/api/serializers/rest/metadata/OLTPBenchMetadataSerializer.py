@@ -5,6 +5,7 @@ from pss_project.api.serializers.rest.metadata.NoisePageMetadataSerializer impor
 from pss_project.api.serializers.rest.metadata.EnvironmentMetadataSerializer import EnvironmentMetadataSerializer
 from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
 
+
 class OLTPBenchMetadataSerializer(Serializer):
     # Fields
     jenkins = JenkinsMetadataSerializer()
@@ -14,4 +15,3 @@ class OLTPBenchMetadataSerializer(Serializer):
 
     def create(self, validated_data):
         return OLTPBenchMetadata(**validated_data)
-

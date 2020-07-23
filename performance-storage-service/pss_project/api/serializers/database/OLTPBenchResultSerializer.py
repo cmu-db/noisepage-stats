@@ -1,7 +1,5 @@
-from rest_framework.serializers import ModelSerializer, Serializer,Field, DateTimeField, SerializerMethodField, CharField
+from rest_framework.serializers import ModelSerializer
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
-from pss_project.api.serializers.fields.UnixEpochDatetimeField import UnixEpochDateTimeField
-
 
 class OLTPBenchResultSerializer(ModelSerializer):
     class Meta:

@@ -2,6 +2,7 @@ from django.db.models import Model, DateTimeField, CharField, DecimalField, Posi
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 
+
 class OLTPBenchResult(Model):
     class Meta:
         db_table = 'oltpbench_results'
@@ -10,8 +11,8 @@ class OLTPBenchResult(Model):
     SIMPLE_MODE = 'simple'
     EXTENDED_MODE = 'extended'
     QUERY_MODE_CHOICES = [
-        (SIMPLE_MODE,'simple'),
-        (EXTENDED_MODE,'extended'),
+        (SIMPLE_MODE, 'simple'),
+        (EXTENDED_MODE, 'extended'),
     ]
 
     # Fields
@@ -23,7 +24,7 @@ class OLTPBenchResult(Model):
     db_version = CharField(max_length=255)
     environment = JSONField()
     benchmark_type = CharField(max_length=20)
-    scale_factor = DecimalField(max_digits=10,decimal_places=4)
+    scale_factor = DecimalField(max_digits=10, decimal_places=4)
     terminals = PositiveSmallIntegerField()
     client_time = PositiveSmallIntegerField()
     weights = JSONField()

@@ -1,5 +1,6 @@
-from rest_framework.serializers import Serializer, CharField 
+from rest_framework.serializers import Serializer, CharField
 from pss_project.api.models.rest.metadata.GithubMetadata import GithubMetadata
+
 
 class GithubMetadataSerializer(Serializer):
     # Fields

@@ -1,7 +1,8 @@
-from factory import DjangoModelFactory, Faker 
+from factory import DjangoModelFactory, Faker
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
 from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory import IncrementalMetricsFactory
 from collections import OrderedDict
+
 
 class OLTPBenchDBFactory(DjangoModelFactory):
     class Meta:
