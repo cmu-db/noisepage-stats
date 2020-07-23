@@ -146,9 +146,6 @@ components:
           description: The number of client threads that will issue requests to the DBMS.
         client_time:
           type: integer
-          enum:
-            - 60
-            - 600
           description: How long did this test run.
         transaction_weights:
           type: array
