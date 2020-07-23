@@ -53,7 +53,7 @@ def convert_environment_to_dict(environments):
     db_formatted_environments = {
         'os_version': environments.os_version,
         'cpu_number': environments.cpu_number,
-        'numa_info': environments.numa_info
+        'cpu_socket': environments.cpu_socket
     }
     return db_formatted_environments
 

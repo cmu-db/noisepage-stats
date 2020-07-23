@@ -8,4 +8,4 @@ class EnvironmentMetadataFactory(Factory):
 
     os_version = Faker('word')
     cpu_number = Faker('random_int', min=1, max=16)
-    numa_info = Faker('word')
+    cpu_socket = Faker('word')

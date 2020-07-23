@@ -6,7 +6,7 @@ class EnvironmentMetadataSerializer(Serializer):
     # Fields
     os_version = CharField()
     cpu_number = CharField()
-    numa_info = CharField()
+    cpu_socket = CharField()
 
     def create(self, validated_data):
         return EnvironmentMetadata(**validated_data)
