@@ -20,7 +20,6 @@ class TestOLTPBenchResultSerializer(TestCase):
             else:
                 self.assertEqual(serializer.data[key],input_value)
 
-
     def test_deserialize_model_fields(self):
         factory = OLTPBenchRestFactory()
         input = factory.convert_to_db_json()

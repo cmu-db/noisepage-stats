@@ -26,7 +26,7 @@ class OLTPBenchRest(object):
             'client_time': self.parameters.client_time,
             'weights': convert_weights_to_dict(self.parameters.transaction_weights),
             'metrics': convert_metrics_to_dict(self.metrics),
-            'incremental_metrics': json.dumps(self.metrics.incremental_metrics)
+            'incremental_metrics': convert_incremental_metrics_to_dict(self.metrics.incremental_metrics)
         }
         return data
 
@@ -52,3 +52,14 @@ def convert_environment_to_dict( environments ):
         'numa_info': environments.numa_info
     }
     return db_formatted_environments
+
+def convert_incremental_metrics_to_dict( incremental_metrics ):
+    db_formatted_incremental_metrics = []
+    for metric in incremental_metrics:
+        db_formatted_incremental_json = {
+            'time': metric.time,
+            'throughput': float(metric.throughput),
+            'latency': metric.latency
+        }
+        db_formatted_incremental_metrics.append(db_formatted_incremental_json)
+    return json.dumps(db_formatted_incremental_metrics)

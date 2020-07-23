@@ -1,5 +1,6 @@
 from factory import DjangoModelFactory, Faker 
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
+from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory import IncrementalMetricsFactory
 from collections import OrderedDict
 
 class OLTPBenchDBFactory(DjangoModelFactory):
@@ -20,23 +21,4 @@ class OLTPBenchDBFactory(DjangoModelFactory):
     client_time = Faker('random_int', min=30, step=30)
     weights = Faker('pydict',value_types=[int])
     metrics = Faker('pydict', value_types=[int,float])
-
-    # TODO: Do we have a better way to generate an array with random length?
-    incremental_metrics = [
-        OrderedDict([
-            ('bar', '222'),
-            ('foo', '333')
-        ]),
-        OrderedDict([
-            ('bar', '333'),
-            ('foo', '444')
-        ]),
-        OrderedDict([
-            ('bar', '333'),
-            ('foo', '444'),
-            ('boo', OrderedDict([
-                ('aaa', '111'),
-                ('bbb', '222')
-            ]))
-        ])
-    ]
+    incremental_metrics = Faker('pydict', value_types=[int,float,str])

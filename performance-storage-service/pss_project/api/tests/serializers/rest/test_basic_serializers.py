@@ -9,6 +9,7 @@ from pss_project.api.tests.factories.rest.parameters.TransactionWeightFactory im
 from pss_project.api.tests.factories.rest.parameters.OLTPBenchParameters import OLTPBenchParametersFactory
 from pss_project.api.tests.factories.rest.metrics.OLTPBenchMetricsFactory import OLTPBenchMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.LatencyMetricsFactory import LatencyMetricsFactory
+from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory import IncrementalMetricsFactory
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
@@ -20,6 +21,7 @@ from pss_project.api.serializers.rest.parameters.TransactionWeightSerializer imp
 from pss_project.api.serializers.rest.parameters.OLTPBenchParametersSerializer import OLTPBenchParametersSerializer
 from pss_project.api.serializers.rest.metrics.OLTPBenchMetricsSerializer import OLTPBenchMetricsSerializer
 from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import LatencyMetricsSerializer
+from pss_project.api.serializers.rest.metrics.IncrementalMetricsSerializer import IncrementalMetricsSerializer
 from pss_project.api.serializers.rest.OLTPBenchSerializer \
     import OLTPBenchSerializer
 
@@ -34,10 +36,14 @@ class TestBasicSerializer(SimpleTestCase):
         ('NoisePageMetadataSerializer',NoisePageMetadataFactory,NoisePageMetadataSerializer, []),
         ('OLTPBenchMetadataSerializer',OLTPBenchMetadataFactory,OLTPBenchMetadataSerializer, []),
         ('EnvironmentMetadataSerializer',EnvironmentMetadataFactory,EnvironmentMetadataSerializer, []),
+
         ('TransactionWeightSerializer',TransactionWeightFactory,TransactionWeightSerializer, []),
         ('OLTPBenchParametersSerializer',OLTPBenchParametersFactory,OLTPBenchParametersSerializer, []),
+
         ('OLTPBenchMetricsSerializer',OLTPBenchMetricsFactory,OLTPBenchMetricsSerializer, []),
         ('LatencyMetricsSerializer',LatencyMetricsFactory,LatencyMetricsSerializer,[]),
+        ('IncrementalMetricsSerializer',IncrementalMetricsFactory,IncrementalMetricsSerializer, []),
+
         ('OLTPBenchSerializer',OLTPBenchRestFactory,OLTPBenchSerializer,['timestamp']),
     ]
 
