@@ -1,8 +1,6 @@
 from factory import Factory, Faker
 from pss_project.api.models.rest.metrics.IncrementalMetrics import IncrementalMetrics
 from pss_project.api.tests.factories.rest.metrics.LatencyMetricsFactory import LatencyMetricsFactory
-import json
-from collections import OrderedDict
 
 
 class IncrementalMetricsFactory(Factory):
