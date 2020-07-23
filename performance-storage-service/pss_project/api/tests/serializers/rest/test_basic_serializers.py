@@ -32,19 +32,19 @@ class TestBasicSerializer(SimpleTestCase):
     # list of tests in the form (test_name, class_factory, class_serializer, excluded_fields)ƒ
     serializer_test_params = [
         ('GithubMetadataSerializer', GithubMetadataFactory, GithubMetadataSerializer, []),
-        ('JenkinsMetadataSerializer',JenkinsMetadataFactory,JenkinsMetadataSerializer, []),
-        ('NoisePageMetadataSerializer',NoisePageMetadataFactory,NoisePageMetadataSerializer, []),
-        ('OLTPBenchMetadataSerializer',OLTPBenchMetadataFactory,OLTPBenchMetadataSerializer, []),
-        ('EnvironmentMetadataSerializer',EnvironmentMetadataFactory,EnvironmentMetadataSerializer, []),
+        ('JenkinsMetadataSerializer', JenkinsMetadataFactory, JenkinsMetadataSerializer, []),
+        ('NoisePageMetadataSerializer', NoisePageMetadataFactory, NoisePageMetadataSerializer, []),
+        ('OLTPBenchMetadataSerializer', OLTPBenchMetadataFactory, OLTPBenchMetadataSerializer, []),
+        ('EnvironmentMetadataSerializer', EnvironmentMetadataFactory, EnvironmentMetadataSerializer, []),
 
-        ('TransactionWeightSerializer',TransactionWeightFactory,TransactionWeightSerializer, []),
-        ('OLTPBenchParametersSerializer',OLTPBenchParametersFactory,OLTPBenchParametersSerializer, []),
+        ('TransactionWeightSerializer', TransactionWeightFactory, TransactionWeightSerializer, []),
+        ('OLTPBenchParametersSerializer', OLTPBenchParametersFactory, OLTPBenchParametersSerializer, []),
 
-        ('OLTPBenchMetricsSerializer',OLTPBenchMetricsFactory,OLTPBenchMetricsSerializer, []),
-        ('LatencyMetricsSerializer',LatencyMetricsFactory,LatencyMetricsSerializer,[]),
-        ('IncrementalMetricsSerializer',IncrementalMetricsFactory,IncrementalMetricsSerializer, []),
+        ('OLTPBenchMetricsSerializer', OLTPBenchMetricsFactory, OLTPBenchMetricsSerializer, []),
+        ('LatencyMetricsSerializer', LatencyMetricsFactory, LatencyMetricsSerializer, []),
+        ('IncrementalMetricsSerializer', IncrementalMetricsFactory, IncrementalMetricsSerializer, []),
 
-        ('OLTPBenchSerializer',OLTPBenchRestFactory,OLTPBenchSerializer,['timestamp']),
+        ('OLTPBenchSerializer', OLTPBenchRestFactory, OLTPBenchSerializer, ['timestamp']),
     ]
 
     def test_serialize_model_fields(self):

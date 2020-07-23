@@ -3,4 +3,3 @@ class EnvironmentMetadata(object):
         self.os_version = os_version
         self.cpu_number = cpu_number
         self.numa_info = numa_info
-        

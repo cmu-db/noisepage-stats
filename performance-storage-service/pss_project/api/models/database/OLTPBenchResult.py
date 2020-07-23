@@ -17,7 +17,7 @@ class OLTPBenchResult(Model):
 
     # Fields
     time = DateTimeField(auto_now=False)
-    query_mode = CharField(max_length=30,choices=QUERY_MODE_CHOICES)
+    query_mode = CharField(max_length=30, choices=QUERY_MODE_CHOICES)
     jenkins_job_id = CharField(max_length=15)
     git_branch = CharField(max_length=255)
     git_commit_id = CharField(max_length=40)

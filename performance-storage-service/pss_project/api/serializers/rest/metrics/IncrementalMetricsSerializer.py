@@ -1,6 +1,7 @@
 from rest_framework.serializers import Serializer, DecimalField, IntegerField
 from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import LatencyMetricsSerializer
 
+
 class IncrementalMetricsSerializer(Serializer):
     # Fields
     time = IntegerField()

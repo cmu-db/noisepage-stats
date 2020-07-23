@@ -11,4 +11,3 @@ class OLTPBenchMetadata(object):
         self.github = GithubMetadata(**github)
         self.noisepage = NoisePageMetadata(**noisepage)
         self.environment = EnvironmentMetadata(**environment)
-    

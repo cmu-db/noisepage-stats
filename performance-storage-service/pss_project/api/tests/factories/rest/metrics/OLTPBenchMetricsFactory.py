@@ -7,8 +7,8 @@ from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory impo
 class OLTPBenchMetricsFactory(Factory):
     class Meta:
         model = OLTPBenchMetrics
-    
-    throughput = Faker('pydecimal',left_digits=9,right_digits=15, positive=True)
+
+    throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
     latency = LatencyMetricsFactory().__dict__
     incremental_metrics = Faker('random_elements', elements=(
         IncrementalMetricsFactory().__dict__,

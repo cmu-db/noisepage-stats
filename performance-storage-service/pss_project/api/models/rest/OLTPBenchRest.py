@@ -48,7 +48,8 @@ def convert_metrics_to_dict(metrics):
     }
     return db_formatted_metrics
 
-def convert_environment_to_dict( environments ):
+
+def convert_environment_to_dict(environments):
     db_formatted_environments = {
         'os_version': environments.os_version,
         'cpu_number': environments.cpu_number,
@@ -56,7 +57,8 @@ def convert_environment_to_dict( environments ):
     }
     return db_formatted_environments
 
-def convert_incremental_metrics_to_dict( incremental_metrics ):
+
+def convert_incremental_metrics_to_dict(incremental_metrics):
     db_formatted_incremental_metrics = []
     for metric in incremental_metrics:
         db_formatted_incremental_json = {
