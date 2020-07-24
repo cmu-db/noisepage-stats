@@ -67,4 +67,4 @@ def convert_incremental_metrics_to_dict(incremental_metrics):
             'latency': metric.latency
         }
         db_formatted_incremental_metrics.append(db_formatted_incremental_json)
-    return json.dumps(db_formatted_incremental_metrics)
+    return db_formatted_incremental_metrics
