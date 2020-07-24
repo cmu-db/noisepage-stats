@@ -19,6 +19,8 @@ fi
 kubectl create secret generic $SECRET_NAME -n $NAMESPACE \
     --from-file=$DIR_ENV/pss_db_user \
     --from-file=$DIR_ENV/pss_db_password \
+    --from-file=$DIR_ENV/pss_creator_user \
+    --from-file=$DIR_ENV/pss_creator_password \
     --from-file=$DIR_ENV/gf_admin_password \
     --from-file=$DIR_ENV/gf_auth_github_client_id \
     --from-file=$DIR_ENV/gf_auth_github_client_secret
