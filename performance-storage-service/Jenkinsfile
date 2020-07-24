@@ -6,7 +6,7 @@ pipeline {
   environment {
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-    VERSION = "1.0.1"
+    VERSION = "1.0.2"
     TIMESCALE_IMAGE = 'timescale/timescaledb:latest-pg12'
   }
   agent {
@@ -45,7 +45,7 @@ pipeline {
                   echo "Waiting for postgres server"
                   sleep 1
                 done"""
-                dockerImage.inside("--net=host -e SECRET_KEY=shhh --mount type=bind,source=${WORKSPACE}/performance-storage-service/reports,target=/performance-storage-service/reports --entrypoint=''" ){
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh -e PSS_CREATOR_USER=jenkins -e PSS_CREATOR_PASSWORD=password --mount type=bind,source=${WORKSPACE}/performance-storage-service/reports,target=/performance-storage-service/reports --entrypoint=''" ){
                   sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
                 }
               }
