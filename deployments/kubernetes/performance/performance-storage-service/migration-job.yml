@@ -11,6 +11,7 @@ spec:
         - name: performance-storage-service-migration
           image: "{{ pss_container_image }}"
           command: ["python",  "manage.py", "migrate", "--noinput"]
+          imagePullPolicy: "{{ image_pull_policy }}"
           env:
             - name: ENV
               value: "{{ env }}"
