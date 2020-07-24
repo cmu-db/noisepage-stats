@@ -9,19 +9,19 @@ ansible_python_interpreter=/usr/bin/python3
 image_pull_policy="Always"
 
 [k8s_worker:children]
-local
 testing
 staging
 production
 
 [all:vars]
-# TODO: create an account for ansible on the k8s_master nodes
-ansible_user = jenkins
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = jenkins 
 
 #performance storage server
 pss_container_name = "cmudb/performance-storage-service"
-pss_container_tag = "latest"
+pss_container_tag = "1.1.1"
 pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
+pss_db_name = "pss_database"
 
 #grafana
 grafana_container_name = "grafana/grafana"

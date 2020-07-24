@@ -16,12 +16,13 @@ pipeline {
   environment{
     ENV = getEnvFromBranch(env.BRANCH_NAME)
     ANSIBLE_SSH = credentials('jenkins-k8s')
+    PSS_DATABASE = credentials('timescaledb')
   }
   agent {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "testing-team/noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
@@ -57,7 +58,7 @@ pipeline {
         sh "echo ${env.ENV}"
         sh "ansible --version"
         //sh "sudo apt-add-repository ppa:ansible/ansible"
-        //sh "sudo apt-get -y install ansible"
+        //sh "sudo apt-get -y install ansible"  
       }
     }
     stage('Create Namespaces') {
@@ -80,7 +81,8 @@ pipeline {
       steps {
         dir('deployments'){
           script{
-            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} \
+              --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
           }
         }
       }
@@ -103,36 +105,39 @@ pipeline {
         }
       }
       stages {
-        stage('Performance Storage Service') {
-          steps{
-            dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
-            }
-          }
-        }
-        stage('Grafana') {
-          steps{
-            dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
-            }
-          }
-        } 
         stage('TimescaleDB') {
           steps{
             dir('deployments'){
-              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml \
+                --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
+        }
+        stage('Performance Storage Service') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }
           }
         } 
-
+        stage('Grafana') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
+        } 
       }
-      
     }
   }
   post {
     cleanup{
-      echo "deleting directory"
-      deleteDir()
+      script{
+        echo "deleting directory"
+        deleteDir()
+      }
     }
   }
 }

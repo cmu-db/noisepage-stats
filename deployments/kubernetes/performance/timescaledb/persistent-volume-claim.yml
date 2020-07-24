@@ -1,13 +1,12 @@
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: timescaledb-pv
   namespace: performance
+  name: timescaledb-pv-claim
 spec:
   storageClassName: manual
-  capacity:
-    storage: 100Gi
   accessModes:
     - ReadWriteMany
-  hostPath:
-    path: "/mnt/postgresPV"
+  resources:
+    requests:
+      storage: 100Gi

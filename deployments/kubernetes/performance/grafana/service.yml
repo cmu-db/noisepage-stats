@@ -2,15 +2,18 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: grafana-service
+  name: "grafana-service-{{ env }}"
   namespace: performance
   labels:
     app: grafana
+    env: "{{ env }}"
 spec:
   type: NodePort
   selector:
     app: grafana
+    env: "{{ env }}"
   ports:
   - protocol: TCP
     port: 3000
-    nodePort: 30002
+    nodePort: {{ service_port | int }}
+  externalTrafficPolicy: Local

@@ -109,4 +109,3 @@ spec:
   - protocol: TCP
     port: 5436
     nodePort: 32222
-# Trigger

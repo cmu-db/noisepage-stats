@@ -8,5 +8,5 @@ from django.urls import include, path
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', include('pss_project.api.urls'))
+    path('performance-results/', include('pss_project.api.urls'))
 ]

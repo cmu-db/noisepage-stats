@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <loaderThreads>4</loaderThreads>
+    <isolation>TRANSACTION_SERIALIZABLE</isolation>
+    <scalefactor>1.0</scalefactor>
+    <terminals>2</terminals>
+    <works>
+        <work>
+            <time>30</time>
+            <rate>unlimited</rate>
+            <weights>2</weights>
+            <weights>35</weights>
+            <weights>10</weights>
+            <weights>35</weights>
+            <weights>2</weights>
+            <weights>14</weights>
+            <weights>2</weights>
+        </work>
+    </works>
+    <transactiontypes>
+        <transactiontype>
+            <name>DeleteCallForwarding</name>
+        </transactiontype>
+        <transactiontype>
+            <name>GetAccessData</name>
+        </transactiontype>
+        <transactiontype>
+            <name>GetNewDestination</name>
+        </transactiontype>
+        <transactiontype>
+            <name>GetSubscriberData</name>
+        </transactiontype>
+        <transactiontype>
+            <name>InsertCallForwarding</name>
+        </transactiontype>
+        <transactiontype>
+            <name>UpdateLocation</name>
+        </transactiontype>
+        <transactiontype>
+            <name>UpdateSubscriberData</name>
+        </transactiontype>
+    </transactiontypes>
+</configuration>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <loaderThreads>1</loaderThreads>
+    <isolation>TRANSACTION_SERIALIZABLE</isolation>
+    <scalefactor>1.0</scalefactor>
+    <terminals>1</terminals>
+    <works>
+        <work>
+            <time>30</time>
+            <rate>unlimited</rate>
+            <weights>100</weights>
+        </work>
+    </works>
+    <transactiontypes>
+        <transactiontype>
+            <name>NoOp</name>
+        </transactiontype>
+    </transactiontypes>
+</configuration>

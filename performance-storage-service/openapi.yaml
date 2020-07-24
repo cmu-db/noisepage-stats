@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: "This service takes in performance test result data and stores it in TimescaleDB"
-  version: "1.0.0"
+  version: "2.0.0"
   title: "InCRUDibles Dash"
 servers:
   - url: https://incrudibles-testing.db.pdl.cmu.edu
@@ -28,55 +28,129 @@ components:
     OLTPBenchSummary:
       description: A build result from running all the OLTPBench results
       type: object
-      required: 
-        - build_link
-        - performance_results
-      properties:
-        build_link:
-          type: string
-          description: A hyperlink to the build results in Jenkins
-        github_link:
-          type: string
-          description: A hyperlink to the pull request that triggered the build
-        performance_results:
-          type: array
-          description: The array of results from the different OLTPBench tests
-          items:
-            $ref: '#/components/schemas/OLTPBenchResult'
-    OLTPBenchResult:
-      description: A single OLTPBench test result
-      type: object
       required:
-        - name
-        - test_settings
-        - metrics
+        - metadata
+        - timestamp
+        - type
+        - parameters
+        - metrics 
       properties:
-        name:
+        metadata:
+          $ref: '#/components/schemas/OLTPBenchMetadata'
+        timestamp:
           type: string
-          description: The name of the test that was run (e.g. TATP)
-        test_settings:
-          $ref: '#/components/schemas/OLTPBenchTestSettings'
+          format: unix-timestamp
+          example: 1592389291843
+          # TODO: Is this start time or end time?
+          description: The start time of the Jenkins job.
+        type:
+          type: string
+          enum:
+            - tatp
+            - tpcc
+            - noop
+            - smallbank
+            - ycsb
+          description: The type of OLTPBench.
+        parameters:
+          $ref: '#/components/schemas/OLTPBenchParameters'
         metrics:
           $ref: '#/components/schemas/OLTPBenchMetrics'
-    OLTPBenchTestSettings:
+    OLTPBenchMetadata:
+      description: The metadata of the test
+      type: object
+      required:
+        - jenkins
+        - github
+        - noisepage
+        - environment
+      properties:
+        jenkins:
+          $ref: '#/components/schemas/JenkinsMetadata'
+        github:
+          $ref: '#/components/schemas/GithubMetadata'
+        noisepage:
+          $ref: '#/components/schemas/NoisepageMetadata'
+        environment:
+          $ref: '#/components/schemas/EnvironmentMetadata'
+    JenkinsMetadata:
+      description: The metadata related to Jenkins
+      type: object
+      required:
+        - jenkins_job_id
+      properties:
+        jenkins_job_id:
+          type: integer
+          description: The ID of the job which runs this test on Jenkins
+    GithubMetadata:
+      description: The metadata related to GitHub
+      type: object
+      required:
+        - git_commit_id
+        - git_branch
+      properties:
+        git_commit_id:
+          type: string
+          description: The commit id of the current job
+        git_branch:
+          type: string
+          description: The name of the branch where the nightly job runs
+    NoisepageMetadata:
+      description: The metadata related to Noisepage
+      type: object
+      required:
+        - db_version
+      properties:
+        db_version:
+          type: string
+          description: The version of NoisePage
+    EnvironmentMetadata:
+      description: The metadata related to the environment
+      type: object
+      required:
+        - os_version
+        - cpu_number
+        - cpu_socket
+      properties:
+        os_version:
+          type: string
+          description: The version of the operating system on the testing server.
+        cpu_number:
+          type: string
+          description: The number of CPU used on the testing server
+        cpu_socket:
+          type: string
+          description: The number of the cpu socket on the testing server. When it is larger than 1, this server is a NUMA system
+    OLTPBenchParameters:
       description: The settings that the test was run with
       type: object
       required:
+        - query_mode
         - scale_factor
         - terminals
+        - client_time
         - transaction_weights
       properties:
+        query_mode:
+          type: string
+          enum:
+            - simple
+            - extended
+          description: The query mode when running the testing script.
         scale_factor:
           type: number
           format: float
-          description: A scale factor for the size of the database
+          description: The size of the database to load.
         terminals:
           type: integer
+          description: The number of client threads that will issue requests to the DBMS.
+        client_time:
+          type: integer
+          description: How long did this test run.
         transaction_weights:
           type: array
-          items:
-            $ref: '#/components/schemas/Transactions'
-    Transactions:
+          $ref: '#/components/schemas/TransactionWeight'
+    TransactionWeight:
       type: object
       description: An object containing information about the performance test transaction weights
       required:
@@ -92,15 +166,63 @@ components:
     OLTPBenchMetrics:
       type: object
       description: An object containing all test metrics for OLTPBench performance tests
+      required:
+        - throughput
       properties:
         throughput:
           type: number
           format: float
           description: The transactions per second that the test completed
-        
-      
-    
-    
-    
-    
+        latency:
+          $ref: '#/components/schemas/LatencyMetrics'
+        incremental_metrics:
+          type: array
+          $ref: '#/components/schemas/IncrementalMetrics'
+    LatencyMetrics:
+      type: object
+      description: An object containing latency metrics for OLTPBench performance tests
+      properties:
+        l_25:
+          type: integer
+          description: The 25th percentile of the latency results.
+        l_75:
+          type: integer
+          description: The 75th percentile of the latency results.
+        l_90:
+          type: integer
+          description: The 90th percentile of the latency results.
+        l_95:
+          type: integer
+          description: The 95th percentile of the latency results.
+        l_99:
+          type: integer
+          description: The 99th percentile of the latency results.
+        avg:
+          type: integer
+          description: The average of the latency results.
+        median:
+          type: integer
+          description: The median of the latency results.
+        max:
+          type: integer
+          description: The max of the latency results.
+        min:
+          type: integer
+          description: The min of the latency results.
+    IncrementalMetrics:
+      type: object
+      description: An object containing all metrics for long-running OLTPBench performance tests
+      required:
+        - time
+        - throughput
+      properties:
+        time:
+          type: integer
+          description: The time point of the long-running test
+        throughput:
+          type: number
+          format: float
+          description: The transactions per second that the test completed
+        latency:
+          $ref: '#/components/schemas/LatencyMetrics'
       

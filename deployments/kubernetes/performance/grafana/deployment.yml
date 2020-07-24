@@ -23,6 +23,10 @@ spec:
     spec:
       nodeSelector:
         env: "{{ env }}"
+      volumes:
+        - name: grafana-volume
+          # persistentVolumeClaim:
+          #   claimName: grafana-volume 
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
@@ -30,3 +34,43 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          volumeMounts:
+            - name: grafana-volume
+              mountPath: /var/lib/grafana
+          env:
+            - name: GF_PATHS_LOGS
+              value: /var/log/grafana/
+            - name: GF_LOG_MODE
+              value: "console file"
+            - name: GF_SERVER_DOMAIN
+              value: "{{ service_hostname }}"
+            - name: GF_SERVER_ROOT_URL
+              value: "http://{{ service_hostname }}/grafana"
+            - name: GF_SERVER_SERVE_FROM_SUB_PATH
+              value: "true"
+            - name: GF_SERVER_HTTP_PORT
+              value: "3000"
+            - name: GF_AUTH_GITHUB_ENABLED
+              value: "true"
+            - name: GF_AUTH_GITHUB_ALLOW_SIGN_UP
+              value: "true"
+            - name: GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS
+              value: "cmu-db"
+            - name: GF_SECURITY_ADMIN_USER
+              value: "admin"
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: gf_admin_password
+            #GitHub Login
+            - name: GF_AUTH_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: gf_auth_github_client_id
+            - name: GF_AUTH_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: gf_auth_github_client_secret

@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: "{{ env }}-timescaledb"
   namespace: performance
@@ -25,6 +25,8 @@ spec:
         env: "{{ env }}"
       volumes:
         - name: timescaledb-volume
+          persistentVolumeClaim:
+            claimName: timescaledb-pv-claim
       containers:
         - name: timescaledb
           image: "{{ timescaledb_container_image }}"
@@ -34,9 +36,15 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
             - name: POSTGRES_PASSWORD
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password
           volumeMounts:
             - name: timescaledb-volume
               mountPath: /var/lib/postgresql/data

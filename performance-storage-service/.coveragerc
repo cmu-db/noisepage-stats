@@ -1,3 +1,6 @@
 [run]
 branch = True
-source = "/pss_project/api/*"
+omit = 
+    env/*
+    */__init__.py
+    */tests/*
