@@ -16,7 +16,7 @@ class OLTPBenchParametersSerializer(Serializer):
     query_mode = ChoiceField(choices=QUERY_MODE_CHOICES)
     scale_factor = DecimalField(max_digits=10, decimal_places=4, coerce_to_string=False)
     terminals = IntegerField()
-    duration = IntegerField()
+    client_time = IntegerField()
     transaction_weights = TransactionWeightSerializer(many=True)
 
     def create(self, validated_data):

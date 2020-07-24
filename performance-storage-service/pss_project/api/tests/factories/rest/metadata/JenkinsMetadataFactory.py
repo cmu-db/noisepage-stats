@@ -6,4 +6,4 @@ class JenkinsMetadataFactory(Factory):
     class Meta:
         model = JenkinsMetadata
 
-    build_id = Faker('pystr_format', string_format='###')
+    jenkins_job_id = Faker('pystr_format', string_format='###')

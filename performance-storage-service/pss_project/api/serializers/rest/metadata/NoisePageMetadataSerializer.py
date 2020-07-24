@@ -4,7 +4,7 @@ from pss_project.api.models.rest.metadata.NoisePageMetadata import NoisePageMeta
 
 class NoisePageMetadataSerializer(Serializer):
     # Fields
-    version = CharField()
+    db_version = CharField()
 
     def create(self, validated_data):
         return NoisePageMetadata(**validated_data)

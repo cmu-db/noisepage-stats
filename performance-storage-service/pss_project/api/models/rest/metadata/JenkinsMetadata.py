@@ -1,3 +1,3 @@
 class JenkinsMetadata(object):
-    def __init__(self, build_id):
-        self.build_id = build_id
+    def __init__(self, jenkins_job_id):
+        self.jenkins_job_id = jenkins_job_id

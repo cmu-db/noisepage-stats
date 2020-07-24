@@ -4,8 +4,8 @@ from pss_project.api.models.rest.metadata.GithubMetadata import GithubMetadata
 
 class GithubMetadataSerializer(Serializer):
     # Fields
-    commit_id = CharField()
-    branch = CharField()
+    git_commit_id = CharField()
+    git_branch = CharField()
 
     def create(self, validated_data):
         return GithubMetadata(**validated_data)

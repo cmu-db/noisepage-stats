@@ -5,5 +5,6 @@ from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
 class OLTPBenchResultSerializer(ModelSerializer):
     class Meta:
         model = OLTPBenchResult
-        fields = ('time', 'branch', 'query_mode', 'build_id', 'git_commit_id',
-                  'benchmark_type', 'scale_factor', 'terminals', 'duration', 'weights', 'metrics')
+        fields = ('time', 'git_branch', 'git_commit_id', 'jenkins_job_id', 'db_version', 'environment',
+                  'benchmark_type', 'query_mode', 'scale_factor', 'terminals', 'client_time', 'weights',
+                  'metrics', 'incremental_metrics')

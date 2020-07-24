@@ -1,6 +1,7 @@
 from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
+import json
 
 
 class OLTPBenchRest(object):
@@ -14,16 +15,19 @@ class OLTPBenchRest(object):
     def convert_to_db_json(self):
         data = {
             'time': self.timestamp,
-            'branch': self.metadata.github.branch,
-            'query_mode': self.parameters.query_mode,
-            'build_id': self.metadata.jenkins.build_id,
-            'git_commit_id': self.metadata.github.commit_id,
+            'git_branch': self.metadata.github.git_branch,
+            'git_commit_id': self.metadata.github.git_commit_id,
+            'jenkins_job_id': self.metadata.jenkins.jenkins_job_id,
+            'db_version': self.metadata.noisepage.db_version,
+            'environment': convert_environment_to_dict(self.metadata.environment),
             'benchmark_type': self.type,
+            'query_mode': self.parameters.query_mode,
             'scale_factor': self.parameters.scale_factor,
             'terminals': self.parameters.terminals,
-            'duration': self.parameters.duration,
+            'client_time': self.parameters.client_time,
             'weights': convert_weights_to_dict(self.parameters.transaction_weights),
             'metrics': convert_metrics_to_dict(self.metrics),
+            'incremental_metrics': convert_incremental_metrics_to_dict(self.metrics.incremental_metrics)
         }
         return data
 
@@ -43,3 +47,24 @@ def convert_metrics_to_dict(metrics):
         'latency': metrics.latency.__dict__
     }
     return db_formatted_metrics
+
+
+def convert_environment_to_dict(environments):
+    db_formatted_environments = {
+        'os_version': environments.os_version,
+        'cpu_number': environments.cpu_number,
+        'cpu_socket': environments.cpu_socket
+    }
+    return db_formatted_environments
+
+
+def convert_incremental_metrics_to_dict(incremental_metrics):
+    db_formatted_incremental_metrics = []
+    for metric in incremental_metrics:
+        db_formatted_incremental_json = {
+            'time': metric.time,
+            'throughput': float(metric.throughput),
+            'latency': metric.latency
+        }
+        db_formatted_incremental_metrics.append(db_formatted_incremental_json)
+    return json.dumps(db_formatted_incremental_metrics)

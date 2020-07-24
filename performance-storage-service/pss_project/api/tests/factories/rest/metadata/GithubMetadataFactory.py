@@ -6,5 +6,5 @@ class GithubMetadataFactory(Factory):
     class Meta:
         model = GithubMetadata
 
-    commit_id = Faker('sha1')
-    branch = Faker('word')
+    git_commit_id = Faker('sha1')
+    git_branch = Faker('word')
