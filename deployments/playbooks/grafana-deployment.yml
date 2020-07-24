@@ -56,7 +56,7 @@
             url_password: "{{ result_secret_gf_admin_password.stdout }}"
             ds_type: "postgres"
             ds_url: "{{ service_hostname }}:{{ timescaledb_port }}"
-            database: "test_db"
+            database: "{{ pss_db_name }}"
             user: "{{ result_secret_pss_db_user.stdout }}"
             password: "{{ result_secret_pss_db_password.stdout }}"
             sslmode: "disable"
