@@ -41,4 +41,4 @@
         service_file: "{{ dir_k8s_pss }}/service.yml"
       k8s:
         state: present
-        definition: "{{ lookup('template', '{{ service_file }}') }}"
+        definition: "{{ lookup('template', '{{ service_file }}') }}" # Trigger
