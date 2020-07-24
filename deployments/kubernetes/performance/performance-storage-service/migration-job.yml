@@ -28,5 +28,16 @@ spec:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
                   key: pss_db_password
+            - name: PSS_CREATOR_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_creator_user
+            - name: PSS_CREATOR_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_creator_password
+
       restartPolicy: Never
   backoffLimit: 5

@@ -1,3 +1,4 @@
+import base64
 from functools import partial
 from typing import Any, Dict
 from datetime import datetime
@@ -29,3 +30,13 @@ def generate_dict_factory(factory: Factory):
         return stub_dict
 
     return partial(dict_factory, factory)
+
+
+def get_basic_auth_header(username, password):
+    """
+    Used in tests to create the basic authentication string.
+    :param username: string
+    :param password: string
+    :return:
+    """
+    return 'Basic {}'.format(base64.b64encode(('{}:{}'.format(username, password)).encode('ascii')).decode())
