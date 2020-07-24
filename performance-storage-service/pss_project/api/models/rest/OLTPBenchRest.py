@@ -1,7 +1,6 @@
 from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
-import json
 
 
 class OLTPBenchRest(object):
@@ -63,8 +62,8 @@ def convert_incremental_metrics_to_dict(incremental_metrics):
     for metric in incremental_metrics:
         db_formatted_incremental_json = {
             'time': metric.time,
-            'throughput': float(metric.throughput),
-            'latency': metric.latency
+            'throughput': metric.throughput,
+            'latency': metric.latency.__dict__
         }
         db_formatted_incremental_metrics.append(db_formatted_incremental_json)
-    return json.dumps(db_formatted_incremental_metrics)
+    return db_formatted_incremental_metrics
