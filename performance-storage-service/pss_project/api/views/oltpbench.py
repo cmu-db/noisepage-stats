@@ -4,17 +4,18 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
 from pss_project.api.serializers.database.OLTPBenchResultSerializer import OLTPBenchResultSerializer
-from datetime import datetime
 from rest_framework.authentication import BasicAuthentication
+
 
 class OLTPBenchViewSet(viewsets.ViewSet):
     """
     Store a new OLTPBench result in the datatbase
     """
-    def create(self,request):
+
+    def create(self, request):
         user = BasicAuthentication().authenticate(request)
         if user is None:
-            return Response({'message':"Forbidden"},status = status.HTTP_403_FORBIDDEN)
+            return Response({'message': "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
 
         data = JSONParser().parse(request)
         api_serializer = OLTPBenchSerializer(data=data)

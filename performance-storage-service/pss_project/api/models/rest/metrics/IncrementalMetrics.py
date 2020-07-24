@@ -6,4 +6,4 @@ class IncrementalMetrics(object):
         self.time = time
         self.throughput = throughput
         if latency:
-            self.latency = LatencyMetrics(**latency).__dict__
+            self.latency = LatencyMetrics(**latency)

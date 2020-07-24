@@ -6,7 +6,7 @@ pipeline {
   environment {
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-    VERSION = "1.1.2"
+    VERSION = "1.1.3"
     TIMESCALE_IMAGE = 'timescale/timescaledb:latest-pg12'
   }
   agent {
@@ -57,7 +57,7 @@ pipeline {
         always{
           junit "**/reports/junit.xml"
           cobertura onlyStable: false, coberturaReportFile: '**/reports/coverage.xml'
-          recordIssues enabledForFailure: true, tool: pep8(pattern: 'performance-storage-service/reports/pep8.report')
+          recordIssues enabledForFailure: true, tool: pep8(pattern: 'performance-storage-service/reports/pep8.report'), filters: [excludeFile('.*/usr/local/lib/.*')]
           recordIssues enabledForFailure: true, tool: flake8(pattern: 'performance-storage-service/reports/flake8.report'), filters: [excludeFile('.*/usr/local/lib/.*')]
         }
       }

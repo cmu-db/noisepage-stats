@@ -224,5 +224,45 @@ components:
           format: float
           description: The transactions per second that the test completed
         latency:
-          $ref: '#/components/schemas/LatencyMetrics'
+          $ref: '#/components/schemas/IncrementalLatencyMetrics'
+    IncrementalLatencyMetrics:
+      type: object
+      description: An object containing latency metrics for OLTPBench performance tests
+      properties:
+        l_25:
+          type: number
+          format: float
+          description: The 25th percentile of the latency results.
+        l_75:
+          type: number
+          format: float
+          description: The 75th percentile of the latency results.
+        l_90:
+          type: number
+          format: float
+          description: The 90th percentile of the latency results.
+        l_95:
+          type: number
+          format: float
+          description: The 95th percentile of the latency results.
+        l_99:
+          type: number
+          format: float
+          description: The 99th percentile of the latency results.
+        avg:
+          type: number
+          format: float
+          description: The average of the latency results.
+        median:
+          type: number
+          format: float
+          description: The median of the latency results.
+        max:
+          type: number
+          format: float
+          description: The max of the latency results.
+        min:
+          type: number
+          format: float
+          description: The min of the latency results.
       

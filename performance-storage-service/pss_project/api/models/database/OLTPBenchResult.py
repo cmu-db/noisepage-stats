@@ -29,4 +29,4 @@ class OLTPBenchResult(Model):
     client_time = PositiveSmallIntegerField()
     weights = JSONField()
     metrics = JSONField(encoder=DjangoJSONEncoder)
-    incremental_metrics = JSONField()
+    incremental_metrics = JSONField(encoder=DjangoJSONEncoder)
