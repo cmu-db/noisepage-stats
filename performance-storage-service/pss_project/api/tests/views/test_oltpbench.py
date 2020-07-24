@@ -4,8 +4,6 @@ from pss_project.api.tests.utils.utils import generate_dict_factory
 from pss_project.api.tests.utils.utils import get_basic_auth_header
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
-from rest_framework.test import force_authenticate
-
 
 
 class OLTPBenchViewTest(APITransactionTestCase):
