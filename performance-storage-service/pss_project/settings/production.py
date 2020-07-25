@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['incrudibles-production.db.pdl.cmu.edu']
 
 DATABASES = {
     'default': {
@@ -10,6 +10,6 @@ DATABASES = {
         'USER': get_environ_value('PSS_DATABASE_USER'),
         'PASSWORD': get_environ_value('PSS_DATABASE_PASSWORD'),
         'HOST': 'timescaledb-service-production.performance',
-        'PORT': int(get_environ_value('PSS_DATABASE_PORT')),
+        'PORT': int(get_environ_value('PSS_DATABASE_PORT',5432)),
     }
 }
