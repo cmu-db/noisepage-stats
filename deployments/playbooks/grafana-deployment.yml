@@ -1,0 +1,85 @@
+---
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Deploy Grafana
+  vars:
+    dir_repo: "{{ inventory_dir | dirname }}"
+    dir_deploy: "{{ inventory_dir }}"
+    dir_local_grafana_dashboards: "{{ dir_repo }}/grafana/dashboards"
+    dir_k8s_grafana: "{{ dir_deploy }}/kubernetes/performance/grafana"
+    service_hostname: "incrudibles-{{ env }}.db.pdl.cmu.edu"
+    service_port_dict:
+      testing: 30002
+      staging: 31002
+      production: 32002
+    service_port: "{{ service_port_dict[env] }}"
+    timescaledb_port: "{{ service_port | int + 1 }}"
+    ansible_python_interpreter: /usr/bin/python3
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
+  tasks:
+    - name: Create Grafana Deployment
+      vars:
+        deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+
+    - name: Create Grafana Service
+      vars:
+        service_file: "{{ dir_k8s_grafana }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
+    
+    - name: Configure grafana
+      block:
+        - name: Get secrets gf_admin_password
+          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.gf_admin_password}\" | base64 --decode"
+          register: result_secret_gf_admin_password
+        
+        - name: Get secrets pss_db_password
+          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_password}\" | base64 --decode"
+          register: result_secret_pss_db_password
+        
+        - name: Get secrets pss_db_user
+          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_user}\" | base64 --decode"
+          register: result_secret_pss_db_user
+
+        - name: Add grafana data source
+          grafana_datasource:
+            name: "noisepage-db"
+            grafana_url: "http://{{ service_hostname }}/grafana"
+            url_username: "admin"
+            url_password: "{{ result_secret_gf_admin_password.stdout }}"
+            ds_type: "postgres"
+            ds_url: "{{ service_hostname }}:{{ timescaledb_port }}"
+            database: "{{ pss_db_name }}"
+            user: "{{ result_secret_pss_db_user.stdout }}"
+            password: "{{ result_secret_pss_db_password.stdout }}"
+            sslmode: "disable"
+          when:
+            - result_secret_pss_db_user is defined
+            - result_secret_pss_db_user.stdout is defined
+            - result_secret_pss_db_password is defined
+            - result_secret_pss_db_password.stdout is defined
+            - result_secret_gf_admin_password is defined
+            - result_secret_gf_admin_password.stdout is defined
+        
+        - name: Add grafana dashboards
+          grafana_dashboard:
+            grafana_url: "http://{{ service_hostname }}/grafana"
+            url_username: "admin"
+            url_password: "{{ result_secret_gf_admin_password.stdout }}"
+            state: present
+            message: Updated by ansible
+            overwrite: yes
+            path: "{{ item }}"
+          with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
+          delegate_to: localhost
+          when:
+            - result_secret_gf_admin_password is defined
+            - result_secret_gf_admin_password.stdout is defined
+            

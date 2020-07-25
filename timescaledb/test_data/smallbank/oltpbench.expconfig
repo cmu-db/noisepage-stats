@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <loaderThreads>4</loaderThreads>
+    <isolation>TRANSACTION_SERIALIZABLE</isolation>
+    <scalefactor>1.0</scalefactor>
+    <terminals>16</terminals>
+    <works>
+        <work>
+            <time>30</time>
+            <rate>unlimited</rate>
+            <weights>15</weights>
+            <weights>15</weights>
+            <weights>15</weights>
+            <weights>25</weights>
+            <weights>15</weights>
+            <weights>15</weights>
+        </work>
+    </works>
+    <transactiontypes>
+        <transactiontype>
+            <name>Amalgamate</name>
+        </transactiontype>
+        <transactiontype>
+            <name>Balance</name>
+        </transactiontype>
+        <transactiontype>
+            <name>DepositChecking</name>
+        </transactiontype>
+        <transactiontype>
+            <name>SendPayment</name>
+        </transactiontype>
+        <transactiontype>
+            <name>TransactSavings</name>
+        </transactiontype>
+        <transactiontype>
+            <name>WriteCheck</name>
+        </transactiontype>
+    </transactiontypes>
+</configuration>

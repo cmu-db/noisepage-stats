@@ -1,0 +1,91 @@
+---
+
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Deploy TimescaleDB
+  vars:
+    dir_repo: "{{ inventory_dir }}"
+    dir_k8s_timescaledb: "{{ dir_repo }}/kubernetes/performance/timescaledb"
+    service_host: "incrudibles-{{ env }}.db.pdl.cmu.edu"
+    service_port_dict:
+      testing: 30003
+      staging: 31003
+      production: 32003
+    service_port: "{{ service_port_dict[env] }}"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        state: present
+        name: openshift
+
+    - name: Ensure psycopg2 is installed
+      pip:
+        state: present
+        name: psycopg2-binary
+
+  tasks:
+    - name: Create Persistent Volume
+      vars:
+        persistent_volume_file: "{{ dir_k8s_timescaledb }}/persistent-volume.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ persistent_volume_file }}') }}"
+
+    - name: Create Persistent Volume Claim
+      vars:
+        persistent_volume_claim_file: "{{ dir_k8s_timescaledb }}/persistent-volume-claim.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ persistent_volume_claim_file }}') }}"
+
+    - name: Create TimescaleDB Deployment
+      vars:
+        deployment_file: "{{ dir_k8s_timescaledb }}/deployment.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+
+    - name: Create TimescaleDB Service
+      vars:
+        service_file: "{{ dir_k8s_timescaledb }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
+    
+    - name: Get database secrets
+      block:        
+        - name: Get secrets pss_db_password
+          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_password}\" | base64 --decode"
+          register: result_secret_pss_db_password
+        
+        - name: Get secrets pss_db_user
+          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_user}\" | base64 --decode"
+          register: result_secret_pss_db_user
+    
+    - name: Configure the timescaledb
+      block:
+        - name: Wait for postgres to start
+          register: result
+          postgresql_ping:
+            ssl_mode: disable
+            db: postgres
+            login_host: "{{ service_host }}"
+            port: "{{ service_port | int }}"
+            login_user: "{{ result_secret_pss_db_user.stdout }}"
+            login_password: "{{ result_secret_pss_db_password.stdout }}"
+          until: result.is_available == True
+          retries: 10
+          delay: 10
+
+        - name: Add pss_datatabase Database
+          postgresql_db:
+            state: present
+            name: "{{ pss_db_name }}"
+            login_host: "{{ service_host }}"
+            port: "{{ service_port | int }}"
+            login_user: "{{ result_secret_pss_db_user.stdout }}"
+            login_password: "{{ result_secret_pss_db_password.stdout }}"
+      when:
+        - result_secret_pss_db_user is defined
+        - result_secret_pss_db_user.stdout is defined
+        - result_secret_pss_db_password is defined
+        - result_secret_pss_db_password.stdout is defined

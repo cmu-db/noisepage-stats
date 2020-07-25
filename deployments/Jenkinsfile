@@ -1,0 +1,143 @@
+#!groovy
+
+def getEnvFromBranch(branch){
+  if(branch == 'staging'){
+    return 'staging'
+  } else if(branch == 'master'){
+    return 'production'
+  } else {
+    return 'testing'
+  }
+}
+
+def dockerImage = ''
+
+pipeline {
+  environment{
+    ENV = getEnvFromBranch(env.BRANCH_NAME)
+    ANSIBLE_SSH = credentials('jenkins-k8s')
+    PSS_DATABASE = credentials('timescaledb')
+  }
+  agent {
+    label 'docker'
+  }
+  triggers {
+    upstream(upstreamProjects: "testing-team/noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+  }
+  stages{
+    stage('Checkout'){
+      when {
+        anyOf {
+          branch "test"
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps{
+        checkout scm
+      }
+    }
+    stage('Install Deployment Dependencies') {
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps {
+        sh "echo ${env.ENV}"
+        sh "ansible --version"
+        //sh "sudo apt-add-repository ppa:ansible/ansible"
+        //sh "sudo apt-get -y install ansible"  
+      }
+    }
+    stage('Create Namespaces') {
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      steps {
+        dir('deployments'){
+          script{
+            sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} \
+              --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
+          }
+        }
+      }
+    }
+    stage ('Deploy Apps'){
+      when {
+        anyOf {
+          allOf {
+            anyOf {
+              triggeredBy "UpstreamCause"
+              allOf {
+                changeset "deployments/**"
+                not { changeset "performance-storage-service/**" }
+              }
+            }
+            branch "test"
+          }
+          branch "staging"
+          branch "master"
+        }
+      }
+      stages {
+        stage('TimescaleDB') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml \
+                --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
+        }
+        stage('Performance Storage Service') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
+        } 
+        stage('Grafana') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
+        } 
+      }
+    }
+  }
+  post {
+    cleanup{
+      script{
+        echo "deleting directory"
+        deleteDir()
+      }
+    }
+  }
+}

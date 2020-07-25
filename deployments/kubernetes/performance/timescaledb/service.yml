@@ -1,0 +1,19 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: "timescaledb-service-{{ env }}"
+  namespace: performance
+  labels:
+    app: timescaledb
+    env: "{{ env }}"
+spec:
+  type: NodePort
+  selector:
+    app: timescaledb
+    env: "{{ env }}"
+  ports:
+  - protocol: TCP
+    port: 5432
+    nodePort: {{ service_port | int}}
+  externalTrafficPolicy: Local

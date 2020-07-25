@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ env }}-performance-storage-service"
+  namespace: performance
+  labels:
+    app: pss
+    env: "{{ env }}"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: pss
+      env: "{{ env }}"
+  template:
+    metadata:
+      labels:
+        app: pss
+        env: "{{ env }}"
+    spec:
+      nodeSelector:
+        env: "{{ env }}"
+      containers:
+        - name: performance-storage-service
+          image: "{{ pss_container_image }}"
+          imagePullPolicy: "{{ image_pull_policy }}"
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: SECRET_KEY
+              value: "super-secret"
+            - name: ENV
+              value: "{{ env }}"
+            - name: PSS_DATABASE_NAME
+              value: "{{ pss_db_name }}"
+            - name: PSS_DATABASE_PORT
+              value: "5432"
+            - name: PSS_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
+            - name: PSS_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password

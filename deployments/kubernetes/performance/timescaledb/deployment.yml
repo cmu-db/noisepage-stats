@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "{{ env }}-timescaledb"
+  namespace: performance
+  labels:
+    app: timescaledb
+    env: "{{ env }}"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: timescaledb
+      env: "{{ env }}"
+  template:
+    metadata:
+      labels:
+        app: timescaledb
+        env: "{{ env }}"
+    spec:
+      nodeSelector:
+        env: "{{ env }}"
+      volumes:
+        - name: timescaledb-volume
+          persistentVolumeClaim:
+            claimName: timescaledb-pv-claim
+      containers:
+        - name: timescaledb
+          image: "{{ timescaledb_container_image }}"
+          imagePullPolicy: "{{ image_pull_policy }}"
+          args: ["-c", "max_connections=500"]
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password
+          volumeMounts:
+            - name: timescaledb-volume
+              mountPath: /var/lib/postgresql/data

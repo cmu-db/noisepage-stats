@@ -1,0 +1,19 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: "performance-service-{{ env }}"
+  namespace: performance
+  labels:
+    app: pss
+    env: "{{ env }}"
+spec:
+  type: NodePort
+  selector:
+    app: pss
+    env: "{{ env }}"
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: {{ service_port | int }}
+  externalTrafficPolicy: Local

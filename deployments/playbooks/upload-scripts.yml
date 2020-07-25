@@ -1,0 +1,27 @@
+---
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Upload Scripts
+  vars:
+    dir_repo: "{{ inventory_dir }}"
+    dir_scripts: "{{ dir_repo }}/scripts"
+    remote_dir_secrets: /data/secrets
+  tasks:
+    - name: Upload scripts for k8s secrets
+      block:
+        - name: Ensure secrets folder exists
+          become: yes
+          file:
+            path: "{{ remote_dir_secrets }}"
+            state: directory
+            owner: root
+            mode: 0700
+        
+        - name: Upload scripts for k8s secrets
+          become: yes
+          copy:
+            src: "{{ dir_scripts }}/{{ item | string }}"
+            dest: "{{ remote_dir_secrets }}"
+            owner: root
+            mode: 0700
+          loop:
+            - make_secrets.sh
