@@ -1,200 +1,202 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "gnetId": null,
-    "graphTooltip": 0,
-    "id": 6,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "noisepage-db",
-        "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See [Latency Trends](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends) for more details.",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 6,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See [Latency Trends](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends) for more details.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
         },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 12,
-          "x": 0,
-          "y": 0
-        },
-        "hiddenSeries": false,
-        "id": 2,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "hideEmpty": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [
+        {
+          "title": "Latency Trends",
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends"
+        }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
           {
-            "title": "Latency Trends",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends"
+            "title": "GitHub Commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
           }
-        ],
-        "nullPointMode": "null",
-        "options": {
-          "dataLinks": [
+        ]
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "table",
+          "group": [
             {
-              "title": "GitHub Commit",
-              "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
             }
-          ]
-        },
-        "percentage": false,
-        "pointradius": 2,
-        "points": true,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "format": "table",
-            "group": [
+          ],
+          "metricColumn": "query_mode",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->'avg')::jsonb::text::numeric) as \"avg\",\n  avg((metrics->'latency'->'l_90')::jsonb::text::numeric) as \"l_90\",\n  avg((metrics->'latency'->'l_95')::jsonb::text::numeric) as \"l_95\",\n  avg((metrics->'latency'->'l_99')::jsonb::text::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'master'\nGROUP BY 1, git_commit_id\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
               {
                 "params": [
-                  "$__interval",
-                  "none"
+                  "metrics->'latency'->'avg'"
                 ],
-                "type": "time"
-              }
-            ],
-            "metricColumn": "query_mode",
-            "rawQuery": true,
-            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->'avg')::jsonb::text::numeric) as \"avg\",\n  avg((metrics->'latency'->'l_90')::jsonb::text::numeric) as \"l_90\",\n  avg((metrics->'latency'->'l_95')::jsonb::text::numeric) as \"l_95\",\n  avg((metrics->'latency'->'l_99')::jsonb::text::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop'\nGROUP BY 1, git_commit_id\nORDER BY 1",
-            "refId": "A",
-            "select": [
-              [
-                {
-                  "params": [
-                    "metrics->'latency'->'avg'"
-                  ],
-                  "type": "column"
-                },
-                {
-                  "params": [
-                    "avg"
-                  ],
-                  "type": "aggregate"
-                },
-                {
-                  "params": [
-                    "metrics->'latency'->'avg'"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "table": "oltpbench_results",
-            "timeColumn": "\"time\"",
-            "timeColumnType": "timestamptz",
-            "where": [
+                "type": "column"
+              },
               {
-                "name": "$__timeFilter",
-                "params": [],
-                "type": "macro"
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "metrics->'latency'->'avg'"
+                ],
+                "type": "alias"
               }
             ]
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Latency Overview",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
+          ],
+          "table": "oltpbench_results",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Latency Overview",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
       }
-    ],
-    "refresh": false,
-    "schemaVersion": 25,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": []
-    },
-    "time": {
-      "from": "now-7d",
-      "to": "now"
-    },
-    "timepicker": {
-      "refresh_intervals": [
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ]
-    },
-    "timezone": "",
-    "title": "Overview/Landing Page - Latency",
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Overview/Landing Page - Latency",
     "uid": "latencyoverview"
   }
