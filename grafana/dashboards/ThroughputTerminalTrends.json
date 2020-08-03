@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1596431474814,
+  "iteration": 1596432835043,
   "links": [],
   "panels": [
     {
@@ -32,7 +32,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 23,
+        "w": 20,
         "x": 0,
         "y": 0
       },
@@ -42,6 +42,89 @@
       "timeShift": null,
       "title": "",
       "type": "text"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Git commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 82,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Commit ID",
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -251,13 +334,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 0,
         "y": 13
       },
       "id": 14,
-      "maxPerRow": 6,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -381,13 +464,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 4.8,
         "y": 13
       },
-      "id": 61,
-      "maxPerRow": 6,
+      "id": 95,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -404,7 +487,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -513,13 +596,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 9.6,
         "y": 13
       },
-      "id": 62,
-      "maxPerRow": 6,
+      "id": 96,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -536,7 +619,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -645,13 +728,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
         "y": 13
       },
-      "id": 63,
-      "maxPerRow": 6,
+      "id": 97,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -668,7 +751,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -777,13 +860,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 19.2,
         "y": 13
       },
-      "id": 64,
-      "maxPerRow": 6,
+      "id": 98,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -800,7 +883,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -853,46 +936,46 @@
       "gridPos": {
         "h": 1,
         "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 83,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
         "x": 0,
         "y": 20
       },
-      "id": 49,
-      "panels": [],
-      "repeat": null,
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 4,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "tpcc",
-          "value": "tpcc"
-        }
-      },
-      "title": "$benchmark_type",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 23,
-        "x": 0,
-        "y": 21
-      },
       "hiddenSeries": false,
-      "id": 50,
+      "id": 84,
       "legend": {
         "avg": false,
         "current": false,
@@ -913,7 +996,7 @@
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 2,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1060,13 +1143,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 0,
-        "y": 30
+        "y": 29
       },
-      "id": 51,
-      "maxPerRow": 6,
+      "id": 85,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1083,7 +1166,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1193,13 +1276,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 4.8,
-        "y": 30
+        "y": 29
       },
-      "id": 65,
-      "maxPerRow": 6,
+      "id": 99,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1216,8 +1299,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 51,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -1326,13 +1409,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 9.6,
-        "y": 30
+        "y": 29
       },
-      "id": 66,
-      "maxPerRow": 6,
+      "id": 100,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1349,8 +1432,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 51,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -1459,13 +1542,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
-        "y": 30
+        "y": 29
       },
-      "id": 67,
-      "maxPerRow": 6,
+      "id": 101,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1482,8 +1565,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 51,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -1592,13 +1675,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 19.2,
-        "y": 30
+        "y": 29
       },
-      "id": 68,
-      "maxPerRow": 6,
+      "id": 102,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1615,8 +1698,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 51,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -1670,12 +1753,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 35
       },
-      "id": 52,
+      "id": 86,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 4,
       "scopedVars": {
         "benchmark_type": {
@@ -1705,10 +1788,10 @@
         "h": 9,
         "w": 23,
         "x": 0,
-        "y": 38
+        "y": 36
       },
       "hiddenSeries": false,
-      "id": 53,
+      "id": 87,
       "legend": {
         "avg": false,
         "current": false,
@@ -1729,7 +1812,7 @@
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 2,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1876,13 +1959,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 0,
-        "y": 47
+        "y": 45
       },
-      "id": 54,
-      "maxPerRow": 6,
+      "id": 88,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -1899,7 +1982,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2009,13 +2092,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 4.8,
-        "y": 47
+        "y": 45
       },
-      "id": 69,
-      "maxPerRow": 6,
+      "id": 103,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2032,8 +2115,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 54,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -2142,13 +2225,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 9.6,
-        "y": 47
+        "y": 45
       },
-      "id": 70,
-      "maxPerRow": 6,
+      "id": 104,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2165,8 +2248,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 54,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -2275,13 +2358,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
-        "y": 47
+        "y": 45
       },
-      "id": 71,
-      "maxPerRow": 6,
+      "id": 105,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2298,8 +2381,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 54,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -2408,13 +2491,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 19.2,
-        "y": 47
+        "y": 45
       },
-      "id": 72,
-      "maxPerRow": 6,
+      "id": 106,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2431,8 +2514,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 54,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -2486,12 +2569,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 51
       },
-      "id": 55,
+      "id": 89,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 4,
       "scopedVars": {
         "benchmark_type": {
@@ -2521,10 +2604,10 @@
         "h": 9,
         "w": 23,
         "x": 0,
-        "y": 55
+        "y": 52
       },
       "hiddenSeries": false,
-      "id": 56,
+      "id": 90,
       "legend": {
         "avg": false,
         "current": false,
@@ -2545,7 +2628,7 @@
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 2,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2692,13 +2775,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 0,
-        "y": 64
+        "y": 61
       },
-      "id": 57,
-      "maxPerRow": 6,
+      "id": 91,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2715,7 +2798,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2825,13 +2908,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 4.8,
-        "y": 64
+        "y": 61
       },
-      "id": 73,
-      "maxPerRow": 6,
+      "id": 107,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2848,8 +2931,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 57,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -2958,13 +3041,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 9.6,
-        "y": 64
+        "y": 61
       },
-      "id": 74,
-      "maxPerRow": 6,
+      "id": 108,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -2981,8 +3064,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 57,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -3091,13 +3174,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
-        "y": 64
+        "y": 61
       },
-      "id": 75,
-      "maxPerRow": 6,
+      "id": 109,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3114,8 +3197,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 57,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -3224,13 +3307,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 19.2,
-        "y": 64
+        "y": 61
       },
-      "id": 76,
-      "maxPerRow": 6,
+      "id": 110,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3247,8 +3330,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 57,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -3302,12 +3385,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 67
       },
-      "id": 58,
+      "id": 92,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 4,
       "scopedVars": {
         "benchmark_type": {
@@ -3337,10 +3420,10 @@
         "h": 9,
         "w": 23,
         "x": 0,
-        "y": 72
+        "y": 68
       },
       "hiddenSeries": false,
-      "id": 59,
+      "id": 93,
       "legend": {
         "avg": false,
         "current": false,
@@ -3361,7 +3444,7 @@
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 2,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3508,13 +3591,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 0,
-        "y": 81
+        "y": 77
       },
-      "id": 60,
-      "maxPerRow": 6,
+      "id": 94,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3531,7 +3614,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
+      "repeatIteration": 1596432835043,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3641,13 +3724,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 4.8,
-        "y": 81
+        "y": 77
       },
-      "id": 77,
-      "maxPerRow": 6,
+      "id": 111,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3664,8 +3747,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 60,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -3774,13 +3857,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 9.6,
-        "y": 81
+        "y": 77
       },
-      "id": 78,
-      "maxPerRow": 6,
+      "id": 112,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3797,8 +3880,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 60,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -3907,13 +3990,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
-        "y": 81
+        "y": 77
       },
-      "id": 79,
-      "maxPerRow": 6,
+      "id": 113,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -3930,8 +4013,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 60,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
@@ -4040,13 +4123,13 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4.8,
         "x": 19.2,
-        "y": 81
+        "y": 77
       },
-      "id": 80,
-      "maxPerRow": 6,
+      "id": 114,
+      "maxPerRow": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -4063,8 +4146,8 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431474814,
-      "repeatPanelId": 60,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {

@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1596431547697,
+  "iteration": 1596432628076,
   "links": [],
   "panels": [
     {
@@ -35,8 +35,8 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 24,
+        "h": 9,
+        "w": 21,
         "x": 0,
         "y": 0
       },
@@ -141,6 +141,85 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Git commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Commit ID",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -195,7 +274,7 @@
         "h": 6,
         "w": 4.8,
         "x": 0,
-        "y": 8
+        "y": 9
       },
       "id": 4,
       "maxPerRow": 6,
@@ -315,7 +394,7 @@
         "h": 6,
         "w": 4.8,
         "x": 4.8,
-        "y": 8
+        "y": 9
       },
       "id": 7,
       "maxPerRow": 6,
@@ -335,7 +414,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431547697,
+      "repeatIteration": 1596432628076,
       "repeatPanelId": 4,
       "scopedVars": {
         "terminals": {
@@ -437,7 +516,7 @@
         "h": 6,
         "w": 4.8,
         "x": 9.6,
-        "y": 8
+        "y": 9
       },
       "id": 8,
       "maxPerRow": 6,
@@ -457,7 +536,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431547697,
+      "repeatIteration": 1596432628076,
       "repeatPanelId": 4,
       "scopedVars": {
         "terminals": {
@@ -559,7 +638,7 @@
         "h": 6,
         "w": 4.8,
         "x": 14.399999999999999,
-        "y": 8
+        "y": 9
       },
       "id": 9,
       "maxPerRow": 6,
@@ -579,7 +658,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431547697,
+      "repeatIteration": 1596432628076,
       "repeatPanelId": 4,
       "scopedVars": {
         "terminals": {
@@ -681,7 +760,7 @@
         "h": 6,
         "w": 4.8,
         "x": 19.2,
-        "y": 8
+        "y": 9
       },
       "id": 10,
       "maxPerRow": 6,
@@ -701,7 +780,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596431547697,
+      "repeatIteration": 1596432628076,
       "repeatPanelId": 4,
       "scopedVars": {
         "terminals": {
