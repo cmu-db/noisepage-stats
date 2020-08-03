@@ -51,7 +51,7 @@
         - name: Add grafana data source
           grafana_datasource:
             name: "noisepage-db"
-            grafana_url: "http://{{ service_hostname }}/grafana"
+            grafana_url: "https://{{ service_hostname }}/grafana"
             url_username: "admin"
             url_password: "{{ result_secret_gf_admin_password.stdout }}"
             ds_type: "postgres"
@@ -70,7 +70,7 @@
         
         - name: Add grafana dashboards
           grafana_dashboard:
-            grafana_url: "http://{{ service_hostname }}/grafana"
+            grafana_url: "https://{{ service_hostname }}/grafana"
             url_username: "admin"
             url_password: "{{ result_secret_gf_admin_password.stdout }}"
             state: present
