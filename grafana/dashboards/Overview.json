@@ -14,10 +14,7 @@
     },
     "description": "Summarize the results from different performance metrics",
     "editable": true,
-    "gnetId": null,
     "graphTooltip": 0,
-    "id": 24,
-    "iteration": 1596439969539,
     "links": [],
     "panels": [
       {
