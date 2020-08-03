@@ -197,7 +197,7 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "noisepage-db",
-        "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See [Latency Trends](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends) for more details.",
+        "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See [Latency Trends](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/latency_trends/latency-trends) for more details.",
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -231,7 +231,7 @@
         "links": [
           {
             "title": "Latency Trends",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/jx41M24Mk/latency-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/latency_trends/latency-trends"
           }
         ],
         "nullPointMode": "null",
@@ -364,7 +364,7 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "noisepage-db",
-        "description": "The average throughput for all benchmarks, excluding noop. See [Scalability Details](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends) for more details.",
+        "description": "The average throughput for all benchmarks, excluding noop. See [Scalability Details](https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_terminal_trends/throughput-terminal-trends) for more details.",
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -395,7 +395,7 @@
         "links": [
           {
             "title": "Scalability Details",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
           }
         ],
         "nullPointMode": "null",
@@ -625,7 +625,7 @@
         "links": [
           {
             "title": "Scalability Details",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
           }
         ],
         "maxPerRow": 6,
@@ -879,7 +879,7 @@
         "links": [
           {
             "title": "Scalability Details",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
           }
         ],
         "maxPerRow": 6,
@@ -1007,7 +1007,7 @@
         "links": [
           {
             "title": "Scalability Details",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_termnial_trends/throughput-terminal-trends"
           }
         ],
         "maxPerRow": 6,
@@ -1135,7 +1135,7 @@
         "links": [
           {
             "title": "Scalability Details",
-            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/2VZuQ14Gz/throughput-terminal-trends"
+            "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
           }
         ],
         "maxPerRow": 6,
