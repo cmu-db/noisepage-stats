@@ -14,10 +14,7 @@
   },
   "description": "Summarize the results from different performance metrics",
   "editable": true,
-  "gnetId": null,
   "graphTooltip": 0,
-  "id": 20,
-  "iteration": 1596487489684,
   "links": [],
   "panels": [
     {
@@ -88,7 +85,7 @@
         {
           "targetBlank": true,
           "title": "Throughput Trends",
-          "url": "/grafana/d/throughput_trends/throughput-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputtrends/throughput-trends"
         }
       ],
       "nullPointMode": "null",
@@ -235,7 +232,7 @@
         {
           "targetBlank": true,
           "title": "Latency Trends",
-          "url": "/grafana/d/latency_trends/latency-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/latencytrends/latency-trends"
         }
       ],
       "nullPointMode": "null",
@@ -400,7 +397,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "nullPointMode": "null",
@@ -631,7 +628,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -758,7 +755,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -887,7 +884,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1016,7 +1013,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1145,7 +1142,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
