@@ -7,12 +7,25 @@ import argparse
 import wget
 import csv
 import subprocess
+from time import time
 
 # I guess I shouldn't set password here?
-CONNECTION = "postgres://username:password@localhost:30003/test_db"
-# TABLENAME = 'test_table'
-TABLENAME = 'test_oltpbench_result'
+CONNECTION = "postgres://username:password@localhost:30003/pss_database"
+TABLENAME = 'oltpbench_results'
+UNKNOWN_RESULT = 'unknown'
+LATENCY_ATTRIBUTE_MAPPING = [
+    ('l_25','25'),('l_75','75'),('l_90','90'), ('l_95','95'), ('l_99','99'),
+    ('avg','average'),('median','median'),('min','minimum'), ('max','maximum')]
 
+def get_value_by_pattern(dict_obj, pattern, default):
+    """
+    This is similar to .get() for a dict but it matches the
+    key based on a substring. This function is case insensitive.
+    """
+    for key, value in dict_obj.items():
+        if pattern.lower() in key.lower():
+            return value
+    return default
 
 def create_table(conn):
     """Create and install timescaledb plug-in if not exists.
@@ -25,19 +38,19 @@ def create_table(conn):
         CREATE TABLE %s (
             id SERIAL,
             time TIMESTAMPTZ,
-            db_version TEXT,
-            query_mode TEXT,
-            jenkins_job_id TEXT,
             git_branch TEXT,
             git_commit_id TEXT,
+            jenkins_job_id TEXT,
+            db_version TEXT,
+            environment JSONB,
             benchmark_type TEXT,
+            query_mode TEXT,
             scale_factor NUMERIC,
             terminals NUMERIC,
             client_time NUMERIC,
             weights JSONB,
             metrics JSONB,
-            incremental_metrics JSONB,
-            environment JSONB
+            incremental_metrics JSONB
         );
     """ % TABLENAME
     INSTALL_TIMESCALE = """
@@ -75,21 +88,19 @@ def read_and_insert_from_folder(conn, path):
     query_mode = 'extended'
     jenkins_job_id = 35
     git_commit_id = '4ed4617'
-    environment = json.dumps({'OS_version': 'Linux-4.15.0-101-generic-x86_64-with-Ubuntu-18.04-bionic'})
+    environment = json.dumps({'os_version': 'Linux-4.15.0-101-generic-x86_64-with-Ubuntu-18.04-bionic', 'cpu_socket': '2', 'cpu_number': '16'})
 
     for subdir, dirs, files in os.walk(path):
         if subdir != str(path):
-            benchmark_type, timestamp, db_version, scalefactor, terminals, metrics = read_from_summary(
+            db_version, timestamp, benchmark_type, scalefactor, terminals, metrics = read_from_summary(
                 os.path.join(subdir, 'oltpbench.summary'))
             weight, client_time = read_from_expconfig(
                 os.path.join(subdir, 'oltpbench.expconfig'))
             incremental_metrics = read_from_res(
                 os.path.join(subdir, 'oltpbench.res'))
-            insert_data(conn, time=timestamp, client_time=client_time, db_version=db_version, 
-                        branch=branch, query_mode=query_mode, jenkins_job_id=jenkins_job_id, 
-                        git_commit_id=git_commit_id, benchmark_type=benchmark_type, 
-                        scalefactor=scalefactor, terminals=terminals, weight=weight, 
-                        metrics=metrics, incre_metrics=incremental_metrics, environment=environment)
+            insert_data(conn, time=timestamp, git_branch=branch,
+            git_commit_id=git_commit_id, jenkins_job_id=jenkins_job_id,
+            db_version=db_version, environment=environment, benchmark_type=benchmark_type, query_mode=query_mode,scale_factor=scalefactor, terminals=terminals, client_time=client_time, weights=weight, metrics=metrics, incremental_metrics=incremental_metrics)
 
 
 def read_from_summary(path):
@@ -107,10 +118,40 @@ def read_from_summary(path):
         metrics (json): The benchmark test result.
 
     """
-    with open(path) as f:
-        summary = json.load(f)
-    metrics = json.dumps({'min_lat': summary['Latency Distribution']['Minimum Latency (microseconds)'], 'lat_25th': summary['Latency Distribution']['25th Percentile Latency (microseconds)'], 'median_lat': summary['Latency Distribution']['Median Latency (microseconds)'], 'avg_lat': summary['Latency Distribution']['Average Latency (microseconds)'], 'lat_75th': summary['Latency Distribution']['75th Percentile Latency (microseconds)'], 'lat_90th': summary['Latency Distribution']['90th Percentile Latency (microseconds)'], 'lat_95th': summary['Latency Distribution']['95th Percentile Latency (microseconds)'], 'lat_99th': summary['Latency Distribution']['99th Percentile Latency (microseconds)'], 'max_lat': summary['Latency Distribution']['Maximum Latency (microseconds)'], 'throughput': summary['Throughput (requests/second)']})
-    return summary['Benchmark Type'], summary['Current Timestamp (milliseconds)'], summary['DBMS Version'], summary['scalefactor'], summary['terminals'], metrics
+    with open(path) as summary_file:
+        summary = json.load(summary_file)
+        db_version = summary.get('DBMS Version', UNKNOWN_RESULT)
+        timestamp = int(get_value_by_pattern(summary, 'timestamp', str(time())))
+        type = summary.get('Benchmark Type', UNKNOWN_RESULT)
+        scalefactor = summary.get('scalefactor', '-1.0')
+        terminals = int(summary.get('terminals', -1))
+        metrics = parse_metrics(summary)
+    return db_version, timestamp, type, scalefactor, terminals, metrics
+
+
+def parse_metrics(summary):
+    return json.dumps({
+        "throughput" : get_value_by_pattern(summary, 'throughput', '-1.0'),
+        "latency": parse_latency_data(summary.get('Latency Distribution',{}))
+    })
+
+
+def parse_latency_data(latency_dict):
+    """
+    Parses the latency data from the format it is stored in the summary
+    file to the format we need for the API request.
+    Args:
+        latency_dict (dict): The "Latency Distribution" json object in the OLTPBench
+        summary file.
+    Returns:
+        latency (dict): The latency dict required to send to the performance storage
+        service.
+    """
+    latency = {}
+    for key, pattern in LATENCY_ATTRIBUTE_MAPPING:
+        value = get_value_by_pattern(latency_dict, pattern, None)
+        latency[key] = float(value) if value else value
+    return latency
 
 
 def read_from_expconfig(path):
@@ -160,10 +201,10 @@ def read_from_res(path):
             lat_99th.append(float(row[' 99th_lat(ms)']))
             max_lat.append(float(row[' max_lat(ms)']))
 
-    incremental_metrics = [{"time": t, "throughput": tp, "min_lat": ml, "lat_25th": l25, "median_lat": mel, "avg_lat": al, "lat_75th": l75, "lat_90th": l90, "lat_95th": l95, "lat_99th": l99, "max_lat": mal} for t, tp, ml, l25, mel, al, l75, l90, l95, l99, mal in zip(time, throughput, min_lat, lat_25th, median_lat, avg_lat, lat_75th, lat_90th, lat_95th, lat_99th, max_lat)]
+    incremental_metrics = [{"time": t, "throughput": tp, "latency": {"min": ml, "l_25": l25, "median": mel, "avg": al, "l_75": l75, "l_90": l90, "l_95": l95, "l_99": l99, "max": mal}} for t, tp, ml, l25, mel, al, l75, l90, l95, l99, mal in zip(time, throughput, min_lat, lat_25th, median_lat, avg_lat, lat_75th, lat_90th, lat_95th, lat_99th, max_lat)]
     return json.dumps(incremental_metrics)
 
-def insert_data(conn, time, client_time, db_version, branch, query_mode, jenkins_job_id, git_commit_id, benchmark_type, scalefactor, terminals, weight, metrics, incre_metrics, environment):
+def insert_data(conn, time, git_branch, git_commit_id, jenkins_job_id, db_version, environment, benchmark_type, query_mode, scale_factor, terminals, client_time, weights, metrics, incremental_metrics):
     """Insert data to TimeScaleDB.
 
     # TODO(benliangw): Use pgcopy to insert rows faster (https://docs.timescale.com/latest/tutorials/quickstart-python#create_table)
@@ -185,14 +226,16 @@ def insert_data(conn, time, client_time, db_version, branch, query_mode, jenkins
         incre_metrics (json): The results at different time during a long benchmark testing.
         environment (json): The information of the server.
     """
+
     INSERT_SQL = """
         INSERT INTO %s (
-            time, db_version, query_mode, jenkins_job_id, git_branch, git_commit_id, benchmark_type, scale_factor, terminals, client_time, weights, metrics, incremental_metrics, environment
+            time, git_branch, git_commit_id, jenkins_job_id, db_version, environment, benchmark_type, query_mode, scale_factor, terminals, client_time, weights, metrics, incremental_metrics
         ) VALUES (
-            to_timestamp(%s/1000), '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, 
-            %s, '%s', '%s', '%s', '%s'
+            to_timestamp(%s/1000), '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, 
+            %s, %s, '%s', '%s', '%s'
         );
-    """ % (TABLENAME, time, db_version, query_mode, jenkins_job_id, branch, git_commit_id, benchmark_type, scalefactor, terminals, client_time, weight, metrics, incre_metrics, environment)
+    """ % (TABLENAME, time, git_branch, git_commit_id, jenkins_job_id, db_version, environment, benchmark_type, query_mode, scale_factor, terminals, client_time, weights, metrics, incremental_metrics)
+
     cur = conn.cursor()
     try:
         cur.execute(INSERT_SQL)
@@ -301,6 +344,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
