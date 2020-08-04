@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_NOISEPAGE_DB",
-      "label": "noisepage-db",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "postgres",
-      "pluginName": "PostgreSQL"
-    }
-  ],
   "__requires": [
     {
       "type": "grafana",
@@ -81,7 +71,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_NOISEPAGE_DB}",
+      "datasource": "noisepage-db",
       "description": "The average throughput of all benchmarks, excluding noop. See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
@@ -241,7 +231,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_NOISEPAGE_DB}",
+      "datasource": "noisepage-db",
       "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See **Latency Trends** for more details.",
       "fieldConfig": {
         "defaults": {
@@ -409,7 +399,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_NOISEPAGE_DB}",
+      "datasource": "noisepage-db",
       "description": "The average throughput for all benchmarks, excluding noop. See **Scalability Details** for more details.",
       "fieldConfig": {
         "defaults": {
@@ -529,7 +519,7 @@
       }
     },
     {
-      "datasource": "${DS_NOISEPAGE_DB}",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -608,7 +598,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_NOISEPAGE_DB}",
+      "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -758,7 +748,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_NOISEPAGE_DB}",
+        "datasource": "noisepage-db",
         "definition": "SELECT terminals FROM oltpbench_results",
         "hide": 2,
         "includeAll": true,
