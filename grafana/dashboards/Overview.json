@@ -88,7 +88,7 @@
         {
           "targetBlank": true,
           "title": "Throughput Trends",
-          "url": "/grafana/d/throughputtrends/throughput-trends"
+          "url": "/grafana/d/throughput_trends/throughput-trends"
         }
       ],
       "nullPointMode": "null",
@@ -235,7 +235,7 @@
         {
           "targetBlank": true,
           "title": "Latency Trends",
-          "url": "/grafana/d/latencytrends/latency-trends"
+          "url": "/grafana/d/latency_trends/latency-trends"
         }
       ],
       "nullPointMode": "null",
@@ -400,7 +400,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "nullPointMode": "null",
@@ -631,7 +631,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -758,7 +758,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -887,7 +887,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1016,7 +1016,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1145,7 +1145,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
