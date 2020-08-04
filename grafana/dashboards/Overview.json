@@ -1,36 +1,4 @@
 {
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "7.0.3"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "postgres",
-      "name": "PostgreSQL",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -49,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1596515195737,
+  "iteration": 1596516768182,
   "links": [],
   "panels": [
     {
@@ -72,7 +40,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput of all benchmarks, excluding noop. See **Throughput Trends** for more details.",
+      "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -400,7 +368,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput for all benchmarks, excluding noop. See **Scalability Details** for more details.",
+      "description": "The average throughput for all benchmarks (except noop) and all terminal values. See **Scalability Details** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -683,6 +651,529 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput, \r\n\texpect_throughput AS expect_throughput,\r\n\treal_throughput - expect_throughput AS diff_throughput\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 32
+      },
+      "id": 15,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596516768182,
+      "repeatPanelId": 6,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput, \r\n\texpect_throughput AS expect_throughput,\r\n\treal_throughput - expect_throughput AS diff_throughput\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 32
+      },
+      "id": 16,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596516768182,
+      "repeatPanelId": 6,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput, \r\n\texpect_throughput AS expect_throughput,\r\n\treal_throughput - expect_throughput AS diff_throughput\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 32
+      },
+      "id": 17,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596516768182,
+      "repeatPanelId": 6,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput, \r\n\texpect_throughput AS expect_throughput,\r\n\treal_throughput - expect_throughput AS diff_throughput\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'master'\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 32
+      },
+      "id": 18,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596516768182,
+      "repeatPanelId": 6,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "16",
+          "value": "16"
+        }
+      },
       "targets": [
         {
           "format": "time_series",
@@ -747,7 +1238,11 @@
     "list": [
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "noisepage-db",
         "definition": "SELECT terminals FROM oltpbench_results",
         "hide": 2,
@@ -789,5 +1284,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 3
+  "version": 4
 }
