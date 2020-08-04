@@ -1,0 +1,4283 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "content": "\n# Throughput-terminal Trends\n\nThis dashboard display an overview of how throughput changes over terminal numbers. Feel free to mix and match, but be warned the charts can get overwhelming pretty fast.\n",
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 20,
+        "x": 0,
+        "y": 0
+      },
+      "id": 48,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Git commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 82,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp'\nORDER BY time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Commit ID",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 4,
+      "panels": [],
+      "repeat": "benchmark_type",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 4
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\n\ttime, \n\tCAST(terminals AS TEXT) as metric,\n  CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM oltpbench_results\nWHERE \n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type throughput-terminal trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 0,
+        "y": 13
+      },
+      "id": 14,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "terminals",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 13
+      },
+      "id": 95,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 13
+      },
+      "id": 96,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 13
+      },
+      "id": 97,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 13
+      },
+      "id": 98,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 83,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 84,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 2,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\n\ttime, \n\tCAST(terminals AS TEXT) as metric,\n  CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM oltpbench_results\nWHERE \n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type throughput-terminal trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 0,
+        "y": 29
+      },
+      "id": 85,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "terminals",
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 29
+      },
+      "id": 99,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 29
+      },
+      "id": 100,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 29
+      },
+      "id": 101,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 29
+      },
+      "id": 102,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 85,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 86,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 36
+      },
+      "hiddenSeries": false,
+      "id": 87,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 2,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\n\ttime, \n\tCAST(terminals AS TEXT) as metric,\n  CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM oltpbench_results\nWHERE \n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type throughput-terminal trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 0,
+        "y": 45
+      },
+      "id": 88,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "terminals",
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 45
+      },
+      "id": 103,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 45
+      },
+      "id": 104,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 45
+      },
+      "id": 105,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 45
+      },
+      "id": 106,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 88,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 51
+      },
+      "id": 89,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 52
+      },
+      "hiddenSeries": false,
+      "id": 90,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 2,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\n\ttime, \n\tCAST(terminals AS TEXT) as metric,\n  CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM oltpbench_results\nWHERE \n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type throughput-terminal trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 0,
+        "y": 61
+      },
+      "id": 91,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "terminals",
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 61
+      },
+      "id": 107,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 61
+      },
+      "id": 108,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 61
+      },
+      "id": 109,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 61
+      },
+      "id": 110,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 91,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 67
+      },
+      "id": 92,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 68
+      },
+      "hiddenSeries": false,
+      "id": 93,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 2,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\n\ttime, \n\tCAST(terminals AS TEXT) as metric,\n  CAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\nFROM oltpbench_results\nWHERE \n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type throughput-terminal trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 0,
+        "y": 77
+      },
+      "id": 94,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "terminals",
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 77
+      },
+      "id": 111,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 77
+      },
+      "id": 112,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 77
+      },
+      "id": 113,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "8",
+          "value": "8"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 77
+      },
+      "id": 114,
+      "maxPerRow": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596432835043,
+      "repeatPanelId": 94,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": true,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (terminals)\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput,\r\n   expect_throughput,\r\n   CAST(metrics->>'throughput' AS DOUBLE PRECISION)-expect_throughput as diff_throughput\r\nFROM oltpbench_results\r\nCROSS JOIN (\r\n\tSELECT (${terminals})*CAST(metrics->>'throughput' AS DOUBLE PRECISION) as expect_throughput\r\n\t\tFROM oltpbench_results\r\n\tWHERE\r\n\t   benchmark_type = ${benchmark_type}\r\n\t   AND terminals = 1 AND\r\n\t   client_time = 60 AND\r\n\t   git_branch = 'master'\r\n\t GROUP BY time, benchmark_type, terminals, metrics->>'throughput'\r\n\t ORDER BY time desc\r\n\t LIMIT 1\r\n) AS base\r\nWHERE\r\n   benchmark_type = ${benchmark_type} AND\r\n   terminals = (${terminals}) AND\r\n   client_time = 60 AND\r\n   git_branch = 'master'\r\nORDER BY terminals, time desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$benchmark_type terminal=$terminals",
+      "type": "stat"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT benchmark_type FROM oltpbench_results",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Benchmark Type",
+        "multi": true,
+        "name": "benchmark_type",
+        "options": [],
+        "query": "SELECT benchmark_type FROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "1 + 2 + 4 + 8 + 16",
+          "value": [
+            "1",
+            "2",
+            "4",
+            "8",
+            "16"
+          ]
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT terminals FROM oltpbench_results",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": true,
+        "name": "terminals",
+        "options": [],
+        "query": "SELECT terminals FROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Throughput-terminal Trends",
+  "uid": "throughput_terminal_trends"
+}
