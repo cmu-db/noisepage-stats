@@ -40,7 +40,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput of all benchmarks, excluding noop. See **Throughput Trends** for more details.",
+      "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -368,7 +368,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput for all benchmarks, excluding noop. See **Scalability Details** for more details.",
+      "description": "The average throughput for all benchmarks (except noop) and all terminal values. See **Scalability Details** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
