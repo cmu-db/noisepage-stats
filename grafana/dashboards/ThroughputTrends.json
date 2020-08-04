@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1596513005055,
+  "iteration": 1596560275202,
   "links": [],
   "panels": [
     {
@@ -138,7 +138,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -164,7 +164,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -190,7 +190,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -216,7 +216,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -242,7 +242,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -368,7 +368,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -439,7 +439,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -460,7 +460,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -531,7 +531,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -552,7 +552,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -623,7 +623,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -644,7 +644,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -715,7 +715,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -736,7 +736,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -825,7 +825,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -895,7 +895,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -916,7 +916,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -986,7 +986,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1007,7 +1007,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -1077,7 +1077,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1098,7 +1098,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -1168,7 +1168,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1189,7 +1189,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -1278,7 +1278,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1348,7 +1348,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1369,7 +1369,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1439,7 +1439,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1460,7 +1460,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1530,7 +1530,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1551,7 +1551,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1621,7 +1621,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1642,7 +1642,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1764,7 +1764,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -1867,7 +1867,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1888,7 +1888,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -1991,7 +1991,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2012,7 +2012,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -2115,7 +2115,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2136,7 +2136,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -2239,7 +2239,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2260,7 +2260,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -2300,7 +2300,7 @@
       "id": 130,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2365,7 +2365,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2390,7 +2390,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -2416,7 +2416,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -2442,7 +2442,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -2468,7 +2468,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -2494,7 +2494,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -2601,7 +2601,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2623,7 +2623,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -2694,7 +2694,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2716,7 +2716,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -2787,7 +2787,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2809,7 +2809,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -2880,7 +2880,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2902,7 +2902,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -2973,7 +2973,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2995,7 +2995,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -3065,7 +3065,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3087,7 +3087,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -3157,7 +3157,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3179,7 +3179,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -3249,7 +3249,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3271,7 +3271,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -3341,7 +3341,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3363,7 +3363,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -3433,7 +3433,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3455,7 +3455,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -3525,7 +3525,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3547,7 +3547,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -3617,7 +3617,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3639,7 +3639,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -3709,7 +3709,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3731,7 +3731,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -3801,7 +3801,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3823,7 +3823,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -3893,7 +3893,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3915,7 +3915,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -4018,7 +4018,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4040,7 +4040,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -4143,7 +4143,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4165,7 +4165,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -4268,7 +4268,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4290,7 +4290,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -4393,7 +4393,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4415,7 +4415,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -4518,7 +4518,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4540,7 +4540,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -4580,7 +4580,7 @@
       "id": 136,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -4645,7 +4645,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4670,7 +4670,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -4696,7 +4696,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -4722,7 +4722,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -4748,7 +4748,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -4774,7 +4774,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -4881,7 +4881,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4903,7 +4903,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -4974,7 +4974,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4996,7 +4996,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5067,7 +5067,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5089,7 +5089,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5160,7 +5160,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5182,7 +5182,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5253,7 +5253,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5275,7 +5275,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5345,7 +5345,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5367,7 +5367,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -5437,7 +5437,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5459,7 +5459,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -5529,7 +5529,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5551,7 +5551,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -5621,7 +5621,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5643,7 +5643,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -5713,7 +5713,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5735,7 +5735,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -5805,7 +5805,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5827,7 +5827,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5897,7 +5897,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5919,7 +5919,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -5989,7 +5989,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6011,7 +6011,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -6081,7 +6081,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6103,7 +6103,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -6173,7 +6173,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6195,7 +6195,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -6298,7 +6298,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6320,7 +6320,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6423,7 +6423,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6445,7 +6445,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6548,7 +6548,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6570,7 +6570,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6673,7 +6673,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6695,7 +6695,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6798,7 +6798,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6820,7 +6820,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6860,7 +6860,7 @@
       "id": 142,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -6925,7 +6925,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6950,7 +6950,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -6976,7 +6976,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -7002,7 +7002,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -7028,7 +7028,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -7054,7 +7054,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -7161,7 +7161,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7183,7 +7183,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -7254,7 +7254,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7276,7 +7276,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -7347,7 +7347,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7369,7 +7369,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -7440,7 +7440,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7462,7 +7462,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -7533,7 +7533,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7555,7 +7555,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -7625,7 +7625,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7647,7 +7647,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -7717,7 +7717,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7739,7 +7739,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -7809,7 +7809,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7831,7 +7831,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -7901,7 +7901,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7923,7 +7923,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -7993,7 +7993,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8015,7 +8015,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -8085,7 +8085,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8107,7 +8107,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -8177,7 +8177,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8199,7 +8199,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -8269,7 +8269,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8291,7 +8291,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -8361,7 +8361,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8383,7 +8383,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -8453,7 +8453,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8475,7 +8475,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -8578,7 +8578,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8600,7 +8600,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -8703,7 +8703,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8725,7 +8725,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -8828,7 +8828,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8850,7 +8850,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -8953,7 +8953,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8975,7 +8975,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -9078,7 +9078,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9100,7 +9100,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -9140,7 +9140,7 @@
       "id": 148,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -9205,7 +9205,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9230,7 +9230,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -9256,7 +9256,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -9282,7 +9282,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -9308,7 +9308,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -9334,7 +9334,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16\nORDER BY time",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  git_branch = 'origin/master'\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -9441,7 +9441,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9463,7 +9463,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -9534,7 +9534,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9556,7 +9556,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -9627,7 +9627,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9649,7 +9649,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -9720,7 +9720,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9742,7 +9742,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -9813,7 +9813,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9835,7 +9835,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) \nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -9905,7 +9905,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9927,7 +9927,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -9997,7 +9997,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10019,7 +10019,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -10089,7 +10089,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10111,7 +10111,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -10181,7 +10181,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10203,7 +10203,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -10273,7 +10273,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10295,7 +10295,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
           "refId": "A",
           "select": [
             [
@@ -10365,7 +10365,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10387,7 +10387,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -10457,7 +10457,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10479,7 +10479,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -10549,7 +10549,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10571,7 +10571,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -10641,7 +10641,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10663,7 +10663,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -10733,7 +10733,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10755,7 +10755,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -10858,7 +10858,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10880,7 +10880,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -10983,7 +10983,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11005,7 +11005,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -11108,7 +11108,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11130,7 +11130,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -11233,7 +11233,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11255,7 +11255,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -11358,7 +11358,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596513005055,
+      "repeatIteration": 1596560275202,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11380,7 +11380,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals})\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -11492,5 +11492,6 @@
   },
   "timezone": "",
   "title": "Throughput Trends",
-  "uid": "throughput_trends"
+  "uid": "throughput_trends",
+  "version": 16
 }
