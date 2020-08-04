@@ -1,0 +1,3624 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1596512821050,
+  "links": [],
+  "panels": [
+    {
+      "content": "\n# Latency Trends\n\nThis dashboard breaks down NoisePage's latency by the benchmark type. \nFor each benchmark you can compare latency metrics for a specific\nnumber of terminals. You can also compare a latency metric across \ndifferent terminal values. Feel free to mix and match, but be warned\nthe charts can get overwhelming pretty fast.\n\n\n\n",
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 43,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "panels": [],
+      "repeat": "benchmark_type",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 11
+      },
+      "id": 14,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 11
+      },
+      "id": 56,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 11
+      },
+      "id": 57,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 11
+      },
+      "id": 58,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 44,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "hiddenSeries": false,
+      "id": 45,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 23
+      },
+      "id": 46,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 23
+      },
+      "id": 59,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 46,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 23
+      },
+      "id": 60,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 46,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 23
+      },
+      "id": 61,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 46,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 47,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "hiddenSeries": false,
+      "id": 48,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 35
+      },
+      "id": 49,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 35
+      },
+      "id": 62,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 49,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 35
+      },
+      "id": 63,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 49,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 35
+      },
+      "id": 64,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 49,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 50,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "hiddenSeries": false,
+      "id": 51,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 47
+      },
+      "id": 52,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 47
+      },
+      "id": 65,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 52,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 47
+      },
+      "id": 66,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 52,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 47
+      },
+      "id": 67,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 52,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 51
+      },
+      "id": 53,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 52
+      },
+      "hiddenSeries": false,
+      "id": 54,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 59
+      },
+      "id": 55,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 59
+      },
+      "id": 68,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 55,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 59
+      },
+      "id": 69,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 55,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 59
+      },
+      "id": 70,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596512821050,
+      "repeatPanelId": 55,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'master'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT benchmark_type FROM oltpbench_results",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Benchmark Type",
+        "multi": true,
+        "name": "benchmark_type",
+        "options": [],
+        "query": "SELECT benchmark_type FROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 4,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "4",
+          "value": [
+            "4"
+          ]
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT terminals FROM oltpbench_results",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "terminals",
+        "options": [],
+        "query": "SELECT terminals FROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "avg + l_90 + l_95 + l_99",
+          "value": [
+            "avg",
+            "l_90",
+            "l_95",
+            "l_99"
+          ]
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT DISTINCT jsonb_object_keys(metrics->'latency')\nFROM oltpbench_results",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "latency_metrics",
+        "options": [],
+        "query": "SELECT DISTINCT jsonb_object_keys(metrics->'latency')\nFROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "2020-07-25T22:02:55.405Z",
+    "to": "2020-07-30T21:01:03.666Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Latency Trends",
+  "uid": "latency_trends"
+}

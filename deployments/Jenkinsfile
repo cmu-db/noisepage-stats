@@ -93,10 +93,7 @@ pipeline {
           allOf {
             anyOf {
               triggeredBy "UpstreamCause"
-              allOf {
-                changeset "deployments/**"
-                not { changeset "performance-storage-service/**" }
-              }
+              not { changeset "performance-storage-service/**" }
             }
             branch "test"
           }
