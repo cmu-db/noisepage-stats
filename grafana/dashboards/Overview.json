@@ -14,7 +14,10 @@
   },
   "description": "Summarize the results from different performance metrics",
   "editable": true,
+  "gnetId": null,
   "graphTooltip": 0,
+  "id": 27,
+  "iteration": 1596513585496,
   "links": [],
   "panels": [
     {
@@ -85,7 +88,7 @@
         {
           "targetBlank": true,
           "title": "Throughput Trends",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputtrends/throughput-trends"
+          "url": "/grafana/d/throughputtrends/throughput-trends"
         }
       ],
       "nullPointMode": "null",
@@ -232,7 +235,7 @@
         {
           "targetBlank": true,
           "title": "Latency Trends",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/latencytrends/latency-trends"
+          "url": "/grafana/d/latencytrends/latency-trends"
         }
       ],
       "nullPointMode": "null",
@@ -397,7 +400,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "nullPointMode": "null",
@@ -628,7 +631,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -755,7 +758,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -775,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596487489684,
+      "repeatIteration": 1596513585496,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -884,7 +887,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -904,7 +907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596487489684,
+      "repeatIteration": 1596513585496,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1013,7 +1016,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1033,7 +1036,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596487489684,
+      "repeatIteration": 1596513585496,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1142,7 +1145,7 @@
         {
           "targetBlank": true,
           "title": "Scalability Details",
-          "url": "https://incrudibles-testing.db.pdl.cmu.edu/grafana/d/throughputterminaltrends/throughput-terminal-trends"
+          "url": "/grafana/d/throughputterminaltrends/throughput-terminal-trends"
         }
       ],
       "maxPerRow": 6,
@@ -1162,7 +1165,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596487489684,
+      "repeatIteration": 1596513585496,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
