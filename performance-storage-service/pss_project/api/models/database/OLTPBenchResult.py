@@ -27,6 +27,6 @@ class OLTPBenchResult(Model):
     scale_factor = DecimalField(max_digits=10, decimal_places=4)
     terminals = PositiveSmallIntegerField()
     client_time = PositiveSmallIntegerField()
-    weights = JSONField()
+    weights = JSONField(encoder=DjangoJSONEncoder)
     metrics = JSONField(encoder=DjangoJSONEncoder)
     incremental_metrics = JSONField(encoder=DjangoJSONEncoder)
