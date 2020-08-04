@@ -48,6 +48,15 @@
           shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_user}\" | base64 --decode"
           register: result_secret_pss_db_user
 
+        - name: Check if the Grafana is available
+          uri:
+            url: "https://{{ service_hostname }}/grafana"
+            status_code: 200
+          register: result_grafana_availability
+          until: result_grafana_availability.status == 200
+          retries: 10
+          delay: 10
+        
         - name: Add grafana data source
           grafana_datasource:
             name: "noisepage-db"
