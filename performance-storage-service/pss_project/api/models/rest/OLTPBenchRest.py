@@ -25,6 +25,8 @@ class OLTPBenchRest(object):
             'terminals': self.parameters.terminals,
             'client_time': self.parameters.client_time,
             'weights': convert_weights_to_dict(self.parameters.transaction_weights),
+            'wal_device': self.parameters.wal_device,
+            'max_connection_threads': self.parameters.max_connection_threads,
             'metrics': convert_metrics_to_dict(self.metrics),
             'incremental_metrics': convert_incremental_metrics_to_dict(self.metrics.incremental_metrics)
         }

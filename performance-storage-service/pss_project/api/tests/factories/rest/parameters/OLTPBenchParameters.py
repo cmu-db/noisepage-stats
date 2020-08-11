@@ -21,3 +21,5 @@ class OLTPBenchParametersFactory(Factory):
         TransactionWeightFactory().__dict__,
         TransactionWeightFactory().__dict__,
     ), unique=True)
+    wal_device = Faker('random_element', elements=('RAM disk', 'HDD', 'SATA SSD', 'NVMe SSD'))
+    max_connection_threads = Faker('random_int', min=1, max=32)
