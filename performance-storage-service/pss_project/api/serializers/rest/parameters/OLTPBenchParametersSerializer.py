@@ -11,16 +11,6 @@ class OLTPBenchParametersSerializer(Serializer):
         (SIMPLE_MODE, 'simple'),
         (EXTENDED_MODE, 'extended'),
     ]
-    RAM_DISK = 'RAM disk'
-    HDD = 'HDD'
-    SATA_SSD = 'SATA SSD'
-    NVME_SSD = 'NVMe SSD'
-    WAL_DEVICE_CHOICES = [
-        (RAM_DISK, 'RAM disk'),
-        (HDD, 'HDD'),
-        (SATA_SSD, 'SATA SSD'),
-        (NVME_SSD, 'NVMe SSD')
-    ]
 
     # Fields
     query_mode = ChoiceField(choices=QUERY_MODE_CHOICES)
@@ -28,7 +18,6 @@ class OLTPBenchParametersSerializer(Serializer):
     terminals = IntegerField()
     client_time = IntegerField()
     transaction_weights = TransactionWeightSerializer(many=True)
-    wal_device = ChoiceField(choices=WAL_DEVICE_CHOICES)
     max_connection_threads = IntegerField()
 
     def create(self, validated_data):
