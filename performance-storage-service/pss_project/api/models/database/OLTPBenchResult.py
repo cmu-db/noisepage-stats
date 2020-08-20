@@ -14,6 +14,16 @@ class OLTPBenchResult(Model):
         (SIMPLE_MODE, 'simple'),
         (EXTENDED_MODE, 'extended'),
     ]
+    RAM_DISK = 'RAM disk'
+    HDD = 'HDD'
+    SATA_SSD = 'SATA SSD'
+    NVME_SSD = 'NVMe SSD'
+    WAL_DEVICE_CHOICES = [
+        (RAM_DISK, 'RAM disk'),
+        (HDD, 'HDD'),
+        (SATA_SSD, 'SATA SSD'),
+        (NVME_SSD, 'NVMe SSD')
+    ]
 
     # Fields
     time = DateTimeField(auto_now=False)
@@ -28,5 +38,7 @@ class OLTPBenchResult(Model):
     terminals = PositiveSmallIntegerField()
     client_time = PositiveSmallIntegerField()
     weights = JSONField()
+    wal_device = CharField(max_length=30, choices=WAL_DEVICE_CHOICES)
+    max_connection_threads = PositiveSmallIntegerField()
     metrics = JSONField(encoder=DjangoJSONEncoder)
     incremental_metrics = JSONField(encoder=DjangoJSONEncoder)
