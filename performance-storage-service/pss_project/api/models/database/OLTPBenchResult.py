@@ -18,11 +18,13 @@ class OLTPBenchResult(Model):
     HDD = 'HDD'
     SATA_SSD = 'SATA SSD'
     NVME_SSD = 'NVMe SSD'
+    NONE = 'None'
     WAL_DEVICE_CHOICES = [
         (RAM_DISK, 'RAM disk'),
         (HDD, 'HDD'),
         (SATA_SSD, 'SATA SSD'),
-        (NVME_SSD, 'NVMe SSD')
+        (NVME_SSD, 'NVMe SSD'),
+        (NONE, 'None')
     ]
 
     # Fields
