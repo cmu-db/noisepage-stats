@@ -19,7 +19,7 @@ class OLTPBenchDBFactory(DjangoModelFactory):
     terminals = Faker('random_int', min=1, max=16)
     client_time = Faker('random_int', min=30, step=30)
     weights = Faker('pydict', value_types=[int])
-    wal_device = Faker('random_element', elements=('RAM disk', 'HDD', 'SATA SSD', 'NVMe SSD'))
+    wal_device = Faker('random_element', elements=('RAM disk', 'HDD', 'SATA SSD', 'NVMe SSD', 'None'))
     max_connection_threads = Faker('random_int', min=1, max=32)
     metrics = Faker('pydict', value_types=[int, float])
     incremental_metrics = Faker('pydict', value_types=[int, float, str])

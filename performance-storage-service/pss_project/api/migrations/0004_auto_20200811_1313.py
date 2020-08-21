@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='oltpbenchresult',
             name='wal_device',
-            field=models.CharField(choices=[('RAM disk', 'RAM disk'), ('HDD', 'HDD'), ('SATA SSD', 'SATA SSD'), ('NVMe SSD', 'NVMe SSD')], default='NVMe SSD', max_length=30),
+            field=models.CharField(choices=[('RAM disk', 'RAM disk'), ('HDD', 'HDD'), ('SATA SSD', 'SATA SSD'), ('NVMe SSD', 'NVMe SSD'),('None','None')], default='HDD', max_length=30),
             preserve_default=False,
         ),
     ]
