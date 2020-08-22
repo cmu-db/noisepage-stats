@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1596560275202,
+  "id": 5,
+  "iteration": 1598063623878,
   "links": [],
   "panels": [
     {
@@ -327,7 +327,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 18
       },
@@ -417,8 +417,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 18
       },
       "id": 154,
@@ -439,7 +439,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -509,8 +509,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 18
       },
       "id": 155,
@@ -531,7 +531,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -601,8 +601,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 18
       },
       "id": 156,
@@ -623,7 +623,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -693,8 +693,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 18
       },
       "id": 157,
@@ -715,7 +715,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -774,6 +774,98 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 18
+      },
+      "id": 158,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 53,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -784,7 +876,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 24
       },
@@ -873,11 +965,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 24
       },
-      "id": 158,
+      "id": 159,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -895,7 +987,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -964,11 +1056,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 24
       },
-      "id": 159,
+      "id": 160,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -986,7 +1078,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1055,11 +1147,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 24
       },
-      "id": 160,
+      "id": 161,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1077,7 +1169,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1146,11 +1238,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 24
       },
-      "id": 161,
+      "id": 162,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1168,7 +1260,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1227,6 +1319,97 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 24
+      },
+      "id": 163,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 83,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               }
@@ -1237,7 +1420,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 30
       },
@@ -1326,11 +1509,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 30
       },
-      "id": 162,
+      "id": 164,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1348,7 +1531,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1417,11 +1600,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 30
       },
-      "id": 163,
+      "id": 165,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1439,7 +1622,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1508,11 +1691,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 30
       },
-      "id": 164,
+      "id": 166,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1530,7 +1713,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1599,11 +1782,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 30
       },
-      "id": 165,
+      "id": 167,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1621,7 +1804,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1633,6 +1816,97 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 30
+      },
+      "id": 168,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 129,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -1723,7 +1997,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 36
       },
@@ -1845,11 +2119,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 36
       },
-      "id": 166,
+      "id": 169,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1867,7 +2141,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1969,11 +2243,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 36
       },
-      "id": 167,
+      "id": 170,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1991,7 +2265,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2093,11 +2367,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 36
       },
-      "id": 168,
+      "id": 171,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2115,7 +2389,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2217,11 +2491,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 36
       },
-      "id": 169,
+      "id": 172,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2239,7 +2513,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2289,6 +2563,130 @@
       "type": "stat"
     },
     {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 36
+      },
+      "id": 173,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 104,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
@@ -2300,7 +2698,7 @@
       "id": 130,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2365,7 +2763,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2579,7 +2977,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 56
       },
@@ -2601,7 +2999,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2672,11 +3070,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 56
       },
-      "id": 170,
+      "id": 174,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2694,7 +3092,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2765,11 +3163,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 56
       },
-      "id": 171,
+      "id": 175,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2787,7 +3185,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2858,11 +3256,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 56
       },
-      "id": 172,
+      "id": 176,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2880,7 +3278,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2951,11 +3349,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 56
       },
-      "id": 173,
+      "id": 177,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -2973,7 +3371,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 132,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3033,6 +3431,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 56
+      },
+      "id": 178,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 132,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -3043,7 +3534,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 62
       },
@@ -3065,7 +3556,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3135,11 +3626,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 62
       },
-      "id": 174,
+      "id": 179,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3157,7 +3648,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3227,11 +3718,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 62
       },
-      "id": 175,
+      "id": 180,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3249,7 +3740,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3319,11 +3810,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 62
       },
-      "id": 176,
+      "id": 181,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3341,7 +3832,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3411,11 +3902,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 62
       },
-      "id": 177,
+      "id": 182,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3433,7 +3924,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 133,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3493,6 +3984,98 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 62
+      },
+      "id": 183,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 133,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               }
@@ -3503,7 +4086,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 68
       },
@@ -3525,7 +4108,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3595,11 +4178,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 68
       },
-      "id": 178,
+      "id": 184,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3617,7 +4200,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3687,11 +4270,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 68
       },
-      "id": 179,
+      "id": 185,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3709,7 +4292,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3779,11 +4362,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 68
       },
-      "id": 180,
+      "id": 186,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3801,7 +4384,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3871,11 +4454,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 68
       },
-      "id": 181,
+      "id": 187,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3893,7 +4476,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 134,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3906,6 +4489,98 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 68
+      },
+      "id": 188,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 134,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -3996,7 +4671,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 74
       },
@@ -4018,7 +4693,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4121,11 +4796,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 74
       },
-      "id": 182,
+      "id": 189,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4143,7 +4818,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4246,11 +4921,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 74
       },
-      "id": 183,
+      "id": 190,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4268,7 +4943,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4371,11 +5046,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 74
       },
-      "id": 184,
+      "id": 191,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4393,7 +5068,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4496,11 +5171,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 74
       },
-      "id": 185,
+      "id": 192,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4518,7 +5193,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 135,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4569,6 +5244,131 @@
       "type": "stat"
     },
     {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 74
+      },
+      "id": 193,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 135,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
@@ -4580,7 +5380,7 @@
       "id": 136,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -4645,7 +5445,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4859,7 +5659,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 94
       },
@@ -4881,7 +5681,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4952,11 +5752,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 94
       },
-      "id": 186,
+      "id": 194,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4974,7 +5774,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5045,11 +5845,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 94
       },
-      "id": 187,
+      "id": 195,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5067,7 +5867,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5138,11 +5938,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 94
       },
-      "id": 188,
+      "id": 196,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5160,7 +5960,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5231,11 +6031,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 94
       },
-      "id": 189,
+      "id": 197,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5253,7 +6053,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 138,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5313,6 +6113,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 94
+      },
+      "id": 198,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 138,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -5323,7 +6216,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 100
       },
@@ -5345,7 +6238,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5415,11 +6308,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 100
       },
-      "id": 190,
+      "id": 199,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5437,7 +6330,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5507,11 +6400,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 100
       },
-      "id": 191,
+      "id": 200,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5529,7 +6422,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5599,11 +6492,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 100
       },
-      "id": 192,
+      "id": 201,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5621,7 +6514,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5691,11 +6584,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 100
       },
-      "id": 193,
+      "id": 202,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5713,7 +6606,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 139,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5773,6 +6666,98 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 100
+      },
+      "id": 203,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 139,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               }
@@ -5783,7 +6768,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 106
       },
@@ -5805,7 +6790,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5875,11 +6860,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 106
       },
-      "id": 194,
+      "id": 204,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5897,7 +6882,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5967,11 +6952,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 106
       },
-      "id": 195,
+      "id": 205,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -5989,7 +6974,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6059,11 +7044,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 106
       },
-      "id": 196,
+      "id": 206,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6081,7 +7066,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6151,11 +7136,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 106
       },
-      "id": 197,
+      "id": 207,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6173,7 +7158,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 140,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6186,6 +7171,98 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 106
+      },
+      "id": 208,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 140,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -6276,7 +7353,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 112
       },
@@ -6298,7 +7375,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6401,11 +7478,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 112
       },
-      "id": 198,
+      "id": 209,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6423,7 +7500,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6526,11 +7603,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 112
       },
-      "id": 199,
+      "id": 210,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6548,7 +7625,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6651,11 +7728,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 112
       },
-      "id": 200,
+      "id": 211,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6673,7 +7750,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6776,11 +7853,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 112
       },
-      "id": 201,
+      "id": 212,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -6798,7 +7875,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 141,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6849,6 +7926,131 @@
       "type": "stat"
     },
     {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 112
+      },
+      "id": 213,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 141,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
@@ -6860,7 +8062,7 @@
       "id": 142,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -6925,7 +8127,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7139,7 +8341,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 132
       },
@@ -7161,7 +8363,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7232,11 +8434,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 132
       },
-      "id": 202,
+      "id": 214,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7254,7 +8456,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7325,11 +8527,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 132
       },
-      "id": 203,
+      "id": 215,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7347,7 +8549,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7418,11 +8620,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 132
       },
-      "id": 204,
+      "id": 216,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7440,7 +8642,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7511,11 +8713,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 132
       },
-      "id": 205,
+      "id": 217,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7533,7 +8735,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 144,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7593,6 +8795,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 132
+      },
+      "id": 218,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 144,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -7603,7 +8898,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 138
       },
@@ -7625,7 +8920,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7695,11 +8990,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 138
       },
-      "id": 206,
+      "id": 219,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7717,7 +9012,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7787,11 +9082,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 138
       },
-      "id": 207,
+      "id": 220,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7809,7 +9104,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7879,11 +9174,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 138
       },
-      "id": 208,
+      "id": 221,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7901,7 +9196,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7971,11 +9266,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 138
       },
-      "id": 209,
+      "id": 222,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -7993,7 +9288,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 145,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8053,6 +9348,98 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 138
+      },
+      "id": 223,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 145,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               }
@@ -8063,7 +9450,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 144
       },
@@ -8085,7 +9472,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8155,11 +9542,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 144
       },
-      "id": 210,
+      "id": 224,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8177,7 +9564,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8247,11 +9634,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 144
       },
-      "id": 211,
+      "id": 225,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8269,7 +9656,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8339,11 +9726,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 144
       },
-      "id": 212,
+      "id": 226,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8361,7 +9748,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8431,11 +9818,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 144
       },
-      "id": 213,
+      "id": 227,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8453,7 +9840,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 146,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8466,6 +9853,98 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 144
+      },
+      "id": 228,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 146,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -8556,7 +10035,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 150
       },
@@ -8578,7 +10057,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8681,11 +10160,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 150
       },
-      "id": 214,
+      "id": 229,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8703,7 +10182,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8806,11 +10285,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 150
       },
-      "id": 215,
+      "id": 230,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8828,7 +10307,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8931,11 +10410,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 150
       },
-      "id": 216,
+      "id": 231,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -8953,7 +10432,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9056,11 +10535,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 150
       },
-      "id": 217,
+      "id": 232,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9078,7 +10557,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 147,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9129,6 +10608,131 @@
       "type": "stat"
     },
     {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 150
+      },
+      "id": 233,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 147,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
@@ -9140,7 +10744,7 @@
       "id": 148,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -9205,7 +10809,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9419,7 +11023,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 170
       },
@@ -9441,7 +11045,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9512,11 +11116,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 170
       },
-      "id": 218,
+      "id": 234,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9534,7 +11138,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9605,11 +11209,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 170
       },
-      "id": 219,
+      "id": 235,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9627,7 +11231,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9698,11 +11302,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 170
       },
-      "id": 220,
+      "id": 236,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9720,7 +11324,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9791,11 +11395,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 170
       },
-      "id": 221,
+      "id": 237,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9813,7 +11417,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 150,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9873,6 +11477,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 170
+      },
+      "id": 238,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 150,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -9883,7 +11580,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 176
       },
@@ -9905,7 +11602,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9975,11 +11672,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 176
       },
-      "id": 222,
+      "id": 239,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -9997,7 +11694,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10067,11 +11764,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 176
       },
-      "id": 223,
+      "id": 240,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10089,7 +11786,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10159,11 +11856,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 176
       },
-      "id": 224,
+      "id": 241,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10181,7 +11878,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10251,11 +11948,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 176
       },
-      "id": 225,
+      "id": 242,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10273,7 +11970,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 151,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10333,6 +12030,98 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 176
+      },
+      "id": 243,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 151,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               }
@@ -10343,7 +12132,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 182
       },
@@ -10365,7 +12154,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10435,11 +12224,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 182
       },
-      "id": 226,
+      "id": 244,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10457,7 +12246,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10527,11 +12316,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 182
       },
-      "id": 227,
+      "id": 245,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10549,7 +12338,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10619,11 +12408,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 182
       },
-      "id": 228,
+      "id": 246,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10641,7 +12430,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10711,11 +12500,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 182
       },
-      "id": 229,
+      "id": 247,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10733,7 +12522,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 152,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10746,6 +12535,98 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 182
+      },
+      "id": 248,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 152,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -10836,7 +12717,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
+        "w": 4,
         "x": 0,
         "y": 188
       },
@@ -10858,7 +12739,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10961,11 +12842,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 4.8,
+        "w": 4,
+        "x": 4,
         "y": 188
       },
-      "id": 230,
+      "id": 249,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -10983,7 +12864,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11086,11 +12967,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 9.6,
+        "w": 4,
+        "x": 8,
         "y": 188
       },
-      "id": 231,
+      "id": 250,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -11108,7 +12989,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11211,11 +13092,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 14.399999999999999,
+        "w": 4,
+        "x": 12,
         "y": 188
       },
-      "id": 232,
+      "id": 251,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -11233,7 +13114,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11336,11 +13217,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4.8,
-        "x": 19.2,
+        "w": 4,
+        "x": 16,
         "y": 188
       },
-      "id": 233,
+      "id": 252,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -11358,7 +13239,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596560275202,
+      "repeatIteration": 1598063623878,
       "repeatPanelId": 153,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11371,6 +13252,131 @@
           "selected": false,
           "text": "16",
           "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 188
+      },
+      "id": 253,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 153,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -11492,6 +13498,5 @@
   },
   "timezone": "",
   "title": "Throughput Trends",
-  "uid": "throughput_trends",
-  "version": 16
+  "uid": "throughput_trends"
 }
