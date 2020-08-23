@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1596512821050,
+  "iteration": 1598183125129,
   "links": [],
   "panels": [
     {
@@ -135,7 +135,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY  time\n\n",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY  time\n\n",
           "refId": "A",
           "select": [
             [
@@ -302,7 +302,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -414,7 +414,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -434,7 +434,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -546,7 +546,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -566,7 +566,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -678,7 +678,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -698,7 +698,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -732,12 +732,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "id": 44,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -767,7 +767,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 45,
@@ -803,7 +803,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -824,7 +824,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY  time\n\n",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY  time\n\n",
           "refId": "A",
           "select": [
             [
@@ -953,7 +953,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 23
+        "y": 27
       },
       "id": 46,
       "maxPerRow": 12,
@@ -973,7 +973,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -994,7 +994,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1086,7 +1086,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 23
+        "y": 27
       },
       "id": 59,
       "maxPerRow": 12,
@@ -1106,7 +1106,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1127,7 +1127,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1219,7 +1219,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 23
+        "y": 27
       },
       "id": 60,
       "maxPerRow": 12,
@@ -1239,7 +1239,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1260,7 +1260,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1352,7 +1352,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 23
+        "y": 27
       },
       "id": 61,
       "maxPerRow": 12,
@@ -1372,7 +1372,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1393,7 +1393,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1427,12 +1427,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "id": 47,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -1462,7 +1462,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1498,7 +1498,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1519,7 +1519,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY  time\n\n",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY  time\n\n",
           "refId": "A",
           "select": [
             [
@@ -1648,7 +1648,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 35
+        "y": 43
       },
       "id": 49,
       "maxPerRow": 12,
@@ -1668,7 +1668,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1689,7 +1689,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1781,7 +1781,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 35
+        "y": 43
       },
       "id": 62,
       "maxPerRow": 12,
@@ -1801,7 +1801,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1822,7 +1822,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1914,7 +1914,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 35
+        "y": 43
       },
       "id": 63,
       "maxPerRow": 12,
@@ -1934,7 +1934,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1955,7 +1955,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2047,7 +2047,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 35
+        "y": 43
       },
       "id": 64,
       "maxPerRow": 12,
@@ -2067,7 +2067,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2088,702 +2088,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$latency_metrics Latency",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 39
-      },
-      "id": 50,
-      "panels": [],
-      "repeat": null,
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        }
-      },
-      "title": "$benchmark_type",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 2,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 40
-      },
-      "hiddenSeries": false,
-      "id": 51,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxPerRow": 2,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
-      },
-      "percentage": false,
-      "pointradius": 1,
-      "points": true,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "v",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 4,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY  time\n\n",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "$benchmark_type Latency Trend",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transformations": [],
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Latency (ms)",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Change"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latest"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 47
-      },
-      "id": 52,
-      "maxPerRow": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": "latency_metrics",
-      "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 14,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        },
-        "latency_metrics": {
-          "selected": true,
-          "text": "avg",
-          "value": "avg"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$latency_metrics Latency",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Change"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latest"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 47
-      },
-      "id": 65,
-      "maxPerRow": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 52,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        },
-        "latency_metrics": {
-          "selected": true,
-          "text": "l_90",
-          "value": "l_90"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$latency_metrics Latency",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Change"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latest"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 47
-      },
-      "id": 66,
-      "maxPerRow": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 52,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        },
-        "latency_metrics": {
-          "selected": true,
-          "text": "l_95",
-          "value": "l_95"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$latency_metrics Latency",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Change"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latest"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 47
-      },
-      "id": 67,
-      "maxPerRow": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 52,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        },
-        "latency_metrics": {
-          "selected": true,
-          "text": "l_99",
-          "value": "l_99"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2819,16 +2124,16 @@
         "x": 0,
         "y": 51
       },
-      "id": 53,
+      "id": 50,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "ycsb",
+          "value": "ycsb"
         }
       },
       "title": "$benchmark_type",
@@ -2855,7 +2160,7 @@
         "y": 52
       },
       "hiddenSeries": false,
-      "id": 54,
+      "id": 51,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -2888,14 +2193,14 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "ycsb",
+          "value": "ycsb"
         }
       },
       "seriesOverrides": [],
@@ -2909,7 +2214,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY  time\n\n",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY  time\n\n",
           "refId": "A",
           "select": [
             [
@@ -3040,7 +2345,7 @@
         "x": 0,
         "y": 59
       },
-      "id": 55,
+      "id": 52,
       "maxPerRow": 12,
       "options": {
         "colorMode": "value",
@@ -3058,14 +2363,14 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -3079,7 +2384,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3173,7 +2478,7 @@
         "x": 6,
         "y": 59
       },
-      "id": 68,
+      "id": 65,
       "maxPerRow": 12,
       "options": {
         "colorMode": "value",
@@ -3191,14 +2496,14 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 55,
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 52,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -3212,7 +2517,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3306,7 +2611,7 @@
         "x": 12,
         "y": 59
       },
-      "id": 69,
+      "id": 66,
       "maxPerRow": 12,
       "options": {
         "colorMode": "value",
@@ -3324,14 +2629,14 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
-      "repeatPanelId": 55,
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 52,
       "repeatedByRow": true,
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -3345,7 +2650,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3439,6 +2744,701 @@
         "x": 18,
         "y": 59
       },
+      "id": 67,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 52,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "ycsb",
+          "value": "ycsb"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_99",
+          "value": "l_99"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 67
+      },
+      "id": 53,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "title": "$benchmark_type",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "hiddenSeries": false,
+      "id": 54,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "targetBlank": true,
+            "title": "Git commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::text::numeric END AS \"median\",\n  CASE WHEN 'max' IN ($latency_metrics) THEN (metrics->'latency'->'max')::text::numeric END AS \"max\",\n  CASE WHEN 'l_99' IN ($latency_metrics) THEN (metrics->'latency'->'l_99')::jsonb::text::numeric END AS \"l_99\",\n  CASE WHEN 'l_95' IN ($latency_metrics) THEN (metrics->'latency'->'l_95')::jsonb::text::numeric END AS \"l_95\",\n  CASE WHEN 'l_90' IN ($latency_metrics) THEN (metrics->'latency'->'l_90')::jsonb::text::numeric END AS \"l_90\",\n  CASE WHEN 'l_75' IN ($latency_metrics) THEN (metrics->'latency'->'l_75')::jsonb::text::numeric END AS \"l_75\",\n  CASE WHEN 'avg' IN ($latency_metrics) THEN (metrics->'latency'->'avg')::jsonb::text::numeric END AS \"avg\",\n  CASE WHEN 'median' IN ($latency_metrics) THEN (metrics->'latency'->'median')::jsonb::text::numeric END AS \"median\",\n  CASE WHEN 'l_25' IN ($latency_metrics) THEN (metrics->'latency'->'l_25')::jsonb::text::numeric END AS \"l_25\",\n  CASE WHEN 'min' IN ($latency_metrics) THEN (metrics->'latency'->'min')::jsonb::text::numeric END AS \"min\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY  time\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$benchmark_type Latency Trend",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 75
+      },
+      "id": 55,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": "latency_metrics",
+      "repeatDirection": "h",
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 14,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "avg",
+          "value": "avg"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 75
+      },
+      "id": 68,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 55,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_90",
+          "value": "l_90"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 75
+      },
+      "id": 69,
+      "maxPerRow": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598183125129,
+      "repeatPanelId": 55,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "latency_metrics": {
+          "selected": true,
+          "text": "l_95",
+          "value": "l_95"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$latency_metrics Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Change"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latest"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 75
+      },
       "id": 70,
       "maxPerRow": 12,
       "options": {
@@ -3457,7 +3457,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596512821050,
+      "repeatIteration": 1598183125129,
       "repeatPanelId": 55,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3478,7 +3478,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE(CAST(metrics->'latency'->$latency_metrics AS DOUBLE PRECISION)) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3512,6 +3512,32 @@
   "tags": [],
   "templating": {
     "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "HDD",
+          "value": "HDD"
+        },
+        "datasource": "noisepage-db",
+        "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
+        "hide": 0,
+        "includeAll": false,
+        "label": "WAL device",
+        "multi": false,
+        "name": "wal_device",
+        "options": [],
+        "query": "SELECT DISTINCT wal_device FROM oltpbench_results",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
       {
         "allValue": null,
         "current": {
@@ -3602,8 +3628,8 @@
     ]
   },
   "time": {
-    "from": "2020-07-25T22:02:55.405Z",
-    "to": "2020-07-30T21:01:03.666Z"
+    "from": "now-30d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -3620,5 +3646,6 @@
   },
   "timezone": "",
   "title": "Latency Trends",
-  "uid": "latency_trends"
+  "uid": "latency_trends",
+  "version": 23
 }
