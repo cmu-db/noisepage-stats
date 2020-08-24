@@ -21,3 +21,4 @@ class OLTPBenchParametersFactory(Factory):
         TransactionWeightFactory().__dict__,
         TransactionWeightFactory().__dict__,
     ), unique=True)
+    max_connection_threads = Faker('random_int', min=1, max=32)

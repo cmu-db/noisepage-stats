@@ -18,6 +18,7 @@ class OLTPBenchParametersSerializer(Serializer):
     terminals = IntegerField()
     client_time = IntegerField()
     transaction_weights = TransactionWeightSerializer(many=True)
+    max_connection_threads = IntegerField()
 
     def create(self, validated_data):
         return OLTPBenchParameters(**validated_data)

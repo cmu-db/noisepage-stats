@@ -25,6 +25,8 @@ class OLTPBenchRest(object):
             'terminals': self.parameters.terminals,
             'client_time': self.parameters.client_time,
             'weights': convert_weights_to_dict(self.parameters.transaction_weights),
+            'wal_device': self.metadata.environment.wal_device,
+            'max_connection_threads': self.parameters.max_connection_threads,
             'metrics': convert_metrics_to_dict(self.metrics),
             'incremental_metrics': convert_incremental_metrics_to_dict(self.metrics.incremental_metrics)
         }
@@ -48,13 +50,13 @@ def convert_metrics_to_dict(metrics):
     return db_formatted_metrics
 
 
-def convert_environment_to_dict(environments):
-    db_formatted_environments = {
-        'os_version': environments.os_version,
-        'cpu_number': environments.cpu_number,
-        'cpu_socket': environments.cpu_socket
+def convert_environment_to_dict(environment):
+    db_formatted_environment = {
+        'os_version': environment.os_version,
+        'cpu_number': environment.cpu_number,
+        'cpu_socket': environment.cpu_socket
     }
-    return db_formatted_environments
+    return db_formatted_environment
 
 
 def convert_incremental_metrics_to_dict(incremental_metrics):
