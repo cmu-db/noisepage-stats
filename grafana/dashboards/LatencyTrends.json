@@ -103,13 +103,7 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
       "pointradius": 1,
@@ -742,8 +736,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         }
       },
       "title": "$benchmark_type",
@@ -789,13 +783,7 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
       "pointradius": 1,
@@ -809,8 +797,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         }
       },
       "seriesOverrides": [],
@@ -979,8 +967,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -1112,8 +1100,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -1245,8 +1233,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -1378,8 +1366,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "smallbank",
-          "value": "smallbank"
+          "text": "ycsb",
+          "value": "ycsb"
         },
         "latency_metrics": {
           "selected": true,
@@ -1437,8 +1425,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         }
       },
       "title": "$benchmark_type",
@@ -1484,13 +1472,7 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
       "pointradius": 1,
@@ -1504,8 +1486,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         }
       },
       "seriesOverrides": [],
@@ -1674,8 +1656,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         },
         "latency_metrics": {
           "selected": true,
@@ -1807,8 +1789,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         },
         "latency_metrics": {
           "selected": true,
@@ -1940,8 +1922,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         },
         "latency_metrics": {
           "selected": true,
@@ -2073,8 +2055,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "tatp",
-          "value": "tatp"
+          "text": "smallbank",
+          "value": "smallbank"
         },
         "latency_metrics": {
           "selected": true,
@@ -2132,8 +2114,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         }
       },
       "title": "$benchmark_type",
@@ -2179,13 +2161,7 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
       "pointradius": 1,
@@ -2199,8 +2175,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         }
       },
       "seriesOverrides": [],
@@ -2369,8 +2345,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         },
         "latency_metrics": {
           "selected": true,
@@ -2502,8 +2478,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         },
         "latency_metrics": {
           "selected": true,
@@ -2635,8 +2611,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         },
         "latency_metrics": {
           "selected": true,
@@ -2768,8 +2744,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
+          "text": "noop",
+          "value": "noop"
         },
         "latency_metrics": {
           "selected": true,
@@ -2827,8 +2803,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         }
       },
       "title": "$benchmark_type",
@@ -2874,13 +2850,7 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
       "pointradius": 1,
@@ -2894,8 +2864,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         }
       },
       "seriesOverrides": [],
@@ -3064,8 +3034,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         },
         "latency_metrics": {
           "selected": true,
@@ -3197,8 +3167,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         },
         "latency_metrics": {
           "selected": true,
@@ -3330,8 +3300,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         },
         "latency_metrics": {
           "selected": true,
@@ -3463,8 +3433,8 @@
       "scopedVars": {
         "benchmark_type": {
           "selected": false,
-          "text": "noop",
-          "value": "noop"
+          "text": "tatp",
+          "value": "tatp"
         },
         "latency_metrics": {
           "selected": true,

@@ -999,7 +999,7 @@
         "x": 4,
         "y": 24
       },
-      "id": 159,
+      "id": 160,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1090,7 +1090,7 @@
         "x": 8,
         "y": 24
       },
-      "id": 160,
+      "id": 161,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1181,7 +1181,7 @@
         "x": 12,
         "y": 24
       },
-      "id": 161,
+      "id": 162,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1543,7 +1543,7 @@
         "x": 4,
         "y": 30
       },
-      "id": 164,
+      "id": 166,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1634,7 +1634,7 @@
         "x": 8,
         "y": 30
       },
-      "id": 165,
+      "id": 167,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -1832,7 +1832,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 129,
@@ -2153,7 +2153,7 @@
         "x": 4,
         "y": 36
       },
-      "id": 169,
+      "id": 172,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -3768,6 +3768,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 56
+      },
+      "id": 178,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 132,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -4215,6 +4308,98 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 62
+      },
+      "id": 183,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 133,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -4690,44 +4875,11 @@
               {
                 "color": "red",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "unit"
               }
             ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 5,
@@ -4735,7 +4887,7 @@
         "x": 0,
         "y": 74
       },
-      "id": 135,
+      "id": 188,
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
@@ -4744,14 +4896,14 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
-          "values": false
+          "values": true
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": "terminals",
+      "repeat": null,
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 104,
@@ -4764,8 +4916,8 @@
         },
         "terminals": {
           "selected": false,
-          "text": "1",
-          "value": "1"
+          "text": "32",
+          "value": "32"
         }
       },
       "targets": [
@@ -4799,7 +4951,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Latest, terminals = $terminals",
+      "title": "Min, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -4876,7 +5028,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 135,
@@ -5401,6 +5553,131 @@
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 74
+      },
+      "id": 193,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 135,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tpcc",
+          "value": "tpcc"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -6572,6 +6849,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 94
+      },
+      "id": 198,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 138,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -7019,6 +7389,98 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 100
+      },
+      "id": 203,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 139,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -7527,44 +7989,11 @@
               {
                 "color": "red",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "unit"
               }
             ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 5,
@@ -7581,10 +8010,10 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
-          "values": false
+          "values": true
         }
       },
       "pluginVersion": "7.0.3",
@@ -7636,7 +8065,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Latest, terminals = $terminals",
+      "title": "Min, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -7713,7 +8142,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 141,
@@ -8113,6 +8542,131 @@
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 112
+      },
+      "id": 213,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 141,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "tatp",
+          "value": "tatp"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -9284,6 +9838,99 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 132
+      },
+      "id": 218,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 144,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Throughput\" DESC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "yellow",
                 "value": null
               }
@@ -9731,6 +10378,98 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Min, Terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 138
+      },
+      "id": 223,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 145,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::jsonb::text::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -10239,44 +10978,11 @@
               {
                 "color": "red",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "unit"
               }
             ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 5,
@@ -10293,10 +10999,10 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
-          "values": false
+          "values": true
         }
       },
       "pluginVersion": "7.0.3",
@@ -10348,7 +11054,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Latest, terminals = $terminals",
+      "title": "Min, Terminals = $terminals",
       "transformations": [],
       "type": "stat"
     },
@@ -10425,7 +11131,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 147,
@@ -10825,6 +11531,131 @@
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 150
+      },
+      "id": 233,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 147,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "smallbank",
+          "value": "smallbank"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
@@ -11842,7 +12673,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 151,
@@ -12394,7 +13225,7 @@
         }
       },
       "pluginVersion": "7.0.3",
-      "repeat": null,
+      "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1598184079142,
       "repeatPanelId": 152,
@@ -13537,6 +14368,131 @@
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest, terminals = $terminals",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 188
+      },
+      "id": 253,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "/.*/",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1598063623878,
+      "repeatPanelId": 153,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "benchmark_type": {
+          "selected": false,
+          "text": "noop",
+          "value": "noop"
+        },
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::jsonb::text::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::jsonb::text::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'\nORDER BY \"Date\" DESC",
           "refId": "A",
           "select": [
             [
