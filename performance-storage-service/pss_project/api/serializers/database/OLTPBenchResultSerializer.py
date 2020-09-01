@@ -7,4 +7,4 @@ class OLTPBenchResultSerializer(ModelSerializer):
         model = OLTPBenchResult
         fields = ('time', 'git_branch', 'git_commit_id', 'jenkins_job_id', 'db_version', 'environment',
                   'benchmark_type', 'query_mode', 'scale_factor', 'terminals', 'client_time', 'weights',
-                  'metrics', 'incremental_metrics')
+                  'wal_device', 'max_connection_threads', 'metrics', 'incremental_metrics')

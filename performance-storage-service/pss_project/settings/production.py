@@ -10,6 +10,6 @@ DATABASES = {
         'USER': get_environ_value('PSS_DATABASE_USER'),
         'PASSWORD': get_environ_value('PSS_DATABASE_PASSWORD'),
         'HOST': 'timescaledb-service-production.performance',
-        'PORT': int(get_environ_value('PSS_DATABASE_PORT',5432)),
+        'PORT': int(get_environ_value('PSS_DATABASE_PORT', 5432)),
     }
 }
