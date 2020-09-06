@@ -9,6 +9,8 @@ metadata:
     app: prometheus-server
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: prometheus-server
@@ -18,13 +20,16 @@ spec:
         app: prometheus-server
     spec:
       nodeSelector:
-        env: production
+        env: master
       containers:
         - name: prometheus
           image: prom/prometheus:v2.2.1
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
+            # # FOR REVERSED PROXY
+            # - "--web.external-url=http://localhost:9090/prometheus"
+            # - "--web.route-prefix=/"
           ports:
             - containerPort: 9090
           volumeMounts:
