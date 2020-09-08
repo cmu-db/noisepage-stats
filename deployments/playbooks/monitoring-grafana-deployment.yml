@@ -1,0 +1,28 @@
+---
+- hosts: k8s_master
+  name: Deploy Moniotoring Grafana
+  vars:
+    dir_repo: "{{ inventory_dir | dirname }}"
+    dir_deploy: "{{ inventory_dir }}"
+    dir_k8s_grafana: "{{ dir_deploy }}/kubernetes/monitoring/grafana"
+    service_hostname: incrudibles-k8s.db.pdl.cmu.edu
+    ansible_python_interpreter: /usr/bin/python3
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        name: openshift
+        state: present
+  tasks:
+    - name: Create Grafana Deployment
+      vars:
+        deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
+
+    - name: Create Grafana Service
+      vars:
+        service_file: "{{ dir_k8s_grafana }}/service.yml"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ service_file }}') }}"
