@@ -1,9 +1,7 @@
-from pss_project.api.models.rest.metrics.LatencyMetrics import LatencyMetrics
+from pss_project.api.models.rest.metrics.BasePerformanceMetrics import BasePerformanceMetrics
 
 
-class IncrementalMetrics(object):
-    def __init__(self, time, throughput, latency=None):
+class IncrementalMetrics(BasePerformanceMetrics):
+    def __init__(self, time, throughput=None, latency=None):
         self.time = time
-        self.throughput = throughput
-        if latency:
-            self.latency = LatencyMetrics(**latency)
+        super().__init__(throughput, latency)

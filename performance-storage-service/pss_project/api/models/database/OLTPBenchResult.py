@@ -39,7 +39,7 @@ class OLTPBenchResult(Model):
     scale_factor = DecimalField(max_digits=10, decimal_places=4)
     terminals = PositiveSmallIntegerField()
     client_time = PositiveSmallIntegerField()
-    weights = JSONField()
+    weights = JSONField(encoder=DjangoJSONEncoder)
     wal_device = CharField(max_length=30, choices=WAL_DEVICE_CHOICES)
     max_connection_threads = PositiveSmallIntegerField()
     metrics = JSONField(encoder=DjangoJSONEncoder)

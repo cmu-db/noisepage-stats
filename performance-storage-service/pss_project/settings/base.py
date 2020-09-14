@@ -25,10 +25,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 'django.contrib.auth',
-    'django.contrib.contenttypes', 'django.contrib.sessions',
-    'django.contrib.messages', 'django.contrib.staticfiles', 'rest_framework',
-    'django_jenkins', 'pss_project.api'
+    'django.contrib.admin', 
+    'django.contrib.auth',
+    'django.contrib.contenttypes', 
+    'django.contrib.sessions',
+    'django.contrib.messages', 
+    'django.contrib.staticfiles', 
+    'rest_framework',
+    'django_jenkins', 
+    'django_prometheus',
+    'pss_project.api'
 ]
 
 MIDDLEWARE = [
