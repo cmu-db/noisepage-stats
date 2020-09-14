@@ -1,7 +1,10 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['incrudibles-production.db.pdl.cmu.edu']
+ALLOWED_HOSTS = ['incrudibles-production.db.pdl.cmu.edu','incrudibles-k8s.db.pdl.cmu.edu']
+
+MIDDLEWARE.insert(0, 'django_prometheus.middleware.PrometheusBeforeMiddleware')
+MIDDLEWARE.insert(len(MIDDLEWARE),'django_prometheus.middleware.PrometheusAfterMiddleware')
 
 DATABASES = {
     'default': {
