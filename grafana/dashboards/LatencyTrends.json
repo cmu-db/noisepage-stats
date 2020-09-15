@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1600199266923,
+  "iteration": 1600203090569,
   "links": [],
   "panels": [
     {
@@ -296,7 +296,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -408,7 +408,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -428,7 +428,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -540,7 +540,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -560,7 +560,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -672,7 +672,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "scopedVars": {
         "benchmark_type": {
@@ -692,7 +692,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -731,7 +731,7 @@
       "id": 44,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -791,7 +791,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -961,7 +961,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -982,7 +982,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1094,7 +1094,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1115,7 +1115,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1227,7 +1227,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1248,7 +1248,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1360,7 +1360,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 46,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1381,7 +1381,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1420,7 +1420,7 @@
       "id": 47,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -1480,7 +1480,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1650,7 +1650,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1671,7 +1671,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1783,7 +1783,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1804,7 +1804,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1916,7 +1916,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1937,7 +1937,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2049,7 +2049,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 49,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2070,7 +2070,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2109,7 +2109,7 @@
       "id": 50,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2169,7 +2169,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2339,7 +2339,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2360,7 +2360,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2472,7 +2472,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 52,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2493,7 +2493,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2605,7 +2605,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 52,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2626,7 +2626,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2738,7 +2738,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 52,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2759,7 +2759,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2798,7 +2798,7 @@
       "id": 53,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2858,7 +2858,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3028,7 +3028,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "latency_metrics",
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 14,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3049,7 +3049,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3161,7 +3161,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 55,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3182,7 +3182,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3294,7 +3294,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 55,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3315,7 +3315,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3427,7 +3427,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199266923,
+      "repeatIteration": 1600203090569,
       "repeatPanelId": 55,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3448,7 +3448,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
+          "rawSql": "SELECT\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) as \"Latest\",\n    (FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->'latency'->>$latency_metrics)::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n   $__timeFilter(time) AND \n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3485,7 +3485,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "RAM disk",
           "value": "RAM disk"
         },
@@ -3617,5 +3617,5 @@
   "timezone": "",
   "title": "Latency Trends",
   "uid": "latency_trends",
-  "version": 39
+  "version": 41
 }
