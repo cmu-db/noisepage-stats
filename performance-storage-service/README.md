@@ -49,9 +49,16 @@ Make sure your docker-desktop kubernetes node is labeled with `env=local`.
 
 To do this run `kubectl label nodes docker-desktop env=local`
 
+Add kubernetes secrets `kubectl create secret generic secrets-local --from-literal=pss_db_user=postgres --from-literal=pss_db_password=password --from-literal=pss_creator_user=user --from-literal=pss_creator_password=password -n performance`
+
 #### Execution
 ```bash
-docker build -t cmudb/performance-storage-service:latest .
+
+cd performance-storage-service
+
+docker build -t cmudb/performance-storage-service:<version> .
+
+cd ../deployments
 
 ansible-playbook -i inventory playbooks/create-namespaces.yml -e "env=local host_override=local"
 
