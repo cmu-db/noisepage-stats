@@ -3,6 +3,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: "performance-service-{{ env }}"
+  annotations:
+    prometheus.io/scrape: "{{ is_promethius_scrape }}"
   namespace: performance
   labels:
     app: pss

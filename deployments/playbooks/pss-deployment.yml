@@ -10,6 +10,7 @@
       staging: 31001
       production: 32001
     service_port: "{{ service_port_dict[env] }}"
+    is_promethius_scrape: "{{ true if env == 'production' else false}}"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
