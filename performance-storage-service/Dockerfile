@@ -20,7 +20,7 @@ RUN chown -R django .
 
 EXPOSE 8080
 HEALTHCHECK --interval=10m --timeout=5s\
-  CMD curl -f http://localhost:$PORT/health/ || exit 1
+  CMD curl -f http://localhost:$PORT/performance-results/health/ || exit 1
 
 USER django
 CMD gunicorn --bind 0.0.0.0:$PORT pss_project.wsgi:application

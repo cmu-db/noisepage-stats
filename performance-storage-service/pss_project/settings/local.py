@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
+        'HOST':'127.0.0.1', #'timescaledb-service-local.performance',
         'PORT': '5432',
     }
 }

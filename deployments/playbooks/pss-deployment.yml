@@ -5,10 +5,12 @@
     dir_repo: "{{ inventory_dir }}"
     dir_k8s_pss: "{{ dir_repo }}/kubernetes/performance/performance-storage-service"
     service_port_dict:
+      local: 30001
       testing: 30001
       staging: 31001
       production: 32001
     service_port: "{{ service_port_dict[env] }}"
+    is_promethius_scrape: "{{ true if env == 'production' else false}}"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
