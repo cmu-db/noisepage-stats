@@ -6,7 +6,9 @@
     dir_repo: "{{ inventory_dir }}"
     dir_k8s_timescaledb: "{{ dir_repo }}/kubernetes/performance/timescaledb"
     service_host: "incrudibles-{{ env }}.db.pdl.cmu.edu"
+    #service_host: "localhost"
     service_port_dict:
+      local: 30003
       testing: 30003
       staging: 31003
       production: 32003
