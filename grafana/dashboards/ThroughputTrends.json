@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1600199593146,
+  "iteration": 1600203022564,
   "links": [],
   "panels": [
     {
@@ -268,7 +268,7 @@
           ]
         },
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
@@ -469,7 +469,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -561,7 +561,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -653,7 +653,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -745,7 +745,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -837,7 +837,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1017,7 +1017,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1108,7 +1108,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1199,7 +1199,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1290,7 +1290,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1381,7 +1381,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1561,7 +1561,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1652,7 +1652,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1743,7 +1743,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1834,7 +1834,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -1925,7 +1925,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "scopedVars": {
         "benchmark_type": {
@@ -2107,7 +2107,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "scopedVars": {
         "benchmark_type": {
@@ -2198,7 +2198,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "scopedVars": {
         "benchmark_type": {
@@ -2289,7 +2289,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "scopedVars": {
         "benchmark_type": {
@@ -2380,7 +2380,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "scopedVars": {
         "benchmark_type": {
@@ -2471,7 +2471,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "scopedVars": {
         "benchmark_type": {
@@ -2717,7 +2717,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2841,7 +2841,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -2965,7 +2965,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -3089,7 +3089,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -3213,7 +3213,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -3274,7 +3274,7 @@
       "id": 168,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -3339,7 +3339,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3605,7 +3605,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3698,7 +3698,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 170,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3791,7 +3791,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 170,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3884,7 +3884,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 170,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3977,7 +3977,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 170,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4070,7 +4070,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 170,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4162,7 +4162,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4254,7 +4254,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 171,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4346,7 +4346,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 171,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4438,7 +4438,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 171,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4530,7 +4530,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 171,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4622,7 +4622,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 171,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4714,7 +4714,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4806,7 +4806,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 172,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4898,7 +4898,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 172,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4990,7 +4990,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 172,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5082,7 +5082,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 172,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5174,7 +5174,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 172,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5266,7 +5266,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5358,7 +5358,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 173,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5450,7 +5450,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 173,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5542,7 +5542,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 173,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5634,7 +5634,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 173,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5726,7 +5726,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 173,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5851,7 +5851,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5976,7 +5976,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 174,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6101,7 +6101,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 174,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6226,7 +6226,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 174,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6351,7 +6351,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 174,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6476,7 +6476,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 174,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6538,7 +6538,7 @@
       "id": 175,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -6603,7 +6603,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6869,7 +6869,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6962,7 +6962,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 177,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7055,7 +7055,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 177,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7148,7 +7148,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 177,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7241,7 +7241,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 177,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7334,7 +7334,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 177,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7426,7 +7426,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7518,7 +7518,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 178,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7610,7 +7610,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 178,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7702,7 +7702,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 178,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7794,7 +7794,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 178,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7886,7 +7886,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 178,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7978,7 +7978,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8070,7 +8070,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 179,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8162,7 +8162,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 179,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8254,7 +8254,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 179,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8346,7 +8346,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 179,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8438,7 +8438,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 179,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8530,7 +8530,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8622,7 +8622,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 180,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8714,7 +8714,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 180,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8806,7 +8806,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 180,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8898,7 +8898,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 180,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8990,7 +8990,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 180,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9115,7 +9115,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9240,7 +9240,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 181,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9365,7 +9365,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 181,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9490,7 +9490,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 181,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9615,7 +9615,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 181,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9740,7 +9740,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 181,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9802,7 +9802,7 @@
       "id": 182,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -9867,7 +9867,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10133,7 +10133,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10226,7 +10226,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 184,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10319,7 +10319,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 184,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10412,7 +10412,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 184,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10505,7 +10505,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 184,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10598,7 +10598,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 184,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10690,7 +10690,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10782,7 +10782,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 185,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10874,7 +10874,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 185,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10966,7 +10966,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 185,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11058,7 +11058,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 185,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11150,7 +11150,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 185,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11242,7 +11242,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11334,7 +11334,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 186,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11426,7 +11426,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 186,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11518,7 +11518,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 186,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11610,7 +11610,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 186,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11702,7 +11702,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 186,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11794,7 +11794,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11886,7 +11886,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 187,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11978,7 +11978,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 187,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12070,7 +12070,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 187,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12162,7 +12162,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 187,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12254,7 +12254,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 187,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12379,7 +12379,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12504,7 +12504,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 188,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12629,7 +12629,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 188,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12754,7 +12754,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 188,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12879,7 +12879,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 188,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13004,7 +13004,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 188,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13066,7 +13066,7 @@
       "id": 189,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -13131,7 +13131,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13397,7 +13397,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13490,7 +13490,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 191,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13583,7 +13583,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 191,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13676,7 +13676,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 191,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13769,7 +13769,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 191,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13862,7 +13862,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 191,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13954,7 +13954,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14046,7 +14046,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 192,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14138,7 +14138,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 192,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14230,7 +14230,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 192,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14322,7 +14322,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 192,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14414,7 +14414,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 192,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14506,7 +14506,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 129,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14598,7 +14598,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 193,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14690,7 +14690,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 193,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14782,7 +14782,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 193,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14874,7 +14874,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 193,
       "repeatedByRow": true,
       "scopedVars": {
@@ -14966,7 +14966,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 193,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15058,7 +15058,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 167,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15150,7 +15150,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 194,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15242,7 +15242,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 194,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15334,7 +15334,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 194,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15426,7 +15426,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 194,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15518,7 +15518,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 194,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15643,7 +15643,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15768,7 +15768,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 195,
       "repeatedByRow": true,
       "scopedVars": {
@@ -15893,7 +15893,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 195,
       "repeatedByRow": true,
       "scopedVars": {
@@ -16018,7 +16018,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 195,
       "repeatedByRow": true,
       "scopedVars": {
@@ -16143,7 +16143,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 195,
       "repeatedByRow": true,
       "scopedVars": {
@@ -16268,7 +16268,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600199593146,
+      "repeatIteration": 1600203022564,
       "repeatPanelId": 195,
       "repeatedByRow": true,
       "scopedVars": {
@@ -16328,7 +16328,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "RAM disk",
           "value": "RAM disk"
         },
@@ -16383,7 +16383,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": "All",
           "value": [
             "$__all"
@@ -16430,5 +16429,5 @@
   "timezone": "",
   "title": "Throughput Trends",
   "uid": "throughput_trends",
-  "version": 36
+  "version": 38
 }
