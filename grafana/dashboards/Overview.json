@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1598213376807,
+  "iteration": 1600197674740,
   "links": [],
   "panels": [
     {
@@ -271,7 +271,7 @@
           ],
           "metricColumn": "query_mode",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->'avg')::jsonb::text::numeric) as \"avg\",\n  avg((metrics->'latency'->'l_90')::jsonb::text::numeric) as \"l_90\",\n  avg((metrics->'latency'->'l_95')::jsonb::text::numeric) as \"l_95\",\n  avg((metrics->'latency'->'l_99')::jsonb::text::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nGROUP BY 1, git_commit_id\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->>'avg')::numeric) as \"avg\",\n  avg((metrics->'latency'->>'l_90')::numeric) as \"l_90\",\n  avg((metrics->'latency'->>'l_95')::numeric) as \"l_95\",\n  avg((metrics->'latency'->>'l_99')::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nGROUP BY 1, git_commit_id\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -421,7 +421,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n\tMAX(time) as time,\r\n\tCAST(terminals AS TEXT) as metric,\r\n\tAVG(value) as value\r\nFROM (\r\n\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\ttime,\r\n\t\tbenchmark_type,\r\n\t\tterminals,\r\n\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\r\n\tFROM oltpbench_results\r\n\tWHERE\r\n    $__timeFilter(\"time\") AND\r\n\t\tbenchmark_type != 'noop' AND\r\n    client_time = 60 AND\r\n    git_branch = 'origin/master' AND\r\n    wal_device = '$wal_device' AND\r\n    max_connection_threads = 32\r\n\tORDER BY terminals, benchmark_type, time desc\r\n) AS tmp\r\nGROUP BY terminals",
+          "rawSql": "SELECT \r\n\tMAX(time) as time,\r\n\tterminals::text as metric,\r\n\tAVG(value) as value\r\nFROM (\r\n\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\ttime,\r\n\t\tbenchmark_type,\r\n\t\tterminals,\r\n\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\r\n\tFROM oltpbench_results\r\n\tWHERE\r\n    $__timeFilter(\"time\") AND\r\n\t\tbenchmark_type != 'noop' AND\r\n    client_time = 60 AND\r\n    git_branch = 'origin/master' --AND\r\n    -- -- wal_device = '$wal_device' AND\r\n    -- -- max_connection_threads = 32\r\n\tORDER BY terminals, benchmark_type, time desc\r\n) AS tmp\r\nGROUP BY terminals",
           "refId": "A",
           "select": [
             [
@@ -665,7 +665,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -753,7 +753,7 @@
         "x": 4,
         "y": 32
       },
-      "id": 24,
+      "id": 30,
       "links": [
         {
           "targetBlank": true,
@@ -778,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598213376807,
+      "repeatIteration": 1600197674740,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -882,7 +882,7 @@
         "x": 8,
         "y": 32
       },
-      "id": 25,
+      "id": 31,
       "links": [
         {
           "targetBlank": true,
@@ -907,7 +907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598213376807,
+      "repeatIteration": 1600197674740,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1011,7 +1011,7 @@
         "x": 12,
         "y": 32
       },
-      "id": 26,
+      "id": 32,
       "links": [
         {
           "targetBlank": true,
@@ -1036,7 +1036,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598213376807,
+      "repeatIteration": 1600197674740,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1140,7 +1140,7 @@
         "x": 16,
         "y": 32
       },
-      "id": 27,
+      "id": 33,
       "links": [
         {
           "targetBlank": true,
@@ -1165,7 +1165,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598213376807,
+      "repeatIteration": 1600197674740,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1269,7 +1269,7 @@
         "x": 20,
         "y": 32
       },
-      "id": 28,
+      "id": 34,
       "links": [
         {
           "targetBlank": true,
@@ -1294,7 +1294,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598213376807,
+      "repeatIteration": 1600197674740,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1541,7 +1541,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\tTRIM('\"' FROM (incremental.latency->'avg')::text)::numeric as \"avg\",\n\tTRIM('\"' FROM (incremental.latency->'l_90')::text)::numeric as \"l_90\",\n\tTRIM('\"' FROM (incremental.latency->'l_95')::text)::numeric as \"l_95\",\n\tTRIM('\"' FROM (incremental.latency->'l_99')::text)::numeric as \"l_99\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'latency' as \"latency\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
+          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\t(incremental.latency->>'avg')::numeric as \"avg\",\n\t(incremental.latency->>'l_90')::numeric as \"l_90\",\n\t(incremental.latency->>'l_95')::numeric as \"l_95\",\n\t(incremental.latency->>'l_99')::numeric as \"l_99\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'latency' as \"latency\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
           "refId": "A",
           "select": [
             [
@@ -1645,9 +1645,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "HDD",
-          "value": "HDD"
+          "selected": true,
+          "text": "RAM disk",
+          "value": "RAM disk"
         },
         "datasource": "noisepage-db",
         "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
@@ -1697,7 +1697,7 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {
@@ -1716,5 +1716,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 27
+  "version": 45
 }
