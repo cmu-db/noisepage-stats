@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: "performance-service-{{ env }}"
   annotations:
-    prometheus.io/scrape: "{{ is_promethius_scrape }}"
+    prometheus.io/scrape: 'true'
   namespace: performance
   labels:
     app: pss
