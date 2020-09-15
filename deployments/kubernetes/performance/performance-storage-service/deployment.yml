@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   name: "{{ env }}-performance-storage-service"
   namespace: performance
-  annotations:
-    prometheus.io/scrape: 'true'
   labels:
     app: pss
     env: "{{ env }}"
