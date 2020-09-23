@@ -3,7 +3,7 @@ from .base import *
 DEBUG = True
 ALLOWED_HOSTS = [
     'incrudibles-testing.db.pdl.cmu.edu',
-    'performance-service-testing.performance'
+    get_environ_value('PSS_POD_IP'),
 ]
 
 MIDDLEWARE.insert(0, 'django_prometheus.middleware.PrometheusBeforeMiddleware')
