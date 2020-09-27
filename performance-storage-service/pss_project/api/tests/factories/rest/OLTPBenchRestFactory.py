@@ -2,7 +2,7 @@ from factory import Factory, Faker
 from pss_project.api.models.rest.OLTPBenchRest import OLTPBenchRest
 from pss_project.api.tests.factories.rest.metadata.OLTPBenchMetadataFactory \
     import OLTPBenchMetadataFactory
-from pss_project.api.tests.factories.rest.parameters.OLTPBenchParameters \
+from pss_project.api.tests.factories.rest.parameters.OLTPBenchParametersFactory \
     import OLTPBenchParametersFactory
 from pss_project.api.tests.factories.rest.metrics.OLTPBenchMetricsFactory \
     import OLTPBenchMetricsFactory

@@ -6,6 +6,8 @@ info:
 servers:
   - url: https://incrudibles-testing.db.pdl.cmu.edu
     description: Test server
+security:
+  - BasicAuth: []
 paths:
   /oltpbench:
     post:
@@ -16,16 +18,37 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OLTPBenchSummary'
+              $ref: '#/components/schemas/OLTPBenchResult'
       responses: 
         '201':
           description: Created
         '400':
           description: Bad Request
 
+  /microbenchmark:
+    post:
+      summary: "Report a new microbenchmark results from a build"
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MicrobenchmarkResult'
+      responses: 
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  
 components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
   schemas:
-    OLTPBenchSummary:
+  # OLTPBench specific schemas
+    OLTPBenchResult:
       description: A build result from running all the OLTPBench results
       type: object
       required:
@@ -36,7 +59,7 @@ components:
         - metrics 
       properties:
         metadata:
-          $ref: '#/components/schemas/OLTPBenchMetadata'
+          $ref: '#/components/schemas/Metadata'
         timestamp:
           type: string
           format: unix-timestamp
@@ -56,71 +79,7 @@ components:
           $ref: '#/components/schemas/OLTPBenchParameters'
         metrics:
           $ref: '#/components/schemas/OLTPBenchMetrics'
-    OLTPBenchMetadata:
-      description: The metadata of the test
-      type: object
-      required:
-        - jenkins
-        - github
-        - noisepage
-        - environment
-      properties:
-        jenkins:
-          $ref: '#/components/schemas/JenkinsMetadata'
-        github:
-          $ref: '#/components/schemas/GithubMetadata'
-        noisepage:
-          $ref: '#/components/schemas/NoisepageMetadata'
-        environment:
-          $ref: '#/components/schemas/EnvironmentMetadata'
-    JenkinsMetadata:
-      description: The metadata related to Jenkins
-      type: object
-      required:
-        - jenkins_job_id
-      properties:
-        jenkins_job_id:
-          type: integer
-          description: The ID of the job which runs this test on Jenkins
-    GithubMetadata:
-      description: The metadata related to GitHub
-      type: object
-      required:
-        - git_commit_id
-        - git_branch
-      properties:
-        git_commit_id:
-          type: string
-          description: The commit id of the current job
-        git_branch:
-          type: string
-          description: The name of the branch where the nightly job runs
-    NoisepageMetadata:
-      description: The metadata related to Noisepage
-      type: object
-      required:
-        - db_version
-      properties:
-        db_version:
-          type: string
-          description: The version of NoisePage
-    EnvironmentMetadata:
-      description: The metadata related to the environment
-      type: object
-      required:
-        - os_version
-        - cpu_number
-        - cpu_socket
-      properties:
-        os_version:
-          type: string
-          description: The version of the operating system on the testing server.
-        cpu_number:
-          type: string
-          description: The number of CPU used on the testing server
-        cpu_socket:
-          type: string
-          description: The number of the cpu socket on the testing server. When it is larger than 1, this server is a NUMA system
+
     OLTPBenchParameters:
       description: The settings that the test was run with
       type: object
@@ -130,6 +89,7 @@ components:
         - terminals
         - client_time
         - transaction_weights
+        - max_connection_threads
       properties:
         query_mode:
           type: string
@@ -150,6 +110,10 @@ components:
         transaction_weights:
           type: array
           $ref: '#/components/schemas/TransactionWeight'
+        max_connection_threads:
+          type: integer
+          description: The maximum number of threads in the thread pool.
+
     TransactionWeight:
       type: object
       description: An object containing information about the performance test transaction weights
@@ -163,6 +127,7 @@ components:
         weight:
           type: integer
           description: The weight of the transaction type for the run of OLTPBench
+
     OLTPBenchMetrics:
       type: object
       description: An object containing all test metrics for OLTPBench performance tests
@@ -178,37 +143,194 @@ components:
         incremental_metrics:
           type: array
           $ref: '#/components/schemas/IncrementalMetrics'
+
+  # Microbenchmark specific schemas
+    MicrobenchmarkResult:
+      description: The results of the microbenchmark jenkins job
+      type: object
+      required:
+        - metadata 
+        - timestamp
+        - parameters 
+        - metrics 
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: string
+          format: unix-timestamp
+          example: 1592389291843
+          description: The time the microbenchmark was executed.
+        parameters:
+          $ref: '#/components/schemas/MicrobenchmarkParameters'
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MicrobenchmarkMetrics'
+    
+    MicrobenchmarkParameters:
+      description: The parameters that were used to run the microbenchmark tests
+      type: object
+      required:
+        - threads
+        - min_runtime
+      properties:
+        threads:
+          type: integer
+          description: The number of threads used for multi-threaded benchmarks.
+        min_runtime:
+          type: integer
+          description: The minimum time the benchmarks could be run for (seconds).
+       
+    MicrobenchmarkMetrics:
+      description: The results from a single microbenchmark test
+      type: object
+      required:
+        - throughput
+      properties:
+        name:
+          type: string
+          description: The test suite and test name of the benchmark separated by a '/' (i.e. TestSuite1/Test4).
+        iterations:
+          type: integer
+          description:  The number of times the benchmark was run for to create a statistically stable result.
+        real_time:
+          type: integer
+          description: The actual time the benchmark took.
+        cpu_time:
+          type: integer
+          description: The time the benchmark took according to the cpu.
+        bytes_per_second:
+          type: number
+          format: float
+          description: The bytes per second transmitted during the test.
+        items_per_second:
+          type: number
+          format: float
+          description: The transations per second executed during the test.
+
+  # Generic schemas 
+    Metadata:
+      description: The metadata of the test
+      type: object
+      required:
+        - jenkins
+        - github
+        - noisepage
+        - environment
+      properties:
+        jenkins:
+          $ref: '#/components/schemas/JenkinsMetadata'
+        github:
+          $ref: '#/components/schemas/GithubMetadata'
+        noisepage:
+          $ref: '#/components/schemas/NoisepageMetadata'
+        environment:
+          $ref: '#/components/schemas/EnvironmentMetadata'
+    
+    JenkinsMetadata:
+      description: The metadata related to Jenkins
+      type: object
+      required:
+        - jenkins_job_id
+      properties:
+        jenkins_job_id:
+          type: integer
+          description: The ID of the job which runs this test on Jenkins
+    
+    GithubMetadata:
+      description: The metadata related to GitHub
+      type: object
+      required:
+        - git_commit_id
+        - git_branch
+      properties:
+        git_commit_id:
+          type: string
+          description: The commit id of the current job
+        git_branch:
+          type: string
+          description: The name of the branch where the nightly job runs
+
+    NoisepageMetadata:
+      description: The metadata related to Noisepage
+      type: object
+      required:
+        - db_version
+      properties:
+        db_version:
+          type: string
+          description: The version of NoisePage
+
+    EnvironmentMetadata:
+      description: The metadata related to the environment
+      type: object
+      required:
+        - os_version
+        - cpu_number
+        - cpu_socket
+        - wal_device
+      properties:
+        os_version:
+          type: string
+          description: The version of the operating system on the testing server.
+        cpu_number:
+          type: string
+          description: The number of CPU used on the testing server
+        cpu_socket:
+          type: string
+          description: The number of the cpu socket on the testing server. When it is larger than 1, this server is a NUMA system
+        wal_device:
+          type: string
+          enum:
+            - HDD
+            - RAM disk 
+            - SATA SSD
+            - NVMe SSD 
+            - None 
+          description: The type of storage that the write ahead log is written to.
+          
     LatencyMetrics:
       type: object
       description: An object containing latency metrics for OLTPBench performance tests
       properties:
         l_25:
-          type: integer
+          type: number
+          format: float
           description: The 25th percentile of the latency results.
         l_75:
-          type: integer
+          type: number
+          format: float
           description: The 75th percentile of the latency results.
         l_90:
-          type: integer
+          type: number
+          format: float
           description: The 90th percentile of the latency results.
         l_95:
-          type: integer
+          type: number
+          format: float
           description: The 95th percentile of the latency results.
         l_99:
-          type: integer
+          type: number
+          format: float
           description: The 99th percentile of the latency results.
         avg:
-          type: integer
+          type: number
+          format: float
           description: The average of the latency results.
         median:
-          type: integer
+          type: number
+          format: float
           description: The median of the latency results.
         max:
-          type: integer
+          type: number
+          format: float
           description: The max of the latency results.
         min:
-          type: integer
+          type: number
+          format: float
           description: The min of the latency results.
+    
     IncrementalMetrics:
       type: object
       description: An object containing all metrics for long-running OLTPBench performance tests
@@ -224,45 +346,4 @@ components:
           format: float
           description: The transactions per second that the test completed
         latency:
-          $ref: '#/components/schemas/IncrementalLatencyMetrics'
-    IncrementalLatencyMetrics:
-      type: object
-      description: An object containing latency metrics for OLTPBench performance tests
-      properties:
-        l_25:
-          type: number
-          format: float
-          description: The 25th percentile of the latency results.
-        l_75:
-          type: number
-          format: float
-          description: The 75th percentile of the latency results.
-        l_90:
-          type: number
-          format: float
-          description: The 90th percentile of the latency results.
-        l_95:
-          type: number
-          format: float
-          description: The 95th percentile of the latency results.
-        l_99:
-          type: number
-          format: float
-          description: The 99th percentile of the latency results.
-        avg:
-          type: number
-          format: float
-          description: The average of the latency results.
-        median:
-          type: number
-          format: float
-          description: The median of the latency results.
-        max:
-          type: number
-          format: float
-          description: The max of the latency results.
-        min:
-          type: number
-          format: float
-          description: The min of the latency results.
-      
+          $ref: '#/components/schemas/LatencyMetrics'

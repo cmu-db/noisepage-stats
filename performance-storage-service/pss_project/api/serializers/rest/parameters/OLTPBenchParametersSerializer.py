@@ -1,16 +1,10 @@
 from rest_framework.serializers import Serializer, ChoiceField, DecimalField, IntegerField
 from pss_project.api.serializers.rest.parameters.TransactionWeightSerializer import TransactionWeightSerializer
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
+from pss_project.api.constants import QUERY_MODE_CHOICES
 
 
 class OLTPBenchParametersSerializer(Serializer):
-    # Constants
-    SIMPLE_MODE = 'simple'
-    EXTENDED_MODE = 'extended'
-    QUERY_MODE_CHOICES = [
-        (SIMPLE_MODE, 'simple'),
-        (EXTENDED_MODE, 'extended'),
-    ]
 
     # Fields
     query_mode = ChoiceField(choices=QUERY_MODE_CHOICES)

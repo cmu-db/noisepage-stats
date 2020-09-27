@@ -1,0 +1,2 @@
+from .MicrobenchmarkResult import MicrobenchmarkResult
+from .OLTPBenchResult import OLTPBenchResult

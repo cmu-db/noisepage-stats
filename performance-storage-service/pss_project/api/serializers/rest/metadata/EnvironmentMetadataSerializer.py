@@ -1,21 +1,9 @@
 from rest_framework.serializers import Serializer, CharField, ChoiceField
 from pss_project.api.models.rest.metadata.EnvironmentMetadata import EnvironmentMetadata
+from pss_project.api.constants import WAL_DEVICE_CHOICES
 
 
 class EnvironmentMetadataSerializer(Serializer):
-    # Constants
-    RAM_DISK = 'RAM disk'
-    HDD = 'HDD'
-    SATA_SSD = 'SATA SSD'
-    NVME_SSD = 'NVMe SSD'
-    NONE = 'None'
-    WAL_DEVICE_CHOICES = [
-        (RAM_DISK, 'RAM disk'),
-        (HDD, 'HDD'),
-        (SATA_SSD, 'SATA SSD'),
-        (NVME_SSD, 'NVMe SSD'),
-        (NONE, 'None')
-    ]
     # Fields
     os_version = CharField()
     cpu_number = CharField()
