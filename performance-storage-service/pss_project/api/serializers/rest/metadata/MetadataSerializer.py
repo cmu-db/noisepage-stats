@@ -3,10 +3,10 @@ from pss_project.api.serializers.rest.metadata.JenkinsMetadataSerializer import 
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
 from pss_project.api.serializers.rest.metadata.NoisePageMetadataSerializer import NoisePageMetadataSerializer
 from pss_project.api.serializers.rest.metadata.EnvironmentMetadataSerializer import EnvironmentMetadataSerializer
-from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
+from pss_project.api.models.rest.metadata.Metadata import Metadata
 
 
-class OLTPBenchMetadataSerializer(Serializer):
+class MetadataSerializer(Serializer):
     # Fields
     jenkins = JenkinsMetadataSerializer()
     github = GithubMetadataSerializer()
@@ -14,4 +14,4 @@ class OLTPBenchMetadataSerializer(Serializer):
     environment = EnvironmentMetadataSerializer()
 
     def create(self, validated_data):
-        return OLTPBenchMetadata(**validated_data)
+        return Metadata(**validated_data)

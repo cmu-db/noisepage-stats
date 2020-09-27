@@ -3,7 +3,7 @@ from django.test import SimpleTestCase
 from pss_project.api.tests.factories.rest.metadata.GithubMetadataFactory import GithubMetadataFactory
 from pss_project.api.tests.factories.rest.metadata.JenkinsMetadataFactory import JenkinsMetadataFactory
 from pss_project.api.tests.factories.rest.metadata.NoisePageMetadataFactory import NoisePageMetadataFactory
-from pss_project.api.tests.factories.rest.metadata.OLTPBenchMetadataFactory import OLTPBenchMetadataFactory
+from pss_project.api.tests.factories.rest.metadata.MetadataFactory import MetadataFactory
 from pss_project.api.tests.factories.rest.metadata.EnvironmentMetadataFactory import EnvironmentMetadataFactory
 from pss_project.api.tests.factories.rest.parameters.TransactionWeightFactory import TransactionWeightFactory
 from pss_project.api.tests.factories.rest.parameters.OLTPBenchParametersFactory import OLTPBenchParametersFactory
@@ -20,7 +20,7 @@ from pss_project.api.tests.factories.rest.MicrobenchmarkRestFactory import Micro
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
 from pss_project.api.serializers.rest.metadata.JenkinsMetadataSerializer import JenkinsMetadataSerializer
 from pss_project.api.serializers.rest.metadata.NoisePageMetadataSerializer import NoisePageMetadataSerializer
-from pss_project.api.serializers.rest.metadata.OLTPBenchMetadataSerializer import OLTPBenchMetadataSerializer
+from pss_project.api.serializers.rest.metadata.MetadataSerializer import MetadataSerializer
 from pss_project.api.serializers.rest.metadata.EnvironmentMetadataSerializer import EnvironmentMetadataSerializer
 from pss_project.api.serializers.rest.parameters.TransactionWeightSerializer import TransactionWeightSerializer
 from pss_project.api.serializers.rest.parameters.OLTPBenchParametersSerializer import OLTPBenchParametersSerializer
@@ -42,7 +42,7 @@ class TestBasicSerializer(SimpleTestCase):
         ('GithubMetadataSerializer', GithubMetadataFactory, GithubMetadataSerializer, []),
         ('JenkinsMetadataSerializer', JenkinsMetadataFactory, JenkinsMetadataSerializer, []),
         ('NoisePageMetadataSerializer', NoisePageMetadataFactory, NoisePageMetadataSerializer, []),
-        ('OLTPBenchMetadataSerializer', OLTPBenchMetadataFactory, OLTPBenchMetadataSerializer, []),
+        ('MetadataSerializer', MetadataFactory, MetadataSerializer, []),
         ('EnvironmentMetadataSerializer', EnvironmentMetadataFactory, EnvironmentMetadataSerializer, []),
 
         ('TransactionWeightSerializer', TransactionWeightFactory, TransactionWeightSerializer, []),

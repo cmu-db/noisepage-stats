@@ -1,7 +1,7 @@
 from factory import Factory, Faker
 from pss_project.api.models.rest.MicrobenchmarkRest import MicrobenchmarkRest
-from pss_project.api.tests.factories.rest.metadata.OLTPBenchMetadataFactory \
-    import OLTPBenchMetadataFactory
+from pss_project.api.tests.factories.rest.metadata.MetadataFactory \
+    import MetadataFactory
 from pss_project.api.tests.factories.rest.parameters.MicrobenchmarkParametersFactory \
     import MicrobenchmarkParametersFactory
 from pss_project.api.tests.factories.rest.metrics.MicrobenchmarkMetricsFactory \
@@ -12,7 +12,7 @@ from pss_project.api.tests.utils.utils import generate_dict_factory
 class MicrobenchmarkRestFactory(Factory):
     class Meta:
         model = MicrobenchmarkRest
-    metadata = generate_dict_factory(OLTPBenchMetadataFactory)()
+    metadata = generate_dict_factory(MetadataFactory)()
     timestamp = Faker('date_time')
     parameters = generate_dict_factory(MicrobenchmarkParametersFactory)()
     metrics = Faker('random_elements', elements=(

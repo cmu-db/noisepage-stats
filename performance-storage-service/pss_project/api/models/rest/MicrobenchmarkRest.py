@@ -1,4 +1,4 @@
-from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
+from pss_project.api.models.rest.metadata.Metadata import Metadata
 from pss_project.api.models.rest.parameters.MicrobenchmarkParameters import MicrobenchmarkParameters
 from pss_project.api.models.rest.metrics.MicrobenchmarkMetrics import MicrobenchmarkMetrics
 from pss_project.api.models.rest.utils import convert_environment_to_dict
@@ -6,7 +6,7 @@ from pss_project.api.models.rest.utils import convert_environment_to_dict
 
 class MicrobenchmarkRest(object):
     def __init__(self, metadata, timestamp, parameters, metrics):
-        self.metadata = OLTPBenchMetadata(**metadata)
+        self.metadata = Metadata(**metadata)
         self.timestamp = timestamp
         self.parameters = MicrobenchmarkParameters(**parameters)
         self.metrics = []

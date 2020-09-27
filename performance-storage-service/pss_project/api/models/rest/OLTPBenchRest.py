@@ -1,4 +1,4 @@
-from pss_project.api.models.rest.metadata.OLTPBenchMetadata import OLTPBenchMetadata
+from pss_project.api.models.rest.metadata.Metadata import Metadata
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
 from pss_project.api.models.rest.utils import convert_environment_to_dict
@@ -6,7 +6,7 @@ from pss_project.api.models.rest.utils import convert_environment_to_dict
 
 class OLTPBenchRest(object):
     def __init__(self, metadata, timestamp, type, parameters, metrics):
-        self.metadata = OLTPBenchMetadata(**metadata)
+        self.metadata = Metadata(**metadata)
         self.timestamp = timestamp
         self.type = type
         self.parameters = OLTPBenchParameters(**parameters)
