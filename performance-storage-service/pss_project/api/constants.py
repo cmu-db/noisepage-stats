@@ -19,3 +19,11 @@ WAL_DEVICE_CHOICES = [
     (NVME_SSD, 'NVMe SSD'),
     (NONE, 'None')
 ]
+
+# Microbenchmark status validation
+PASS = 'PASS'
+FAIL = 'FAIL'
+MICROBENCHMARK_STATUS_CHOICES = [
+    (PASS, 'PASS'),
+    (FAIL, 'FAIL')
+]

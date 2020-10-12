@@ -23,13 +23,12 @@ class MicrobenchmarkViewSet(viewsets.ViewSet):
             return Response(api_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         api_serializer.save()
-        for benchmark in api_serializer.instance.convert_to_arr_db_json():
-            db_serializer = MicrobenchmarkResultSerializer(data=benchmark)
-            if not db_serializer.is_valid():
-                return Response(db_serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            try:
-                db_serializer.save()
-            except Exception as e:
-                return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        db_serializer = MicrobenchmarkResultSerializer(data=api_serializer.instance.convert_to_db_json())
+        if not db_serializer.is_valid():
+            return Response(db_serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        try:
+            db_serializer.save()
+        except Exception as e:
+            return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(api_serializer.validated_data, status=status.HTTP_201_CREATED)

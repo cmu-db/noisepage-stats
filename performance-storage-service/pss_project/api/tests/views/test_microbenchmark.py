@@ -57,4 +57,4 @@ class OLTPBenchViewTest(APITransactionTestCase):
         self.client.credentials(HTTP_AUTHORIZATION=self.credentials)
         response = self.client.post(
             self.url, data={'noneya': 'business'}, format='json')
-        self.assertContains(response, 'required', count=4, status_code=400)
+        self.assertContains(response, 'required', count=6, status_code=400)

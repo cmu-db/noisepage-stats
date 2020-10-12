@@ -151,6 +151,8 @@ components:
       required:
         - metadata 
         - timestamp
+        - test_suite
+        - test_name
         - parameters 
         - metrics 
       properties:
@@ -161,12 +163,18 @@ components:
           format: unix-timestamp
           example: 1592389291843
           description: The time the microbenchmark was executed.
+        test_suite:
+          type: string
+          example: BwTreeBenchmark
+          description: The name of the microbenchmark test suite.
+        test_name:
+          type: string
+          example: RandomInsert
+          description: The name of the microbenchmark test.
         parameters:
           $ref: '#/components/schemas/MicrobenchmarkParameters'
         metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/MicrobenchmarkMetrics'
+          $ref: '#/components/schemas/MicrobenchmarkMetrics'
     
     MicrobenchmarkParameters:
       description: The parameters that were used to run the microbenchmark tests
@@ -188,26 +196,34 @@ components:
       required:
         - throughput
       properties:
-        name:
+        status:
           type: string
-          description: The test suite and test name of the benchmark separated by a '/' (i.e. TestSuite1/Test4).
-        iterations:
-          type: integer
-          description:  The number of times the benchmark was run for to create a statistically stable result.
-        real_time:
-          type: integer
-          description: The actual time the benchmark took.
-        cpu_time:
-          type: integer
-          description: The time the benchmark took according to the cpu.
-        bytes_per_second:
-          type: number
-          format: float
-          description: The bytes per second transmitted during the test.
-        items_per_second:
+          description: A text status of whether the throughput violated the threshold.
+          enum:
+            - "PASS"
+            - "FAIL"
+        throughput:
           type: number
           format: float
           description: The transations per second executed during the test.
+        ref_throughput:
+          type: number
+          format: float
+          description: |
+            The average throughput for the test over the last 30 days. This is 
+            collected from Jenkins artifacts created over the last 30 days of the test execution.
+        stdev_throughput:
+          type: number
+          format: float
+          description: |
+            The standard deviation of thoughput results for the test. This is 
+            collected from Jenkins artifacts created over the last 30 days of the test execution.
+        threshold:
+          type: integer
+          description: The allowed throughput degradation before a warning should be raised (number refers to %)
+        iterations:
+          type: integer
+          description:  The number of times the benchmark was run for to create a statistically stable result.
 
   # Generic schemas 
     Metadata:

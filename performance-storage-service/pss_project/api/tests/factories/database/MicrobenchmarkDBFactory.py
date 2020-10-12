@@ -7,7 +7,6 @@ class MicrobenchmarkDBFactory(DjangoModelFactory):
         model = MicrobenchmarkResult
 
     time = Faker('iso8601')
-    query_mode = Faker('random_element', elements=('simple', 'extended'))
     jenkins_job_id = Faker('pystr_format', string_format='###')
     git_branch = Faker('word')
     git_commit_id = Faker('sha1')

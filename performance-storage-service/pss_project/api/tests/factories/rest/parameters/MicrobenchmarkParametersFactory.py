@@ -7,6 +7,5 @@ class MicrobenchmarkParametersFactory(Factory):
     class Meta:
         model = MicrobenchmarkParameters
 
-    query_mode = Faker('random_element', elements=('simple', 'extended'))
     threads = Faker('random_int', min=1, max=16)
     min_runtime = Faker('random_int', min=30, step=30)

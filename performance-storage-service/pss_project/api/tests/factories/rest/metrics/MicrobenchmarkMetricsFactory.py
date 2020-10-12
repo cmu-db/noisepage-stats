@@ -6,9 +6,9 @@ class MicrobenchmarkMetricsFactory(Factory):
     class Meta:
         model = MicrobenchmarkMetrics
 
-    name = '{}/{}'.format(Faker('city').generate(), Faker('word').generate())
+    status = Faker('random_element', elements=('PASS', 'FAIL'))
     throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
+    ref_throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
+    stdev_throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
+    threshold = Faker('random_int')
     iterations = Faker('random_int')
-    real_time = Faker('random_int')
-    cpu_time = Faker('random_int')
-    bytes_per_second = Faker('pydecimal', left_digits=9, right_digits=9, positive=True)

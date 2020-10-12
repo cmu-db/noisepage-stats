@@ -18,6 +18,6 @@ class TestMicrobenchmarkResultSerializer(TestCase):
 
     def test_deserializer_model_fields(self):
         factory = MicrobenchmarkRestFactory()
-        input = factory.convert_to_arr_db_json()[0]
+        input = factory.convert_to_db_json()
         serializer = MicrobenchmarkResultSerializer(data=input)
         self.assertTrue(serializer.is_valid(), msg=serializer.errors)

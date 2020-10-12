@@ -14,11 +14,7 @@ class MicrobenchmarkRestFactory(Factory):
         model = MicrobenchmarkRest
     metadata = generate_dict_factory(MetadataFactory)()
     timestamp = Faker('date_time')
+    test_suite = Faker('word')
+    test_name = Faker('word')
     parameters = generate_dict_factory(MicrobenchmarkParametersFactory)()
-    metrics = Faker('random_elements', elements=(
-        generate_dict_factory(MicrobenchmarkMetricsFactory)(),
-        generate_dict_factory(MicrobenchmarkMetricsFactory)(),
-        generate_dict_factory(MicrobenchmarkMetricsFactory)(),
-        generate_dict_factory(MicrobenchmarkMetricsFactory)(),
-        generate_dict_factory(MicrobenchmarkMetricsFactory)(),
-    ), unique=True)
+    metrics = generate_dict_factory(MicrobenchmarkMetricsFactory)()
