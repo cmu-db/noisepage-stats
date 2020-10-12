@@ -10,5 +10,5 @@ class MicrobenchmarkMetricsFactory(Factory):
     throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
     ref_throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
     stdev_throughput = Faker('pydecimal', left_digits=9, right_digits=15, positive=True)
-    threshold = Faker('random_int')
+    tolerance = Faker('random_int')
     iterations = Faker('random_int')
