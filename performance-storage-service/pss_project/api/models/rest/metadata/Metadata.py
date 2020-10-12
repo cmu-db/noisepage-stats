@@ -5,7 +5,7 @@ from pss_project.api.models.rest.metadata.NoisePageMetadata import NoisePageMeta
 from pss_project.api.models.rest.metadata.EnvironmentMetadata import EnvironmentMetadata
 
 
-class OLTPBenchMetadata(object):
+class Metadata(object):
     def __init__(self, jenkins, github, noisepage, environment):
         self.jenkins = JenkinsMetadata(**jenkins)
         self.github = GithubMetadata(**github)
