@@ -198,7 +198,7 @@ components:
       properties:
         status:
           type: string
-          description: A text status of whether the throughput violated the threshold.
+          description: A text status of whether the throughput violated the tolerance.
           enum:
             - "PASS"
             - "FAIL"
@@ -218,7 +218,7 @@ components:
           description: |
             The standard deviation of thoughput results for the test. This is 
             collected from Jenkins artifacts created over the last 30 days of the test execution.
-        threshold:
+        tolerance:
           type: integer
           description: The allowed throughput degradation before a warning should be raised (number refers to %)
         iterations:

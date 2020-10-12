@@ -9,7 +9,7 @@ class MicrobenchmarkMetricsSerializer(Serializer):
     status = ChoiceField(choices=MICROBENCHMARK_STATUS_CHOICES)
     ref_throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)
     stdev_throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)
-    threshold = IntegerField()
+    tolerance = IntegerField()
     iterations = IntegerField()
 
     def create(self, validated_data):
