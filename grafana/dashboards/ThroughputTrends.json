@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 25,
-  "iteration": 1602510957588,
+  "iteration": 1602775684806,
   "links": [],
   "panels": [
     {
@@ -402,7 +402,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -430,8 +430,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -524,7 +550,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -533,7 +559,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -554,8 +580,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -648,7 +700,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -657,7 +709,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -678,8 +730,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -772,7 +850,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -781,7 +859,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -802,8 +880,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -896,7 +1000,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -905,7 +1009,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -926,8 +1030,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -1020,7 +1150,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -1029,7 +1159,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1050,8 +1180,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -1088,7 +1244,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1178,7 +1334,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1211,7 +1367,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1270,7 +1426,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1303,7 +1459,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1362,7 +1518,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1395,7 +1551,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1454,7 +1610,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1487,7 +1643,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1546,7 +1702,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1579,7 +1735,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "scopedVars": {
         "benchmark_type": {
@@ -1638,7 +1794,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1727,7 +1883,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1759,7 +1915,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1818,7 +1974,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1850,7 +2006,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -1909,7 +2065,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -1941,7 +2097,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -2000,7 +2156,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2032,7 +2188,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -2091,7 +2247,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2123,7 +2279,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "scopedVars": {
         "benchmark_type": {
@@ -2182,7 +2338,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2269,7 +2425,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2301,7 +2457,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "scopedVars": {
         "benchmark_type": {
@@ -2358,7 +2514,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2390,7 +2546,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "scopedVars": {
         "benchmark_type": {
@@ -2447,7 +2603,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2479,7 +2635,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "scopedVars": {
         "benchmark_type": {
@@ -2536,7 +2692,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2568,7 +2724,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "scopedVars": {
         "benchmark_type": {
@@ -2625,7 +2781,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -2657,7 +2813,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "scopedVars": {
         "benchmark_type": {
@@ -2716,7 +2872,7 @@
       "id": 202,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2781,7 +2937,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3070,7 +3226,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3079,7 +3235,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3101,8 +3257,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3195,7 +3377,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3204,7 +3386,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 204,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3226,8 +3408,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3320,7 +3528,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3329,7 +3537,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 204,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3351,8 +3559,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3445,7 +3679,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3454,7 +3688,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 204,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3476,8 +3710,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3570,7 +3830,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3579,7 +3839,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 204,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3601,8 +3861,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3695,7 +3981,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -3704,7 +3990,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 204,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3726,8 +4012,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -3764,7 +4076,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -3797,7 +4109,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3857,7 +4169,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -3890,7 +4202,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 205,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3950,7 +4262,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -3983,7 +4295,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 205,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4043,7 +4355,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4076,7 +4388,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 205,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4136,7 +4448,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4169,7 +4481,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 205,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4229,7 +4541,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4262,7 +4574,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 205,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4322,7 +4634,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4354,7 +4666,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4414,7 +4726,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4446,7 +4758,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 206,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4506,7 +4818,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4538,7 +4850,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 206,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4598,7 +4910,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4630,7 +4942,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 206,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4690,7 +5002,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4722,7 +5034,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 206,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4782,7 +5094,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4814,7 +5126,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 206,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4874,7 +5186,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4906,7 +5218,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4964,7 +5276,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -4996,7 +5308,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 207,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5054,7 +5366,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -5086,7 +5398,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 207,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5144,7 +5456,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -5176,7 +5488,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 207,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5234,7 +5546,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -5266,7 +5578,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 207,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5324,7 +5636,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -5356,7 +5668,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 207,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5416,7 +5728,7 @@
       "id": 208,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -5481,7 +5793,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5770,7 +6082,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -5779,7 +6091,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5801,8 +6113,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -5895,7 +6233,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -5904,7 +6242,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 210,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5926,8 +6264,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -6020,7 +6384,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -6029,7 +6393,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 210,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6051,8 +6415,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -6145,7 +6535,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -6154,7 +6544,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 210,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6176,8 +6566,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -6270,7 +6686,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -6279,7 +6695,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 210,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6301,8 +6717,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -6395,7 +6837,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -6404,7 +6846,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 210,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6426,8 +6868,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -6464,7 +6932,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6497,7 +6965,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6557,7 +7025,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6590,7 +7058,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 211,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6650,7 +7118,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6683,7 +7151,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 211,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6743,7 +7211,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6776,7 +7244,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 211,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6836,7 +7304,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6869,7 +7337,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 211,
       "repeatedByRow": true,
       "scopedVars": {
@@ -6929,7 +7397,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -6962,7 +7430,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 211,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7022,7 +7490,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7054,7 +7522,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7114,7 +7582,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7146,7 +7614,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 212,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7206,7 +7674,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7238,7 +7706,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 212,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7298,7 +7766,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7330,7 +7798,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 212,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7390,7 +7858,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7422,7 +7890,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 212,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7482,7 +7950,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7514,7 +7982,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 212,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7574,7 +8042,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7606,7 +8074,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7664,7 +8132,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7696,7 +8164,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 213,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7754,7 +8222,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7786,7 +8254,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 213,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7844,7 +8312,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7876,7 +8344,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 213,
       "repeatedByRow": true,
       "scopedVars": {
@@ -7934,7 +8402,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -7966,7 +8434,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 213,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8024,7 +8492,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -8056,7 +8524,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 213,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8116,7 +8584,7 @@
       "id": 214,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -8181,7 +8649,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8470,7 +8938,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -8479,7 +8947,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8501,8 +8969,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -8595,7 +9089,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -8604,7 +9098,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 216,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8626,8 +9120,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -8720,7 +9240,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -8729,7 +9249,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 216,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8751,8 +9271,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -8845,7 +9391,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -8854,7 +9400,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 216,
       "repeatedByRow": true,
       "scopedVars": {
@@ -8876,8 +9422,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -8970,7 +9542,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -8979,7 +9551,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 216,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9001,8 +9573,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -9095,7 +9693,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -9104,7 +9702,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 216,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9126,8 +9724,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -9164,7 +9788,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9197,7 +9821,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9257,7 +9881,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9290,7 +9914,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 217,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9350,7 +9974,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9383,7 +10007,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 217,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9443,7 +10067,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9476,7 +10100,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 217,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9536,7 +10160,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9569,7 +10193,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 217,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9629,7 +10253,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9662,7 +10286,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 217,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9722,7 +10346,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9754,7 +10378,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9814,7 +10438,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9846,7 +10470,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 218,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9906,7 +10530,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -9938,7 +10562,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 218,
       "repeatedByRow": true,
       "scopedVars": {
@@ -9998,7 +10622,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10030,7 +10654,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 218,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10090,7 +10714,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10122,7 +10746,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 218,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10182,7 +10806,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10214,7 +10838,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 218,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10274,7 +10898,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10306,7 +10930,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10364,7 +10988,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10396,7 +11020,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 219,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10454,7 +11078,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10486,7 +11110,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 219,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10544,7 +11168,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10576,7 +11200,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 219,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10634,7 +11258,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10666,7 +11290,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 219,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10724,7 +11348,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -10756,7 +11380,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 219,
       "repeatedByRow": true,
       "scopedVars": {
@@ -10816,7 +11440,7 @@
       "id": 220,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -10881,7 +11505,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11170,7 +11794,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11179,7 +11803,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11201,8 +11825,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11295,7 +11945,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11304,7 +11954,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 222,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11326,8 +11976,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11420,7 +12096,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11429,7 +12105,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 222,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11451,8 +12127,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11545,7 +12247,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11554,7 +12256,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 222,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11576,8 +12278,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11670,7 +12398,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11679,7 +12407,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 222,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11701,8 +12429,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11795,7 +12549,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "first"
+            "lastNotNull"
           ],
           "fields": "/.*/",
           "values": false
@@ -11804,7 +12558,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 222,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11826,8 +12580,34 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Date\" DESC",
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') as \"Date\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "refId": "B",
           "select": [
             [
               {
@@ -11864,7 +12644,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -11897,7 +12677,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 53,
       "repeatedByRow": true,
       "scopedVars": {
@@ -11957,7 +12737,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -11990,7 +12770,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 223,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12050,7 +12830,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12083,7 +12863,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 223,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12143,7 +12923,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12176,7 +12956,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 223,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12236,7 +13016,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12269,7 +13049,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 223,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12329,7 +13109,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12362,7 +13142,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 223,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12422,7 +13202,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12454,7 +13234,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 83,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12514,7 +13294,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12546,7 +13326,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12606,7 +13386,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12638,7 +13418,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12698,7 +13478,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12730,7 +13510,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12790,7 +13570,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12822,7 +13602,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12882,7 +13662,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -12914,7 +13694,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
@@ -12974,7 +13754,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13006,7 +13786,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 201,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13064,7 +13844,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13096,7 +13876,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13154,7 +13934,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13186,7 +13966,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13244,7 +14024,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13276,7 +14056,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13334,7 +14114,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13366,7 +14146,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13424,7 +14204,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -13456,7 +14236,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602510957588,
+      "repeatIteration": 1602775684806,
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
@@ -13615,5 +14395,5 @@
   "timezone": "",
   "title": "Throughput Trends",
   "uid": "throughput_trends",
-  "version": 54
+  "version": 65
 }
