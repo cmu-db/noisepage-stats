@@ -6,9 +6,9 @@ from pss_project.api.constants import MICROBENCHMARK_STATUS_CHOICES
 class MicrobenchmarkMetricsSerializer(Serializer):
     # Fields
     throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)
-    status = ChoiceField(choices=MICROBENCHMARK_STATUS_CHOICES)
-    ref_throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)
-    stdev_throughput = DecimalField(max_digits=24, decimal_places=15, coerce_to_string=False)
+    status = ChoiceField(required=False, choices=MICROBENCHMARK_STATUS_CHOICES)
+    ref_throughput = DecimalField(required=False, max_digits=24, decimal_places=15, coerce_to_string=False)
+    stdev_throughput = DecimalField(required=False, max_digits=24, decimal_places=15, coerce_to_string=False)
     tolerance = IntegerField()
     iterations = IntegerField()
 

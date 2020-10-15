@@ -195,6 +195,8 @@ components:
       type: object
       required:
         - throughput
+        - tolerance
+        - iterations
       properties:
         status:
           type: string
