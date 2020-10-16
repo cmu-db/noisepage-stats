@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1602857320131,
+  "iteration": 1602858050161,
   "links": [],
   "panels": [
     {
@@ -87,8 +87,8 @@
           }
         ],
         "executionErrorState": "alerting",
-        "for": "1m",
-        "frequency": "1m",
+        "for": "26h",
+        "frequency": "1h",
         "handler": 1,
         "message": "One of the microbenchmarks has dropped below the allowed throughput degradation. Sorry, we cannot provide more details about which but you can find out more at stats.noise.page\n\n- InCRUDibles",
         "name": "Microbenchmark alert",
@@ -147,29 +147,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -233,7 +228,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -242,7 +236,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -336,7 +329,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -347,29 +340,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -433,7 +421,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -442,7 +429,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -536,7 +522,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -547,29 +533,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -633,7 +614,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -642,7 +622,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -736,7 +715,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -747,29 +726,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -833,7 +807,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -842,7 +815,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -936,7 +908,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -947,29 +919,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -1033,7 +1000,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1042,7 +1008,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1136,7 +1101,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1147,29 +1112,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -1233,7 +1193,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1242,7 +1201,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1336,7 +1294,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1347,29 +1305,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -1433,7 +1386,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1442,7 +1394,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1536,7 +1487,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1547,29 +1498,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -1633,7 +1579,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1642,7 +1587,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1736,7 +1680,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1747,29 +1691,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -1833,7 +1772,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1842,7 +1780,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1936,7 +1873,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1947,29 +1884,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -2033,7 +1965,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2042,7 +1973,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2136,7 +2066,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2147,29 +2077,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -2233,7 +2158,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2242,7 +2166,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2336,7 +2259,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2347,29 +2270,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -2433,7 +2351,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2442,7 +2359,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2536,7 +2452,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2547,29 +2463,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -2633,7 +2544,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2642,7 +2552,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2736,7 +2645,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2747,29 +2656,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -2833,7 +2737,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2842,7 +2745,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2936,7 +2838,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2947,29 +2849,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -3033,7 +2930,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3042,7 +2938,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3136,7 +3031,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3147,29 +3042,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -3233,7 +3123,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3242,7 +3131,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3336,7 +3224,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3347,29 +3235,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -3433,7 +3316,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3442,7 +3324,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3536,7 +3417,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3547,29 +3428,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -3633,7 +3509,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3642,7 +3517,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3736,7 +3610,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3747,29 +3621,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -3833,7 +3702,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3842,7 +3710,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3936,7 +3803,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3947,29 +3814,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -4033,7 +3895,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4042,7 +3903,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4136,7 +3996,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4147,29 +4007,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -4233,7 +4088,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4242,7 +4096,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4336,7 +4189,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4347,29 +4200,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -4433,7 +4281,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4442,7 +4289,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4536,7 +4382,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4547,29 +4393,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -4633,7 +4474,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4642,7 +4482,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4736,7 +4575,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4747,29 +4586,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -4833,7 +4667,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4842,7 +4675,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -4936,7 +4768,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4947,29 +4779,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -5033,7 +4860,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5042,7 +4868,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5136,7 +4961,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5147,29 +4972,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -5233,7 +5053,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5242,7 +5061,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5336,7 +5154,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5347,29 +5165,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -5433,7 +5246,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5442,7 +5254,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5536,7 +5347,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5547,29 +5358,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -5633,7 +5439,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5642,7 +5447,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5736,7 +5540,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5747,29 +5551,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -5833,7 +5632,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5842,7 +5640,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -5936,7 +5733,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5947,29 +5744,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -6033,7 +5825,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6042,7 +5833,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6136,7 +5926,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6147,29 +5937,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -6233,7 +6018,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6242,7 +6026,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6336,7 +6119,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6347,29 +6130,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -6433,7 +6211,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6442,7 +6219,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6536,7 +6312,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6547,29 +6323,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -6633,7 +6404,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6642,7 +6412,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6736,7 +6505,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6747,29 +6516,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -6833,7 +6597,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6842,7 +6605,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -6936,7 +6698,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6947,29 +6709,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -7033,7 +6790,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7042,7 +6798,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7136,7 +6891,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7147,29 +6902,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -7233,7 +6983,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7242,7 +6991,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7336,7 +7084,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7347,29 +7095,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -7433,7 +7176,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7442,7 +7184,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7536,7 +7277,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7547,29 +7288,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -7633,7 +7369,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7642,7 +7377,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7736,7 +7470,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7747,29 +7481,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -7833,7 +7562,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7842,7 +7570,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -7936,7 +7663,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7947,29 +7674,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -8033,7 +7755,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8042,7 +7763,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8136,7 +7856,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8147,29 +7867,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -8233,7 +7948,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8242,7 +7956,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8336,7 +8049,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8347,29 +8060,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -8433,7 +8141,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8442,7 +8149,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8536,7 +8242,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8547,29 +8253,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -8633,7 +8334,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8642,7 +8342,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8736,7 +8435,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8747,29 +8446,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -8833,7 +8527,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8842,7 +8535,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8936,7 +8628,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8947,29 +8639,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -9033,7 +8720,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9042,7 +8728,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9136,7 +8821,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9147,29 +8832,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -9233,7 +8913,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9242,7 +8921,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9336,7 +9014,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9347,29 +9025,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -9433,7 +9106,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9442,7 +9114,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9536,7 +9207,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9547,29 +9218,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -9633,7 +9299,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9642,7 +9307,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9736,7 +9400,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9747,29 +9411,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -9833,7 +9492,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9842,7 +9500,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -9936,7 +9593,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9947,29 +9604,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -10033,7 +9685,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10042,7 +9693,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10136,7 +9786,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10147,29 +9797,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -10233,7 +9878,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10242,7 +9886,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10336,7 +9979,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10347,29 +9990,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -10433,7 +10071,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10442,7 +10079,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10536,7 +10172,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10547,29 +10183,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -10633,7 +10264,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10642,7 +10272,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10736,7 +10365,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10747,29 +10376,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -10833,7 +10457,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10842,7 +10465,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -10936,7 +10558,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10947,29 +10569,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -11033,7 +10650,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11042,7 +10658,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11136,7 +10751,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -11147,29 +10762,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -11233,7 +10843,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11242,7 +10851,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11336,7 +10944,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -11347,29 +10955,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -11433,7 +11036,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11442,7 +11044,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11536,7 +11137,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -11547,29 +11148,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -11633,7 +11229,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11642,7 +11237,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11736,7 +11330,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -11747,29 +11341,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -11833,7 +11422,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11842,7 +11430,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -11936,7 +11523,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -11947,29 +11534,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -12033,7 +11615,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12042,7 +11623,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12136,7 +11716,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -12147,29 +11727,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -12233,7 +11808,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12242,7 +11816,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12336,7 +11909,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -12347,29 +11920,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -12433,7 +12001,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12442,7 +12009,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12536,7 +12102,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -12547,29 +12113,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -12633,7 +12194,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12642,7 +12202,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12736,7 +12295,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -12747,29 +12306,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -12833,7 +12387,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12842,7 +12395,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -12936,7 +12488,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -12947,29 +12499,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -13033,7 +12580,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13042,7 +12588,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13136,7 +12681,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -13147,29 +12692,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -13233,7 +12773,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13242,7 +12781,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13336,7 +12874,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -13347,29 +12885,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -13433,7 +12966,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13442,7 +12974,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13536,7 +13067,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -13547,29 +13078,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -13633,7 +13159,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13642,7 +13167,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13736,7 +13260,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -13747,29 +13271,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -13833,7 +13352,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13842,7 +13360,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -13936,7 +13453,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -13947,29 +13464,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -14033,7 +13545,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -14042,7 +13553,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -14136,7 +13646,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1602857320131,
+      "repeatIteration": 1602858050161,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -14147,29 +13657,24 @@
       },
       "seriesOverrides": [
         {
-          "$$hashKey": "object:104",
           "alias": "manual tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:111",
           "alias": "2stdev tolerance leeway",
           "hiddenSeries": true,
           "yaxis": 2
         },
         {
-          "$$hashKey": "object:410",
           "alias": "throughput",
           "color": "#5794F2"
         },
         {
-          "$$hashKey": "object:418",
           "alias": "2 stdev below mean",
           "color": "#FF9830"
         },
         {
-          "$$hashKey": "object:426",
           "alias": "manual tolerance",
           "color": "#F2495C"
         }
@@ -14233,7 +13738,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1653",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -14242,7 +13746,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1654",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -14312,5 +13815,5 @@
   "timezone": "",
   "title": "Microbenchmarks",
   "uid": "microbenchmarks",
-  "version": 39
+  "version": 2
 }
