@@ -1,31 +1,12 @@
 from django.db.models import Model, DateTimeField, CharField, DecimalField, PositiveSmallIntegerField
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
+from pss_project.api.constants import QUERY_MODE_CHOICES, WAL_DEVICE_CHOICES
 
 
 class OLTPBenchResult(Model):
     class Meta:
         db_table = 'oltpbench_results'
-
-    # Constants
-    SIMPLE_MODE = 'simple'
-    EXTENDED_MODE = 'extended'
-    QUERY_MODE_CHOICES = [
-        (SIMPLE_MODE, 'simple'),
-        (EXTENDED_MODE, 'extended'),
-    ]
-    RAM_DISK = 'RAM disk'
-    HDD = 'HDD'
-    SATA_SSD = 'SATA SSD'
-    NVME_SSD = 'NVMe SSD'
-    NONE = 'None'
-    WAL_DEVICE_CHOICES = [
-        (RAM_DISK, 'RAM disk'),
-        (HDD, 'HDD'),
-        (SATA_SSD, 'SATA SSD'),
-        (NVME_SSD, 'NVMe SSD'),
-        (NONE, 'None')
-    ]
 
     # Fields
     time = DateTimeField(auto_now=False)
