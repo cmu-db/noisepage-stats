@@ -39,6 +39,10 @@ spec:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
                   key: pss_creator_password
+            - name: PSS_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
 
       restartPolicy: Never
   backoffLimit: 5

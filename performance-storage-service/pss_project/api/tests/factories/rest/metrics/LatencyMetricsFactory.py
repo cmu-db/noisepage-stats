@@ -6,12 +6,12 @@ class LatencyMetricsFactory(Factory):
     class Meta:
         model = LatencyMetrics
 
-    l_25 = Faker('random_int')
-    l_75 = Faker('random_int')
-    l_90 = Faker('random_int')
-    l_95 = Faker('random_int')
-    l_99 = Faker('random_int')
-    avg = Faker('random_int')
-    median = Faker('random_int')
-    max = Faker('random_int')
-    min = Faker('random_int')
+    l_25 = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    l_75 = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    l_90 = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    l_95 = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    l_99 = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    avg = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    median = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    max = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    min = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
