@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1600197674740,
+  "id": 28,
+  "iteration": 1603068171234,
   "links": [],
   "panels": [
     {
@@ -43,36 +43,20 @@
       "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 10,
+        "h": 11,
         "w": 24,
         "x": 0,
         "y": 1
       },
       "hiddenSeries": false,
-      "id": 1,
+      "id": 36,
       "legend": {
         "avg": false,
         "current": false,
@@ -83,26 +67,12 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 1,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Throughput Trends",
-          "url": "/grafana/d/throughput_trends/throughput-trends"
-        }
-      ],
+      "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": [
-          {
-            "targetBlank": true,
-            "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
-          }
-        ]
+        "dataLinks": []
       },
       "percentage": false,
-      "pluginVersion": "7.0.3",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -116,8 +86,606 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->>'throughput')::numeric) as \"avg throughput\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nGROUP BY 1, git_commit_id\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb32\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '32' AND\n  git_branch = 'origin/master'",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb16\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '16' AND\n  git_branch = 'origin/master'",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb8\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '8' AND\n  git_branch = 'origin/master'",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb4\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '4' AND\n  git_branch = 'origin/master'",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb2\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '2' AND\n  git_branch = 'origin/master'",
+          "refId": "E",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"ycsb1\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'ycsb' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '1' AND\n  git_branch = 'origin/master'",
+          "refId": "F",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc32\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '32' AND\n  git_branch = 'origin/master'",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc16\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '16' AND\n  git_branch = 'origin/master'",
+          "refId": "H",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc8\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '8' AND\n  git_branch = 'origin/master'",
+          "refId": "I",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc4\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '4' AND\n  git_branch = 'origin/master'",
+          "refId": "J",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc2\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '2' AND\n  git_branch = 'origin/master'",
+          "refId": "K",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tpcc1\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tpcc' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '1' AND\n  git_branch = 'origin/master'",
+          "refId": "L",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp32\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '32' AND\n  git_branch = 'origin/master'",
+          "refId": "M",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp16\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '16' AND\n  git_branch = 'origin/master'",
+          "refId": "N",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp8\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '8' AND\n  git_branch = 'origin/master'",
+          "refId": "O",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp4\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '4' AND\n  git_branch = 'origin/master'",
+          "refId": "P",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp2\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '2' AND\n  git_branch = 'origin/master'",
+          "refId": "Q",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"tatp1\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'tatp' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '1' AND\n  git_branch = 'origin/master'",
+          "refId": "R",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank32\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '32' AND\n  git_branch = 'origin/master'",
+          "refId": "S",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank16\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '16' AND\n  git_branch = 'origin/master'",
+          "refId": "T",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank8\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '8' AND\n  git_branch = 'origin/master'",
+          "refId": "U",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank4\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '4' AND\n  git_branch = 'origin/master'",
+          "refId": "V",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank2\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '2' AND\n  git_branch = 'origin/master'",
+          "refId": "W",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  (((metrics->>'throughput')::numeric-FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type)) as \"smallbank1\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = 'smallbank' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = '32' AND\n  terminals = '1' AND\n  git_branch = 'origin/master'",
+          "refId": "X",
           "select": [
             [
               {
@@ -144,11 +712,66 @@
       "timeShift": null,
       "title": "Throughput",
       "tooltip": {
-        "shared": false,
+        "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
-      "transformations": [],
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Mean average",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "ycsb32",
+                "ycsb16",
+                "ycsb8",
+                "ycsb4",
+                "ycsb2",
+                "ycsb1",
+                "tpcc32",
+                "tpcc16",
+                "tpcc8",
+                "tpcc4",
+                "tpcc2",
+                "tpcc1",
+                "tatp32",
+                "tatp16",
+                "tatp8",
+                "smallbank1",
+                "smallbank2",
+                "smallbank4",
+                "smallbank8",
+                "smallbank16",
+                "smallbank32",
+                "tatp2",
+                "tatp1",
+                "tatp4"
+              ],
+              "reducer": "mean"
+            },
+            "replaceFields": true
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Average Throughput ",
+            "binary": {
+              "left": "Mean average",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "100"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -160,7 +783,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "Throughput (tps)",
+          "label": "Percentage",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -187,7 +810,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 12,
       "panels": [],
@@ -213,7 +836,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 2,
@@ -355,7 +978,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 23
       },
       "id": 8,
       "panels": [],
@@ -381,7 +1004,7 @@
         "h": 9,
         "w": 21,
         "x": 0,
-        "y": 23
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 3,
@@ -421,7 +1044,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n\tMAX(time) as time,\r\n\tterminals::text as metric,\r\n\tAVG(value) as value\r\nFROM (\r\n\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\ttime,\r\n\t\tbenchmark_type,\r\n\t\tterminals,\r\n\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\r\n\tFROM oltpbench_results\r\n\tWHERE\r\n    $__timeFilter(\"time\") AND\r\n\t\tbenchmark_type != 'noop' AND\r\n    client_time = 60 AND\r\n    git_branch = 'origin/master' --AND\r\n    -- -- wal_device = '$wal_device' AND\r\n    -- -- max_connection_threads = 32\r\n\tORDER BY terminals, benchmark_type, time desc\r\n) AS tmp\r\nGROUP BY terminals",
+          "rawSql": "SELECT \r\n\tMAX(time) as time,\r\n\tterminals::text as metric,\r\n\tAVG(value) as value\r\nFROM (\r\n\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\ttime,\r\n\t\tbenchmark_type,\r\n\t\tterminals,\r\n\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\r\n\tFROM oltpbench_results\r\n\tWHERE\r\n    $__timeFilter(\"time\") AND\r\n\t\tbenchmark_type != 'noop' AND\r\n    client_time = 60 AND\r\n    git_branch = 'origin/master' AND\r\n    wal_device = '$wal_device' AND\r\n    max_connection_threads = 32\r\n\tORDER BY terminals, benchmark_type, time desc\r\n) AS tmp\r\nGROUP BY terminals",
           "refId": "A",
           "select": [
             [
@@ -515,7 +1138,7 @@
         "h": 9,
         "w": 3,
         "x": 21,
-        "y": 23
+        "y": 24
       },
       "id": 5,
       "options": {
@@ -624,7 +1247,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 32
+        "y": 33
       },
       "id": 6,
       "links": [
@@ -751,9 +1374,9 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 32
+        "y": 33
       },
-      "id": 30,
+      "id": 37,
       "links": [
         {
           "targetBlank": true,
@@ -778,7 +1401,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600197674740,
+      "repeatIteration": 1603068171234,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -794,7 +1417,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -880,9 +1503,9 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 32
+        "y": 33
       },
-      "id": 31,
+      "id": 38,
       "links": [
         {
           "targetBlank": true,
@@ -907,7 +1530,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600197674740,
+      "repeatIteration": 1603068171234,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -923,7 +1546,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -1009,9 +1632,9 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 32
+        "y": 33
       },
-      "id": 32,
+      "id": 39,
       "links": [
         {
           "targetBlank": true,
@@ -1036,7 +1659,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600197674740,
+      "repeatIteration": 1603068171234,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1052,7 +1675,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -1138,9 +1761,9 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 32
+        "y": 33
       },
-      "id": 33,
+      "id": 40,
       "links": [
         {
           "targetBlank": true,
@@ -1165,7 +1788,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600197674740,
+      "repeatIteration": 1603068171234,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1181,7 +1804,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -1267,9 +1890,9 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 32
+        "y": 33
       },
-      "id": 34,
+      "id": 41,
       "links": [
         {
           "targetBlank": true,
@@ -1294,7 +1917,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600197674740,
+      "repeatIteration": 1603068171234,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1310,7 +1933,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
+          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
           "refId": "A",
           "select": [
             [
@@ -1344,7 +1967,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 36
       },
       "id": 21,
       "panels": [],
@@ -1370,7 +1993,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 37
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1501,7 +2124,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 37
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1626,7 +2249,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 45
       },
       "id": 14,
       "mode": "markdown",
@@ -1645,7 +2268,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "RAM disk",
           "value": "RAM disk"
         },
@@ -1697,7 +2320,7 @@
     ]
   },
   "time": {
-    "from": "now-6M",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
@@ -1715,6 +2338,5 @@
   },
   "timezone": "",
   "title": "Overview",
-  "uid": "overview",
-  "version": 45
+  "uid": "overview"
 }
