@@ -1,0 +1,18 @@
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus-blackbox-exporter-service
+  labels:
+    app: prometheus-blackbox-exporter
+  namespace: monitoring
+spec:
+  selector:
+    app: prometheus-blackbox-exporter
+  type: NodePort
+  ports:
+    - port: 9115
+      nodePort: 32005
+      protocol: TCP
+  externalTrafficPolicy: Local
