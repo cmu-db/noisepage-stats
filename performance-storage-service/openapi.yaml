@@ -24,6 +24,10 @@ paths:
           description: Created
         '400':
           description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
 
   /microbenchmark:
     post:
@@ -40,6 +44,30 @@ paths:
           description: Created
         '400':
           description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+
+  /binary-metrics:
+    post:
+      summary: "Report a new binary metrics results from a build"
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BinaryMetricsResult'
+      responses: 
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
   
 components:
   securitySchemes:
@@ -227,6 +255,28 @@ components:
           type: integer
           description:  The number of times the benchmark was run for to create a statistically stable result.
 
+  # Binary metrics specific schemas
+    BinaryMetricsResult:
+      description: The results of the binary metrics jenkins job
+      type: object
+      required:
+        - metadata 
+        - timestamp
+        - metrics 
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: string
+          format: unix-timestamp
+          example: 1592389291843
+          description: The time the binary metrics were collected.
+        metrics:
+          type: object
+          description: |
+            The binary metrics that were collected. There is no validation so
+            this field remains very flexible.
+          example: {"complie_time":1234, "rss_on_start":21342342}
   # Generic schemas 
     Metadata:
       description: The metadata of the test
