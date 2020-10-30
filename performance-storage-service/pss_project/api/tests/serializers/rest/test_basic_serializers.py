@@ -16,6 +16,8 @@ from pss_project.api.tests.factories.rest.metrics.MicrobenchmarkMetricsFactory i
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 from pss_project.api.tests.factories.rest.MicrobenchmarkRestFactory import MicrobenchmarkRestFactory
 
+from pss_project.api.tests.factories.rest.BinaryMetricsRestFactory import BinaryMetricsRestFactory
+
 
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
 from pss_project.api.serializers.rest.metadata.JenkinsMetadataSerializer import JenkinsMetadataSerializer
@@ -32,6 +34,8 @@ from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import La
 from pss_project.api.serializers.rest.metrics.IncrementalMetricsSerializer import IncrementalMetricsSerializer
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
 from pss_project.api.serializers.rest.MicrobenchmarkSerializer import MicrobenchmarkSerializer
+
+from pss_project.api.serializers.rest.BinaryMetricsSerializer import BinaryMetricsSerializer
 
 from pss_project.api.tests.utils.utils import generate_dict_factory
 
@@ -62,6 +66,7 @@ class TestBasicSerializer(SimpleTestCase):
 
         ('OLTPBenchSerializer', OLTPBenchRestFactory, OLTPBenchSerializer, ['timestamp']),
         ('MicrobenchmarkSerializer', MicrobenchmarkRestFactory, MicrobenchmarkSerializer, ['timestamp']),
+        ('BinaryMetricsSerializer', BinaryMetricsRestFactory, BinaryMetricsSerializer, ['timestamp']),
     ]
 
     def test_serialize_model_fields(self):
