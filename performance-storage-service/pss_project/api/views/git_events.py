@@ -1,65 +1,98 @@
+import hmac
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST
 
-from pss_project.github_integration.NoisePageRepoClient import NoisePageRepoClient
+from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
+from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI_STATUS_CONTEXT, 
+                                                    WEBHOOK_SECRET, GITHUB_WEBHOOK_HASH_HEADER, GITHUB_PRIVATE_KEY,
+                                                    PERFORMANCE_COP_CHECK_NAME)
 
-# Secrets that will eventuall have to move
-GITHUB_PRIVATE_KEY = """"""
-GITHUB_APP_IDENTIFIER = 86997
-ALLOWED_EVENTS = ['pull_request', 'state']
-CI_STATUS_CONTEXT = 'continuous-integration/jenkins/pr-merge'
-
-
-# TODO: add github3.py to requirements.txt
 class GitEventsViewSet(ViewSet):
 
     def create(self, request):
+        """ This is the endpoint that Github events are posted to """
+        if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
+            return Response({"message":"Invalid request hash. Only Github may call this endpoint."},status=HTTP_403_FORBIDDEN)
+        
         payload = JSONParser().parse(request)
-        if not any([event in payload for event in ALLOWED_EVENTS]):
-            return Response({"message": "This app is only designed to handle pull_request and status events"},
+        event = request.META.get('HTTP_X_GITHUB_EVENT')
+        
+        if not any([valid_event == event for valid_event in ALLOWED_EVENTS]):
+            return Response({"message": f"This app is only designed to handle {ALLOWED_EVENTS} events"},
                             status=HTTP_400_BAD_REQUEST)
 
         repo_client = NoisePageRepoClient(private_key=GITHUB_PRIVATE_KEY, app_id=GITHUB_APP_IDENTIFIER)
         if(not repo_client.is_valid_installation_id(payload.get('installation', {}).get('id'))):
             return Response({"message": "This app only works with the NoisePage repo"}, status=HTTP_400_BAD_REQUEST)
         
-        if 'pull_request' in payload:
+        if event == 'pull_request':
             handle_pull_request_event(repo_client, payload)
-        if 'state' in payload:
+        if event == 'status':
             handle_status_event(repo_client, payload)
 
         return Response(status=HTTP_200_OK)
 
+def is_valid_github_webhook_hash(hash_header, req_body):
+    """ Check that the has passed with the request is valid based on the
+    webhook secret and the request body """
+    alg, req_hash = hash_header.split('=',1)
+    valid_hash = hmac.new(str.encode(WEBHOOK_SECRET),req_body, alg)
+    return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
+def handle_pull_request_event(repo_client, payload):
+    """ When a pull request event is detected create a new check run for the 
+    performance cop"""
+    # TODO: Not sure if we want some logic for labels
+    #TODO: This if statement is temporary so we can test in the NoisePage repo without affecting everyone
+    if payload['pull_request'].get('user',{}).get('login') == 'bialesdaniel': 
+        sha = payload['pull_request'].get('head', {}).get('sha')
+        create_body = create_initial_check_run(sha)
+        repo_client.create_check_run(create_body)
+
+def create_initial_check_run(sha):
+    return {
+        "name": PERFORMANCE_COP_CHECK_NAME,
+        "head_sha": f"{sha}",
+        "status": "queued",
+        "output": {
+            "title": "Pending CI",
+            "summary": "This check will run after CI completes successfully"
+        }
+    }
 
 def handle_status_event(repo_client, payload):
+    """ When a status update event occurs check to see if it indicates that the
+    ci/cd pipeline completed. If that is the case then results will be in the 
+    database. Compare the performance results with the results from master and
+    update the check run based on the results of the comparison """
     commit_sha = payload.get('commit',{}).get('sha')
     status_response = repo_client.get_commit_status(commit_sha)
     if is_status_ci_complete(status_response):
         check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
-        repo_client.update_check_run(check_run.get('id'), performance_check_result())
+        if check_run: 
+            repo_client.update_check_run(check_run.get('id'), performance_check_result())
+
+
+def is_status_ci_complete(status_reponse):
+    """ Check whether a status update indicates that the Jenkins pipeline
+    is complete. This is based on the state and the context of the status """
+    if status_reponse.get('state') != 'success': return False 
+    return any([status.get('context') == CI_STATUS_CONTEXT for status in status_reponse.get('statuses',[])])
 
 def performance_check_result():
     # TODO: This function will parse the results of the performance
     # comparison
     return {
-        "name": "performance-cop",
+        "name": PERFORMANCE_COP_CHECK_NAME,
         "status": "completed",
         "conclusion": "success",
         "output": {
-            "title": "You are a performance hero!",
-            "summary": "This PR actually improved the performance. Nice Job!",
-            "text": "You improved performance of test x by 1%\n you improved b by 2% \n c by 3% yada yada yada"
+            "title": "Feature coming soon",
+            "summary": "This will tell you the impact your PR has on performance",
+            "text": "This feature should be coming soon but we need to first make sure that the \
+                Github integrations work"
         }
     }
 
-
-def is_status_ci_complete(status_reponse):
-    if status_reponse.get('state') != 'success': return False 
-    return any([status.get('context') == CI_STATUS_CONTEXT for status in status_reponse.get('statuses',[])])
-
-def handle_pull_request_event(repo_client, payload):
-    # TODO: probably want some logic for labels
-    repo_client.create_check_run(payload['pull_request'].get('head', {}).get('sha'))
