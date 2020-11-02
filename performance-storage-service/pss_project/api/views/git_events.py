@@ -2,7 +2,7 @@ import hmac
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
 
 from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
 from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI_STATUS_CONTEXT, 
@@ -23,15 +23,19 @@ class GitEventsViewSet(ViewSet):
             return Response({"message": f"This app is only designed to handle {ALLOWED_EVENTS} events"},
                             status=HTTP_400_BAD_REQUEST)
 
-        repo_client = NoisePageRepoClient(private_key=GITHUB_PRIVATE_KEY, app_id=GITHUB_APP_IDENTIFIER)
-        if(not repo_client.is_valid_installation_id(payload.get('installation', {}).get('id'))):
-            return Response({"message": "This app only works with the NoisePage repo"}, status=HTTP_400_BAD_REQUEST)
-        
-        if event == 'pull_request':
-            handle_pull_request_event(repo_client, payload)
-        if event == 'status':
-            handle_status_event(repo_client, payload)
+        try:
+            repo_client = NoisePageRepoClient(private_key=GITHUB_PRIVATE_KEY, app_id=GITHUB_APP_IDENTIFIER)
 
+            if(not repo_client.is_valid_installation_id(payload.get('installation', {}).get('id'))):
+                return Response({"message": "This app only works with the NoisePage repo"}, status=HTTP_400_BAD_REQUEST)
+
+            if event == 'pull_request':
+                handle_pull_request_event(repo_client, payload)
+            if event == 'status':
+                handle_status_event(repo_client, payload)
+        except Exception as err:
+            return Response({"message": err.message if hasattr(err,'message') else err}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+        
         return Response(status=HTTP_200_OK)
 
 def is_valid_github_webhook_hash(hash_header, req_body):
