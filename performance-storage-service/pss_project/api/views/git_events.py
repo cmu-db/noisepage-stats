@@ -33,6 +33,7 @@ class GitEventsViewSet(ViewSet):
                 handle_pull_request_event(repo_client, payload)
             if event == 'status':
                 handle_status_event(repo_client, payload)
+                
         except Exception as err:
             return Response({"message": err.message if hasattr(err,'message') else err}, status=HTTP_500_INTERNAL_SERVER_ERROR)
         
@@ -51,9 +52,22 @@ def handle_pull_request_event(repo_client, payload):
     # TODO: Not sure if we want some logic for labels
     #TODO: This if statement is temporary so we can test in the NoisePage repo without affecting everyone
     if payload['pull_request'].get('user',{}).get('login') == 'bialesdaniel': 
-        sha = payload['pull_request'].get('head', {}).get('sha')
-        create_body = create_initial_check_run(sha)
-        repo_client.create_check_run(create_body)
+        commit_sha = payload['pull_request'].get('head', {}).get('sha')
+        if should_initialize_check_run(payload.get('action')):
+            initialize_check_run(commit_sha)
+        if payload.get('action') == 'closed':
+            branch = payload['pull_request'].get('head',{}).get('ref')
+            cleanup_check_run(branch)
+
+def should_initialize_check_run(pull_request_action):
+    """ Determine if the pull request event should initialize a check run """
+    return any(pull_request_action == action for action in ['synchronize','opened','reopened'])
+
+def initialize_check_run(sha):
+    """ Create the initial performance cop check run. The run starts in the
+    queued state """
+    create_body = create_initial_check_run(sha)
+    repo_client.create_check_run(create_body)
 
 def create_initial_check_run(sha):
     return {
@@ -66,6 +80,13 @@ def create_initial_check_run(sha):
         }
     }
 
+def cleanup_check_run(branch):
+    #TODO: here we will delete performance results for the PR branch from the DB
+    # I also need to check what Jenkins stores in the git_branch column cause it
+    # might not be the same as the branch in the event. 
+    pass
+
+
 def handle_status_event(repo_client, payload):
     """ When a status update event occurs check to see if it indicates that the
     ci/cd pipeline completed. If that is the case then results will be in the 
@@ -73,13 +94,26 @@ def handle_status_event(repo_client, payload):
     update the check run based on the results of the comparison """
     commit_sha = payload.get('commit',{}).get('sha')
     status_response = repo_client.get_commit_status(commit_sha)
-    if is_status_ci_complete(status_response):
-        check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
-        if check_run: 
-            repo_client.update_check_run(check_run.get('id'), performance_check_result())
+    if is_ci_complete(status_response):
+        complete_check_run(commit_sha)
+    elif status.get('context') == CI_STATUS_CONTEXT:
+        initialize_check_run_if_missing(commit_sha)
 
+def complete_check_run(commit_sha):
+    """ Update the check run with a complete status based on the performance
+    results. If the check run does not exist do nothing """
+    check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
+    if check_run: 
+        repo_client.update_check_run(check_run.get('id'), performance_check_result())
 
-def is_status_ci_complete(status_reponse):
+def initialize_check_run_if_missing(commit_sha):
+    """ Check to see if the check run was already created. If it was not then
+    initialize the check run """
+    check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
+    if not check_run:
+        initialize_check_run(commit_sha)
+
+def is_ci_complete(status_reponse):
     """ Check whether a status update indicates that the Jenkins pipeline
     is complete. This is based on the state and the context of the status """
     if status_reponse.get('state') != 'success': return False 
