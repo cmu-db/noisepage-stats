@@ -3,7 +3,7 @@ autopep8==1.4.4
 cffi==1.14.0
 coverage==4.5.4
 cryptography==3.2
-Django==3.0.6
+Django==3.0.7
 django-jenkins==0.110.0
 django-prometheus==2.1.0
 djangorestframework==3.11.0
