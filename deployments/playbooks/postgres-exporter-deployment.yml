@@ -1,0 +1,23 @@
+---
+
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Deploy Prometheus
+  vars:
+    dir_deployment: "{{ inventory_dir }}"
+    dir_k8s_postgres_exporter: "{{ dir_deployment }}/kubernetes/monitoring/postgres_exporter"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        state: present
+        name: openshift
+
+  tasks:
+    - name: Apply postgres_exporter deployment configs
+      vars:
+        config: "{{ dir_k8s_postgres_exporter}}/{{ item }}"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ config }}') }}"
+      loop:
+        - deployment.yml
+        - service.yml
