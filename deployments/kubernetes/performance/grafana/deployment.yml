@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: "{{ env }}-grafana"
   namespace: "performance"
@@ -25,8 +25,8 @@ spec:
         env: "{{ env }}"
       volumes:
         - name: grafana-volume
-          # persistentVolumeClaim:
-          #   claimName: grafana-volume 
+          persistentVolumeClaim:
+            claimName: grafana-pv-claim
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"
