@@ -5,6 +5,7 @@
   vars:
     dir_deployment: "{{ inventory_dir }}"
     dir_k8s_postgres_exporter: "{{ dir_deployment }}/kubernetes/monitoring/postgres_exporter"
+    service_hostname: "incrudibles-{{ env }}.db.pdl.cmu.edu"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
