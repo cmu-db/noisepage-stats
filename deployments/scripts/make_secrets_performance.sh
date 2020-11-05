@@ -4,7 +4,7 @@ DIR_BASE="$(dirname $(realpath $0))"
 DIR_ENV="$DIR_BASE/$ENV"
 NAMESPACE="performance"
 SECRET_NAME="secrets-$ENV"
-HELP="Usage: ./make_secrets.sh ENV"
+HELP="Usage: ./make_secrets_performance.sh ENV"
 
 if [ $# -lt 1 ]; then
     echo $HELP
