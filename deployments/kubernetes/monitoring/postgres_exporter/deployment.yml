@@ -1,0 +1,42 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-postgres-exporter
+  labels:
+    app: prometheus-postgres-exporter
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-postgres-exporter
+  template:
+    metadata:
+      labels:
+        app: prometheus-postgres-exporter
+    spec:
+      restartPolicy: Always
+      nodeSelector:
+        env: master
+      containers:
+        - name: postgres-exporter
+          image: "wrouesnel/postgres_exporter:v0.8.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9187
+              name: psql
+          env:
+            - name: PG_DATA_SOURCE_URI
+              value: "{{ service_hostname }}"
+            - name: PG_DATA_SOURCE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_user
+            - name: PG_DATA_SOURCE_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: pss_db_password
