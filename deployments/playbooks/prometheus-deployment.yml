@@ -22,5 +22,7 @@
         - cluster-role.yml
         - cluster-role-binding.yml
         - config-map.yml
+        - persistent-volume.yml
+        - persistent-volume-claim.yml
         - deployment.yml
         - service.yml

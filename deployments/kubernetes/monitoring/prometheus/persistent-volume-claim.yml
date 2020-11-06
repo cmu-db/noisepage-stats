@@ -1,0 +1,14 @@
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: monitoring
+  name: monitoring-prometheus-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
