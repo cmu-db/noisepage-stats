@@ -28,15 +28,8 @@ spec:
             - containerPort: 9187
               name: psql
           env:
-            - name: PG_DATA_SOURCE_URI
-              value: "{{ service_hostname }}"
-            - name: PG_DATA_SOURCE_USER
+            - name: DATA_SOURCE_NAME
               valueFrom:
                 secretKeyRef:
-                  name: "secrets-{{ env }}"
-                  key: pss_db_user
-            - name: PG_DATA_SOURCE_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: "secrets-{{ env }}"
-                  key: pss_db_password
+                  name: secrets-k8s-master
+                  key: pss_db_data_sources
