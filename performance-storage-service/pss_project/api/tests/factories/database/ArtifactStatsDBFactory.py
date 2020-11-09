@@ -1,10 +1,10 @@
 from factory import DjangoModelFactory, Faker
-from pss_project.api.models.database.BinaryMetricsResult import BinaryMetricsResult
+from pss_project.api.models.database.ArtifactStatsResult import ArtifactStatsResult
 
 
-class BinaryMetricsDBFactory(DjangoModelFactory):
+class ArtifactStatsDBFactory(DjangoModelFactory):
     class Meta:
-        model = BinaryMetricsResult
+        model = ArtifactStatsResult
 
     time = Faker('iso8601')
     jenkins_job_id = Faker('pystr_format', string_format='###')

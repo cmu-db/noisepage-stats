@@ -3,9 +3,9 @@ from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-class BinaryMetricsResult(Model):
+class ArtifactStatsResult(Model):
     class Meta:
-        db_table = 'binary_metrics_results'
+        db_table = 'artifact_stats_results'
 
     time = DateTimeField(auto_now=False)
     jenkins_job_id = CharField(max_length=15)

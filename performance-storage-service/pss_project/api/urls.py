@@ -6,7 +6,7 @@ router = DefaultRouter()
 router.register(r'health', views.HealthViewSet, 'health')
 router.register(r'oltpbench', views.OLTPBenchViewSet, 'oltpbench')
 router.register(r'microbenchmark', views.MicrobenchmarkViewSet, 'microbenchmark')
-router.register(r'binary-metrics', views.BinaryMetricsViewSet, 'binary-metrics')
+router.register(r'artifact-stats', views.ArtifactStatsViewSet, 'artifact-stats')
 
 urlpatterns = [
     path('', include(router.urls)),
