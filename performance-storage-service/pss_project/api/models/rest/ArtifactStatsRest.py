@@ -1,7 +1,7 @@
 from pss_project.api.models.rest.BaseRest import BaseRest
 
 
-class BinaryMetricsRest(BaseRest):
+class ArtifactStatsRest(BaseRest):
     def __init__(self, metadata, timestamp, metrics):
         super().__init__(metadata, timestamp)
         self.metrics = metrics
