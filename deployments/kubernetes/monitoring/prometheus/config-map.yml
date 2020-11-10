@@ -128,3 +128,9 @@ data:
           target_label: instance
         - target_label: __address__
           replacement: incrudibles-k8s.db.pdl.cmu.edu:32005
+      
+      - job_name: 'timescaledb' 
+        metrics_path: /timescaledb
+        static_configs:
+          - targets:
+              - incrudibles-testing.db.pdl.cmu.edu:30003
