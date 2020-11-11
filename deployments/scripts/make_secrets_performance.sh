@@ -16,4 +16,5 @@ if [ ! -d $DIR_ENV ]; then
     exit 1
 fi
 
+kubectl delete secret $SECRET_NAME -n $NAMESPACE
 kubectl create secret generic $SECRET_NAME -n $NAMESPACE --from-file=$DIR_ENV
