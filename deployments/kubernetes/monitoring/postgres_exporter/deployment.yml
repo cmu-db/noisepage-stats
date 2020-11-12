@@ -33,3 +33,24 @@ spec:
                 secretKeyRef:
                   name: secrets-k8s-master
                   key: pss_db_data_sources
+            - name: PG_EXPORTER_EXTEND_QUERY_PATH
+              value: "/config/queries.yaml"
+        - name: configmap-reload
+          image: "jimmidyson/configmap-reload:v0.4.0"
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+          args:
+            - --volume-dir=/etc/config
+            - --webhook-url=http://localhost:9115/-/reload
+          resources:
+            {}
+          volumeMounts:
+            - mountPath: /etc/config
+              name: config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: prometheus-postgres-exporter-conf

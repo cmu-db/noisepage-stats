@@ -19,5 +19,6 @@
         state: present
         definition: "{{ lookup('template', '{{ config }}') }}"
       loop:
+        - config-map.yml
         - deployment.yml
         - service.yml
