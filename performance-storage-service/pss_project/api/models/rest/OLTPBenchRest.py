@@ -1,7 +1,7 @@
 from pss_project.api.models.rest.metadata.Metadata import Metadata
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
-from pss_project.api.models.rest.utils import convert_environment_to_dict
+from pss_project.api.models.rest.utils import convert_environment_to_dict, to_dict
 
 
 class OLTPBenchRest(object):
@@ -46,7 +46,8 @@ def convert_weights_to_dict(weights_list):
 def convert_metrics_to_dict(metrics):
     db_formatted_metrics = {
         'throughput': metrics.throughput,
-        'latency': metrics.latency.__dict__
+        'latency': metrics.latency.__dict__,
+        'memory_info': to_dict(metrics.memory_info),
     }
     return db_formatted_metrics
 
@@ -57,7 +58,8 @@ def convert_incremental_metrics_to_dict(incremental_metrics):
         db_formatted_incremental_json = {
             'time': metric.time,
             'throughput': metric.throughput,
-            'latency': metric.latency.__dict__
+            'latency': metric.latency.__dict__,
+            'memory_info': metric.memory_info.__dict__,
         }
         db_formatted_incremental_metrics.append(db_formatted_incremental_json)
     return db_formatted_incremental_metrics
