@@ -6,15 +6,15 @@ class MemoryInfoSummaryFactory(Factory):
     class Meta:
         model = MemoryItemSummary
 
-    avg = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    avg = Faker('pydecimal', left_digits=10, right_digits=4, positive=True)
 
 
 class MemoryMetricsFactory(Factory):
     class Meta:
         model = MemoryMetrics
 
-    rss = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
-    vms = Faker('pydecimal', left_digits=6, right_digits=4, positive=True)
+    rss = Faker('random_int')
+    vms = Faker('random_int')
 
 
 class MemorySummaryMetricsFactory(Factory):

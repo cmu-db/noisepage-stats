@@ -2,7 +2,7 @@ from pss_project.api.models.rest.metrics.BasePerformanceMetrics import BasePerfo
 from pss_project.api.models.rest.metrics.MemoryMetrics import MemoryMetrics, MemoryItemSummary
 
 
-class SummaryPerformanceMetrics(object):
+class SummaryPerformanceMetrics(BasePerformanceMetrics):
     def __init__(self, throughput, latency=None, memory_info=None):
         super().__init__(throughput, latency)
         if memory_info:
