@@ -2,6 +2,6 @@ from pss_project.api.models.rest.metrics.BasePerformanceMetrics import BasePerfo
 
 
 class IncrementalMetrics(BasePerformanceMetrics):
-    def __init__(self, time, throughput=None, latency=None, memory_info=None):
+    def __init__(self, time, throughput=None, latency=None):
         self.time = time
-        super().__init__(throughput, latency, memory_info)
+        super().__init__(throughput, latency)

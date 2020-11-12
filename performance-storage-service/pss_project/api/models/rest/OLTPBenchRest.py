@@ -1,7 +1,6 @@
 from pss_project.api.models.rest.BaseRest import BaseRest
 from pss_project.api.models.rest.parameters.OLTPBenchParameters import OLTPBenchParameters
 from pss_project.api.models.rest.metrics.OLTPBenchMetrics import OLTPBenchMetrics
-from pss_project.api.models.rest.utils import to_dict
 
 
 class OLTPBenchRest(BaseRest):
@@ -27,11 +26,10 @@ class OLTPBenchRest(BaseRest):
         data.update(oltpbench_data)
         return data
 
-    def convert_metrics_to_dict(metrics):
+    def convert_metrics_to_dict(self, metrics):
         db_formatted_metrics = {
             'throughput': metrics.throughput,
-            'latency': metrics.latency.__dict__,
-            'memory_info': to_dict(metrics.memory_info),
+            'latency': metrics.latency.__dict__
         }
         return db_formatted_metrics
 
@@ -44,14 +42,14 @@ def convert_weights_to_dict(weights_list):
         db_formatted_weights[weight_name] = weight_value
     return db_formatted_weights
 
+
 def convert_incremental_metrics_to_dict(incremental_metrics):
     db_formatted_incremental_metrics = []
     for metric in incremental_metrics:
         db_formatted_incremental_json = {
             'time': metric.time,
             'throughput': metric.throughput,
-            'latency': metric.latency.__dict__,
-            'memory_info': metric.memory_info.__dict__,
+            'latency': metric.latency.__dict__
         }
         db_formatted_incremental_metrics.append(db_formatted_incremental_json)
     return db_formatted_incremental_metrics
