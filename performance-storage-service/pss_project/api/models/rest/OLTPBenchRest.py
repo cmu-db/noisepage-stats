@@ -27,7 +27,7 @@ class OLTPBenchRest(BaseRest):
         data.update(oltpbench_data)
         return data
 
-    def convert_metrics_to_dict(metrics):
+    def convert_metrics_to_dict(self, metrics):
         db_formatted_metrics = {
             'throughput': metrics.throughput,
             'latency': metrics.latency.__dict__,

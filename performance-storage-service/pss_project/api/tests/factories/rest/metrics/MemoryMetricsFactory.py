@@ -2,7 +2,7 @@ from factory import Factory, Faker
 from pss_project.api.models.rest.metrics.MemoryMetrics import MemoryMetrics, MemoryItemSummary
 
 
-class MemoryInfoSummaryFactory(Factory):
+class MemoryItemSummaryFactory(Factory):
     class Meta:
         model = MemoryItemSummary
 
@@ -21,5 +21,5 @@ class MemorySummaryMetricsFactory(Factory):
     class Meta:
         model = MemoryMetrics
 
-    rss = MemoryInfoSummaryFactory().__dict__
-    vms = MemoryInfoSummaryFactory().__dict__
+    rss = MemoryItemSummaryFactory().__dict__
+    vms = MemoryItemSummaryFactory().__dict__

@@ -12,7 +12,7 @@ from pss_project.api.tests.factories.rest.parameters.MicrobenchmarkParametersFac
 from pss_project.api.tests.factories.rest.metrics.OLTPBenchMetricsFactory import OLTPBenchMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.LatencyMetricsFactory import LatencyMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.MemoryMetricsFactory import (
-    MemoryInfoSummaryFactory, MemoryMetricsFactory, MemorySummaryMetricsFactory)
+    MemoryItemSummaryFactory, MemoryMetricsFactory, MemorySummaryMetricsFactory)
 from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory import IncrementalMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.MicrobenchmarkMetricsFactory import MicrobenchmarkMetricsFactory
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
@@ -33,9 +33,8 @@ from pss_project.api.serializers.rest.parameters.MicrobenchmarkParametersSeriali
 from pss_project.api.serializers.rest.metrics.OLTPBenchMetricsSerializer import OLTPBenchMetricsSerializer
 from pss_project.api.serializers.rest.metrics.MicrobenchmarkMetricsSerializer import MicrobenchmarkMetricsSerializer
 from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import LatencyMetricsSerializer
-from pss_project.api.tests.factories.rest.metrics.MemoryMetricsSerializer import (
-    MemoryInfoSummarySerializer, MemoryMetricsSerializer,
-    MemorySummaryMetricsSerializer)
+from pss_project.api.serializers.rest.metrics.MemoryMetricsSerializer import (MemoryItemSummarySerializer, 
+    MemoryMetricsSerializer, MemorySummaryMetricsSerializer)
 from pss_project.api.serializers.rest.metrics.IncrementalMetricsSerializer import IncrementalMetricsSerializer
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
 from pss_project.api.serializers.rest.MicrobenchmarkSerializer import MicrobenchmarkSerializer
@@ -64,7 +63,7 @@ class TestBasicSerializer(SimpleTestCase):
 
         ('OLTPBenchMetricsSerializer', OLTPBenchMetricsFactory, OLTPBenchMetricsSerializer, []),
         ('LatencyMetricsSerializer', LatencyMetricsFactory, LatencyMetricsSerializer, []),
-        ('MemoryInfoSummaryMetricsSerializer', MemoryInfoSummaryFactory, MemoryInfoSummaryMetricsSerializer, []),
+        ('MemoryItemSummarySerializer', MemoryItemSummaryFactory, MemoryItemSummarySerializer, []),
         ('MemoryMetricsSerializer', MemoryMetricsFactory, MemoryMetricsSerializer, []),
         ('MemorySummaryMetricsSerializer', MemorySummaryMetricsFactory, MemorySummaryMetricsSerializer, []),
         ('IncrementalMetricsSerializer', IncrementalMetricsFactory, IncrementalMetricsSerializer, []),
