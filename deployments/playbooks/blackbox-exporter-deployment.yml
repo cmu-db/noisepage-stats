@@ -4,7 +4,7 @@
   name: Deploy Prometheus
   vars:
     dir_deployment: "{{ inventory_dir }}"
-    dir_k8s_prometheus: "{{ dir_deployment }}/kubernetes/monitoring/prometheus"
+    dir_k8s_blackbox_exporter: "{{ dir_deployment }}/kubernetes/monitoring/blackbox_exporter"
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
@@ -12,17 +12,13 @@
         name: openshift
 
   tasks:
-    - name: Apply Prometheus Deployment Configs
+    - name: Apply blackbox_exporter deployment configs
       vars:
-        config: "{{ dir_k8s_prometheus }}/{{ item }}"
+        config: "{{ dir_k8s_blackbox_exporter }}/{{ item }}"
       k8s:
         state: present
         definition: "{{ lookup('template', '{{ config }}') }}"
       loop:
-        - cluster-role.yml
-        - cluster-role-binding.yml
         - config-map.yml
-        - persistent-volume.yml
-        - persistent-volume-claim.yml
         - deployment.yml
         - service.yml

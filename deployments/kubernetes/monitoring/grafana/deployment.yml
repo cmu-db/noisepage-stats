@@ -1,7 +1,7 @@
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: grafana
   namespace: monitoring
@@ -23,8 +23,8 @@ spec:
         env: master
       volumes:
         - name: grafana-volume
-          # persistentVolumeClaim:
-          #   claimName: grafana-volume 
+          persistentVolumeClaim:
+            claimName: monitoring-grafana-pv-claim
       containers:
         - name: grafana
           image: "{{ grafana_container_image }}"

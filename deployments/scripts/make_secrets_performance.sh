@@ -4,7 +4,7 @@ DIR_BASE="$(dirname $(realpath $0))"
 DIR_ENV="$DIR_BASE/$ENV"
 NAMESPACE="performance"
 SECRET_NAME="secrets-$ENV"
-HELP="Usage: ./make_secrets.sh ENV"
+HELP="Usage: ./make_secrets_performance.sh ENV"
 
 if [ $# -lt 1 ]; then
     echo $HELP
@@ -16,4 +16,5 @@ if [ ! -d $DIR_ENV ]; then
     exit 1
 fi
 
+kubectl delete secret $SECRET_NAME -n $NAMESPACE
 kubectl create secret generic $SECRET_NAME -n $NAMESPACE --from-file=$DIR_ENV

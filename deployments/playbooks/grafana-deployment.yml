@@ -20,19 +20,17 @@
         name: openshift
         state: present
   tasks:
-    - name: Create Grafana Deployment
+    - name: Apply Grafana Deployment Configs
       vars:
-        deployment_file: "{{ dir_k8s_grafana }}/deployment.yml"
+        config: "{{ dir_k8s_grafana }}/{{ item }}"
       k8s:
         state: present
-        definition: "{{ lookup('template', '{{ deployment_file }}') }}"
-
-    - name: Create Grafana Service
-      vars:
-        service_file: "{{ dir_k8s_grafana }}/service.yml"
-      k8s:
-        state: present
-        definition: "{{ lookup('template', '{{ service_file }}') }}"
+        definition: "{{ lookup('template', '{{ config }}') }}"
+      loop:
+        - persistent-volume.yml
+        - persistent-volume-claim.yml
+        - deployment.yml
+        - service.yml
     
     - name: Configure grafana
       block:
