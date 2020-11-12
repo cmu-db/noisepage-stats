@@ -14,39 +14,22 @@ class OLTPBenchRest(object):
 
     def convert_to_db_json(self):
         data = {
-            'time':
-            self.timestamp,
-            'git_branch':
-            self.metadata.github.git_branch,
-            'git_commit_id':
-            self.metadata.github.git_commit_id,
-            'jenkins_job_id':
-            self.metadata.jenkins.jenkins_job_id,
-            'db_version':
-            self.metadata.noisepage.db_version,
-            'environment':
-            convert_environment_to_dict(self.metadata.environment),
-            'benchmark_type':
-            self.type,
-            'query_mode':
-            self.parameters.query_mode,
-            'scale_factor':
-            self.parameters.scale_factor,
-            'terminals':
-            self.parameters.terminals,
-            'client_time':
-            self.parameters.client_time,
-            'weights':
-            convert_weights_to_dict(self.parameters.transaction_weights),
-            'wal_device':
-            self.metadata.environment.wal_device,
-            'max_connection_threads':
-            self.parameters.max_connection_threads,
-            'metrics':
-            convert_metrics_to_dict(self.metrics),
-            'incremental_metrics':
-            convert_incremental_metrics_to_dict(
-                self.metrics.incremental_metrics)
+            'time': self.timestamp,
+            'git_branch': self.metadata.github.git_branch,
+            'git_commit_id': self.metadata.github.git_commit_id,
+            'jenkins_job_id': self.metadata.jenkins.jenkins_job_id,
+            'db_version': self.metadata.noisepage.db_version,
+            'environment': convert_environment_to_dict(self.metadata.environment),
+            'benchmark_type': self.type,
+            'query_mode': self.parameters.query_mode,
+            'scale_factor': self.parameters.scale_factor,
+            'terminals': self.parameters.terminals,
+            'client_time': self.parameters.client_time,
+            'weights': convert_weights_to_dict(self.parameters.transaction_weights),
+            'wal_device': self.metadata.environment.wal_device,
+            'max_connection_threads': self.parameters.max_connection_threads,
+            'metrics': convert_metrics_to_dict(self.metrics),
+            'incremental_metrics': convert_incremental_metrics_to_dict(self.metrics.incremental_metrics)
         }
         return data
 
