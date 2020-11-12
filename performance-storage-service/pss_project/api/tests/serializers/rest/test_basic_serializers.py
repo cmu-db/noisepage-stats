@@ -47,12 +47,9 @@ from pss_project.api.tests.utils.utils import generate_dict_factory
 class TestBasicSerializer(SimpleTestCase):
     # list of tests in the form (test_name, class_factory, class_serializer, excluded_fields)ƒ
     serializer_test_params = [
-        ('GithubMetadataSerializer', GithubMetadataFactory,
-         GithubMetadataSerializer, []),
-        ('JenkinsMetadataSerializer', JenkinsMetadataFactory,
-         JenkinsMetadataSerializer, []),
-        ('NoisePageMetadataSerializer', NoisePageMetadataFactory,
-         NoisePageMetadataSerializer, []),
+        ('GithubMetadataSerializer', GithubMetadataFactory, GithubMetadataSerializer, []),
+        ('JenkinsMetadataSerializer', JenkinsMetadataFactory, JenkinsMetadataSerializer, []),
+        ('NoisePageMetadataSerializer', NoisePageMetadataFactory, NoisePageMetadataSerializer, []),
         ('MetadataSerializer', MetadataFactory, MetadataSerializer, []),
         ('EnvironmentMetadataSerializer', EnvironmentMetadataFactory, EnvironmentMetadataSerializer, []),
 
@@ -77,9 +74,7 @@ class TestBasicSerializer(SimpleTestCase):
 
     def test_serialize_model_fields(self):
         for test_name, class_factory, class_serializer, excluded_fields in self.serializer_test_params:
-            with self.subTest(
-                    msg="{} serializer data fields matches the object.".format(
-                        test_name)):
+            with self.subTest(msg="{} serializer data fields matches the object.".format(test_name)):
                 input = class_factory()
                 serializer = class_serializer(input)
                 input_keys = list(input.__dict__.keys())
@@ -88,8 +83,7 @@ class TestBasicSerializer(SimpleTestCase):
 
     def test_deserialize_model_fields(self):
         for test_name, class_factory, class_serializer, excluded_fields in self.serializer_test_params:
-            with self.subTest(
-                    msg="Deserialization with {} is valid".format(test_name)):
+            with self.subTest(msg="Deserialization with {} is valid".format(test_name)):
                 ClassDictFactory = generate_dict_factory(class_factory)
                 input = ClassDictFactory()
                 serializer = class_serializer(data=input)
