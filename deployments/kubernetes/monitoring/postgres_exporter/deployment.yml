@@ -35,6 +35,9 @@ spec:
                   key: pss_db_data_sources
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: "/config/queries.yaml"
+          volumeMounts:
+            - mountPath: /config
+              name: config
         - name: configmap-reload
           image: "jimmidyson/configmap-reload:v0.4.0"
           imagePullPolicy: "IfNotPresent"
