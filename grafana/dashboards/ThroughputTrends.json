@@ -12,6 +12,7 @@
       }
     ]
   },
+  "description": "Summarize the results from different performance metrics",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -20,47 +21,17 @@
   "links": [],
   "panels": [
     {
-      "content": "\n# Throughput Trends\n\nThis dashboard display an overview of how throughput changes over time \nFor each benchmark you can compare throughput metrics for a specific\nnumber of terminals. You can also compare a throughput metric across \ndifferent terminal values. Feel free to mix and match, but be warned\nthe charts can get overwhelming pretty fast.\n\n\n\n",
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 43,
-      "mode": "markdown",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "type": "text"
-    },
-    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 0
       },
-      "id": 2,
+      "id": 4,
       "panels": [],
-      "repeat": "benchmark_type",
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        }
-      },
-      "title": "$benchmark_type",
+      "title": "Throughput Summary",
       "type": "row"
     },
     {
@@ -69,65 +40,73 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
+      "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fill": 2,
+      "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 14,
+        "h": 10,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 1
       },
       "hiddenSeries": false,
-      "id": 4,
+      "id": 1,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
         "max": false,
         "min": false,
-        "rightSide": true,
         "show": true,
         "total": false,
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
-      "maxPerRow": 2,
+      "linewidth": 1,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Throughput Trends",
+          "url": "/grafana/d/throughput_trends/throughput-trends"
+        }
+      ],
       "nullPointMode": "null",
       "options": {
         "dataLinks": [
           {
+            "targetBlank": true,
             "title": "Git commit",
-            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id)]}"
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
           }
         ]
       },
       "percentage": false,
-      "pointradius": 1,
+      "pluginVersion": "7.0.3",
+      "pointradius": 2,
       "points": true,
       "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "v",
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "ycsb",
-          "value": "ycsb"
-        }
-      },
-      "seriesOverrides": [
-        {
-          "alias": "terminals"
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
@@ -135,145 +114,10 @@
         {
           "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 1\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 1 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+          "rawSql": "SELECT \r\n\tdate AS \"time\",\r\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\r\nFROM (\r\n\tSELECT\r\n\t  date,\r\n\t  benchmark_type,\r\n\t  AVG(benchmark_change.change) AS \"avg_benchmark_change\"\r\n\tFROM (\r\n\t  SELECT\r\n\t\t  time,\r\n\t\t  DATE(time) as \"date\",\r\n\t\t  ((metrics->>'throughput')::numeric - \r\n\t\t    FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\r\n\t\t    FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\r\n\t\t  terminals,\r\n\t\t  benchmark_type\r\n\t  FROM oltpbench_results\r\n\t  WHERE\r\n\t\t  $__timeFilter(\"time\") AND\r\n \t\t  query_mode = 'extended' AND\r\n  \t\tclient_time = 60 AND\r\n  \t\tgit_branch = 'origin/master' AND\r\n  \t\twal_device = '$wal_device' AND\r\n  \t\tmax_connection_threads = 32\r\n\t  ORDER BY time DESC\r\n\t) AS benchmark_change\r\n\tGROUP BY benchmark_type, date\r\n\tORDER BY date DESC\r\n) as daily_benchmark_avg\r\nGROUP BY date\r\nORDER BY date",
           "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 2\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 2 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 4\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 4 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 8\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 8 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
-          "refId": "D",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 16\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 16 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
-          "refId": "E",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (metrics->>'throughput')::numeric AS \"terminals = 32\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  terminals = 32 AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time\n",
-          "refId": "F",
           "select": [
             [
               {
@@ -298,10 +142,10 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "$benchmark_type Throughput Trend",
+      "title": "Throughput",
       "tooltip": {
-        "shared": true,
-        "sort": 2,
+        "shared": false,
+        "sort": 0,
         "value_type": "individual"
       },
       "transformations": [],
@@ -316,7 +160,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "Throughput(req/s)",
+          "label": "Throughput (tps)",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -324,7 +168,7 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -337,76 +181,13 @@
       }
     },
     {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "unit"
-              }
-            ]
-          }
-        ]
-      },
+      "collapsed": false,
+      "datasource": null,
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 1,
+        "w": 24,
         "x": 0,
-        "y": 18
-      },
-      "id": 104,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": false
-        }
+        "y": 11
       },
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
@@ -13285,43 +13066,39 @@
       "type": "stat"
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "noisepage-db",
+      "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See **Latency Trends** for more details.",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 4,
-        "y": 189
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 12
       },
-      "id": 316,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
@@ -13340,13 +13117,39 @@
           "text": "2",
           "value": "2"
         }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": [
+          {
+            "title": "GitHub Commit",
+            "url": "https://github.com/cmu-db/terrier/commit/${__data.fields[git_commit_id]}"
+          }
+        ]
       },
+      "percentage": false,
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "query_mode",
           "rawQuery": true,
           "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
@@ -13354,13 +13157,27 @@
             [
               {
                 "params": [
-                  "value"
+                  "metrics->'latency'->'avg'"
                 ],
                 "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "metrics->'latency'->'avg'"
+                ],
+                "type": "alias"
               }
             ]
           ],
-          "timeColumn": "time",
+          "table": "oltpbench_results",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
           "where": [
             {
               "name": "$__timeFilter",
@@ -13370,50 +13187,92 @@
           ]
         }
       ],
+      "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Average, Terminals = $terminals",
-      "transformations": [],
-      "type": "stat"
+      "title": "Latency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Latency (ms)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 8,
+      "panels": [],
+      "title": "Scalability Summary",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "noisepage-db",
+      "description": "The average throughput for all benchmarks (except noop) and all terminal values. See **Scalability Details** for more details.",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
+      "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 8,
-        "y": 189
+        "h": 9,
+        "w": 21,
+        "x": 0,
+        "y": 23
       },
-      "id": 317,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
@@ -13432,12 +13291,23 @@
           "text": "4",
           "value": "4"
         }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
       },
+      "percentage": false,
+      "pointradius": 3,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
@@ -13462,23 +13332,67 @@
           ]
         }
       ],
+      "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Average, Terminals = $terminals",
-      "transformations": [],
-      "type": "stat"
+      "title": "Throughput by Terminal",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Throughput (tps)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "datasource": "noisepage-db",
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Git commit",
+              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "green",
                 "value": null
               }
             ]
@@ -13487,24 +13401,23 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 12,
-        "y": 189
+        "h": 9,
+        "w": 3,
+        "x": 21,
+        "y": 23
       },
-      "id": 318,
-      "maxPerRow": 6,
+      "id": 5,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
           "fields": "/.*/",
-          "values": true
+          "values": false
         }
       },
       "pluginVersion": "7.0.3",
@@ -13529,7 +13442,6 @@
         {
           "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
@@ -13556,8 +13468,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average, Terminals = $terminals",
-      "transformations": [],
+      "title": "Commit ID",
       "type": "stat"
     },
     {
@@ -13576,225 +13487,80 @@
             ]
           }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 16,
-        "y": 189
-      },
-      "id": 319,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1605235804542,
-      "repeatPanelId": 224,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
-        "terminals": {
-          "selected": false,
-          "text": "16",
-          "value": "16"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
-          "refId": "A",
-          "select": [
-            [
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
               {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Average, Terminals = $terminals",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
               }
             ]
           }
-        },
-        "overrides": []
+        ]
       },
       "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 189
-      },
-      "id": 320,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1605235804542,
-      "repeatPanelId": 224,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
-        "terminals": {
-          "selected": false,
-          "text": "32",
-          "value": "32"
-        }
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Average, Terminals = $terminals",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 4,
         "x": 0,
-        "y": 195
+        "y": 32
       },
-      "id": 225,
+      "id": 6,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "fields": "/.*/",
-          "values": true
+          "fields": "",
+          "values": false
         }
       },
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
       "repeatIteration": 1605235804542,
-      "repeatPanelId": 201,
+      "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
         "terminals": {
           "selected": false,
           "text": "1",
@@ -13803,11 +13569,12 @@
       },
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
           "select": [
             [
@@ -13831,7 +13598,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
+      "title": "terminal=${terminals}",
       "type": "stat"
     },
     {
@@ -13850,41 +13617,80 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 4,
         "x": 4,
-        "y": 195
+        "y": 32
       },
-      "id": 321,
+      "id": 30,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "fields": "/.*/",
-          "values": true
+          "fields": "",
+          "values": false
         }
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
       "repeatIteration": 1605235804542,
-      "repeatPanelId": 225,
+      "repeatPanelId": 224,
       "repeatedByRow": true,
       "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
         "terminals": {
           "selected": false,
           "text": "2",
@@ -13893,11 +13699,12 @@
       },
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "rawSql": "SELECT\n  avg((metrics->>'throughput')::numeric) AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "A",
           "select": [
             [
@@ -13921,7 +13728,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
+      "title": "terminal=${terminals}",
       "type": "stat"
     },
     {
@@ -13940,41 +13747,80 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 4,
         "x": 8,
-        "y": 195
+        "y": 32
       },
-      "id": 322,
+      "id": 31,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "fields": "/.*/",
-          "values": true
+          "fields": "",
+          "values": false
         }
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
       "repeatIteration": 1605235804542,
-      "repeatPanelId": 225,
+      "repeatPanelId": 201,
       "repeatedByRow": true,
       "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
         "terminals": {
           "selected": false,
           "text": "4",
@@ -13983,8 +13829,9 @@
       },
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
@@ -14011,7 +13858,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
+      "title": "terminal=${terminals}",
       "type": "stat"
     },
     {
@@ -14030,27 +13877,71 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 4,
         "x": 12,
-        "y": 195
+        "y": 32
       },
-      "id": 323,
+      "id": 32,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "fields": "/.*/",
-          "values": true
+          "fields": "",
+          "values": false
         }
       },
       "pluginVersion": "7.0.3",
@@ -14060,11 +13951,6 @@
       "repeatPanelId": 225,
       "repeatedByRow": true,
       "scopedVars": {
-        "benchmark_type": {
-          "selected": false,
-          "text": "noop",
-          "value": "noop"
-        },
         "terminals": {
           "selected": false,
           "text": "8",
@@ -14073,8 +13959,9 @@
       },
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
@@ -14101,7 +13988,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
+      "title": "terminal=${terminals}",
       "type": "stat"
     },
     {
@@ -14120,28 +14007,300 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 3,
         "w": 4,
         "x": 16,
-        "y": 195
+        "y": 32
       },
-      "id": 324,
+      "id": 33,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "fields": "/.*/",
-          "values": true
+          "fields": "",
+          "values": false
         }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1605235804542,
+      "repeatPanelId": 225,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "16",
+          "value": "16"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "diff_throughput"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": -49
+                    },
+                    {
+                      "color": "green",
+                      "value": -9
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 32
+      },
+      "id": 34,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Scalability Details",
+          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
+        }
+      ],
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1605235804542,
+      "repeatPanelId": 225,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "terminals": {
+          "selected": false,
+          "text": "32",
+          "value": "32"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  to_char(time, 'Mon DD') AS \"Date\",\n  (metrics->>'throughput')::numeric AS \"Throughput\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY \"Throughput\" ASC\nLIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "terminal=${terminals}",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Stability Summary",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "description": "The throughput over the course of the TATP benchmark. Throughput is sampled every 5 seconds.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "hiddenSeries": false,
+      "hideTimeOverride": true,
+      "id": 23,
+      "interval": "",
+      "legend": {
+        "avg": true,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
@@ -14161,9 +14320,19 @@
           "value": "16"
         }
       },
+      "percentage": false,
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
@@ -14189,49 +14358,92 @@
           ]
         }
       ],
-      "timeFrom": null,
+      "thresholds": [],
+      "timeFrom": "10m",
+      "timeRegions": [
+        {
+          "colorMode": "background6",
+          "fill": true,
+          "fillColor": "rgba(234, 112, 112, 0.12)",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time"
+        }
+      ],
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
-      "type": "stat"
+      "title": "tatp Throughput Stability",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "noisepage-db",
+      "description": "The latency over the course of the TATP benchmark. Latency is sampled every 5 seconds.",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
+      "fill": 2,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 4,
-        "x": 20,
-        "y": 195
+        "w": 12,
+        "x": 12,
+        "y": 36
       },
-      "id": 325,
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "/.*/",
-          "values": true
-        }
+      "hiddenSeries": false,
+      "hideTimeOverride": true,
+      "id": 29,
+      "interval": "",
+      "legend": {
+        "avg": true,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
       },
       "pluginVersion": "7.0.3",
       "repeat": null,
@@ -14251,9 +14463,19 @@
           "value": "32"
         }
       },
+      "percentage": false,
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
@@ -14279,10 +14501,77 @@
           ]
         }
       ],
+      "thresholds": [],
+      "timeFrom": "10m",
+      "timeRegions": [
+        {
+          "colorMode": "background6",
+          "fill": true,
+          "fillColor": "rgba(234, 112, 112, 0.12)",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time"
+        }
+      ],
+      "timeShift": null,
+      "title": "tatp Latency Stability",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "content": "\n# NoisePage Performance\nBrought to you by the CMU-DB group.\n\n\n",
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 14,
+      "mode": "markdown",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Min, Terminals = $terminals",
-      "type": "stat"
+      "title": "",
+      "type": "text"
     }
   ],
   "refresh": false,
@@ -14320,45 +14609,15 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "noisepage-db",
-        "definition": "SELECT benchmark_type FROM oltpbench_results",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Benchmark Type",
-        "multi": true,
-        "name": "benchmark_type",
-        "options": [],
-        "query": "SELECT benchmark_type FROM oltpbench_results",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 2,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": "$__all"
         },
         "datasource": "noisepage-db",
         "definition": "SELECT terminals FROM oltpbench_results",
-        "hide": 0,
+        "hide": 2,
         "includeAll": true,
-        "label": "Terminals",
+        "label": null,
         "multi": true,
         "name": "terminals",
         "options": [],
@@ -14376,7 +14635,7 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {

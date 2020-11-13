@@ -128,3 +128,11 @@ data:
           target_label: instance
         - target_label: __address__
           replacement: incrudibles-k8s.db.pdl.cmu.edu:32005
+      
+      - job_name: 'postgres_exporter'
+        static_configs:
+        - targets:
+          - incrudibles-k8s.db.pdl.cmu.edu:32006
+        # relabel_configs:
+        # - target_label: __address__
+        #   replacement: incrudibles-k8s.db.pdl.cmu.edu:32006

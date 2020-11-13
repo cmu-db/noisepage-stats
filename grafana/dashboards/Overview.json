@@ -142,7 +142,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Throughput",
+      "title": "Latency",
       "tooltip": {
         "shared": false,
         "sort": 0,

@@ -1,0 +1,15 @@
+---
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  namespace: monitoring
+  name: monitoring-grafana-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/monitoring-grafanaPV"

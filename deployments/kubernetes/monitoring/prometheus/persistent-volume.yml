@@ -1,0 +1,15 @@
+---
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  namespace: monitoring
+  name: monitoring-prometheus-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/monitoring-prometheusPV"

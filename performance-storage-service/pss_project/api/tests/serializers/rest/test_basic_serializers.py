@@ -11,10 +11,14 @@ from pss_project.api.tests.factories.rest.parameters.MicrobenchmarkParametersFac
     MicrobenchmarkParametersFactory)
 from pss_project.api.tests.factories.rest.metrics.OLTPBenchMetricsFactory import OLTPBenchMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.LatencyMetricsFactory import LatencyMetricsFactory
+from pss_project.api.tests.factories.rest.metrics.MemoryMetricsFactory import (
+    MemoryItemSummaryFactory, MemoryMetricsFactory, MemorySummaryMetricsFactory)
 from pss_project.api.tests.factories.rest.metrics.IncrementalMetricsFactory import IncrementalMetricsFactory
 from pss_project.api.tests.factories.rest.metrics.MicrobenchmarkMetricsFactory import MicrobenchmarkMetricsFactory
 from pss_project.api.tests.factories.rest.OLTPBenchRestFactory import OLTPBenchRestFactory
 from pss_project.api.tests.factories.rest.MicrobenchmarkRestFactory import MicrobenchmarkRestFactory
+
+from pss_project.api.tests.factories.rest.ArtifactStatsRestFactory import ArtifactStatsRestFactory
 
 
 from pss_project.api.serializers.rest.metadata.GithubMetadataSerializer import GithubMetadataSerializer
@@ -29,9 +33,13 @@ from pss_project.api.serializers.rest.parameters.MicrobenchmarkParametersSeriali
 from pss_project.api.serializers.rest.metrics.OLTPBenchMetricsSerializer import OLTPBenchMetricsSerializer
 from pss_project.api.serializers.rest.metrics.MicrobenchmarkMetricsSerializer import MicrobenchmarkMetricsSerializer
 from pss_project.api.serializers.rest.metrics.LatencyMetricsSerializer import LatencyMetricsSerializer
+from pss_project.api.serializers.rest.metrics.MemoryMetricsSerializer import (MemoryItemSummarySerializer, 
+    MemoryMetricsSerializer, MemorySummaryMetricsSerializer)
 from pss_project.api.serializers.rest.metrics.IncrementalMetricsSerializer import IncrementalMetricsSerializer
 from pss_project.api.serializers.rest.OLTPBenchSerializer import OLTPBenchSerializer
 from pss_project.api.serializers.rest.MicrobenchmarkSerializer import MicrobenchmarkSerializer
+
+from pss_project.api.serializers.rest.ArtifactStatsSerializer import ArtifactStatsSerializer
 
 from pss_project.api.tests.utils.utils import generate_dict_factory
 
@@ -48,20 +56,20 @@ class TestBasicSerializer(SimpleTestCase):
         ('TransactionWeightSerializer', TransactionWeightFactory, TransactionWeightSerializer, []),
         ('OLTPBenchParametersSerializer', OLTPBenchParametersFactory, OLTPBenchParametersSerializer, []),
 
-        ('MicrobenchmarkParametersSerializer',
-         MicrobenchmarkParametersFactory,
-         MicrobenchmarkParametersSerializer,
-         []
-         ),
+        ('MicrobenchmarkParametersSerializer', MicrobenchmarkParametersFactory, MicrobenchmarkParametersSerializer, []),
 
         ('OLTPBenchMetricsSerializer', OLTPBenchMetricsFactory, OLTPBenchMetricsSerializer, []),
         ('LatencyMetricsSerializer', LatencyMetricsFactory, LatencyMetricsSerializer, []),
+        ('MemoryItemSummarySerializer', MemoryItemSummaryFactory, MemoryItemSummarySerializer, []),
+        ('MemoryMetricsSerializer', MemoryMetricsFactory, MemoryMetricsSerializer, []),
+        ('MemorySummaryMetricsSerializer', MemorySummaryMetricsFactory, MemorySummaryMetricsSerializer, []),
         ('IncrementalMetricsSerializer', IncrementalMetricsFactory, IncrementalMetricsSerializer, []),
 
         ('MicrobenchmarkMetricsSerializer', MicrobenchmarkMetricsFactory, MicrobenchmarkMetricsSerializer, []),
 
         ('OLTPBenchSerializer', OLTPBenchRestFactory, OLTPBenchSerializer, ['timestamp']),
         ('MicrobenchmarkSerializer', MicrobenchmarkRestFactory, MicrobenchmarkSerializer, ['timestamp']),
+        ('ArtifactStatsSerializer', ArtifactStatsRestFactory, ArtifactStatsSerializer, ['timestamp']),
     ]
 
     def test_serialize_model_fields(self):

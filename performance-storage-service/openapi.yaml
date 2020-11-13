@@ -24,6 +24,10 @@ paths:
           description: Created
         '400':
           description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
 
   /microbenchmark:
     post:
@@ -40,6 +44,30 @@ paths:
           description: Created
         '400':
           description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+
+  /artifact-stats:
+    post:
+      summary: "Report a new artifact stats result from a build"
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactStatsResult'
+      responses: 
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
   
 components:
   securitySchemes:
@@ -227,6 +255,28 @@ components:
           type: integer
           description:  The number of times the benchmark was run for to create a statistically stable result.
 
+  # Artifact stats specific schemas
+    ArtifactStatsResult:
+      description: The results of the artifact stats jenkins job
+      type: object
+      required:
+        - metadata 
+        - timestamp
+        - metrics 
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: string
+          format: unix-timestamp
+          example: 1592389291843
+          description: The time the artifact stats were collected.
+        metrics:
+          type: object
+          description: |
+            The artifact stats that were collected. There is no validation so
+            this field remains very flexible.
+          example: {"complie_time":1234.1234, "rss_on_start":21342342}
   # Generic schemas 
     Metadata:
       description: The metadata of the test

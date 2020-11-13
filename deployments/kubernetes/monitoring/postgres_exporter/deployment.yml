@@ -1,0 +1,59 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-postgres-exporter
+  labels:
+    app: prometheus-postgres-exporter
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-postgres-exporter
+  template:
+    metadata:
+      labels:
+        app: prometheus-postgres-exporter
+    spec:
+      restartPolicy: Always
+      nodeSelector:
+        env: master
+      containers:
+        - name: postgres-exporter
+          image: "wrouesnel/postgres_exporter:v0.8.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9187
+              name: psql
+          env:
+            - name: DATA_SOURCE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-k8s-master
+                  key: pss_db_data_sources
+            - name: PG_EXPORTER_EXTEND_QUERY_PATH
+              value: "/config/queries.yaml"
+          volumeMounts:
+            - mountPath: /config
+              name: config
+        - name: configmap-reload
+          image: "jimmidyson/configmap-reload:v0.4.0"
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+          args:
+            - --volume-dir=/etc/config
+            - --webhook-url=http://localhost:9115/-/reload
+          resources:
+            {}
+          volumeMounts:
+            - mountPath: /etc/config
+              name: config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: prometheus-postgres-exporter-conf
