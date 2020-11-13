@@ -2,7 +2,7 @@ asgiref==3.2.7
 autopep8==1.4.4
 cffi==1.14.0
 coverage==4.5.4
-cryptography==2.9.2
+cryptography==3.2
 Django==3.0.6
 django-jenkins==0.110.0
 django-prometheus==2.1.0
