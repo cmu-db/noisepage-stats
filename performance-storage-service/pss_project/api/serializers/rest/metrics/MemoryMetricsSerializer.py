@@ -1,5 +1,5 @@
 from rest_framework.serializers import Serializer, DecimalField, IntegerField
-from pss_project.api.models.rest.metrics.MemoryMetrics import MemoryMetrics, MemoryItemSummary
+from pss_project.api.models.rest.metrics.MemoryMetrics import MemoryMetrics
 
 
 class MemoryItemSummarySerializer(Serializer):
