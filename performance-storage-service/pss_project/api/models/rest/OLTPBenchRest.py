@@ -44,6 +44,7 @@ def convert_weights_to_dict(weights_list):
         db_formatted_weights[weight_name] = weight_value
     return db_formatted_weights
 
+
 def convert_incremental_metrics_to_dict(incremental_metrics):
     db_formatted_incremental_metrics = []
     for metric in incremental_metrics:
