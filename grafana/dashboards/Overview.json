@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1605235983310,
+  "iteration": 1605397174859,
   "links": [],
   "panels": [
     {
@@ -40,7 +40,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
+      "description": "The average throughput percentage changes of all benchmarks See **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -142,7 +142,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Latency",
+      "title": "Throughput ",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -200,7 +200,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See **Latency Trends** for more details.",
+      "description": "Latency metrics percentage changes averaged across all benchmarks and all terminal values. See **Latency Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -271,7 +271,7 @@
           ],
           "metricColumn": "query_mode",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->>'avg')::numeric) as \"avg\",\n  avg((metrics->'latency'->>'l_90')::numeric) as \"l_90\",\n  avg((metrics->'latency'->>'l_95')::numeric) as \"l_95\",\n  avg((metrics->'latency'->>'l_99')::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nGROUP BY 1, git_commit_id\nORDER BY 1",
+          "rawSql": "SELECT \n\tdate AS \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg latency change per benchmark type\"\nFROM (\n\tSELECT\n\t  date,\n\t  benchmark_type,\n\t  AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n\t\t  time,\n\t\t  DATE(time) as \"date\",\n\t\t  ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n\t\t  terminals,\n\t\t  benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n\t\t  $__timeFilter(\"time\") AND\n \t\t  query_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, date\n\tORDER BY date DESC\n) as daily_benchmark_avg\nGROUP BY date\nORDER BY date",
           "refId": "A",
           "select": [
             [
@@ -778,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1605397174859,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -907,7 +907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1605397174859,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1036,7 +1036,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1605397174859,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1165,7 +1165,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1605397174859,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1294,7 +1294,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1605397174859,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1716,5 +1716,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 22
+  "version": 13
 }
