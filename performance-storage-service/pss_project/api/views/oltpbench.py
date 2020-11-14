@@ -11,6 +11,7 @@ class OLTPBenchViewSet(viewsets.ViewSet):
     """
     Store a new OLTPBench result in the datatbase
     """
+
     def create(self, request):
         user = BasicAuthentication().authenticate(request)
         if user is None:
