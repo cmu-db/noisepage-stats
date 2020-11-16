@@ -1,0 +1,30 @@
+---
+
+- hosts: "{{ host_override | default('k8s_master') }}"
+  name: Deploy OpenAPI
+  vars:
+    dir_deployment: "{{ inventory_dir }}"
+    dir_k8s_openapi: "{{ dir_deployment }}/kubernetes/performance/openapi"
+    service_hostname: "incrudibles-{{ env }}.db.pdl.cmu.edu"
+    service_port_dict:
+      testing: 30007
+      staging: 31007
+      production: 32007
+    service_port: "{{ service_port_dict[env] }}"
+  pre_tasks:
+    - name: Ensure k8s module dependencies are installed.
+      pip:
+        state: present
+        name: openshift
+
+  tasks:
+    - name: Apply Swagger OpenAPI Deployment Configs
+      vars:
+        config: "{{ dir_k8s_openapi }}/{{ item }}"
+      k8s:
+        state: present
+        definition: "{{ lookup('template', '{{ config }}') }}"
+      loop:
+        - config-map.yml
+        - deployment.yml
+        - service.yml

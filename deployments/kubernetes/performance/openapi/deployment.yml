@@ -1,0 +1,42 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ env }}-openapi"
+  labels:
+    app: openapi
+    env: "{{ env }}"
+  namespace: performance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openapi
+      env: "{{ env }}"
+  template:
+    metadata:
+      labels:
+        app: openapi
+        env: "{{ env }}"
+    spec:
+      restartPolicy: Always
+      nodeSelector:
+        env: "{{ env }}"
+      containers:
+        - name: swagger-ui
+          image: swaggerapi/swagger-ui:v3.36.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: SWAGGER_JSON
+              value: /config/api.yaml
+          volumeMounts:
+            - mountPath: /config
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: "openapi-conf-{{ env }}"
