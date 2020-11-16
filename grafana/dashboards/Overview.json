@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1605397174859,
+  "iteration": 1605542582260,
   "links": [],
   "panels": [
     {
@@ -40,7 +40,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput percentage changes of all benchmarks See **Throughput Trends** for more details.",
+      "description": "The average throughput percentage changes of all benchmarks, compared to start date of selected time range. To change time range,  click button on top right of page. **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -200,7 +200,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "Latency metrics percentage changes averaged across all benchmarks and all terminal values. See **Latency Trends** for more details.",
+      "description": "The average latency percentage changes of all benchmarks, compared to start date of selected time range. To change time range, click button on top right of page. See **Latency Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -778,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605397174859,
+      "repeatIteration": 1605542582260,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -907,7 +907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605397174859,
+      "repeatIteration": 1605542582260,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1036,7 +1036,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605397174859,
+      "repeatIteration": 1605542582260,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1165,7 +1165,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605397174859,
+      "repeatIteration": 1605542582260,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1294,7 +1294,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605397174859,
+      "repeatIteration": 1605542582260,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1716,5 +1716,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 13
+  "version": 15
 }
