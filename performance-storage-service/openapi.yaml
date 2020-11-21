@@ -137,7 +137,8 @@ components:
           description: How long did this test run.
         transaction_weights:
           type: array
-          $ref: '#/components/schemas/TransactionWeight'
+          items:
+            $ref: '#/components/schemas/TransactionWeight'
         max_connection_threads:
           type: integer
           description: The maximum number of threads in the thread pool.
@@ -168,9 +169,18 @@ components:
           description: The transactions per second that the test completed
         latency:
           $ref: '#/components/schemas/LatencyMetrics'
+        memory_info:
+          type: object
+          description: An object containing RSS and VMS summary memory info.
+          properties:
+            rss:
+              $ref: '#/components/schemas/MemoryItemSummary'
+            vms:
+              $ref: '#/components/schemas/MemoryItemSummary'
         incremental_metrics:
           type: array
-          $ref: '#/components/schemas/IncrementalMetrics'
+          items:
+            $ref: '#/components/schemas/IncrementalMetrics'
 
   # Microbenchmark specific schemas
     MicrobenchmarkResult:
@@ -398,6 +408,28 @@ components:
           type: number
           format: float
           description: The min of the latency results.
+          
+    MemoryItemSummary:
+      type: object
+      properties:
+        avg:
+          type: number
+          format: float
+          description: the average consumption of a given memory info in bytes with 4 decimal places.
+          example: 801628490.3527
+    
+    MemoryMetrics:
+      type: object
+      description: An object containing memory metrics for OLTPBench performance tests
+      properties:
+        rss:
+          type: integer
+          description: The resident set size, the non-swapped physical memory that a task has used in bytes.
+          example: 5148712960
+        vms:
+          type: integer
+          description: The virtual memory size, the total amount of virtual memory used by the process in bytes.
+          example: 19047882752
     
     IncrementalMetrics:
       type: object
@@ -415,3 +447,5 @@ components:
           description: The transactions per second that the test completed
         latency:
           $ref: '#/components/schemas/LatencyMetrics'
+        memory_info:
+          $ref: '#/components/schemas/MemoryMetrics'
