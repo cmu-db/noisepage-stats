@@ -44,8 +44,10 @@ def is_valid_github_webhook_hash(hash_header, req_body):
     webhook secret and the request body """
     print(hash_header)
     print(WEBHOOK_SECRET)
+    print(WEBHOOK_SECRET.trim())
     alg, req_hash = hash_header.split('=',1)
     valid_hash = hmac.new(str.encode(WEBHOOK_SECRET),req_body, alg)
+    print('intentional gap')
     print(valid_hash)
     return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
