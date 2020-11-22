@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 SECRET_KEY = get_environ_value('SECRET_KEY', 'shh')
+os.environ['WEBHOOK_SECRET'] = get_environ_value('WEBHOOK_SECRET','shh').strip()
 
 ALLOWED_HOSTS = []
 
