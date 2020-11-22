@@ -104,8 +104,7 @@ def handle_status_event(repo_client, payload):
     update the check run based on the results of the comparison """
     commit_sha = payload.get('commit',{}).get('sha')
     status_response = repo_client.get_commit_status(commit_sha)
-    logger.debug('Did we make it even this far?')
-    if is_ci_complete(repo_client, status_response):
+    if is_ci_complete(status_response):
         logger.debug('Status update indicated CI completed')
         complete_check_run(commit_sha)
     elif status_response.get('context') == CI_STATUS_CONTEXT:
@@ -115,7 +114,6 @@ def handle_status_event(repo_client, payload):
 def is_ci_complete(status_reponse):
     """ Check whether a status update indicates that the Jenkins pipeline
     is complete. This is based on the state and the context of the status """
-    logging.debug('we got here')
     if status_reponse.get('state') != 'success': return False 
     return any([status.get('context') == CI_STATUS_CONTEXT for status in status_reponse.get('statuses',[])])
 
