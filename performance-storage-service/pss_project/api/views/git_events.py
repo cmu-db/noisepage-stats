@@ -17,8 +17,6 @@ class GitEventsViewSet(ViewSet):
 
     def create(self, request):
         """ This is the endpoint that Github events are posted to """
-        logger.critical("ARE We Logging")
-        logger.info("Maybe")
         if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
             return Response({"message":"Invalid request hash. Only Github may call this endpoint."},status=HTTP_403_FORBIDDEN)
         logger.debug('Valid webhook hash')
