@@ -144,13 +144,10 @@ LOGGING = {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'verbose'
         }
     },
-    'loggers': {
-        'root': {
-            'handlers': ['console'],
-            'propagate': True,
-        },
-    }
+    'root': {
+        'handlers': ['console']
+    },
 }
