@@ -40,6 +40,6 @@ GITHUB_PRIVATE_KEY = get_environ_value('GITHUB_PRIVATE_KEY')
 PERFORMANCE_COP_CHECK_NAME = 'performance-cop'
 
 #Github NoisePage Client
-REPO_OWNER = 'cmu-mse-cmudb' #TODO: change these after a test
-REPO_NAME = 'terrier' #TODO: change these after a test
+REPO_OWNER = 'cmu-db'
+REPO_NAME = 'noisepage'
 GITHUB_BASE_URL = 'https://api.github.com/'
