@@ -1,4 +1,6 @@
 import hmac
+import logging
+
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
@@ -8,8 +10,6 @@ from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepo
 from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI_STATUS_CONTEXT, 
                                                     WEBHOOK_SECRET, GITHUB_WEBHOOK_HASH_HEADER, GITHUB_PRIVATE_KEY,
                                                     PERFORMANCE_COP_CHECK_NAME)
-
-import logging
 
 logger = logging.getLogger(__name__)
 
