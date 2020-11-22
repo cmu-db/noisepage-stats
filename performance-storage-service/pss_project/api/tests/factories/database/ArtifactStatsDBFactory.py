@@ -1,4 +1,5 @@
-from factory import DjangoModelFactory, Faker
+from factory import Faker
+from factory.django import DjangoModelFactory
 from pss_project.api.models.database.ArtifactStatsResult import ArtifactStatsResult
 
 
