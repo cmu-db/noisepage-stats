@@ -2,9 +2,11 @@ import time
 import requests
 from github3 import GitHub
 from jwt import JWT, jwk_from_pem
+import logging
 
 from pss_project.api.constants import REPO_OWNER, REPO_NAME, GITHUB_BASE_URL
 
+logger = logging.getLogger()
 
 class NoisePageRepoClient():
     def __init__(self, private_key, app_id):
@@ -83,6 +85,7 @@ class NoisePageRepoClient():
         }
         url = f"{GITHUB_BASE_URL}repos/{self.owner}/{self.repo}/commits/{commit_sha}/status"
         response = requests.get(url=url, headers=headers)
+        logger.debug(f'get_commit_status response:{response}')
         response.raise_for_status()
         return response.json()
 
