@@ -1,4 +1,5 @@
 import os
+import logging.config
 from .utils import get_environ_value
 """
 Django settings for pss_project project.
@@ -148,6 +149,8 @@ LOGGING = {
         }
     },
     'root': {
-        'handlers': ['console']
+        'handlers': ['console'],
+        'filters': ['require_debug_true'],
+        'level':'DEBUG'
     },
 }

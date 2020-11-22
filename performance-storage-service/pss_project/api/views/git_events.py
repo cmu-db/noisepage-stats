@@ -11,7 +11,7 @@ from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI
                                                     WEBHOOK_SECRET, GITHUB_WEBHOOK_HASH_HEADER, GITHUB_PRIVATE_KEY,
                                                     PERFORMANCE_COP_CHECK_NAME)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 class GitEventsViewSet(ViewSet):
 
