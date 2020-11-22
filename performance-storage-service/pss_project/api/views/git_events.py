@@ -106,7 +106,7 @@ def handle_status_event(repo_client, payload):
     status_response = repo_client.get_commit_status(commit_sha)
     if is_ci_complete(status_response):
         logger.debug('Status update indicated CI completed')
-        complete_check_run(commit_sha)
+        complete_check_run(repo_client, commit_sha)
     elif status_response.get('context') == CI_STATUS_CONTEXT:
         logger.debug('Status update indicated CI started')
         initialize_check_run_if_missing(repo_client, commit_sha)
