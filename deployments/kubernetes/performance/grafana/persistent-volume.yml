@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  namespace: performance
+  name: grafana-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/grafanaPV"

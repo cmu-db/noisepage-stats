@@ -24,4 +24,5 @@
             owner: root
             mode: 0700
           loop:
-            - make_secrets.sh
+            - make_secrets_performance.sh
+            - make_secrets_monitoring.sh

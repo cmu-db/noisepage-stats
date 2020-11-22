@@ -1,0 +1,18 @@
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus-postgres-exporter-service
+  labels:
+    app: prometheus-postgres-exporter
+  namespace: monitoring
+spec:
+  selector:
+    app: prometheus-postgres-exporter
+  type: NodePort
+  ports:
+    - port: 9187
+      nodePort: 32006
+      protocol: TCP
+  externalTrafficPolicy: Local
