@@ -104,6 +104,7 @@ def handle_status_event(repo_client, payload):
     update the check run based on the results of the comparison """
     commit_sha = payload.get('commit',{}).get('sha')
     status_response = repo_client.get_commit_status(commit_sha)
+    logger.debug('Did we make it even this far?')
     if is_ci_complete(repo_client, status_response):
         logger.debug('Status update indicated CI completed')
         complete_check_run(commit_sha)

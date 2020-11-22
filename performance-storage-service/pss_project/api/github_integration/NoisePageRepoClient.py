@@ -85,8 +85,9 @@ class NoisePageRepoClient():
         }
         url = f"{GITHUB_BASE_URL}repos/{self.owner}/{self.repo}/commits/{commit_sha}/status"
         response = requests.get(url=url, headers=headers)
-        logger.debug(f'get_commit_status response:{response}')
+        logger.debug(f'get_commit_status response:{response.text}')
         response.raise_for_status()
+        logger.debug(f'get_commit_status JSON response:{response.json()}')
         return response.json()
 
     def get_commit_check_run_for_app(self, commit_sha, app_id):
