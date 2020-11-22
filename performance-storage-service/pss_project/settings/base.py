@@ -148,7 +148,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
+        'root': {
             'handlers': ['console'],
             'propagate': True,
         },
