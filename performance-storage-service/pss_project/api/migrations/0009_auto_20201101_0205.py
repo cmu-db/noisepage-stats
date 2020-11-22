@@ -51,4 +51,12 @@ class Migration(migrations.Migration):
             name='weights',
             field=models.JSONField(encoder=django.core.serializers.json.DjangoJSONEncoder),
         ),
+        migrations.RenameModel(
+            old_name='BinaryMetricsResult',
+            new_name='ArtifactStatsResult',
+        ),
+        migrations.AlterModelTable(
+            name='artifactstatsresult',
+            table='artifact_stats_results',
+        ),
     ]
