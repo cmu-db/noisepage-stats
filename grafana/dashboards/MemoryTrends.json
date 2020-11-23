@@ -1,0 +1,907 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "description": "This dashboard breaks down NoisePage's memory by the benchmark type. For each benchmark you can compare latency metrics for a specific number of terminals. You can also compare a latency metric across different terminal values. Feel free to mix and match, but be warned the charts can get overwhelming pretty fast.",
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 12,
+    "iteration": 1606104968590,
+    "links": [],
+    "panels": [
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 4,
+            "panels": [],
+            "repeat": "benchmark_type",
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "noop",
+                    "value": "noop"
+                }
+            },
+            "title": "$benchmark_type Memory Info Summary",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "noisepage-db",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 2,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": true,
+            "renderer": "flot",
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "noop",
+                    "value": "noop"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "benchmark_type",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'rss' IN ($memory_info_summary) THEN (metrics->'memory_info'->'rss'->>'avg')::numeric END AS \"rss\",\n  CASE WHEN 'vms' IN ($memory_info_summary) THEN (metrics->'memory_info'->'vms'->>'avg')::numeric END AS \"vms\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "id"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "oltpbench_results",
+                    "timeColumn": "id",
+                    "timeColumnType": "int4",
+                    "where": [
+                        {
+                            "name": "$__unixEpochFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "$benchmark_type Memory Info Summary",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "decbytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 5,
+            "panels": [],
+            "repeat": null,
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 4,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "smallbank",
+                    "value": "smallbank"
+                }
+            },
+            "title": "$benchmark_type Memory Info Summary",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "noisepage-db",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 10
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": true,
+            "renderer": "flot",
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 2,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "smallbank",
+                    "value": "smallbank"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "benchmark_type",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'rss' IN ($memory_info_summary) THEN (metrics->'memory_info'->'rss'->>'avg')::numeric END AS \"rss\",\n  CASE WHEN 'vms' IN ($memory_info_summary) THEN (metrics->'memory_info'->'vms'->>'avg')::numeric END AS \"vms\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "id"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "oltpbench_results",
+                    "timeColumn": "id",
+                    "timeColumnType": "int4",
+                    "where": [
+                        {
+                            "name": "$__unixEpochFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "$benchmark_type Memory Info Summary",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "decbytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 18
+            },
+            "id": 7,
+            "panels": [],
+            "repeat": null,
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 4,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "tatp",
+                    "value": "tatp"
+                }
+            },
+            "title": "$benchmark_type Memory Info Summary",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "noisepage-db",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 19
+            },
+            "hiddenSeries": false,
+            "id": 8,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": true,
+            "renderer": "flot",
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 2,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "tatp",
+                    "value": "tatp"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "benchmark_type",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'rss' IN ($memory_info_summary) THEN (metrics->'memory_info'->'rss'->>'avg')::numeric END AS \"rss\",\n  CASE WHEN 'vms' IN ($memory_info_summary) THEN (metrics->'memory_info'->'vms'->>'avg')::numeric END AS \"vms\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "id"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "oltpbench_results",
+                    "timeColumn": "id",
+                    "timeColumnType": "int4",
+                    "where": [
+                        {
+                            "name": "$__unixEpochFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "$benchmark_type Memory Info Summary",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "decbytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 27
+            },
+            "id": 9,
+            "panels": [],
+            "repeat": null,
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 4,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "tpcc",
+                    "value": "tpcc"
+                }
+            },
+            "title": "$benchmark_type Memory Info Summary",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "noisepage-db",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 28
+            },
+            "hiddenSeries": false,
+            "id": 10,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": true,
+            "renderer": "flot",
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 2,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "tpcc",
+                    "value": "tpcc"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "benchmark_type",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'rss' IN ($memory_info_summary) THEN (metrics->'memory_info'->'rss'->>'avg')::numeric END AS \"rss\",\n  CASE WHEN 'vms' IN ($memory_info_summary) THEN (metrics->'memory_info'->'vms'->>'avg')::numeric END AS \"vms\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "id"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "oltpbench_results",
+                    "timeColumn": "id",
+                    "timeColumnType": "int4",
+                    "where": [
+                        {
+                            "name": "$__unixEpochFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "$benchmark_type Memory Info Summary",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "decbytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 36
+            },
+            "id": 11,
+            "panels": [],
+            "repeat": null,
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 4,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "ycsb",
+                    "value": "ycsb"
+                }
+            },
+            "title": "$benchmark_type Memory Info Summary",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "noisepage-db",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 37
+            },
+            "hiddenSeries": false,
+            "id": 12,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": true,
+            "renderer": "flot",
+            "repeatIteration": 1606104968590,
+            "repeatPanelId": 2,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "benchmark_type": {
+                    "selected": false,
+                    "text": "ycsb",
+                    "value": "ycsb"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "benchmark_type",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n  \"time\" AS \"time\",\n  CASE WHEN 'rss' IN ($memory_info_summary) THEN (metrics->'memory_info'->'rss'->>'avg')::numeric END AS \"rss\",\n  CASE WHEN 'vms' IN ($memory_info_summary) THEN (metrics->'memory_info'->'vms'->>'avg')::numeric END AS \"vms\",\n  CONCAT('t = ',(terminals::text),',') AS \"terminals\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "id"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "oltpbench_results",
+                    "timeColumn": "id",
+                    "timeColumnType": "int4",
+                    "where": [
+                        {
+                            "name": "$__unixEpochFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "$benchmark_type Memory Info Summary",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "decbytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        }
+    ],
+    "schemaVersion": 25,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": [
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": "All",
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": "noisepage-db",
+                "definition": "SELECT DISTINCT jsonb_object_keys(metrics->'memory_info')\nFROM oltpbench_results",
+                "hide": 0,
+                "includeAll": true,
+                "label": null,
+                "multi": true,
+                "name": "memory_info_summary",
+                "options": [],
+                "query": "SELECT DISTINCT jsonb_object_keys(metrics->'memory_info')\nFROM oltpbench_results",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": "All",
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": "noisepage-db",
+                "definition": "SELECT DISTINCT terminals FROM oltpbench_results",
+                "hide": 0,
+                "includeAll": true,
+                "label": null,
+                "multi": true,
+                "name": "terminals",
+                "options": [],
+                "query": "SELECT DISTINCT terminals FROM oltpbench_results",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 3,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": false,
+                    "text": "RAM disk",
+                    "value": "RAM disk"
+                },
+                "datasource": "noisepage-db",
+                "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
+                "hide": 0,
+                "includeAll": false,
+                "label": null,
+                "multi": false,
+                "name": "wal_device",
+                "options": [],
+                "query": "SELECT DISTINCT wal_device FROM oltpbench_results",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": "All",
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": "noisepage-db",
+                "definition": "SELECT DISTINCT benchmark_type FROM oltpbench_results",
+                "hide": 0,
+                "includeAll": true,
+                "label": null,
+                "multi": true,
+                "name": "benchmark_type",
+                "options": [],
+                "query": "SELECT DISTINCT benchmark_type FROM oltpbench_results",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            }
+        ]
+    },
+    "time": {
+        "from": "now-30d",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ]
+    },
+    "timezone": "",
+    "title": "Memory Trends",
+    "uid": "Nf_6rQTMz",
+    "version": 7
+}
