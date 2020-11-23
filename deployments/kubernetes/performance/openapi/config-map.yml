@@ -1,0 +1,462 @@
+---
+    
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "openapi-conf-{{ env }}"
+  labels:
+    app: openapi-conf
+  namespace: performance
+data:
+  api.yaml: |
+    openapi: 3.0.0
+    info:
+      description: "This service takes in performance test result data and stores it in TimescaleDB"
+      version: "2.0.0"
+      title: "InCRUDibles Dash"
+    servers:
+      - url: https://{{ service_hostname }}
+        description: {{ env | capitalize }} server
+    security:
+      - BasicAuth: []
+    paths:
+      /oltpbench:
+        post:
+          summary: "Report a new set of OLTPBench results from a build"
+          description: ""
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/OLTPBenchResult'
+          responses: 
+            '201':
+              description: Created
+            '400':
+              description: Bad Request
+            '403':
+              description: Forbidden
+            '500':
+              description: Internal Server Error
+
+      /microbenchmark:
+        post:
+          summary: "Report a new microbenchmark results from a build"
+          description: ""
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/MicrobenchmarkResult'
+          responses: 
+            '201':
+              description: Created
+            '400':
+              description: Bad Request
+            '403':
+              description: Forbidden
+            '500':
+              description: Internal Server Error
+
+      /artifact-stats:
+        post:
+          summary: "Report a new artifact stats result from a build"
+          description: ""
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ArtifactStatsResult'
+          responses: 
+            '201':
+              description: Created
+            '400':
+              description: Bad Request
+            '403':
+              description: Forbidden
+            '500':
+              description: Internal Server Error
+      
+    components:
+      securitySchemes:
+        BasicAuth:
+          type: http
+          scheme: basic
+      schemas:
+      # OLTPBench specific schemas
+        OLTPBenchResult:
+          description: A build result from running all the OLTPBench results
+          type: object
+          required:
+            - metadata
+            - timestamp
+            - type
+            - parameters
+            - metrics 
+          properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+            timestamp:
+              type: string
+              format: unix-timestamp
+              example: 1592389291843
+              # TODO: Is this start time or end time?
+              description: The start time of the Jenkins job.
+            type:
+              type: string
+              enum:
+                - tatp
+                - tpcc
+                - noop
+                - smallbank
+                - ycsb
+              description: The type of OLTPBench.
+            parameters:
+              $ref: '#/components/schemas/OLTPBenchParameters'
+            metrics:
+              $ref: '#/components/schemas/OLTPBenchMetrics'
+
+        OLTPBenchParameters:
+          description: The settings that the test was run with
+          type: object
+          required:
+            - query_mode
+            - scale_factor
+            - terminals
+            - client_time
+            - transaction_weights
+            - max_connection_threads
+          properties:
+            query_mode:
+              type: string
+              enum:
+                - simple
+                - extended
+              description: The query mode when running the testing script.
+            scale_factor:
+              type: number
+              format: float
+              description: The size of the database to load.
+            terminals:
+              type: integer
+              description: The number of client threads that will issue requests to the DBMS.
+            client_time:
+              type: integer
+              description: How long did this test run.
+            transaction_weights:
+              type: array
+              items:
+                $ref: '#/components/schemas/TransactionWeight'
+            max_connection_threads:
+              type: integer
+              description: The maximum number of threads in the thread pool.
+
+        TransactionWeight:
+          type: object
+          description: An object containing information about the performance test transaction weights
+          required:
+            - name
+            - weight
+          properties:
+            name:
+              type: string
+              description: The name of the transaction (i.e. DELETE_CALL_FORWARDING)
+            weight:
+              type: integer
+              description: The weight of the transaction type for the run of OLTPBench
+
+        OLTPBenchMetrics:
+          type: object
+          description: An object containing all test metrics for OLTPBench performance tests
+          required:
+            - throughput
+          properties:
+            throughput:
+              type: number
+              format: float
+              description: The transactions per second that the test completed
+            latency:
+              $ref: '#/components/schemas/LatencyMetrics'
+            memory_info:
+              type: object
+              description: An object containing RSS and VMS summary memory info.
+              properties:
+                rss:
+                  $ref: '#/components/schemas/MemoryItemSummary'
+                vms:
+                  $ref: '#/components/schemas/MemoryItemSummary'
+            incremental_metrics:
+              type: array
+              items:
+                $ref: '#/components/schemas/IncrementalMetrics'
+
+      # Microbenchmark specific schemas
+        MicrobenchmarkResult:
+          description: The results of the microbenchmark jenkins job
+          type: object
+          required:
+            - metadata 
+            - timestamp
+            - test_suite
+            - test_name
+            - parameters 
+            - metrics 
+          properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+            timestamp:
+              type: string
+              format: unix-timestamp
+              example: 1592389291843
+              description: The time the microbenchmark was executed.
+            test_suite:
+              type: string
+              example: BwTreeBenchmark
+              description: The name of the microbenchmark test suite.
+            test_name:
+              type: string
+              example: RandomInsert
+              description: The name of the microbenchmark test.
+            parameters:
+              $ref: '#/components/schemas/MicrobenchmarkParameters'
+            metrics:
+              $ref: '#/components/schemas/MicrobenchmarkMetrics'
+        
+        MicrobenchmarkParameters:
+          description: The parameters that were used to run the microbenchmark tests
+          type: object
+          required:
+            - threads
+            - min_runtime
+          properties:
+            threads:
+              type: integer
+              description: The number of threads used for multi-threaded benchmarks.
+            min_runtime:
+              type: integer
+              description: The minimum time the benchmarks could be run for (seconds).
+          
+        MicrobenchmarkMetrics:
+          description: The results from a single microbenchmark test
+          type: object
+          required:
+            - throughput
+            - tolerance
+            - iterations
+          properties:
+            status:
+              type: string
+              description: A text status of whether the throughput violated the tolerance.
+              enum:
+                - "PASS"
+                - "FAIL"
+            throughput:
+              type: number
+              format: float
+              description: The transations per second executed during the test.
+            ref_throughput:
+              type: number
+              format: float
+              description: |
+                The average throughput for the test over the last 30 days. This is 
+                collected from Jenkins artifacts created over the last 30 days of the test execution.
+            stdev_throughput:
+              type: number
+              format: float
+              description: |
+                The standard deviation of thoughput results for the test. This is 
+                collected from Jenkins artifacts created over the last 30 days of the test execution.
+            tolerance:
+              type: integer
+              description: The allowed throughput degradation before a warning should be raised (number refers to %)
+            iterations:
+              type: integer
+              description:  The number of times the benchmark was run for to create a statistically stable result.
+
+      # Artifact stats specific schemas
+        ArtifactStatsResult:
+          description: The results of the artifact stats jenkins job
+          type: object
+          required:
+            - metadata 
+            - timestamp
+            - metrics 
+          properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+            timestamp:
+              type: string
+              format: unix-timestamp
+              example: 1592389291843
+              description: The time the artifact stats were collected.
+            metrics:
+              type: object
+              description: |
+                The artifact stats that were collected. There is no validation so
+                this field remains very flexible.
+              example: {"complie_time":1234.1234, "rss_on_start":21342342}
+      # Generic schemas 
+        Metadata:
+          description: The metadata of the test
+          type: object
+          required:
+            - jenkins
+            - github
+            - noisepage
+            - environment
+          properties:
+            jenkins:
+              $ref: '#/components/schemas/JenkinsMetadata'
+            github:
+              $ref: '#/components/schemas/GithubMetadata'
+            noisepage:
+              $ref: '#/components/schemas/NoisepageMetadata'
+            environment:
+              $ref: '#/components/schemas/EnvironmentMetadata'
+        
+        JenkinsMetadata:
+          description: The metadata related to Jenkins
+          type: object
+          required:
+            - jenkins_job_id
+          properties:
+            jenkins_job_id:
+              type: integer
+              description: The ID of the job which runs this test on Jenkins
+        
+        GithubMetadata:
+          description: The metadata related to GitHub
+          type: object
+          required:
+            - git_commit_id
+            - git_branch
+          properties:
+            git_commit_id:
+              type: string
+              description: The commit id of the current job
+            git_branch:
+              type: string
+              description: The name of the branch where the nightly job runs
+
+        NoisepageMetadata:
+          description: The metadata related to Noisepage
+          type: object
+          required:
+            - db_version
+          properties:
+            db_version:
+              type: string
+              description: The version of NoisePage
+
+        EnvironmentMetadata:
+          description: The metadata related to the environment
+          type: object
+          required:
+            - os_version
+            - cpu_number
+            - cpu_socket
+            - wal_device
+          properties:
+            os_version:
+              type: string
+              description: The version of the operating system on the testing server.
+            cpu_number:
+              type: string
+              description: The number of CPU used on the testing server
+            cpu_socket:
+              type: string
+              description: The number of the cpu socket on the testing server. When it is larger than 1, this server is a NUMA system
+            wal_device:
+              type: string
+              enum:
+                - HDD
+                - RAM disk 
+                - SATA SSD
+                - NVMe SSD 
+                - None 
+              description: The type of storage that the write ahead log is written to.
+              
+        LatencyMetrics:
+          type: object
+          description: An object containing latency metrics for OLTPBench performance tests
+          properties:
+            l_25:
+              type: number
+              format: float
+              description: The 25th percentile of the latency results.
+            l_75:
+              type: number
+              format: float
+              description: The 75th percentile of the latency results.
+            l_90:
+              type: number
+              format: float
+              description: The 90th percentile of the latency results.
+            l_95:
+              type: number
+              format: float
+              description: The 95th percentile of the latency results.
+            l_99:
+              type: number
+              format: float
+              description: The 99th percentile of the latency results.
+            avg:
+              type: number
+              format: float
+              description: The average of the latency results.
+            median:
+              type: number
+              format: float
+              description: The median of the latency results.
+            max:
+              type: number
+              format: float
+              description: The max of the latency results.
+            min:
+              type: number
+              format: float
+              description: The min of the latency results.
+              
+        MemoryItemSummary:
+          type: object
+          properties:
+            avg:
+              type: number
+              format: float
+              description: the average consumption of a given memory info in bytes with 4 decimal places.
+              example: 801628490.3527
+        
+        MemoryMetrics:
+          type: object
+          description: An object containing memory metrics for OLTPBench performance tests
+          properties:
+            rss:
+              type: integer
+              description: The resident set size, the non-swapped physical memory that a task has used in bytes.
+              example: 5148712960
+            vms:
+              type: integer
+              description: The virtual memory size, the total amount of virtual memory used by the process in bytes.
+              example: 19047882752
+        
+        IncrementalMetrics:
+          type: object
+          description: An object containing all metrics for long-running OLTPBench performance tests
+          required:
+            - time
+            - throughput
+          properties:
+            time:
+              type: integer
+              description: The time point of the long-running test
+            throughput:
+              type: number
+              format: float
+              description: The transactions per second that the test completed
+            latency:
+              $ref: '#/components/schemas/LatencyMetrics'
+            memory_info:
+              $ref: '#/components/schemas/MemoryMetrics'
