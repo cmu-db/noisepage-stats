@@ -4,6 +4,8 @@
   name: Deploy OpenAPI
   vars:
     dir_deployment: "{{ inventory_dir }}"
+    dir_base: "{{ dir_deployment | dirname }}"
+    dir_openapi: "{{ dir_base }}/performance-storage-service/openapi"
     dir_k8s_openapi: "{{ dir_deployment }}/kubernetes/performance/openapi"
     service_hostname: "incrudibles-{{ env }}.db.pdl.cmu.edu"
     service_port_dict:
@@ -11,11 +13,45 @@
       staging: 31007
       production: 32007
     service_port: "{{ service_port_dict[env] }}"
+    openapi_template: "{{ dir_openapi }}/openapi.yml.j2"
+    openapi_file_dir: "{{ dir_openapi }}/{{ env }}"
+    openapi_file_name: "{{ openapi_file_dir }}/openapi.yml"
+
   pre_tasks:
     - name: Ensure k8s module dependencies are installed.
       pip:
         state: present
         name: openshift
+
+    - name: Prepare openapi doc
+      block:
+        - name: Check if the openapi rendered dir exists
+          stat:
+            path: "{{ openapi_file_dir }}"
+          register: stat_openapi_dir
+        - name: Check if the openapi template exists
+          stat:
+            path: "{{ openapi_template }}"
+          register: stat_openapi_template
+        - name: Create the openapi dir for {{ env }}
+          file:
+            path: "{{ openapi_file_dir }}"
+            mode: 0755
+            state: directory
+          when:
+            - not stat_openapi_dir.stat.exists
+        - name: Render the openapi for {{ env }}
+          template:
+            src: "{{ openapi_template }}"
+            dest: "{{ openapi_file_name }}"
+          when:
+            - stat_openapi_template.stat.exists
+            - stat_openapi_template.stat.isreg is defined
+            - stat_openapi_template.stat.isreg
+        - name: Append the openapi file to configs
+          set_fact:
+            openapi_file_content: "{{ lookup('file', '{{ openapi_file_name }}') | replace('\n', '\n    ') }}"
+      delegate_to: localhost
 
   tasks:
     - name: Apply Swagger OpenAPI Deployment Configs

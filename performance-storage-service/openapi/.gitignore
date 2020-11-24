@@ -1,0 +1,4 @@
+# ignore the rendered openapi.yml
+testing/
+staging/
+production/

@@ -2,9 +2,11 @@ import time
 import requests
 from github3 import GitHub
 from jwt import JWT, jwk_from_pem
+import logging
 
 from pss_project.api.constants import REPO_OWNER, REPO_NAME, GITHUB_BASE_URL
 
+logger = logging.getLogger()
 
 class NoisePageRepoClient():
     def __init__(self, private_key, app_id):

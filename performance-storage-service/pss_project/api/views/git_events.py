@@ -11,14 +11,12 @@ from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI
                                                     WEBHOOK_SECRET, GITHUB_WEBHOOK_HASH_HEADER, GITHUB_PRIVATE_KEY,
                                                     PERFORMANCE_COP_CHECK_NAME)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 class GitEventsViewSet(ViewSet):
 
     def create(self, request):
         """ This is the endpoint that Github events are posted to """
-        logger.critical("ARE We Logging")
-        logger.info("Maybe")
         if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
             return Response({"message":"Invalid request hash. Only Github may call this endpoint."},status=HTTP_403_FORBIDDEN)
         logger.debug('Valid webhook hash')
@@ -106,9 +104,9 @@ def handle_status_event(repo_client, payload):
     update the check run based on the results of the comparison """
     commit_sha = payload.get('commit',{}).get('sha')
     status_response = repo_client.get_commit_status(commit_sha)
-    if is_ci_complete(repo_client, status_response):
+    if is_ci_complete(status_response):
         logger.debug('Status update indicated CI completed')
-        complete_check_run(commit_sha)
+        complete_check_run(repo_client, commit_sha)
     elif status_response.get('context') == CI_STATUS_CONTEXT:
         logger.debug('Status update indicated CI started')
         initialize_check_run_if_missing(repo_client, commit_sha)
