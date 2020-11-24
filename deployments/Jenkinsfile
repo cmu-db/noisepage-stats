@@ -125,6 +125,14 @@ pipeline {
                 --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }
           }
+        }
+        stage('OpenAPI') {
+          steps{
+            dir('deployments'){
+              sh "ansible-playbook -i inventory playbooks/openapi-deployment.yml --key-file=${ANSIBLE_SSH} \
+                --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
+            }
+          }
         } 
       }
     }
