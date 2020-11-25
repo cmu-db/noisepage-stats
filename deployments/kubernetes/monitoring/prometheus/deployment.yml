@@ -22,7 +22,7 @@ spec:
         env: master
       containers:
         - name: prometheus
-          image: prom/prometheus:v2.2.1
+          image: prom/prometheus:v2.22.2
           resources:
             requests:
               memory: "1G"
