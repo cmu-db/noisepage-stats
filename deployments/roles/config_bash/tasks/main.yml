@@ -1,0 +1,12 @@
+---
+
+- name: copy config files for bash
+  copy:
+    src: "{{ item }}"
+    dest: "./.{{ item }}"
+  loop:
+    - bashrc
+    - profile
+
+
+  

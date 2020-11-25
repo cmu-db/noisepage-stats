@@ -1,0 +1,14 @@
+---
+
+- name: update proxy
+  hosts: "{{ env }}"
+  vars:
+    hostname: "{{ inventory_hostname }}"
+    dir_openresty: /etc/openresty
+    dir_openresty_ssl: "{{ dir_openresty }}/ssl"
+    dir_openresty_conf: "{{ dir_openresty }}/conf.d"
+    dir_openresty_internal_log: "/var/log/openresty/{{ hostname }}"
+    dir_openresty_external_log: "/var/log/openresty/{{ noisepage_hostname }}"
+  roles:
+    - config_openresty
+    - config_ssl

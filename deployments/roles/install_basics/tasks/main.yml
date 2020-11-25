@@ -1,0 +1,21 @@
+---
+
+- name: update apt repo cache and install basic linux tools
+  become: yes
+  apt:
+    pkg:
+      - vim
+      - curl
+      - htop
+      - wget
+      - net-tools
+      - iptables
+      - rsync
+    update_cache: yes
+
+- name: install acme.sh
+  become: yes
+  shell: |
+    curl https://get.acme.sh | sh
+
+  

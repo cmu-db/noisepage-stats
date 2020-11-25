@@ -1,0 +1,13 @@
+---
+
+- name: init server
+  hosts: "{{ env }}"
+  roles:
+    - config_bash
+    - install_basics
+    - install_docker
+    - install_python3.7
+    - install_openresty
+    - install_k8s
+    # - install_noisepage_dependencies
+    # - install_sqlsmith

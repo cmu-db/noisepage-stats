@@ -1,0 +1,34 @@
+---
+
+- name: update apt repo cache and install dependencies for noisepage make
+  become: yes
+  apt:
+    pkg:
+      - build-essential
+      - clang-8
+      - clang-format-8
+      - clang-tidy-8
+      - cmake
+      - doxygen
+      - git
+      - g++-7
+      - libevent-dev
+      - libjemalloc-dev
+      - libpq-dev
+      - libssl-dev
+      - libtbb-dev
+      - zlib1g-dev
+      - llvm-8
+      - pkg-config
+      - postgresql-client
+      - ant
+    update_cache: yes
+
+- name: install deb dependencies with apt
+  become: yes
+  apt:
+    deb: "{{ item }}"
+  loop:
+    - http://mirrors.kernel.org/ubuntu/pool/universe/libp/libpqxx/libpqxx-dev_6.2.5-1_amd64.deb
+    - http://mirrors.kernel.org/ubuntu/pool/universe/libp/libpqxx/libpqxx-6.2_6.2.5-1_amd64.deb
+  

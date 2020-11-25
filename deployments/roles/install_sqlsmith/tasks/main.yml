@@ -1,0 +1,52 @@
+---
+
+- name: update apt repo cache and install dependencies for sqlsmith
+  become: yes
+  apt:
+    pkg:
+      - build-essential
+      - autoconf
+      - autoconf-archive
+      - libpqxx-dev
+      - libboost-regex-dev
+      - libsqlite3-dev
+    update_cache: yes
+
+- name: clone the sqlsmith source code
+  become: yes
+  git:
+    repo: https://github.com/anse1/sqlsmith.git
+    dest: /root/sqlsmith
+
+- name: configure and make the package
+  become: yes
+  block:
+    - name: auto generate configure script
+      command: autoreconf -i
+      args:
+        chdir: /root/sqlsmith
+    
+    - name: fix the configure script bug
+      lineinfile:
+        path: /root/sqlsmith/configure
+        regexp: '^                    char conninfo="dbname = postgres";'
+        line: '                    char* conninfo="dbname = postgres";'
+
+    - name: run the configure script
+      command: ./configure
+      args:
+        chdir: /root/sqlsmith
+
+    - name: make sqlsmith executable file
+      command: make
+      args:
+        chdir: /root/sqlsmith
+
+    - name: make a symbolic link to the executable
+      file:
+        src: /root/sqlsmith/sqlsmith
+        dest: /usr/local/bin/sqlsmith
+        mode: 0755
+        force: yes
+        state: link
+  

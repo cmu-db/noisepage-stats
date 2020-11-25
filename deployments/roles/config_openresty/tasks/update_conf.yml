@@ -1,0 +1,24 @@
+---
+
+- name: set var for the path to the SSL folder of the "{{ domain }}"
+  set_fact:
+    dir_domain_ssl: "{{ dir_openresty_ssl }}/{{ domain }}"
+
+- name: ensure log dir exists
+  file:
+    path: "{{ dir_openresty_internal_log }}"
+    state: directory
+    owner: root
+    mode: "0755"
+
+- name: ensure the SSL folder exists for "{{ domain }}"
+  file:
+    path: "{{ dir_domain_ssl }}"
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: update the openresty conf for "{{ domain }}"
+  template:
+    src: "{{ conf_template }}"
+    dest: "{{ dir_openresty_conf }}/{{ domain }}"
