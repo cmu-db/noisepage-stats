@@ -1,5 +1,4 @@
 ---
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -24,9 +23,18 @@ spec:
       containers:
         - name: prometheus
           image: prom/prometheus:v2.2.1
+          resources:
+            requests:
+              memory: "1G"
+              cpu: "1"
+            limits:
+              memory: "2G"
+              cpu: "2"
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
+            - "--storage.tsdb.retention.time=15d"
+            - "--storage.tsdb.retention.size=80GB"
             # FOR REVERSED PROXY
             - "--web.external-url=http://localhost:9090/prometheus"
             - "--web.route-prefix=/"
