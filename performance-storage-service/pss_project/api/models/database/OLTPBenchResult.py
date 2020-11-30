@@ -42,7 +42,7 @@ class OLTPBenchResult(Model):
         compare similar test results across branches. """
         filters = {
             "git_branch": branch,
-            #"time__gte": datetime.now()-timedelta(days=7)
+            # "time__gte": datetime.now()-timedelta(days=7)
         }
         for field in PERFORMANCE_CONFIG_FIELDS:
             filters[field] = getattr(self, field)
@@ -61,7 +61,8 @@ class OLTPBenchResult(Model):
         for field in PERFORMANCE_CONFIG_FIELDS:
             config[field] = getattr(self, field)
         base_throughput = float(self.metrics.get('throughput', 0))
-        if base_throughput == 0: return 0
+        if base_throughput == 0:
+            return 0
         new_throughput = float(oltpbench_result.metrics.get('throughput', 0))
         percent_diff = (new_throughput - base_throughput) / base_throughput * 100
         return percent_diff
@@ -76,7 +77,7 @@ class OLTPBenchResult(Model):
     def get_latest_branch_results(cls, branch):
         """ Return a query set that will return all the latest OLTPBenchResults for each unique test config in a given
         branch. """
-        branch_results = cls.objects.filter(git_branch=branch)#, time__gte=datetime.now()-timedelta(days=7))
+        branch_results = cls.objects.filter(git_branch=branch)  # , time__gte=datetime.now()-timedelta(days=7))
         return branch_results.distinct(*PERFORMANCE_CONFIG_FIELDS)
 
     @classmethod

@@ -1,4 +1,4 @@
-import tabulate
+from tabulate import tabulate
 import logging
 
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
@@ -38,7 +38,7 @@ def initialize_check_run_if_missing(repo_client, commit_sha):
     initialize the check run """
     check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
     if not check_run:
-        initialize_check_run(commit_sha)
+        initialize_check_run(repo_client, commit_sha)
         logger.debug('Check run did not exist. It has been initialized')
 
 
@@ -140,8 +140,8 @@ def generate_performance_result_markdown(performance_comparisons):
     table_headers = []
     for config, percent_diff in performance_comparisons:
         if len(table_headers) == 0:
-            table_headers = config.keys()
-        row = config.values() + [f'{round(percent_diff,2)}%']
+            table_headers = list(config.keys()) + ['tps (% change)']
+        row = list(config.values()) + [f'{round(percent_diff,2)}%']
         table_content.append(row)
 
     table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
@@ -152,7 +152,7 @@ def generate_performance_result_markdown(performance_comparisons):
 def cleanup_check_run(branch):
     """ After finished with a branch delete all the performance results from the database relating to that branch """
     logger.debug(f'Running cleanup on {branch} branch')
-    #OLTPBenchResult.get_all_branch_results(branch).delete() #TODO: cleanup method once we know this wont delete the wrong thing
+    # OLTPBenchResult.get_all_branch_results(branch).delete() #TODO: cleanup method once we know this wont delete the wrong thing
     logger.debug("The following records will be deleted by the cleanup")
     branch_results = OLTPBenchResult.get_all_branch_results(branch)
     for result in branch_results:
