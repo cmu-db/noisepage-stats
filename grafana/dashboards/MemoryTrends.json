@@ -16,8 +16,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 12,
-    "iteration": 1606104968590,
+    "id": null,
+    "iteration": 1606760196051,
     "links": [],
     "panels": [
         {
@@ -177,7 +177,7 @@
             "id": 5,
             "panels": [],
             "repeat": null,
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 4,
             "scopedVars": {
                 "benchmark_type": {
@@ -230,7 +230,7 @@
             "pointradius": 2,
             "points": true,
             "renderer": "flot",
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 2,
             "repeatedByRow": true,
             "scopedVars": {
@@ -327,7 +327,7 @@
             "id": 7,
             "panels": [],
             "repeat": null,
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 4,
             "scopedVars": {
                 "benchmark_type": {
@@ -380,7 +380,7 @@
             "pointradius": 2,
             "points": true,
             "renderer": "flot",
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 2,
             "repeatedByRow": true,
             "scopedVars": {
@@ -477,7 +477,7 @@
             "id": 9,
             "panels": [],
             "repeat": null,
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 4,
             "scopedVars": {
                 "benchmark_type": {
@@ -530,7 +530,7 @@
             "pointradius": 2,
             "points": true,
             "renderer": "flot",
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 2,
             "repeatedByRow": true,
             "scopedVars": {
@@ -627,7 +627,7 @@
             "id": 11,
             "panels": [],
             "repeat": null,
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 4,
             "scopedVars": {
                 "benchmark_type": {
@@ -680,7 +680,7 @@
             "pointradius": 2,
             "points": true,
             "renderer": "flot",
-            "repeatIteration": 1606104968590,
+            "repeatIteration": 1606760196051,
             "repeatPanelId": 2,
             "repeatedByRow": true,
             "scopedVars": {
@@ -775,9 +775,9 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
-                    "text": "All",
+                    "text": "rss",
                     "value": [
-                        "$__all"
+                        "rss"
                     ]
                 },
                 "datasource": "noisepage-db",
@@ -884,7 +884,7 @@
         ]
     },
     "time": {
-        "from": "now-30d",
+        "from": "now-7d",
         "to": "now"
     },
     "timepicker": {
@@ -903,5 +903,5 @@
     "timezone": "",
     "title": "Memory Trends",
     "uid": "Nf_6rQTMz",
-    "version": 7
+    "version": 13
 }
