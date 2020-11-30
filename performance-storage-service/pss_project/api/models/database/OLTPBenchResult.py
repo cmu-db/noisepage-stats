@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 from django.db.models import Model, DateTimeField, CharField, DecimalField, PositiveSmallIntegerField, JSONField
 from django.core.serializers.json import DjangoJSONEncoder
@@ -42,7 +43,7 @@ class OLTPBenchResult(Model):
         compare similar test results across branches. """
         filters = {
             "git_branch": branch,
-            # "time__gte": datetime.now()-timedelta(days=7)
+            "time__gte": datetime.now(timezone.utc)-timedelta(days=7),
         }
         for field in PERFORMANCE_CONFIG_FIELDS:
             filters[field] = getattr(self, field)
@@ -77,7 +78,7 @@ class OLTPBenchResult(Model):
     def get_latest_branch_results(cls, branch):
         """ Return a query set that will return all the latest OLTPBenchResults for each unique test config in a given
         branch. """
-        branch_results = cls.objects.filter(git_branch=branch)  # , time__gte=datetime.now()-timedelta(days=7))
+        branch_results = cls.objects.filter(git_branch=branch, time__gte=datetime.now(timezone.utc)-timedelta(days=7)).order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse()
         return branch_results.distinct(*PERFORMANCE_CONFIG_FIELDS)
 
     @classmethod
@@ -87,4 +88,4 @@ class OLTPBenchResult(Model):
         master_results_query = cls.objects.none()
         for config in oltpbench_results:
             master_results_query = master_results_query | config.get_oltpbench_config_query(branch)
-        return master_results_query
+        return master_results_query.order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse().distinct(*PERFORMANCE_CONFIG_FIELDS)

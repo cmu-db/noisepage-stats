@@ -1,5 +1,6 @@
+from datetime import datetime
 from django.utils import timezone
-from factory import Faker, Dict
+from factory import Faker, Dict, LazyAttribute
 from factory.django import DjangoModelFactory
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
 
@@ -9,7 +10,7 @@ class OLTPBenchDBFactory(DjangoModelFactory):
         model = OLTPBenchResult
         django_get_or_create = ('git_branch', 'git_commit_id',)
 
-    time = Faker('iso8601', tzinfo=timezone.utc)
+    time = LazyAttribute(lambda _: datetime.now(timezone.utc).isoformat())
     query_mode = Faker('random_element', elements=('simple', 'extended'))
     jenkins_job_id = Faker('pystr_format', string_format='###')
     git_branch = Faker('word')

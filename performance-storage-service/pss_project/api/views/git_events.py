@@ -5,7 +5,6 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
-from tabulate import tabulate
 
 from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
 from pss_project.api.github_integration.check_run import (should_initialize_check_run, initialize_check_run,
