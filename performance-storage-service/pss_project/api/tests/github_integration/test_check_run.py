@@ -8,6 +8,7 @@ from pss_project.api.github_integration.check_run import (
     generate_performance_result_markdown, CONCLUSION_SUCCESS, CONCLUSION_NEUTRAL, CONCLUSION_FAILURE)
 from pss_project.api.tests.factories.database.OLTPBenchDBFactory import OLTPBenchDBFactory
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult, PERFORMANCE_CONFIG_FIELDS
+from pss_project.api.constants import MASTER_BRANCH_NAME
 
 TestIteration = namedtuple('TestCase', 'input expected')
 
@@ -83,7 +84,7 @@ class TestCheckRunIntegration(TestCase):
     def setUp(self):
         """ Create three records for the master branch and the PR branch with the same test configs. """
         for fake_commit_id in range(0, 3):
-            master_result = OLTPBenchDBFactory(git_branch='master', git_commit_id=fake_commit_id)
+            master_result = OLTPBenchDBFactory(git_branch=MASTER_BRANCH_NAME, git_commit_id=fake_commit_id)
             test_config = master_result.get_test_config()
             test_config['git_branch'] = 'PR'
             test_config['git_commit_id'] = fake_commit_id
@@ -94,9 +95,9 @@ class TestCheckRunIntegration(TestCase):
     def test_get_performance_comparisons(self):
         """ Test that the performance comparison is generated for all the matching test configs between two
         branches. """
-        results = get_performance_comparisons('master', 'PR')
+        results = get_performance_comparisons(MASTER_BRANCH_NAME, 'PR')
         for config, throughput in results:
-            master_results = OLTPBenchResult.objects.get(**config, git_branch='master')
+            master_results = OLTPBenchResult.objects.get(**config, git_branch=MASTER_BRANCH_NAME)
             pr_results = OLTPBenchResult.objects.get(**config, git_branch='PR')
             master_throughput = float(master_results.metrics.get('throughput', 0))
             pr_throughput = float(pr_results.metrics.get('throughput', 0))
@@ -119,7 +120,7 @@ class TestCheckRunIntegration(TestCase):
     def test_cleanup_check_run(self):
         """ Test that the cleanup will delete all records for a specific branch """
         cleanup_check_run('PR')
-        master_results = OLTPBenchResult.objects.filter(git_branch='master')
+        master_results = OLTPBenchResult.objects.filter(git_branch=MASTER_BRANCH_NAME)
         pr_results = OLTPBenchResult.objects.filter(git_branch='PR')
         self.assertEqual(len(pr_results), 0)
         self.assertGreater(len(master_results), 0)

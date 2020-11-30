@@ -43,3 +43,5 @@ PERFORMANCE_COP_CHECK_NAME = 'performance-cop'
 REPO_OWNER = 'cmu-db'
 REPO_NAME = 'noisepage'
 GITHUB_BASE_URL = 'https://api.github.com/'
+
+MASTER_BRANCH_NAME = 'origin/master'

@@ -2,7 +2,7 @@ from tabulate import tabulate
 import logging
 
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
-from pss_project.api.constants import GITHUB_APP_IDENTIFIER, PERFORMANCE_COP_CHECK_NAME
+from pss_project.api.constants import GITHUB_APP_IDENTIFIER, PERFORMANCE_COP_CHECK_NAME, MASTER_BRANCH_NAME
 
 logger = logging.getLogger()
 
@@ -75,8 +75,7 @@ def complete_check_run(repo_client, commit_sha):
 def performance_check_result(branch):
     """ Create a check run request body to make a check run as complete. Generate the status and output contents based
     on the comparison between this PRs performance results and the nightly build's performance results."""
-    # performance_comparisons = get_performance_comparisons('master',branch) #TODO: uncomment line
-    performance_comparisons = get_performance_comparisons('local', 'personal')
+    performance_comparisons = get_performance_comparisons(MASTER_BRANCH_NAME, branch)
     conclusion = get_performance_comparisons_conclusion(performance_comparisons)
     return {
         "name": PERFORMANCE_COP_CHECK_NAME,
