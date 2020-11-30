@@ -3,12 +3,11 @@ from django.test import SimpleTestCase, TestCase
 from unittest import skip, mock
 
 from pss_project.api.github_integration.check_run import (
-    should_initialize_check_run, initialize_check_run_if_missing, initialize_check_run, get_comparisons_conclusion, 
-    get_performance_comparisons_conclusion, get_performance_comparisons, cleanup_check_run, 
+    should_initialize_check_run, initialize_check_run_if_missing, initialize_check_run, get_comparisons_conclusion,
+    get_performance_comparisons_conclusion, get_performance_comparisons, cleanup_check_run,
     generate_performance_result_markdown, CONCLUSION_SUCCESS, CONCLUSION_NEUTRAL, CONCLUSION_FAILURE)
 from pss_project.api.tests.factories.database.OLTPBenchDBFactory import OLTPBenchDBFactory
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult, PERFORMANCE_CONFIG_FIELDS
-from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
 
 TestIteration = namedtuple('TestCase', 'input expected')
 
@@ -33,25 +32,24 @@ class TestCheckRun(SimpleTestCase):
     @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
     def test_initialize_check_run_if_missing(self, mock_repo_client):
         test_cases = [
-            TestIteration({"check_run":"valid"}, 0),
-            TestIteration(None,1)
+            TestIteration({"check_run": "valid"}, 0),
+            TestIteration(None, 1)
         ]
         for get_commit_check_run_for_app_return_value, create_check_run_call_count in test_cases:
-            with self.subTest(msg=(f'If github client returns {get_commit_check_run_for_app_return_value} then' 
-                                    f' create_check_run should be called {create_check_run_call_count} times')):
+            with self.subTest(msg=(f'If github client returns {get_commit_check_run_for_app_return_value} then'
+                                   f' create_check_run should be called {create_check_run_call_count} times')):
                 repo_client = mock_repo_client()
                 commit_sha = '123qwer567'
                 repo_client.get_commit_check_run_for_app.return_value = get_commit_check_run_for_app_return_value
                 initialize_check_run_if_missing(repo_client, commit_sha)
                 self.assertEqual(create_check_run_call_count, repo_client.create_check_run.call_count)
-    
+
     @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
     def test_initialize_check_run(self, mock_repo_client):
         repo_client = mock_repo_client()
         commit_sha = '123qwer567'
         initialize_check_run(repo_client, commit_sha)
         repo_client.create_check_run.assert_called_once()
-        
 
     def test_get_comparisons_conclusion(self):
         """ Test the correct conclusion is reached based on the min throughput input """
@@ -63,8 +61,8 @@ class TestCheckRun(SimpleTestCase):
         ]
 
         for input, expected in test_cases:
-            with self.subTest(msg=(f'a performance comparison with a min_performance_change of {input} should result in'
-                                   ' a check run conclusion of {expected}')):
+            with self.subTest(msg=(f'a performance comparison with a min_performance_change of {input} should result'
+                                   ' in a check run conclusion of {expected}')):
                 result = get_comparisons_conclusion(input)
                 self.assertEqual(result, expected)
 
@@ -94,7 +92,7 @@ class TestCheckRunIntegration(TestCase):
                 setattr(branch_result, field, getattr(master_result, field))
 
     def test_get_performance_comparisons(self):
-        """ Test that the performance comparison is generated for all the matching test configs between two 
+        """ Test that the performance comparison is generated for all the matching test configs between two
         branches. """
         results = get_performance_comparisons('master', 'PR')
         for config, throughput in results:

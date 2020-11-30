@@ -22,7 +22,8 @@ class GitEventsViewSet(ViewSet):
     def create(self, request):
         """ This is the endpoint that Github events are posted to """
         if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
-            return Response({"message": "Invalid request hash. Only Github may call this endpoint."}, status=HTTP_403_FORBIDDEN)
+            return Response({"message": "Invalid request hash. Only Github may call this endpoint."},
+                            status=HTTP_403_FORBIDDEN)
         logger.debug('Valid webhook hash')
 
         payload = JSONParser().parse(request)
@@ -38,7 +39,8 @@ class GitEventsViewSet(ViewSet):
             logger.debug('Authenticated with Github repo')
 
             if(not repo_client.is_valid_installation_id(payload.get('installation', {}).get('id'))):
-                return Response({"message": "This app only works with the NoisePage repo"}, status=HTTP_400_BAD_REQUEST)
+                return Response({"message": "This app only works with the NoisePage repo"},
+                                status=HTTP_400_BAD_REQUEST)
 
             if event == 'pull_request':
                 handle_pull_request_event(repo_client, payload)
@@ -46,7 +48,8 @@ class GitEventsViewSet(ViewSet):
                 handle_status_event(repo_client, payload)
 
         except Exception as err:
-            return Response({"message": err.message if hasattr(err, 'message') else err}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"message": err.message if hasattr(err, 'message') else err},
+                            status=HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(status=HTTP_200_OK)
 
@@ -60,7 +63,7 @@ def is_valid_github_webhook_hash(hash_header, req_body):
 
 
 def handle_pull_request_event(repo_client, payload):
-    """ When a pull request event is detected create a new check run for the 
+    """ When a pull request event is detected create a new check run for the
     performance cop"""
     # TODO: Not sure if we want some logic for labels
     # TODO: This if statement is temporary so we can test in the NoisePage repo without affecting everyone
@@ -77,7 +80,7 @@ def handle_pull_request_event(repo_client, payload):
 
 def handle_status_event(repo_client, payload):
     """ When a status update event occurs check to see if it indicates that the
-    ci/cd pipeline completed. If that is the case then results will be in the 
+    ci/cd pipeline completed. If that is the case then results will be in the
     database. Compare the performance results with the results from master and
     update the check run based on the results of the comparison """
     commit_sha = payload.get('commit', {}).get('sha')

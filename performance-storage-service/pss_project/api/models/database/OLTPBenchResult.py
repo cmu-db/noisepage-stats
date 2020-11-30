@@ -57,7 +57,8 @@ class OLTPBenchResult(Model):
         return True
 
     def compare_throughput(self, oltpbench_result):
-        """ Calculate the % difference between the current OLTPBenchResult object and another OLTPBenchResult object. """
+        """ Calculate the % difference between the current OLTPBenchResult object and another OLTPBenchResult object.
+        """
         config = {}
         for field in PERFORMANCE_CONFIG_FIELDS:
             config[field] = getattr(self, field)
@@ -78,14 +79,16 @@ class OLTPBenchResult(Model):
     def get_latest_branch_results(cls, branch):
         """ Return a query set that will return all the latest OLTPBenchResults for each unique test config in a given
         branch. """
-        branch_results = cls.objects.filter(git_branch=branch, time__gte=datetime.now(timezone.utc)-timedelta(days=7)).order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse()
+        branch_results = cls.objects.filter(git_branch=branch, time__gte=datetime.now(
+            timezone.utc)-timedelta(days=7)).order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse()
         return branch_results.distinct(*PERFORMANCE_CONFIG_FIELDS)
 
     @classmethod
     def get_branch_results_by_oltpbench_configs(cls, branch, oltpbench_results):
-        """ Return a query set of the latest OLTPBenchResults in a branch for each OLTPBench config passed in 
+        """ Return a query set of the latest OLTPBenchResults in a branch for each OLTPBench config passed in
         the oltpbench_results array. """
         master_results_query = cls.objects.none()
         for config in oltpbench_results:
             master_results_query = master_results_query | config.get_oltpbench_config_query(branch)
-        return master_results_query.order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse().distinct(*PERFORMANCE_CONFIG_FIELDS)
+        return master_results_query.order_by(*PERFORMANCE_CONFIG_FIELDS+['time']) \
+            .reverse().distinct(*PERFORMANCE_CONFIG_FIELDS)

@@ -118,8 +118,8 @@ def get_performance_comparisons_conclusion(performance_comparisons):
 
 
 def get_comparisons_conclusion(min_performance_change):
-    """ Determine the conclusion status of the check run based on the worst performance difference between the master 
-    branch and the PR branch's performance results. Improved performance will yield a positive status and degraded 
+    """ Determine the conclusion status of the check run based on the worst performance difference between the master
+    branch and the PR branch's performance results. Improved performance will yield a positive status and degraded
     performance will yeild a neutral or failed status. """
     for threshold, conclusion in THRESHOLD_CONCLUSION_MAP.items():
         if min_performance_change >= threshold:
@@ -130,12 +130,12 @@ def get_comparisons_conclusion(min_performance_change):
 def generate_performance_result_markdown(performance_comparisons):
     """ Generate the markdown content that will show up in the detailed view of the check run. This includes a short
     description and a table displaying the OLTPBench test config and results. """
-    description_text = ("This performance comparison is based on the performance results collected from the most recent nightly"
-                        " build and the results collected during the End-to-End Performance stage of this PR's build. If any of"
-                        " the benchmarks see a performance change less than -5% this check will fail. If any of the"
-                        " the benchmarks see a performance change less than 0% this check will have a neutral result. In this case"
-                        " it could the decrease in performance could be noise or it could be legitimate. You should rerun the build"
-                        " to check.\n\n")
+    description_text = ("This performance comparison is based on the performance results collected from the most"
+                        " recent nightly build and the results collected during the End-to-End Performance stage of"
+                        " this PR's build. If any of the benchmarks see a performance change less than -5% this check"
+                        " will fail. If any of the benchmarks see a performance change less than 0% this check will"
+                        " have a neutral result. In this case it could the decrease in performance could be noise or"
+                        " it could be legitimate. You should rerun the build to check.\n\n")
     table_content = []
     table_headers = []
     for config, percent_diff in performance_comparisons:
@@ -152,7 +152,8 @@ def generate_performance_result_markdown(performance_comparisons):
 def cleanup_check_run(branch):
     """ After finished with a branch delete all the performance results from the database relating to that branch """
     logger.debug(f'Running cleanup on {branch} branch')
-    # OLTPBenchResult.get_all_branch_results(branch).delete() #TODO: cleanup method once we know this wont delete the wrong thing
+    # OLTPBenchResult.get_all_branch_results(branch).delete()
+    # #TODO: cleanup method once we know this wont delete the wrong thing
     logger.debug("The following records will be deleted by the cleanup")
     branch_results = OLTPBenchResult.get_all_branch_results(branch)
     for result in branch_results:

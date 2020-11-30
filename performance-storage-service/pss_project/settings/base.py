@@ -1,5 +1,6 @@
 import os
-import logging.config
+
+import logging
 from .utils import get_environ_value
 """
 Django settings for pss_project project.
@@ -136,6 +137,9 @@ LOGGING = {
         },
     },
     'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
@@ -150,7 +154,8 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'filters': ['require_debug_true'],
         'level': 'DEBUG'
     },
 }
+
+logging.getLogger('flake8').setLevel(logging.WARN)
