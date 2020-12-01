@@ -55,25 +55,26 @@
           retries: 10
           delay: 10
         
-        - name: Add grafana data source
-          grafana_datasource:
-            name: "noisepage-db"
-            grafana_url: "https://{{ service_hostname }}/grafana"
-            url_username: "admin"
-            url_password: "{{ result_secret_gf_admin_password.stdout }}"
-            ds_type: "postgres"
-            ds_url: "{{ service_hostname }}:{{ timescaledb_port }}"
-            database: "{{ pss_db_name }}"
-            user: "{{ result_secret_pss_db_user.stdout }}"
-            password: "{{ result_secret_pss_db_password.stdout }}"
-            sslmode: "disable"
-          when:
-            - result_secret_pss_db_user is defined
-            - result_secret_pss_db_user.stdout is defined
-            - result_secret_pss_db_password is defined
-            - result_secret_pss_db_password.stdout is defined
-            - result_secret_gf_admin_password is defined
-            - result_secret_gf_admin_password.stdout is defined
+        # FIXME: manually switch to production db to access the most recent data
+        # - name: Add grafana data source
+        #   grafana_datasource:
+        #     name: "noisepage-db"
+        #     grafana_url: "https://{{ service_hostname }}/grafana"
+        #     url_username: "admin"
+        #     url_password: "{{ result_secret_gf_admin_password.stdout }}"
+        #     ds_type: "postgres"
+        #     ds_url: "{{ service_hostname }}:{{ timescaledb_port }}"
+        #     database: "{{ pss_db_name }}"
+        #     user: "{{ result_secret_pss_db_user.stdout }}"
+        #     password: "{{ result_secret_pss_db_password.stdout }}"
+        #     sslmode: "disable"
+        #   when:
+        #     - result_secret_pss_db_user is defined
+        #     - result_secret_pss_db_user.stdout is defined
+        #     - result_secret_pss_db_password is defined
+        #     - result_secret_pss_db_password.stdout is defined
+        #     - result_secret_gf_admin_password is defined
+        #     - result_secret_gf_admin_password.stdout is defined
         
         - name: Add grafana dashboards
           grafana_dashboard:
