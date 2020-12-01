@@ -1,5 +1,4 @@
 ---
-
 - name: init server
   hosts: "{{ env }}"
   roles:
@@ -9,5 +8,3 @@
     - install_python3.7
     - install_openresty
     - install_k8s
-    # - install_noisepage_dependencies
-    # - install_sqlsmith
