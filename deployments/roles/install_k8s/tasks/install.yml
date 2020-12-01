@@ -1,0 +1,44 @@
+---
+
+- name: install apt transport HTTPS
+  apt:
+    name: apt-transport-https
+    update_cache: yes
+  
+- name: add kubernetes GPG key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: add kubernetes to the apt repository
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: "kubernetes"
+
+- name: install kubelet agent and kubeadm CLI
+  apt:
+    pkg: 
+      - kubelet
+      - kubeadm
+    update_cache: true
+
+- name: change native cgroupdriver to systemd for docker
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: start and enable kubelet
+  systemd:
+    name: kubelet
+    state: started
+    enabled: yes
+
+- name: install kubectl CLI
+  apt:
+    name: kubectl
+    update_cache: true
+  when: k8s_role is defined and k8s_role == "master"
+  
+
+
+  

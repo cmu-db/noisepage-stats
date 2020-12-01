@@ -1,0 +1,39 @@
+---
+
+- name: set var for the path to the SSL folder of the "{{ domain }}"
+  set_fact:
+    dir_domain_ssl: "{{ dir_openresty_ssl }}/{{ domain }}"
+
+- name: ensure the SSL folder exists for "{{ domain }}"
+  become: yes
+  file:
+    path: "{{ dir_domain_ssl }}"
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: check if a certificate is currently still valid, ignoring failures
+  openssl_certificate:
+    path: "{{ dir_domain_ssl }}/cert.pem"
+    provider: assertonly
+    issuer:
+      O: Let's Encrypt
+    has_expired: no
+  ignore_errors: yes
+  register: validity_check
+
+- name: install a valid certificate in case the initial check failed
+  become: yes
+  block:
+    - name: issue the cert for the "{{ domain }}"
+      shell: |
+        /root/.acme.sh/acme.sh --issue -d {{ domain }} -w {{ dir_domain_ssl }}
+
+    - name: install the cert to openresty
+      shell: |
+        /root/.acme.sh/acme.sh  --install-cert -d {{ domain }} \
+        --key-file       {{ dir_domain_ssl }}/key.pem  \
+        --fullchain-file {{ dir_domain_ssl }}/cert.pem \
+        --reloadcmd      'openresty -s reload'
+  when: validity_check.failed
+

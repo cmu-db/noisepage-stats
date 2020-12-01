@@ -1,0 +1,20 @@
+---
+
+- name: ensure the SSL folder exists
+  become: yes
+  file:
+    path: "{{ dir_openresty_ssl }}"
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: install the SSL for "{{ hostname }}"
+  import_tasks: install_ssl.yml
+  vars:
+    domain: "{{ hostname }}"
+
+- name: install the SSL for "{{ noisepage_hostname }}"
+  import_tasks: install_ssl.yml
+  vars:
+    domain: "{{ noisepage_hostname }}"
+  when: env == "production"
