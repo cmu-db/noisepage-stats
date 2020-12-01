@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": null,
-    "iteration": 1606759827138,
+    "iteration": 1606841671378,
     "links": [],
     "panels": [
         {
@@ -199,7 +199,7 @@
             "id": 5,
             "panels": [],
             "repeat": null,
-            "repeatIteration": 1606759827138,
+            "repeatIteration": 1606841671378,
             "repeatPanelId": 4,
             "scopedVars": {
                 "benchmark_type": {
@@ -269,7 +269,7 @@
             "pointradius": 1,
             "points": false,
             "renderer": "flot",
-            "repeatIteration": 1606759827138,
+            "repeatIteration": 1606841671378,
             "repeatPanelId": 2,
             "repeatedByRow": true,
             "scopedVars": {
@@ -425,9 +425,9 @@
             {
                 "allValue": null,
                 "current": {
-                    "selected": false,
-                    "text": "HDD",
-                    "value": "HDD"
+                    "selected": true,
+                    "text": "RAM disk",
+                    "value": "RAM disk"
                 },
                 "datasource": "noisepage-db",
                 "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
@@ -507,5 +507,5 @@
     "timezone": "",
     "title": "Incremental Metrics",
     "uid": "5s2pbXoMk",
-    "version": 7
+    "version": 8
 }
