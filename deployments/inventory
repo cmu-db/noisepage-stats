@@ -1,53 +1,114 @@
+###############################
+#        general configs      #
+###############################
 [all:children]
 k8s_master
 k8s_worker
-
-[k8s_master]
-incrudibles-k8s.db.pdl.cmu.edu
-[k8s_master:vars]
-ansible_python_interpreter=/usr/bin/python3
-image_pull_policy="Always"
-
-[k8s_worker:children]
-testing
-staging
-production
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user = jenkins 
 
-#performance storage server
+# performance storage server
 pss_container_name = "cmudb/performance-storage-service"
 pss_container_tag = "3.2.1"
 pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
 pss_db_name = "pss_database"
 
-#grafana
+# grafana
 grafana_container_name = "grafana/grafana"
 grafana_container_tag = "7.0.3"
-grafana_container_image = "{{grafana_container_name}}:{{grafana_container_tag}}"
+grafana_container_image = "{{ grafana_container_name }}:{{ grafana_container_tag }}"
 
-#timescaledb
+# timescaledb
 timescaledb_container_name = "timescale/timescaledb"
 timescaledb_container_tag = "latest-pg12"
-timescaledb_container_image = "{{timescaledb_container_name}}:{{timescaledb_container_tag}}"
+timescaledb_container_image = "{{ timescaledb_container_name }}:{{ timescaledb_container_tag }}"
+
+# openresty
+noisepage_hostname = stats.noise.page
+port_prometheus = 30000
+
+###############################
+#      k8s master configs     #
+###############################
+[k8s_master]
+incrudibles-k8s.db.pdl.cmu.edu
+
+[k8s_master:vars]
+ansible_python_interpreter=/usr/bin/python3
+image_pull_policy="Always"
+
+# k8s cluster 
+k8s_role = master
+k8s_user = jenkins
+k8s_network_cidr = 10.244.0.0/16
+k8s_flannel_src_url = https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml
+
+# openresty
+port_prometheus = 30000
+port_grafana = 32004
+
+###############################
+#      k8s worker configs     #
+###############################
+[k8s_worker:children]
+testing
+staging
+production
+
+[k8s_worker:vars]
+# list of vars for all k8s worker nodes
+k8s_role = worker
+k8s_user = jenkins
 
 
+###############################
+#      local env configs      #
+###############################
 [local]
 127.0.0.1
+
 [local:vars]
 ansible_connection=local
 ansible_python_interpreter=/usr/local/bin/python3
 image_pull_policy= "IfNotPresent"
 
+###############################
+#      testing env server     #
+###############################
 [testing]
 # list of testing env hostname/ip
 incrudibles-testing.db.pdl.cmu.edu
 
+[testing:vars]
+# list of vars for all testing env nodes
+port_pss = 30001
+port_grafana = 30002
+port_openapi = 30007
+
+###############################
+#      staging env server     #
+###############################
 [staging]
 # list of staging env hostname/ip
 incrudibles-staging.db.pdl.cmu.edu
 
+[staging:vars]
+# list of vars for all staging env nodes
+port_pss = 31001
+port_grafana = 31002
+port_openapi = 31007
+
+###############################
+#    production env server    #
+###############################
 [production]
 # list of production env hostname/ip
+incrudibles-production.db.pdl.cmu.edu
+
+[production:vars]
+# list of vars for all production env nodes
+port_pss = 32001
+port_grafana = 32002
+port_openapi = 32007
