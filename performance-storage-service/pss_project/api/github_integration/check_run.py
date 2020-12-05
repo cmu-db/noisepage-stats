@@ -30,7 +30,7 @@ CONCLUSION_SUMMARY_MAP = {
 
 def should_initialize_check_run(pull_request_action):
     """ Determine if the pull request event should initialize a check run """
-    return any(pull_request_action == action for action in ['synchronize', 'opened', 'reopened'])
+    return pull_request_action in ['synchronize', 'opened', 'reopened']
 
 
 def initialize_check_run_if_missing(repo_client, commit_sha):

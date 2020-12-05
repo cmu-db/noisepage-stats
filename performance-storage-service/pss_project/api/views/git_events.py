@@ -30,7 +30,7 @@ class GitEventsViewSet(ViewSet):
         event = request.META.get('HTTP_X_GITHUB_EVENT')
 
         logger.debug(f'Incoming {event} event')
-        if not any([valid_event == event for valid_event in ALLOWED_EVENTS]):
+        if event not in ALLOWED_EVENTS:
             return Response({"message": f"This app is only designed to handle {ALLOWED_EVENTS} events"},
                             status=HTTP_400_BAD_REQUEST)
 
@@ -74,8 +74,7 @@ def handle_pull_request_event(repo_client, payload):
             initialize_check_run(repo_client, commit_sha)
         if payload.get('action') == 'closed':
             logger.debug('pull request was closed ')
-            branch = payload['pull_request'].get('head', {}).get('ref')
-            cleanup_check_run(branch)
+            # Do nothing. In the future we may want to do cleanup
 
 
 def handle_status_event(repo_client, payload):

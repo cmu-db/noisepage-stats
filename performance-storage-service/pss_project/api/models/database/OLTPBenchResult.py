@@ -58,6 +58,7 @@ class OLTPBenchResult(Model):
 
     def compare_throughput(self, oltpbench_result):
         """ Calculate the % difference between the current OLTPBenchResult object and another OLTPBenchResult object.
+        If the field name changes this will just return that there was no change.
         """
         config = {}
         for field in PERFORMANCE_CONFIG_FIELDS:
