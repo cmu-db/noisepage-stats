@@ -1,0 +1,44 @@
+---
+
+- name: config the k8s user on the master node
+  become: yes
+  import_tasks: config_user.yml
+
+- name: install the kubernetes dependencies
+  become: yes
+  import_tasks: install.yml
+
+- name: check current cluster info
+  become: yes
+  command: kubectl cluster-info
+  register: result_cluster
+  ignore_errors: yes
+  when:
+    - k8s_role is defined
+    - k8s_role == "master"
+
+- name: config the kubernetes master node
+  become: yes
+  # import_tasks: init_cluster.yml
+  debug:
+    msg: ready to init a k8s cluster
+  when:
+    - k8s_role is defined
+    - k8s_role == "master"
+    - result_cluster.rc is defined
+    - result_cluster.rc != 0
+
+# # DONT automate joining in the cluster
+# # Manually join the nodes
+# - name: config the kubernetes worker node
+#   become: yes
+#   import_tasks: join_cluster.yml
+#   when:
+#     - k8s_role is defined
+#     - k8s_role == "worker"
+#     - result_cluster.rc is defined
+#     - result_cluster.rc != 0
+  
+
+
+  

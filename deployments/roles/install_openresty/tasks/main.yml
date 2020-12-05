@@ -1,0 +1,43 @@
+---
+
+# Reference: https://openresty.org/en/linux-packages.html
+
+- name: install prerequisite packages for openresty
+  become: yes
+  apt:
+    pkg:
+      - wget
+      - gnupg
+      - ca-certificates
+    update_cache: yes
+
+- name: import openresty GPG key
+  become: yes
+  shell: wget -O - https://openresty.org/package/pubkey.gpg | apt-key add -
+
+- name: add openresty to the official apt repo
+  become: yes
+  shell: |
+    echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" \
+    | tee /etc/apt/sources.list.d/openresty.list
+
+- name: update apt repo cache and install openresty
+  become: yes
+  apt:
+    name: openresty
+    update_cache: yes
+
+- name: make symbolic link to the openresty config dir
+  become: yes
+  file:
+    src: /usr/local/openresty/nginx/conf
+    dest: /etc/openresty
+    force: yes
+    state: link
+
+- name: enable and start docker daemon service
+  become: yes
+  systemd:
+    name: openresty
+    state: started
+    enabled: yes

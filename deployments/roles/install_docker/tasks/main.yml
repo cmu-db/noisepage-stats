@@ -1,0 +1,17 @@
+---
+
+- name: update apt repo cache and install docker
+  become: yes
+  apt:
+    name: docker.io
+    update_cache: yes
+
+- name: enable and start docker daemon service
+  become: yes
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+
+  
