@@ -1,5 +1,6 @@
 import os
-import logging.config
+
+import logging
 from .utils import get_environ_value
 """
 Django settings for pss_project project.
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 SECRET_KEY = get_environ_value('SECRET_KEY', 'shh')
-os.environ['WEBHOOK_SECRET'] = get_environ_value('WEBHOOK_SECRET','shh').strip()
+os.environ['WEBHOOK_SECRET'] = get_environ_value('WEBHOOK_SECRET', 'shh').strip()
 
 ALLOWED_HOSTS = []
 
@@ -136,6 +137,9 @@ LOGGING = {
         },
     },
     'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
@@ -150,7 +154,8 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'filters': ['require_debug_true'],
-        'level':'DEBUG'
+        'level': 'DEBUG'
     },
 }
+
+logging.getLogger('flake8').setLevel(logging.WARN)
