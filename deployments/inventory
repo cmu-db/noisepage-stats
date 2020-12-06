@@ -12,7 +12,7 @@ ansible_user = jenkins
 # performance storage server
 pss_container_name = "cmudb/performance-storage-service"
 pss_container_tag = "3.2.1"
-pss_container_image = "{{pss_container_name}}:{{pss_container_tag}}"
+pss_container_image = "{{ pss_container_name }}:{{ pss_container_tag }}"
 pss_db_name = "pss_database"
 
 # grafana
@@ -71,7 +71,6 @@ k8s_user = jenkins
 
 [local:vars]
 ansible_connection=local
-ansible_python_interpreter=/usr/local/bin/python3
 image_pull_policy= "IfNotPresent"
 
 ###############################
