@@ -4,8 +4,8 @@ info:
   version: "2.0.0"
   title: "InCRUDibles Dash"
 servers:
-  - url: https://incrudibles-testing.db.pdl.cmu.edu
-    description: Test server
+  - url: "https://incrudibles-{{ env }}.db.pdl.cmu.edu"
+    description: "{{ env | capitalize }} server"
 security:
   - BasicAuth: []
 paths:
@@ -18,15 +18,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OLTPBenchResult'
-      responses: 
-        '201':
+              $ref: "#/components/schemas/OLTPBenchResult"
+      responses:
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
 
   /microbenchmark:
@@ -38,15 +38,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MicrobenchmarkResult'
-      responses: 
-        '201':
+              $ref: "#/components/schemas/MicrobenchmarkResult"
+      responses:
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
 
   /artifact-stats:
@@ -58,24 +58,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ArtifactStatsResult'
-      responses: 
-        '201':
+              $ref: "#/components/schemas/ArtifactStatsResult"
+      responses:
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
-  
+
 components:
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
   schemas:
-  # OLTPBench specific schemas
+    # OLTPBench specific schemas
     OLTPBenchResult:
       description: A build result from running all the OLTPBench results
       type: object
@@ -84,10 +84,10 @@ components:
         - timestamp
         - type
         - parameters
-        - metrics 
+        - metrics
       properties:
         metadata:
-          $ref: '#/components/schemas/Metadata'
+          $ref: "#/components/schemas/Metadata"
         timestamp:
           type: string
           format: unix-timestamp
@@ -104,9 +104,9 @@ components:
             - ycsb
           description: The type of OLTPBench.
         parameters:
-          $ref: '#/components/schemas/OLTPBenchParameters'
+          $ref: "#/components/schemas/OLTPBenchParameters"
         metrics:
-          $ref: '#/components/schemas/OLTPBenchMetrics'
+          $ref: "#/components/schemas/OLTPBenchMetrics"
 
     OLTPBenchParameters:
       description: The settings that the test was run with
@@ -137,7 +137,8 @@ components:
           description: How long did this test run.
         transaction_weights:
           type: array
-          $ref: '#/components/schemas/TransactionWeight'
+          items:
+            $ref: "#/components/schemas/TransactionWeight"
         max_connection_threads:
           type: integer
           description: The maximum number of threads in the thread pool.
@@ -167,25 +168,34 @@ components:
           format: float
           description: The transactions per second that the test completed
         latency:
-          $ref: '#/components/schemas/LatencyMetrics'
+          $ref: "#/components/schemas/LatencyMetrics"
+        memory_info:
+          type: object
+          description: An object containing RSS and VMS summary memory info.
+          properties:
+            rss:
+              $ref: "#/components/schemas/MemoryItemSummary"
+            vms:
+              $ref: "#/components/schemas/MemoryItemSummary"
         incremental_metrics:
           type: array
-          $ref: '#/components/schemas/IncrementalMetrics'
+          items:
+            $ref: "#/components/schemas/IncrementalMetrics"
 
-  # Microbenchmark specific schemas
+    # Microbenchmark specific schemas
     MicrobenchmarkResult:
       description: The results of the microbenchmark jenkins job
       type: object
       required:
-        - metadata 
+        - metadata
         - timestamp
         - test_suite
         - test_name
-        - parameters 
-        - metrics 
+        - parameters
+        - metrics
       properties:
         metadata:
-          $ref: '#/components/schemas/Metadata'
+          $ref: "#/components/schemas/Metadata"
         timestamp:
           type: string
           format: unix-timestamp
@@ -200,10 +210,10 @@ components:
           example: RandomInsert
           description: The name of the microbenchmark test.
         parameters:
-          $ref: '#/components/schemas/MicrobenchmarkParameters'
+          $ref: "#/components/schemas/MicrobenchmarkParameters"
         metrics:
-          $ref: '#/components/schemas/MicrobenchmarkMetrics'
-    
+          $ref: "#/components/schemas/MicrobenchmarkMetrics"
+
     MicrobenchmarkParameters:
       description: The parameters that were used to run the microbenchmark tests
       type: object
@@ -217,7 +227,7 @@ components:
         min_runtime:
           type: integer
           description: The minimum time the benchmarks could be run for (seconds).
-       
+
     MicrobenchmarkMetrics:
       description: The results from a single microbenchmark test
       type: object
@@ -253,19 +263,19 @@ components:
           description: The allowed throughput degradation before a warning should be raised (number refers to %)
         iterations:
           type: integer
-          description:  The number of times the benchmark was run for to create a statistically stable result.
+          description: The number of times the benchmark was run for to create a statistically stable result.
 
-  # Artifact stats specific schemas
+    # Artifact stats specific schemas
     ArtifactStatsResult:
       description: The results of the artifact stats jenkins job
       type: object
       required:
-        - metadata 
+        - metadata
         - timestamp
-        - metrics 
+        - metrics
       properties:
         metadata:
-          $ref: '#/components/schemas/Metadata'
+          $ref: "#/components/schemas/Metadata"
         timestamp:
           type: string
           format: unix-timestamp
@@ -276,8 +286,8 @@ components:
           description: |
             The artifact stats that were collected. There is no validation so
             this field remains very flexible.
-          example: {"complie_time":1234.1234, "rss_on_start":21342342}
-  # Generic schemas 
+          example: { "complie_time": 1234.1234, "rss_on_start": 21342342 }
+    # Generic schemas
     Metadata:
       description: The metadata of the test
       type: object
@@ -288,14 +298,14 @@ components:
         - environment
       properties:
         jenkins:
-          $ref: '#/components/schemas/JenkinsMetadata'
+          $ref: "#/components/schemas/JenkinsMetadata"
         github:
-          $ref: '#/components/schemas/GithubMetadata'
+          $ref: "#/components/schemas/GithubMetadata"
         noisepage:
-          $ref: '#/components/schemas/NoisepageMetadata'
+          $ref: "#/components/schemas/NoisepageMetadata"
         environment:
-          $ref: '#/components/schemas/EnvironmentMetadata'
-    
+          $ref: "#/components/schemas/EnvironmentMetadata"
+
     JenkinsMetadata:
       description: The metadata related to Jenkins
       type: object
@@ -305,7 +315,7 @@ components:
         jenkins_job_id:
           type: integer
           description: The ID of the job which runs this test on Jenkins
-    
+
     GithubMetadata:
       description: The metadata related to GitHub
       type: object
@@ -352,12 +362,12 @@ components:
           type: string
           enum:
             - HDD
-            - RAM disk 
+            - RAM disk
             - SATA SSD
-            - NVMe SSD 
-            - None 
+            - NVMe SSD
+            - None
           description: The type of storage that the write ahead log is written to.
-          
+
     LatencyMetrics:
       type: object
       description: An object containing latency metrics for OLTPBench performance tests
@@ -398,7 +408,29 @@ components:
           type: number
           format: float
           description: The min of the latency results.
-    
+
+    MemoryItemSummary:
+      type: object
+      properties:
+        avg:
+          type: number
+          format: float
+          description: the average consumption of a given memory info in bytes with 4 decimal places.
+          example: 801628490.3527
+
+    MemoryMetrics:
+      type: object
+      description: An object containing memory metrics for OLTPBench performance tests
+      properties:
+        rss:
+          type: integer
+          description: The resident set size, the non-swapped physical memory that a task has used in bytes.
+          example: 5148712960
+        vms:
+          type: integer
+          description: The virtual memory size, the total amount of virtual memory used by the process in bytes.
+          example: 19047882752
+
     IncrementalMetrics:
       type: object
       description: An object containing all metrics for long-running OLTPBench performance tests
@@ -414,4 +446,6 @@ components:
           format: float
           description: The transactions per second that the test completed
         latency:
-          $ref: '#/components/schemas/LatencyMetrics'
+          $ref: "#/components/schemas/LatencyMetrics"
+        memory_info:
+          $ref: "#/components/schemas/MemoryMetrics"

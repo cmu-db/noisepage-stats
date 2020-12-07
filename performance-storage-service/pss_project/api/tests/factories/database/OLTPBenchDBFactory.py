@@ -1,12 +1,16 @@
-from factory import DjangoModelFactory, Faker
+from datetime import datetime
+from django.utils import timezone
+from factory import Faker, Dict, LazyAttribute
+from factory.django import DjangoModelFactory
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult
 
 
 class OLTPBenchDBFactory(DjangoModelFactory):
     class Meta:
         model = OLTPBenchResult
+        django_get_or_create = ('git_branch', 'git_commit_id',)
 
-    time = Faker('iso8601')
+    time = LazyAttribute(lambda _: datetime.now(timezone.utc).isoformat())
     query_mode = Faker('random_element', elements=('simple', 'extended'))
     jenkins_job_id = Faker('pystr_format', string_format='###')
     git_branch = Faker('word')
@@ -21,5 +25,8 @@ class OLTPBenchDBFactory(DjangoModelFactory):
     weights = Faker('pydict', value_types=[int])
     wal_device = Faker('random_element', elements=('RAM disk', 'HDD', 'SATA SSD', 'NVMe SSD', 'None'))
     max_connection_threads = Faker('random_int', min=1, max=32)
-    metrics = Faker('pydict', value_types=[int, float])
+    metrics = Dict({
+        'throughput': Faker('pyfloat', positive=True),
+        'latency': Faker('pydict', value_types=[float])
+    })
     incremental_metrics = Faker('pydict', value_types=[int, float, str])

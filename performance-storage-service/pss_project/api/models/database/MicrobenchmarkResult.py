@@ -1,5 +1,5 @@
-from django.db.models import Model, DateTimeField, CharField, PositiveSmallIntegerField, PositiveIntegerField
-from django.contrib.postgres.fields import JSONField
+from django.db.models import (Model, DateTimeField, CharField, PositiveSmallIntegerField, PositiveIntegerField,
+                              JSONField)
 from django.core.serializers.json import DjangoJSONEncoder
 from pss_project.api.constants import WAL_DEVICE_CHOICES
 

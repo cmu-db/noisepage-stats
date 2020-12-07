@@ -1,0 +1,20 @@
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: "openapi-service-{{ env }}"
+  labels:
+    app: openapi
+    env: "{{ env }}"
+  namespace: performance
+spec:
+  selector:
+    app: openapi
+    env: "{{ env }}"
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: {{ service_port | int }}
+      protocol: TCP
+  externalTrafficPolicy: Local
