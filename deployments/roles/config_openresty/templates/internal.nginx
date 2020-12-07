@@ -1,0 +1,141 @@
+upstream pss {
+    server localhost:{{ port_pss }};
+}
+
+upstream grafana {
+    server localhost:{{ port_grafana }};
+}
+
+upstream prometheus {
+    server localhost:{{ port_prometheus }};
+}
+
+upstream openapi {
+    server localhost:{{ port_openapi }};
+}
+
+server {
+    listen              80;
+    resolver            8.8.8.8;
+    server_name         {{ hostname }};
+    return 301          https://$host$request_uri;
+}
+
+server {
+    listen              443 ssl;
+    resolver            8.8.8.8;
+    server_name         {{ hostname }};
+
+    # ssl config
+    ssl_certificate     /etc/openresty/ssl/{{ hostname }}/cert.pem;
+    ssl_certificate_key /etc/openresty/ssl/{{ hostname }}/key.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    # log config
+    access_log          {{ dir_openresty_internal_log }}/access.log;
+    error_log           {{ dir_openresty_internal_log }}/error.log;
+
+    # default redirection
+    location / {
+        return 301 /grafana;
+    }
+
+    location ^~ /.well-known/acme-challenge {
+        root /etc/openresty/ssl/$host;
+    }
+
+    location /sqlsmith/results {
+        alias /var/www/sqlsmith/results;
+        autoindex on;
+    }
+
+    location /sqlsmith/logs {
+        alias /var/www/sqlsmith/logs;
+        autoindex on;
+        types {
+            text/plain log csv;
+        }
+    }
+
+    location /sqlancer/logs {
+        alias /var/www/sqlancer/logs;
+        autoindex on;
+        types {
+            text/plain log csv;
+        }
+    }
+
+    location /static {
+        alias /data/static;
+        autoindex on;
+    }
+
+    # k8s: prometheus monitoring
+    location /prometheus/ {
+        proxy_pass_header   Set-Cookie;
+
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://prometheus/;
+    }
+
+    # k8s: django api of the performance storage service
+    location /performance-results/ {
+        proxy_pass_header   Set-Cookie;
+
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://pss/performance-results/;
+    }
+
+    # k8s: openapi documentation
+    location /openapi/ {
+        proxy_pass_header   Set-Cookie;
+
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://openapi/;
+    }
+
+    # k8s: grafana service
+    location /grafana/ {
+{% if env == "production" %}
+        # ************************ DO NOT REMOVE THIS ************************
+        # this is the hacky dark magic that made the cross site oauth between
+        # the github and the grafana possible for {{ noisepage_hostname }} and
+        # {{ hostname }}
+        # ********************************************************************
+        access_by_lua_block {
+            is_empty = function(x)
+                return x == nil or x == ""
+            end
+
+            if not is_empty(ngx.var.request_uri) and
+               ngx.var.request_uri:find("/grafana/login/github") == 1 and
+               not is_empty(ngx.var.query_string) and
+               is_empty(ngx.var.cookie_oauth_state) then
+                return ngx.redirect("https://{{ noisepage_hostname }}"..ngx.var.request_uri)
+            end
+        }
+{% endif %}
+
+        proxy_pass_header   Set-Cookie;
+        
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://grafana/;
+    }
+}

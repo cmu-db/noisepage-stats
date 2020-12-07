@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['0.0.0.0', 'kubernetes.docker.internal', 'localhost', '127.0.0.1', 'host.docker.internal']
+ALLOWED_HOSTS = ['0.0.0.0', 'kubernetes.docker.internal', 'localhost', '127.0.0.1', 'host.docker.internal', 'smee.io']
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

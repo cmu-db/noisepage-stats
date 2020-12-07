@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openapi-conf-{{ env }}
+  labels:
+    app: openapi-conf
+  namespace: performance
+data:
+  api.yaml: |
+    {{ openapi_file_content }}

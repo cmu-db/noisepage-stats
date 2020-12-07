@@ -1,0 +1,65 @@
+---
+
+- name: update apt repo cache and install software-properties-common
+  become: yes
+  apt:
+    name: software-properties-common
+    update_cache: yes
+
+- name: add deadsnakes ppa
+  become: yes
+  command: add-apt-repository ppa:deadsnakes/ppa -y
+
+- name: update apt repo cache and install python 3.7
+  become: yes
+  apt:
+    pkg:
+      - python3.7
+    update_cache: yes
+
+# *****************************************************************************
+# CAUTION: Updating default python3 version WILL result in failure of 
+#          python3-apt and many other packages that rely on the default python3
+#          version (python 3.6) of the ubuntu 18.04; therefore, just do NOT
+#          update the default python3 version of the server
+# *****************************************************************************        
+
+# - name: get python3 absolute path
+#   command: which python3
+#   register: path_python3
+
+# - name: get python3.7 absolute path
+#   command: which python3.7
+#   register: path_python3_7
+
+# - name: get python3 stat
+#   stat:
+#     path: "{{ path_python3.stdout }}"
+#   register: stat_python3
+
+# - name: update the python3 symbolic link to python3.7 if it is not
+#   become: yes
+#   file:
+#     src: "{{ path_python3_7.stdout }}"
+#     dest: "{{ path_python3.stdout }}"
+#     force: yes
+#     state: link
+#   when:
+#     - stat_python3.stat.islnk is defined
+#     - stat_python3.stat.islnk
+#     - stat_python3.stat.lnk_source != path_python3_7.stdout
+
+- name: install pip3 based on python3.7
+  become: yes
+  apt:
+    pkg:
+      - python3-pip
+    update_cache: yes
+
+- name: global install pip packages
+  become: yes
+  pip:
+    name: virtualenv
+
+
+  

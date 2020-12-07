@@ -1,0 +1,55 @@
+---
+
+- name: update the nginx.conf
+  become: yes
+  copy:
+    src: nginx.conf
+    dest: "{{ dir_openresty }}"
+
+- name: ensure conf.d dir exists
+  become: yes
+  file:
+    path: "{{ dir_openresty_conf }}"
+    state: directory
+    owner: root
+    mode: "0755"
+
+- name: update conf for k8s master
+  block:
+    - name: update the k8s master conf
+      become: yes
+      import_tasks: update_conf.yml
+      vars:
+        domain: "{{ hostname }}"
+        conf_template: k8s_master.nginx
+  when: k8s_role == "master"
+
+- name: update conf for k8s workers
+  block:
+    - name: update the internal conf
+      become: yes
+      import_tasks: update_conf.yml
+      vars:
+        domain: "{{ hostname }}"
+        conf_template: internal.nginx
+
+    - name: update the external conf
+      become: yes
+      import_tasks: update_conf.yml
+      vars:
+        domain: "{{ noisepage_hostname }}"
+        conf_template: external.nginx
+      when: env == "production"
+  when: k8s_role == "worker"
+
+- name: test config syntax
+  become: yes
+  command: openresty -t
+  register: result_test
+
+- name: reload openresty
+  become: yes
+  command: openresty -s reload
+  when: result_test.rc is defined and result_test.rc == 0
+
+  

@@ -1,5 +1,4 @@
-from django.db.models import Model, DateTimeField, CharField
-from django.contrib.postgres.fields import JSONField
+from django.db.models import Model, DateTimeField, CharField, JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 
 
