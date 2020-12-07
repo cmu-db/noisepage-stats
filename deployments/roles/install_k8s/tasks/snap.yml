@@ -1,0 +1,38 @@
+---
+
+# the apt package name for 'snap' is 'snapd'
+- name: ensure snap is ready
+  become: yes
+  apt:
+    name: snapd
+    update_cache: yes
+
+- name: get remote env vars
+  setup:
+    gather_subset:
+      - "env"
+
+- name: ensure /snap/bin exists in PATH
+  become: yes
+  lineinfile:
+    path: /etc/environment
+    regexp: "^PATH="
+    line: "PATH=\"/snap/bin:{{ ansible_env.PATH }}\""
+  when: ansible_env.PATH is not search("/snap/bin:")
+
+# kubectl: CLI for k8s on each node (master or worker)
+# kubelet: daemon agent on each node (master or worker)
+- name: install kubeadm and kubelet on each node
+  become: yes
+  snap:
+    pkg:
+      - kubeadm
+      - kubelet
+    classic: yes
+
+- name: install kubectl on the master node
+  become: yes
+  snap:
+    name: kubectl
+    classic: yes
+  when: env == "k8s_master"

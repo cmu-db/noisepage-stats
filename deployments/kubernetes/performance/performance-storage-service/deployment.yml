@@ -53,3 +53,14 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: webhook_secret 
+            - name: GITHUB_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "secrets-{{ env }}"
+                  key: github_private_key
+                  

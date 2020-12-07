@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1605235983310,
+  "iteration": 1606966939141,
   "links": [],
   "panels": [
     {
@@ -40,7 +40,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput of all benchmarks (except noop) and all terminal values. See **Throughput Trends** for more details.",
+      "description": "The average throughput percentage changes of all benchmarks, compared to start date of selected time range. To change time range,  click button on top right of page. **Throughput Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -142,7 +142,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Latency",
+      "title": "Throughput ",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -200,7 +200,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "Latency metrics averaged across all benchmarks (except noop) and all terminal values. See **Latency Trends** for more details.",
+      "description": "The average latency percentage changes of all benchmarks, compared to start date of selected time range. To change time range, click button on top right of page. See **Latency Trends** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -224,7 +224,7 @@
         "hideEmpty": false,
         "max": false,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -271,7 +271,7 @@
           ],
           "metricColumn": "query_mode",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",1d),\n  avg((metrics->'latency'->>'avg')::numeric) as \"avg\",\n  avg((metrics->'latency'->>'l_90')::numeric) as \"l_90\",\n  avg((metrics->'latency'->>'l_95')::numeric) as \"l_95\",\n  avg((metrics->'latency'->>'l_99')::numeric) as \"l_99\",\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  query_mode = 'extended' AND\n  benchmark_type != 'noop' AND\n  client_time = 60 AND\n  git_branch = 'origin/master' AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32\nGROUP BY 1, git_commit_id\nORDER BY 1",
+          "rawSql": "SELECT \n\tdate AS \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg latency change per benchmark type\"\nFROM (\n\tSELECT\n\t  date,\n\t  benchmark_type,\n\t  AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n\t\t  time,\n\t\t  DATE(time) as \"date\",\n\t\t  ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n\t\t  terminals,\n\t\t  benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n\t\t  $__timeFilter(\"time\") AND\n \t\t  query_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, date\n\tORDER BY date DESC\n) as daily_benchmark_avg\nGROUP BY date\nORDER BY date",
           "refId": "A",
           "select": [
             [
@@ -379,7 +379,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 21,
+        "w": 24,
         "x": 0,
         "y": 23
       },
@@ -485,85 +485,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Git commit",
-              "url": "https://github.com/cmu-db/terrier/commit/${__value.text}"
-            }
-          ],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 3,
-        "x": 21,
-        "y": 23
-      },
-      "id": 5,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  git_commit_id\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n   benchmark_type = 'tatp' AND\n    client_time = 60 AND\n    git_branch = 'origin/master' AND\n    wal_device = '$wal_device' AND\n    max_connection_threads = 32\nORDER BY time ASC",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Commit ID",
-      "type": "stat"
     },
     {
       "datasource": "noisepage-db",
@@ -689,7 +610,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -778,7 +699,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1606966939141,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -818,7 +739,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -907,7 +828,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1606966939141,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -947,7 +868,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -1036,7 +957,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1606966939141,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1076,7 +997,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -1165,7 +1086,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1606966939141,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1205,7 +1126,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -1294,7 +1215,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1605235983310,
+      "repeatIteration": 1606966939141,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1334,7 +1255,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "terminal=${terminals}",
+      "title": "terminal=${terminals}  in tps",
       "type": "stat"
     },
     {
@@ -1410,7 +1331,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\tTRIM('\"' FROM incremental.throughput::text)::numeric as \"throughput\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'throughput' as \"throughput\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
+          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\tTRIM('\"' FROM incremental.throughput::text)::numeric as \"throughput (tps)\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'throughput' as \"throughput\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
           "refId": "A",
           "select": [
             [
@@ -1541,7 +1462,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\t(incremental.latency->>'avg')::numeric as \"avg\",\n\t(incremental.latency->>'l_90')::numeric as \"l_90\",\n\t(incremental.latency->>'l_95')::numeric as \"l_95\",\n\t(incremental.latency->>'l_99')::numeric as \"l_99\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'latency' as \"latency\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
+          "rawSql": "SELECT\n  NOW()+ CONCAT(incremental.time::text,' second')::interval - '10 minute'::interval as \"time\",\n\t(incremental.latency->>'avg')::numeric as \"avg (ms)\",\n\t(incremental.latency->>'l_90')::numeric as \"l_90 (ms)\",\n\t(incremental.latency->>'l_95')::numeric as \"l_95 (ms)\",\n\t(incremental.latency->>'l_99')::numeric as \"l_99 (ms)\"\nFROM \n  oltpbench_results oltp, LATERAL(\n  \tSELECT \n    \tvalue->'time' as \"time\",\n    \tvalue->'latency' as \"latency\"\n  \tFROM \n  \t  jsonb_array_elements(oltp.incremental_metrics)\n\t) incremental\nWHERE\n\toltp.time = (\n\t\tSELECT time\n\t\tFROM oltpbench_results\n\t\tWHERE\n\t\t  query_mode = 'extended' AND\n\t\t\tbenchmark_type = 'tatp' AND\n\t\t\tclient_time = 600 AND\n      git_branch = 'origin/master' AND\n      wal_device = '$wal_device' AND\n      max_connection_threads = 32\n\t\tORDER BY time DESC\n\t\tLIMIT 1\n\t);",
           "refId": "A",
           "select": [
             [
@@ -1697,24 +1618,16 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
+      "2d"
     ]
   },
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 22
+  "version": 80
 }

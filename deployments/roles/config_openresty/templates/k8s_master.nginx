@@ -1,0 +1,68 @@
+upstream grafana {
+    server localhost:{{ port_grafana }};
+}
+
+upstream prometheus {
+    server localhost:{{ port_prometheus }};
+}
+
+server {
+    listen              80;
+    resolver            8.8.8.8;
+    server_name         {{ hostname }};
+    return 301          https://$host$request_uri;
+}
+
+server {
+    listen              443 ssl;
+    resolver            8.8.8.8;
+    server_name         {{ hostname }};
+
+    # ssl config
+    ssl_certificate     /etc/openresty/ssl/{{ hostname }}/cert.pem;
+    ssl_certificate_key /etc/openresty/ssl/{{ hostname }}/key.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    # log config
+    access_log          {{ dir_openresty_internal_log }}/access.log;
+    error_log           {{ dir_openresty_internal_log }}/error.log;
+
+    # default redirection
+    location / {
+        return 301 /grafana;
+    }
+
+    location ^~ /.well-known/acme-challenge {
+        root /etc/openresty/ssl/$host;
+    }
+
+    location /static {
+        alias /data/static;
+        autoindex on;
+    }
+
+    # monitoring: prometheus monitoring
+    location /prometheus/ {
+        proxy_pass_header   Set-Cookie;
+
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://prometheus/;
+    }
+
+    # monitoring: grafana service
+    location /grafana/ {
+        proxy_pass_header   Set-Cookie;
+        
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+        proxy_pass http://grafana/;
+    }
+}

@@ -1,0 +1,28 @@
+---
+
+- name: create .kube directory
+  become: yes
+  become_user: "{{ k8s_user }}"
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: initialize the cluster
+  shell: "kubeadm init --pod-network-cidr={{ k8s_network_cidr }} >> cluster_initialized.txt"
+  args:
+    chdir: $HOME/.kube
+    creates: cluster_initialized.txt
+
+- name: copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config
+    remote_src: yes
+    owner: "{{ k8s_user }}"
+
+- name: install Pod network
+  shell: "kubectl apply -f {{ k8s_flannel_src_url }} >> pod_network_setup.txt"
+  args:
+    chdir: $HOME/.kube
+    creates: pod_network_setup.txt
