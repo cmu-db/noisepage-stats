@@ -90,4 +90,9 @@
           when:
             - result_secret_gf_admin_password is defined
             - result_secret_gf_admin_password.stdout is defined
-            
+
+        - name: Install Grafana plugin
+          grafana_plugin:
+            name: grafana-github-datasource
+            version: 1.0.6
+            state: present 
