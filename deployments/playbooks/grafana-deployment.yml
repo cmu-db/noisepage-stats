@@ -31,19 +31,19 @@
         - persistent-volume-claim.yml
         - deployment.yml
         - service.yml
-    
+
     - name: Configure grafana
       block:
         - name: Get secrets gf_admin_password
-          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.gf_admin_password}\" | base64 --decode"
+          shell: 'kubectl get secret secrets-{{ env }} -n performance -o jsonpath="{.data.gf_admin_password}" | base64 --decode'
           register: result_secret_gf_admin_password
-        
+
         - name: Get secrets pss_db_password
-          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_password}\" | base64 --decode"
+          shell: 'kubectl get secret secrets-{{ env }} -n performance -o jsonpath="{.data.pss_db_password}" | base64 --decode'
           register: result_secret_pss_db_password
-        
+
         - name: Get secrets pss_db_user
-          shell: "kubectl get secret secrets-{{ env }} -n performance -o jsonpath=\"{.data.pss_db_user}\" | base64 --decode"
+          shell: 'kubectl get secret secrets-{{ env }} -n performance -o jsonpath="{.data.pss_db_user}" | base64 --decode'
           register: result_secret_pss_db_user
 
         - name: Check if the Grafana is available
@@ -54,7 +54,7 @@
           until: result_grafana_availability.status == 200
           retries: 10
           delay: 10
-        
+
         # FIXME: manually switch to production db to access the most recent data
         # - name: Add grafana data source
         #   grafana_datasource:
@@ -75,7 +75,7 @@
         #     - result_secret_pss_db_password.stdout is defined
         #     - result_secret_gf_admin_password is defined
         #     - result_secret_gf_admin_password.stdout is defined
-        
+
         - name: Add grafana dashboards
           grafana_dashboard:
             grafana_url: "https://{{ service_hostname }}/grafana"
@@ -90,9 +90,3 @@
           when:
             - result_secret_gf_admin_password is defined
             - result_secret_gf_admin_password.stdout is defined
-
-        - name: Install Grafana plugin
-          grafana_plugin:
-            name: grafana-github-datasource
-            version: 1.0.6
-            state: present 
