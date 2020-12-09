@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1607483226677,
+  "iteration": 1607532338556,
   "links": [],
   "panels": [
     {
@@ -142,7 +142,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -249,7 +249,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -291,7 +291,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -398,7 +398,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -440,7 +440,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -547,7 +547,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -589,7 +589,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -696,7 +696,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -738,7 +738,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -845,7 +845,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -887,7 +887,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -994,7 +994,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1036,7 +1036,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1143,7 +1143,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1185,7 +1185,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1292,7 +1292,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1334,7 +1334,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1441,7 +1441,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1483,7 +1483,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1590,7 +1590,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1632,7 +1632,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1739,7 +1739,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1781,7 +1781,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -1888,7 +1888,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -1930,7 +1930,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2037,7 +2037,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2079,7 +2079,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2186,7 +2186,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2228,7 +2228,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2335,7 +2335,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2377,7 +2377,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2484,7 +2484,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2526,7 +2526,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2633,7 +2633,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2675,7 +2675,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2782,7 +2782,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2824,7 +2824,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -2931,7 +2931,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -2973,7 +2973,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3080,7 +3080,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3122,7 +3122,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3229,7 +3229,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3271,7 +3271,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3378,7 +3378,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3420,7 +3420,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3527,7 +3527,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3569,7 +3569,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3676,7 +3676,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3718,7 +3718,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3825,7 +3825,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -3867,7 +3867,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -3974,7 +3974,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4016,7 +4016,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4123,7 +4123,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4165,7 +4165,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4272,7 +4272,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4314,7 +4314,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4421,7 +4421,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4463,7 +4463,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4570,7 +4570,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4612,7 +4612,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4719,7 +4719,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4761,7 +4761,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -4868,7 +4868,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -4910,7 +4910,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5017,7 +5017,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5059,7 +5059,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5166,7 +5166,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5208,7 +5208,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5315,7 +5315,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5357,7 +5357,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5464,7 +5464,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5506,7 +5506,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5613,7 +5613,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5655,7 +5655,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5762,7 +5762,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5804,7 +5804,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -5911,7 +5911,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -5953,7 +5953,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6060,7 +6060,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6102,7 +6102,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6209,7 +6209,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6251,7 +6251,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6358,7 +6358,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6400,7 +6400,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6507,7 +6507,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6549,7 +6549,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6656,7 +6656,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6698,7 +6698,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6805,7 +6805,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6847,7 +6847,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -6954,7 +6954,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -6996,7 +6996,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7103,7 +7103,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7145,7 +7145,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7252,7 +7252,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7294,7 +7294,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7401,7 +7401,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7443,7 +7443,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7550,7 +7550,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7592,7 +7592,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7699,7 +7699,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7741,7 +7741,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7848,7 +7848,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -7890,7 +7890,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -7997,7 +7997,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8039,7 +8039,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8146,7 +8146,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8188,7 +8188,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8295,7 +8295,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8337,7 +8337,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8444,7 +8444,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8486,7 +8486,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8593,7 +8593,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8635,7 +8635,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8742,7 +8742,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8784,7 +8784,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -8891,7 +8891,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -8933,7 +8933,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9040,7 +9040,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9082,7 +9082,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9189,7 +9189,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9231,7 +9231,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9338,7 +9338,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9380,7 +9380,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9487,7 +9487,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9529,7 +9529,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9636,7 +9636,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9678,7 +9678,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9785,7 +9785,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9827,7 +9827,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -9934,7 +9934,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -9976,7 +9976,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10083,7 +10083,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10125,7 +10125,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10232,7 +10232,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10274,7 +10274,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10381,7 +10381,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10423,7 +10423,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10530,7 +10530,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10572,7 +10572,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10679,7 +10679,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1607483226677,
+      "repeatIteration": 1607532338556,
       "repeatPanelId": 7,
       "scopedVars": {
         "benchmark_test": {
@@ -10721,7 +10721,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  (metrics->>'ref_throughput')::numeric * (1-(metrics->>'tolerance')::numeric / 100) as \"manual tolerance\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\",\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric) / (metrics->>'ref_throughput')::numeric + (metrics->>'tolerance')::numeric as \"manual tolerance leeway\" \nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>'throughput')::numeric as \"throughput\",\n  (metrics->>'ref_throughput')::numeric as \"30 day rolling avg\",\n  (metrics->>'ref_throughput')::numeric - (2 * (metrics->>'stdev_throughput')::numeric) as \"2 stdev below mean\",\n  -- Following are just for alerting purposes and should be hidden\n  ((metrics->>'throughput')::numeric - (metrics->>'ref_throughput')::numeric + 2 * (metrics->>'stdev_throughput')::numeric) / (metrics->>'ref_throughput')::numeric * 100 as \"2stdev tolerance leeway\"\nFROM\n  microbenchmark_results\nWHERE\n  $__timeFilter(time) AND\n  CONCAT(benchmark_suite,'/',benchmark_name) = ${benchmark_test} AND\n  git_branch = 'origin/master' AND\n  wal_device = 'RAM disk'\n  ORDER BY\n  time ASC\n",
           "refId": "A",
           "select": [
             [
@@ -10840,5 +10840,5 @@
   "timezone": "",
   "title": "Microbenchmarks",
   "uid": "microbenchmarks",
-  "version": 59
+  "version": 61
 }
