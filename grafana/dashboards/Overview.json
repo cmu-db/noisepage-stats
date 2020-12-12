@@ -7,8 +7,34 @@
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
         "name": "Annotations & Alerts",
+        "showIn": 0,
         "type": "dashboard"
+      },
+      {
+        "annotation": {
+          "datasource": "GitHub",
+          "field": "id",
+          "options": {
+            "gitRef": "master"
+          },
+          "owner": "cmu-db",
+          "queryType": "Commits",
+          "refId": "",
+          "repository": "noisepage",
+          "timeField": "commited_at"
+        },
+        "datasource": "GitHub",
+        "datasourceId": 4,
+        "enable": true,
+        "hide": false,
+        "iconColor": "#5794F2",
+        "limit": 100,
+        "name": "Commits",
+        "showIn": 0,
+        "tags": [],
+        "type": "tags"
       }
     ]
   },
@@ -17,9 +43,31 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606966939141,
+  "iteration": 1607792516429,
   "links": [],
   "panels": [
+    {
+      "content": "\n# Overview\n\nThis dashboard display an overview of how NoisePage's performance changes over time \nYou can check the average throughput or latency percentage changes of all benchmarks. The blue line indicates when there is a new commit comes to master branch.\n\nFeel free to mix and match, but be warnedthe charts can get overwhelming pretty fast.\n\n\n\n",
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 36,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
     {
       "collapsed": false,
       "datasource": null,
@@ -27,7 +75,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 4,
       "panels": [],
@@ -69,7 +117,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 5
       },
       "hiddenSeries": false,
       "id": 1,
@@ -187,7 +235,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 15
       },
       "id": 12,
       "panels": [],
@@ -213,7 +261,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 16
       },
       "hiddenSeries": false,
       "id": 2,
@@ -355,7 +403,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 26
       },
       "id": 8,
       "panels": [],
@@ -381,7 +429,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 3,
@@ -545,7 +593,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 32
+        "y": 36
       },
       "id": 6,
       "links": [
@@ -672,9 +720,9 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 32
+        "y": 36
       },
-      "id": 30,
+      "id": 37,
       "links": [
         {
           "targetBlank": true,
@@ -699,7 +747,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606966939141,
+      "repeatIteration": 1607792516429,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -801,9 +849,9 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 32
+        "y": 36
       },
-      "id": 31,
+      "id": 38,
       "links": [
         {
           "targetBlank": true,
@@ -828,7 +876,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606966939141,
+      "repeatIteration": 1607792516429,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -930,9 +978,9 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 32
+        "y": 36
       },
-      "id": 32,
+      "id": 39,
       "links": [
         {
           "targetBlank": true,
@@ -957,7 +1005,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606966939141,
+      "repeatIteration": 1607792516429,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1059,9 +1107,9 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 32
+        "y": 36
       },
-      "id": 33,
+      "id": 40,
       "links": [
         {
           "targetBlank": true,
@@ -1086,7 +1134,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606966939141,
+      "repeatIteration": 1607792516429,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1188,9 +1236,9 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 32
+        "y": 36
       },
-      "id": 34,
+      "id": 41,
       "links": [
         {
           "targetBlank": true,
@@ -1215,7 +1263,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606966939141,
+      "repeatIteration": 1607792516429,
       "repeatPanelId": 6,
       "scopedVars": {
         "terminals": {
@@ -1265,7 +1313,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 39
       },
       "id": 21,
       "panels": [],
@@ -1291,7 +1339,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 40
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1422,7 +1470,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 40
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1547,7 +1595,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 48
       },
       "id": 14,
       "mode": "markdown",
@@ -1618,7 +1666,7 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-60d",
     "to": "now"
   },
   "timepicker": {
@@ -1629,5 +1677,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 80
+  "version": 102
 }
