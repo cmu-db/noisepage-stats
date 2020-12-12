@@ -102,7 +102,11 @@ def get_performance_comparisons(base_branch, commit_sha):
             if m_result.is_config_match(c_result):
                 config = c_result.get_test_config()
                 percent_diff = m_result.compare_throughput(c_result)
-                result_comparisons.append((config, percent_diff))
+                comparison = (config, 
+                              percent_diff, 
+                              m_result.metrics.get('throughput',0), 
+                              c_result.metrics.get('throughput',0))
+                result_comparisons.append(comparison)
     return result_comparisons
 
 
@@ -139,10 +143,12 @@ def generate_performance_result_markdown(performance_comparisons):
                         " it could be legitimate. You should rerun the build to check.\n\n")
     table_content = []
     table_headers = []
-    for config, percent_diff in performance_comparisons:
+    for config, percent_diff, master_throughput, commit_throughput in performance_comparisons:
         if len(table_headers) == 0:
-            table_headers = list(config.keys()) + ['tps (% change)']
-        row = list(config.values()) + [f'{round(percent_diff,2)}%']
+            table_headers = ['tps (%change)','master tps','commit tps'] + list(config.keys())
+        row = [f'{round(percent_diff,2)}%',
+               f'{round(master_throughput,2)}', 
+               f'{round(commit_throughput,2)}'] + list(config.values())
         table_content.append(row)
 
     if len(table_content):

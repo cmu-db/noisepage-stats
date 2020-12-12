@@ -106,21 +106,16 @@ class TestCheckRunIntegration(TestCase):
 
     def test_generate_performance_result_markdown(self):
         """ Test that the config elements and values are represented in the markdown table """
-        input = [({"column": 5}, 5.1234), ({"column": 2}, 5.1234)]
+        input = [({"column": 5}, 5.1234,104,140), ({"column": 2}, 5.1234,789,879)]
         result = generate_performance_result_markdown(input)
-        for config, percent_diff in input:
+        for config, percent_diff, master_throughput, commit_throughput in input:
             for key, value in config.items():
                 self.assertRegex(result, rf'|\s+{key}\s+|')
                 self.assertRegex(result, rf'|\s+{value}\s+|')
             self.assertRegex(result, r'|\s+tps\(% change\)\s+|')
             self.assertRegex(result, rf'|\s+{round(percent_diff,2)}\s+|')
+            self.assertRegex(result, r'|\s+master tps\s+|')
+            self.assertRegex(result, rf'|\s+{round(master_throughput,2)}\s+|')
+            self.assertRegex(result, r'|\s+commit tps\s+|')
+            self.assertRegex(result, rf'|\s+{round(commit_throughput,2)}\s+|')
         self.assertFalse(False)
-
-    @skip("Skipping until the real implementation is live")
-    def test_cleanup_check_run(self):
-        """ Test that the cleanup will delete all records for a specific branch """
-        cleanup_check_run('PR')
-        master_results = OLTPBenchResult.objects.filter(git_branch=MASTER_BRANCH_NAME)
-        pr_results = OLTPBenchResult.objects.filter(git_branch='PR')
-        self.assertEqual(len(pr_results), 0)
-        self.assertGreater(len(master_results), 0)
