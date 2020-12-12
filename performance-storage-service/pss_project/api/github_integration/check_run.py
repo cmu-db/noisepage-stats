@@ -115,7 +115,7 @@ def get_performance_comparisons_conclusion(performance_comparisons):
     the corresponding conclusion status. """
     min_performance_change = 0
 
-    for _, percent_diff in performance_comparisons:
+    for _, percent_diff, _, _ in performance_comparisons:
         if percent_diff < min_performance_change:
             min_performance_change = percent_diff
 
