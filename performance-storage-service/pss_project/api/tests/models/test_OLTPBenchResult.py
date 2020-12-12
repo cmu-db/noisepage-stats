@@ -64,17 +64,15 @@ class TestOLTPBenchResult(TestCase):
         result = OLTPBenchResult.get_all_branch_results('PR')
         self.assertEqual(len(result), 3)
 
-    def test_get_latest_branch_results(self):
+    def test_get_latest_commit_results(self):
         """ Test that a query set is generated that returns the latest result for each distinct config """
-        for i in range(0, 3):
-            fake_git_commit_id = i*2
-            entry = OLTPBenchDBFactory(git_commit_id=fake_git_commit_id, git_branch='PR')
-            config = entry.get_test_config()
-            OLTPBenchDBFactory(git_commit_id=fake_git_commit_id+1, git_branch='PR', **config)
-        result = OLTPBenchResult.get_latest_branch_results('PR')
-        self.assertEqual(len(result), 3)
+        entry = OLTPBenchDBFactory(git_commit_id=0, git_branch='PR')
+        config = entry.get_test_config()
+        OLTPBenchDBFactory(git_commit_id=1, git_branch='PR', **config)
+        result = OLTPBenchResult.get_latest_commit_results(1)
+        self.assertEqual(len(result), 1)
         for pr_result in result:
-            self.assertEqual(int(pr_result.git_commit_id) % 2, 1)
+            self.assertEqual(int(pr_result.git_commit_id), 1)
 
     def test_get_branch_results_by_oltpbench_configs(self):
         """ Test that a query set is generated that returns the latest result for each config passed in as

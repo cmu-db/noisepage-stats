@@ -68,14 +68,14 @@ def complete_check_run(repo_client, commit_sha):
     results. If the check run does not exist do nothing """
     check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
     if check_run:
-        repo_client.update_check_run(check_run.get('id'), performance_check_result())
+        repo_client.update_check_run(check_run.get('id'), performance_check_result(commit_sha))
         logger.debug('Check run updated with performance results')
 
 
-def performance_check_result(branch):
+def performance_check_result(commit_sha):
     """ Create a check run request body to make a check run as complete. Generate the status and output contents based
     on the comparison between this PRs performance results and the nightly build's performance results."""
-    performance_comparisons = get_performance_comparisons(MASTER_BRANCH_NAME, branch)
+    performance_comparisons = get_performance_comparisons(MASTER_BRANCH_NAME, commit_sha)
     conclusion = get_performance_comparisons_conclusion(performance_comparisons)
     return {
         "name": PERFORMANCE_COP_CHECK_NAME,
@@ -89,11 +89,11 @@ def performance_check_result(branch):
     }
 
 
-def get_performance_comparisons(base_branch, change_branch):
+def get_performance_comparisons(base_branch, commit_sha):
     """ Compare the performance results from two branches. This returns an array of tuples. The first item in the tuple
     is the OLTPBench config and the second item in the tuple is the difference in throughput. """
     result_comparisons = []
-    branch_results = OLTPBenchResult.get_latest_branch_results(change_branch)
+    branch_results = OLTPBenchResult.get_latest_commit_results(commit_sha)
     master_results = OLTPBenchResult.get_branch_results_by_oltpbench_configs(base_branch, branch_results)
     for b_result in branch_results:
         for m_result in master_results:
