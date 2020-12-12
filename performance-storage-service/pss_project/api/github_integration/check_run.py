@@ -93,13 +93,15 @@ def get_performance_comparisons(base_branch, commit_sha):
     """ Compare the performance results from two branches. This returns an array of tuples. The first item in the tuple
     is the OLTPBench config and the second item in the tuple is the difference in throughput. """
     result_comparisons = []
-    branch_results = OLTPBenchResult.get_latest_commit_results(commit_sha)
-    master_results = OLTPBenchResult.get_branch_results_by_oltpbench_configs(base_branch, branch_results)
-    for b_result in branch_results:
+    commit_results = OLTPBenchResult.get_latest_commit_results(commit_sha)
+    logger.debug(f'Commit results: {commit_results}')
+    master_results = OLTPBenchResult.get_branch_results_by_oltpbench_configs(base_branch, commit_results)
+    logger.debug(f'Master results: {master_results}')
+    for c_result in commit_results:
         for m_result in master_results:
-            if m_result.is_config_match(b_result):
-                config = b_result.get_test_config()
-                percent_diff = m_result.compare_throughput(b_result)
+            if m_result.is_config_match(c_result):
+                config = c_result.get_test_config()
+                percent_diff = m_result.compare_throughput(c_result)
                 result_comparisons.append((config, percent_diff))
     return result_comparisons
 
@@ -146,7 +148,7 @@ def generate_performance_result_markdown(performance_comparisons):
     if len(table_content):
         table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
     else:
-        table_text = 'Could not find any performance results to compare for this commit.'
+        table_text = '**Could not find any performance results to compare for this commit.**'
 
     return description_text + table_text
 
