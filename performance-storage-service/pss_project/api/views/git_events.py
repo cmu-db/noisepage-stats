@@ -48,6 +48,7 @@ class GitEventsViewSet(ViewSet):
                 handle_status_event(repo_client, payload)
 
         except Exception as err:
+            logger.error(f'GitEventsViewSet create failed: {err}')
             return Response({"message": err.message if hasattr(err, 'message') else err},
                             status=HTTP_500_INTERNAL_SERVER_ERROR)
 
