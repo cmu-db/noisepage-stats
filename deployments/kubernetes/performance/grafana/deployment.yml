@@ -58,6 +58,8 @@ spec:
               value: "cmu-db"
             - name: GF_SECURITY_ADMIN_USER
               value: "admin"
+            - name: GF_INSTALL_PLUGINS
+              value: "grafana-github-datasource"
             - name: GF_SECURITY_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -74,4 +76,3 @@ spec:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
                   key: gf_auth_github_client_secret
-
