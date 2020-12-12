@@ -143,7 +143,10 @@ def generate_performance_result_markdown(performance_comparisons):
         row = list(config.values()) + [f'{round(percent_diff,2)}%']
         table_content.append(row)
 
-    table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
+    if len(table_content):
+        table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
+    else:
+        table_text = 'Could not find any performance results to compare for this commit.'
 
     return description_text + table_text
 
