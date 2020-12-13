@@ -146,6 +146,8 @@ def generate_performance_result_markdown(performance_comparisons):
     for config, percent_diff, master_throughput, commit_throughput in performance_comparisons:
         if len(table_headers) == 0:
             table_headers = ['tps (%change)', 'master tps', 'commit tps'] + list(config.keys())
+        logger.debug(master_throughput)
+        logger.debug(type(master_throughput))
         row = [f'{round(percent_diff,2)}%',
                round(master_throughput,2),
                f'{round(commit_throughput,2)}'] + list(config.values())
