@@ -2,8 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from datetime import datetime
-
-service_start_time = datetime.now()
+from pss_project.api.constants import service_start_time
 
 
 class HealthViewSet(viewsets.ViewSet):

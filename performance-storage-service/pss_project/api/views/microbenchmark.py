@@ -11,11 +11,11 @@ logger = logging.getLogger()
 
 
 class MicrobenchmarkViewSet(viewsets.ViewSet):
-    """
-    Store new microbenchmark results in the database
-    """
 
     def create(self, request):
+        """ First check that the an authorized user posted the request. Then validate the API request body. Next convert
+        the request body into a format suitable for the database. Finally, store the new microbenchmark result in the
+        database. """
         user = BasicAuthentication().authenticate(request)
         if user is None:
             logger.debug('Invalid authentication')

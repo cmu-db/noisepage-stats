@@ -20,7 +20,11 @@ logger = logging.getLogger()
 class GitEventsViewSet(ViewSet):
 
     def create(self, request):
-        """ This is the endpoint that Github events are posted to """
+        """ This endpoint is where all Github events are posted. First we make sure that the hash in the header is
+        valid. This certifies that only someone who knows the WEBHOOK_SECRET can call this endpoint. Then we check to
+        make sure the event is one of the events that we are expeting. Next we connect to the NoisePage repository
+        and validate that the Github event is for the NoisePage repository. Currently we only support events from 
+        https://github.com/cmu-db/noisepage. This endpoint then takes different actions based on the type of event. """
         if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
             logger.debug('Invalid webhook hash')
             return Response({"message": "Invalid request hash. Only Github may call this endpoint."},

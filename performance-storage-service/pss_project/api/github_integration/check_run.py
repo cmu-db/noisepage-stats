@@ -91,7 +91,8 @@ def performance_check_result(commit_sha):
 
 def get_performance_comparisons(base_branch, commit_sha):
     """ Compare the performance results from two branches. This returns an array of tuples. The first item in the tuple
-    is the OLTPBench config and the second item in the tuple is the difference in throughput. """
+    is the OLTPBench config, the second item in the tuple is the % difference in throughput, the third item in the
+    tuple is the master branch throughput, and the fourth item in the tuple is the commit's throughput."""
     result_comparisons = []
     commit_results = OLTPBenchResult.get_latest_commit_results(commit_sha)
     logger.debug(f'Commit results: {commit_results}')
@@ -139,8 +140,8 @@ def generate_performance_result_markdown(performance_comparisons):
                         " recent nightly build and the results collected during the End-to-End Performance stage of"
                         " this PR's build. If any of the benchmarks see a performance change less than -5% this check"
                         " will fail. If any of the benchmarks see a performance change less than 0% this check will"
-                        " have a neutral result. In this case it could the decrease in performance could be noise or"
-                        " it could be legitimate. You should rerun the build to check.\n\n")
+                        " have a neutral result. The decrease in performance could be noise or it could be legitimate."
+                        " You should rerun the build to check.\n\n")
     table_content = []
     table_headers = []
     for config, percent_diff, master_throughput, commit_throughput in performance_comparisons:
@@ -160,7 +161,9 @@ def generate_performance_result_markdown(performance_comparisons):
 
 
 def cleanup_check_run(branch):
-    """ After finished with a branch delete all the performance results from the database relating to that branch """
+    """ After finished with a branch delete all the performance results from the database relating to that branch.
+    This was never fully implemented because it was deemed unnecessary, but I'm leaving the dead code because it
+    seems like it could be one day if there are lots of PRs."""
     logger.debug(f'Running cleanup on {branch} branch')
     # OLTPBenchResult.get_all_branch_results(branch).delete()
     # #TODO: cleanup method once we know this wont delete the wrong thing

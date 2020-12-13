@@ -12,11 +12,11 @@ logger = logging.getLogger()
 
 
 class OLTPBenchViewSet(viewsets.ViewSet):
-    """
-    Store a new OLTPBench result in the datatbase
-    """
 
     def create(self, request):
+        """ First check that the an authorized user posted the request. Then validate the API request body. Next convert
+        the request body into a format suitable for the database. Finally, store the new OLTPBench test result in the
+        database. """
         user = BasicAuthentication().authenticate(request)
         if user is None:
             logger.debug('Invalid authentication')

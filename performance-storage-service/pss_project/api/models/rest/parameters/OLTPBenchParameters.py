@@ -2,6 +2,7 @@ from pss_project.api.models.rest.parameters.TransactionWeight import Transaction
 
 
 class OLTPBenchParameters(object):
+    """ This class is the model of the OLTPBench parameters as communicated through the HTTP API """
     def __init__(self, query_mode, scale_factor, terminals, client_time, transaction_weights, max_connection_threads):
         self.query_mode = query_mode
         self.scale_factor = scale_factor

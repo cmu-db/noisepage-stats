@@ -2,11 +2,13 @@ from pss_project.api.models.rest.metadata.Metadata import Metadata
 
 
 class BaseRest(object):
+    """ The based class for all objects communicated through the HTTP API """
     def __init__(self, metadata, timestamp):
         self.metadata = Metadata(**metadata)
         self.timestamp = timestamp
 
     def convert_to_db_json(self):
+        """ Convert the base class attributes into a dict that can be used to instantiate database object models """
         data = {
             'time': self.timestamp,
             'git_branch': self.metadata.github.git_branch,
@@ -19,6 +21,8 @@ class BaseRest(object):
         return data
 
     def convert_metrics_to_dict(self, metrics):
+        """ Convert the metrics object to a dict. This should be overridden when the metrics JSON is nested or has a 
+        special format """
         return metrics.__dict__
 
 
