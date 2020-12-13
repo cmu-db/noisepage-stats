@@ -11,6 +11,7 @@ from pss_project.api.serializers.database.ArtifactStatsResultSerializer import A
 
 logger = logging.getLogger()
 
+
 class ArtifactStatsViewSet(ViewSet):
 
     def create(self, request):

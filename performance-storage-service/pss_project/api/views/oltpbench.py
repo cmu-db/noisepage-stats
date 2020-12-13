@@ -10,6 +10,7 @@ from rest_framework.authentication import BasicAuthentication
 
 logger = logging.getLogger()
 
+
 class OLTPBenchViewSet(viewsets.ViewSet):
     """
     Store a new OLTPBench result in the datatbase

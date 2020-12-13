@@ -9,6 +9,7 @@ from rest_framework.authentication import BasicAuthentication
 
 logger = logging.getLogger()
 
+
 class MicrobenchmarkViewSet(viewsets.ViewSet):
     """
     Store new microbenchmark results in the database

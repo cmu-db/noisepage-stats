@@ -1,11 +1,11 @@
 from collections import namedtuple
 from django.test import SimpleTestCase, TestCase
-from unittest import skip, mock
+from unittest import mock
 
 from pss_project.api.github_integration.check_run import (
     should_initialize_check_run, initialize_check_run_if_missing, initialize_check_run, get_comparisons_conclusion,
-    get_performance_comparisons_conclusion, get_performance_comparisons, cleanup_check_run,
-    generate_performance_result_markdown, CONCLUSION_SUCCESS, CONCLUSION_NEUTRAL, CONCLUSION_FAILURE)
+    get_performance_comparisons_conclusion, get_performance_comparisons, generate_performance_result_markdown,
+    CONCLUSION_SUCCESS, CONCLUSION_NEUTRAL, CONCLUSION_FAILURE)
 from pss_project.api.tests.factories.database.OLTPBenchDBFactory import OLTPBenchDBFactory
 from pss_project.api.models.database.OLTPBenchResult import OLTPBenchResult, PERFORMANCE_CONFIG_FIELDS
 from pss_project.api.constants import MASTER_BRANCH_NAME
@@ -70,9 +70,9 @@ class TestCheckRun(SimpleTestCase):
     def test_get_performance_comparisons_conclusion(self):
         """ Test that the conclusion is based on the min throughput number for a set of comparisons """
         test_cases = [
-            TestIteration([({}, 10), ({}, 0), ({}, 5)], CONCLUSION_SUCCESS),
-            TestIteration([({}, 10), ({}, 0), ({}, -5)], CONCLUSION_NEUTRAL),
-            TestIteration([({}, 10), ({}, 0), ({}, -10)], CONCLUSION_FAILURE)
+            TestIteration([({}, 10, 1000, 1000), ({}, 0, 1000, 1000), ({}, 5, 1000, 1000)], CONCLUSION_SUCCESS),
+            TestIteration([({}, 10, 1000, 1000), ({}, 0, 1000, 1000), ({}, -5, 1000, 1000)], CONCLUSION_NEUTRAL),
+            TestIteration([({}, 10, 1000, 1000), ({}, 0, 1000, 1000), ({}, -10, 1000, 1000)], CONCLUSION_FAILURE)
         ]
         for input, expected in test_cases:
             with self.subTest(msg=(f'performance comparison expected {expected} check run conclusion')):
@@ -106,7 +106,7 @@ class TestCheckRunIntegration(TestCase):
 
     def test_generate_performance_result_markdown(self):
         """ Test that the config elements and values are represented in the markdown table """
-        input = [({"column": 5}, 5.1234,104,140), ({"column": 2}, 5.1234,789,879)]
+        input = [({"column": 5}, 5.1234, 104, 140), ({"column": 2}, 5.1234, 789, 879)]
         result = generate_performance_result_markdown(input)
         for config, percent_diff, master_throughput, commit_throughput in input:
             for key, value in config.items():
