@@ -147,7 +147,7 @@ def generate_performance_result_markdown(performance_comparisons):
         if len(table_headers) == 0:
             table_headers = ['tps (%change)', 'master tps', 'commit tps'] + list(config.keys())
         row = [f'{round(percent_diff,2)}%',
-               f'{round(master_throughput,2)}',
+               round(master_throughput,2),
                f'{round(commit_throughput,2)}'] + list(config.values())
         table_content.append(row)
 
