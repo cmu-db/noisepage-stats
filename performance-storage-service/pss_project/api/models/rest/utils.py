@@ -1,7 +1,5 @@
 def to_dict(obj):
-    """
-    Recursively turn an object to a Python dict
-    """
+    """ Recursively turn an object to a Python dict """
     data = {}
     for key, value in obj.__dict__.items():
         try:

@@ -10,6 +10,10 @@ PERFORMANCE_CONFIG_FIELDS = ['query_mode', 'benchmark_type', 'scale_factor', 'te
 
 
 class OLTPBenchResult(Model):
+    """ This class is the model for storing OLTPBench test results in the database. For more information about the
+    schema check out the wiki: 
+    https://github.com/cmu-db/noisepage-stats/wiki/Timescaledb-Schema#oltpbench_results-table """
+
     class Meta:
         db_table = 'oltpbench_results'
 
@@ -77,12 +81,12 @@ class OLTPBenchResult(Model):
         return branch_results
 
     @classmethod
-    def get_latest_branch_results(cls, branch):
+    def get_latest_commit_results(cls, commit_sha):
         """ Return a query set that will return all the latest OLTPBenchResults for each unique test config in a given
         branch. """
-        branch_results = cls.objects.filter(git_branch=branch, time__gte=datetime.now(
+        commit_results = cls.objects.filter(git_commit_id=commit_sha, time__gte=datetime.now(
             timezone.utc)-timedelta(days=7)).order_by(*PERFORMANCE_CONFIG_FIELDS+['time']).reverse()
-        return branch_results.distinct(*PERFORMANCE_CONFIG_FIELDS)
+        return commit_results.distinct(*PERFORMANCE_CONFIG_FIELDS)
 
     @classmethod
     def get_branch_results_by_oltpbench_configs(cls, branch, oltpbench_results):

@@ -68,14 +68,14 @@ def complete_check_run(repo_client, commit_sha):
     results. If the check run does not exist do nothing """
     check_run = repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_IDENTIFIER)
     if check_run:
-        repo_client.update_check_run(check_run.get('id'), performance_check_result())
+        repo_client.update_check_run(check_run.get('id'), performance_check_result(commit_sha))
         logger.debug('Check run updated with performance results')
 
 
-def performance_check_result(branch):
+def performance_check_result(commit_sha):
     """ Create a check run request body to make a check run as complete. Generate the status and output contents based
     on the comparison between this PRs performance results and the nightly build's performance results."""
-    performance_comparisons = get_performance_comparisons(MASTER_BRANCH_NAME, branch)
+    performance_comparisons = get_performance_comparisons(MASTER_BRANCH_NAME, commit_sha)
     conclusion = get_performance_comparisons_conclusion(performance_comparisons)
     return {
         "name": PERFORMANCE_COP_CHECK_NAME,
@@ -89,18 +89,25 @@ def performance_check_result(branch):
     }
 
 
-def get_performance_comparisons(base_branch, change_branch):
+def get_performance_comparisons(base_branch, commit_sha):
     """ Compare the performance results from two branches. This returns an array of tuples. The first item in the tuple
-    is the OLTPBench config and the second item in the tuple is the difference in throughput. """
+    is the OLTPBench config, the second item in the tuple is the % difference in throughput, the third item in the
+    tuple is the master branch throughput, and the fourth item in the tuple is the commit's throughput."""
     result_comparisons = []
-    branch_results = OLTPBenchResult.get_latest_branch_results(change_branch)
-    master_results = OLTPBenchResult.get_branch_results_by_oltpbench_configs(base_branch, branch_results)
-    for b_result in branch_results:
+    commit_results = OLTPBenchResult.get_latest_commit_results(commit_sha)
+    logger.debug(f'Commit results: {commit_results}')
+    master_results = OLTPBenchResult.get_branch_results_by_oltpbench_configs(base_branch, commit_results)
+    logger.debug(f'Master results: {master_results}')
+    for c_result in commit_results:
         for m_result in master_results:
-            if m_result.is_config_match(b_result):
-                config = b_result.get_test_config()
-                percent_diff = m_result.compare_throughput(b_result)
-                result_comparisons.append((config, percent_diff))
+            if m_result.is_config_match(c_result):
+                config = c_result.get_test_config()
+                percent_diff = m_result.compare_throughput(c_result)
+                comparison = (config,
+                              percent_diff,
+                              float(m_result.metrics.get('throughput', 0)),
+                              float(c_result.metrics.get('throughput', 0)))
+                result_comparisons.append(comparison)
     return result_comparisons
 
 
@@ -109,7 +116,7 @@ def get_performance_comparisons_conclusion(performance_comparisons):
     the corresponding conclusion status. """
     min_performance_change = 0
 
-    for _, percent_diff in performance_comparisons:
+    for _, percent_diff, _, _ in performance_comparisons:
         if percent_diff < min_performance_change:
             min_performance_change = percent_diff
 
@@ -133,23 +140,30 @@ def generate_performance_result_markdown(performance_comparisons):
                         " recent nightly build and the results collected during the End-to-End Performance stage of"
                         " this PR's build. If any of the benchmarks see a performance change less than -5% this check"
                         " will fail. If any of the benchmarks see a performance change less than 0% this check will"
-                        " have a neutral result. In this case it could the decrease in performance could be noise or"
-                        " it could be legitimate. You should rerun the build to check.\n\n")
+                        " have a neutral result. The decrease in performance could be noise or it could be legitimate."
+                        " You should rerun the build to check.\n\n")
     table_content = []
     table_headers = []
-    for config, percent_diff in performance_comparisons:
+    for config, percent_diff, master_throughput, commit_throughput in performance_comparisons:
         if len(table_headers) == 0:
-            table_headers = list(config.keys()) + ['tps (% change)']
-        row = list(config.values()) + [f'{round(percent_diff,2)}%']
+            table_headers = ['tps (%change)', 'master tps', 'commit tps'] + list(config.keys())
+        row = [f'{round(percent_diff,2)}%',
+               round(master_throughput,2),
+               f'{round(commit_throughput,2)}'] + list(config.values())
         table_content.append(row)
 
-    table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
+    if len(table_content):
+        table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
+    else:
+        table_text = '**Could not find any performance results to compare for this commit.**'
 
     return description_text + table_text
 
 
 def cleanup_check_run(branch):
-    """ After finished with a branch delete all the performance results from the database relating to that branch """
+    """ After finished with a branch delete all the performance results from the database relating to that branch.
+    This was never fully implemented because it was deemed unnecessary, but I'm leaving the dead code because it
+    seems like it could be one day if there are lots of PRs."""
     logger.debug(f'Running cleanup on {branch} branch')
     # OLTPBenchResult.get_all_branch_results(branch).delete()
     # #TODO: cleanup method once we know this wont delete the wrong thing

@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from pss_project.api import views
 
+# This configures all the HTTP API routing and endpoints
+
 router = DefaultRouter()
 router.register(r'health', views.HealthViewSet, 'health')
 router.register(r'oltpbench', views.OLTPBenchViewSet, 'oltpbench')

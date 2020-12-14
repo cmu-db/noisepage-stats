@@ -8,7 +8,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_403_FORBIDDEN, HTTP_400_BAD_
 
 from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
 from pss_project.api.github_integration.check_run import (should_initialize_check_run, initialize_check_run,
-                                                          complete_check_run, cleanup_check_run,
+                                                          complete_check_run,
                                                           initialize_check_run_if_missing)
 
 from pss_project.api.constants import (GITHUB_APP_IDENTIFIER, ALLOWED_EVENTS, CI_STATUS_CONTEXT,
@@ -20,8 +20,13 @@ logger = logging.getLogger()
 class GitEventsViewSet(ViewSet):
 
     def create(self, request):
-        """ This is the endpoint that Github events are posted to """
+        """ This endpoint is where all Github events are posted. First we make sure that the hash in the header is
+        valid. This certifies that only someone who knows the WEBHOOK_SECRET can call this endpoint. Then we check to
+        make sure the event is one of the events that we are expeting. Next we connect to the NoisePage repository
+        and validate that the Github event is for the NoisePage repository. Currently we only support events from 
+        https://github.com/cmu-db/noisepage. This endpoint then takes different actions based on the type of event. """
         if not is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
+            logger.debug('Invalid webhook hash')
             return Response({"message": "Invalid request hash. Only Github may call this endpoint."},
                             status=HTTP_403_FORBIDDEN)
         logger.debug('Valid webhook hash')
@@ -31,6 +36,7 @@ class GitEventsViewSet(ViewSet):
 
         logger.debug(f'Incoming {event} event')
         if event not in ALLOWED_EVENTS:
+            logger.debug(f'Received a non-allowed event: {event}')
             return Response({"message": f"This app is only designed to handle {ALLOWED_EVENTS} events"},
                             status=HTTP_400_BAD_REQUEST)
 
@@ -38,7 +44,9 @@ class GitEventsViewSet(ViewSet):
             repo_client = NoisePageRepoClient(private_key=GITHUB_PRIVATE_KEY, app_id=GITHUB_APP_IDENTIFIER)
             logger.debug('Authenticated with Github repo')
 
-            if(not repo_client.is_valid_installation_id(payload.get('installation', {}).get('id'))):
+            repo_installation_id = payload.get('installation', {}).get('id')
+            if not repo_client.is_valid_installation_id(repo_installation_id):
+                logger.debug('Received event for repo: {repo_installation_id}')
                 return Response({"message": "This app only works with the NoisePage repo"},
                                 status=HTTP_400_BAD_REQUEST)
 
@@ -48,6 +56,7 @@ class GitEventsViewSet(ViewSet):
                 handle_status_event(repo_client, payload)
 
         except Exception as err:
+            logger.error(f'GitEventsViewSet create failed: {err}')
             return Response({"message": err.message if hasattr(err, 'message') else err},
                             status=HTTP_500_INTERNAL_SERVER_ERROR)
 

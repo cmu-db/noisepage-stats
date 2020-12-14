@@ -1,4 +1,5 @@
 class LatencyMetrics(object):
+    """ This class is the model of how latency metrics are represented in the HTTP API """
     def __init__(self, l_25=None, l_75=None, l_90=None, l_95=None, l_99=None,
                  avg=None, median=None, max=None, min=None):
         self.l_25 = l_25

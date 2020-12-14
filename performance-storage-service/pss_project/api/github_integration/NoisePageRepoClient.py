@@ -99,8 +99,8 @@ class NoisePageRepoClient():
         url = f"{GITHUB_BASE_URL}repos/{self.owner}/{self.repo}/commits/{commit_sha}/check-runs"
         response = requests.get(url=url, headers=headers)
         response.raise_for_status()
-        check_runs = response.json().get('check_runs')
-        run = find_check_run_by_app_id(check_runs, app_id)
+        check_runs = response.json()
+        run = find_check_run_by_app_id(check_runs.get('check_runs'), app_id)
         if run:
             return run
         return {}
@@ -108,6 +108,6 @@ class NoisePageRepoClient():
 
 def find_check_run_by_app_id(check_runs, app_id):
     for run in check_runs:
-        if run.get('app', {}).get('id'):
+        if run.get('app', {}).get('id') == app_id:
             return run
     return None
