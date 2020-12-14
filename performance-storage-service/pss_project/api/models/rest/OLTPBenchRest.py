@@ -5,6 +5,7 @@ from pss_project.api.models.rest.utils import to_dict
 
 
 class OLTPBenchRest(BaseRest):
+    """ This class is the model of the OLTPBench data as it is communicated through the HTTP API """
     def __init__(self, metadata, timestamp, type, parameters, metrics):
         super().__init__(metadata, timestamp)
         self.type = type
@@ -12,6 +13,7 @@ class OLTPBenchRest(BaseRest):
         self.metrics = OLTPBenchMetrics(**metrics)
 
     def convert_to_db_json(self):
+        """ Convert the API model into a dict that can be used to instantiate an OLTPBenchResult object """
         data = super().convert_to_db_json()
         oltpbench_data = {
             'benchmark_type': self.type,
@@ -28,6 +30,8 @@ class OLTPBenchRest(BaseRest):
         return data
 
     def convert_metrics_to_dict(self, metrics):
+        """ This method is required because of the nested nature of the metrics JSON. This overrides the base class
+        method """
         db_formatted_metrics = {
             'throughput': metrics.throughput,
             'latency': metrics.latency.__dict__,
@@ -37,6 +41,7 @@ class OLTPBenchRest(BaseRest):
 
 
 def convert_weights_to_dict(weights_list):
+    """ The weights are passed in as a list and we need to convert them to a dict """
     db_formatted_weights = {}
     for weight_details in weights_list:
         weight_name = weight_details.name
@@ -46,6 +51,7 @@ def convert_weights_to_dict(weights_list):
 
 
 def convert_incremental_metrics_to_dict(incremental_metrics):
+    """ This method is required because of the nested nature of the incremental metrics JSON. """
     db_formatted_incremental_metrics = []
     for metric in incremental_metrics:
         db_formatted_incremental_json = {

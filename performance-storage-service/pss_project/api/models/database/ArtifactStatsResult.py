@@ -3,6 +3,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 
 class ArtifactStatsResult(Model):
+    """ This class is the model for storing artifact stats results in the database. For more information about the
+    schema check out the wiki: 
+    https://github.com/cmu-db/noisepage-stats/wiki/Timescaledb-Schema#artifact_stats_results-table """
+    
     class Meta:
         db_table = 'artifact_stats_results'
 
