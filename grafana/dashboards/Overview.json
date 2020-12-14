@@ -43,7 +43,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1607792516429,
+  "iteration": 1607890420647,
   "links": [],
   "panels": [
     {
@@ -411,12 +411,34 @@
       "type": "row"
     },
     {
+      "content": "This chart shows how the system scales with more client terminals. \nFor each benchmark type we calculate the expected throughput based on linear scaling.\nWe take the throughput for the benchmark run with 1 terminal and \nmultiply it by the number of terminals that was used in that test execution.\nNext we calculate the percent difference between the actual throughput and expected throughput.\nFinally, this chart shows the average percent difference across all benchmark types.\n\n\n",
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 38,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Description",
+      "type": "text"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "noisepage-db",
-      "description": "The average throughput for all benchmarks (except noop) and all terminal values. See **Scalability Details** for more details.",
+      "description": "See **Scalability Details** for more details.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -429,7 +451,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 3,
@@ -469,7 +491,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n\tMAX(time) as time,\r\n\tterminals::text as metric,\r\n\tAVG(value) as value\r\nFROM (\r\n\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\ttime,\r\n\t\tbenchmark_type,\r\n\t\tterminals,\r\n\t\tCAST(metrics->>'throughput' AS DOUBLE PRECISION) as value\r\n\tFROM oltpbench_results\r\n\tWHERE\r\n    $__timeFilter(\"time\") AND\r\n\t\tbenchmark_type != 'noop' AND\r\n    client_time = 60 AND\r\n    git_branch = 'origin/master' AND\r\n    wal_device = '$wal_device' AND\r\n    max_connection_threads = 32\r\n\tORDER BY terminals, benchmark_type, time desc\r\n) AS tmp\r\nGROUP BY terminals",
+          "rawSql": "SELECT\n\tMAX(time) as time,\n\tterminals::text as metric,\n\tAVG((actual_tps - expected_tps) / expected_tps) as value\nFROM (\nSELECT\n\tall_terminal_benchmarks.time,\n\tall_terminal_benchmarks.benchmark_type,\n\tall_terminal_benchmarks.terminals,\n\t(one_terminal_benchmarks.throughput * all_terminal_benchmarks.terminals) AS expected_tps,\n\t(all_terminal_benchmarks.throughput)::float AS actual_tps\nFROM (\n\tSELECT DISTINCT ON (benchmark_type)\n\t\ttime,\n\t\tbenchmark_type,\n\t\tterminals,\n\t\t(metrics->>'throughput')::float AS throughput\n\tFROM oltpbench_results\n\tWHERE\n\t\t$__timeFilter(\"time\") AND\n\t\tterminals = 1 AND\n\t\tclient_time = 60 AND\n\t\tgit_branch = 'origin/master' AND\n\t\twal_device = '$wal_device' AND\n\t\tmax_connection_threads = 32\n\t\tORDER BY benchmark_type, time DESC\n) AS one_terminal_benchmarks\nLEFT JOIN (\n\tSELECT DISTINCT ON (terminals, benchmark_type)\n\t\ttime,\n\t\tbenchmark_type,\n\t\tterminals,\n\t\t(metrics->>'throughput')::float AS throughput\n\tFROM oltpbench_results\n\tWHERE\n\t  $__timeFilter(\"time\") AND\n\t\tclient_time = 60 AND\n\t\tgit_branch = 'origin/master' AND\n\t\twal_device = '$wal_device' AND\n\t\tmax_connection_threads = 32\n\t\tORDER BY terminals, benchmark_type, time DESC\n) AS all_terminal_benchmarks ON one_terminal_benchmarks.benchmark_type = all_terminal_benchmarks.benchmark_type) AS scaleability\nGROUP BY terminals\n\n",
           "refId": "A",
           "select": [
             [
@@ -491,11 +513,20 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 0,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Throughput by Terminal",
+      "title": "Average Difference Between Actual and Expected Throughput Scaling",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -513,8 +544,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Throughput (tps)",
+          "format": "percentunit",
+          "label": "Actual and Expected TPS % Diff",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -533,778 +564,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 0,
-        "y": 36
-      },
-      "id": 6,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": "terminals",
-      "repeatDirection": "h",
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "1",
-          "value": "1"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 4,
-        "y": 36
-      },
-      "id": 37,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1607792516429,
-      "repeatPanelId": 6,
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "2",
-          "value": "2"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 8,
-        "y": 36
-      },
-      "id": 38,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1607792516429,
-      "repeatPanelId": 6,
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "4",
-          "value": "4"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 12,
-        "y": 36
-      },
-      "id": 39,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1607792516429,
-      "repeatPanelId": 6,
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "8",
-          "value": "8"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 36
-      },
-      "id": 40,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1607792516429,
-      "repeatPanelId": 6,
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "16",
-          "value": "16"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "diff_throughput"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": -49
-                    },
-                    {
-                      "color": "green",
-                      "value": -9
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 10
-                    },
-                    {
-                      "color": "red",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 20,
-        "y": 36
-      },
-      "id": 41,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Scalability Details",
-          "url": "/grafana/d/throughput_terminal_trends/throughput-terminal-trends"
-        }
-      ],
-      "maxPerRow": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1607792516429,
-      "repeatPanelId": 6,
-      "scopedVars": {
-        "terminals": {
-          "selected": false,
-          "text": "32",
-          "value": "32"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n\ttime,\r\n\treal_throughput AS \"actual throughput\", \r\n\texpect_throughput AS \"expected throughput\",\r\n\treal_throughput - expect_throughput AS \"difference\"\r\nFROM (\r\n\tSELECT\r\n\t\tthroughput as real_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = ${terminals}\r\n) AS real_table \r\nCROSS JOIN (\r\n\tSELECT\r\n\t\ttime,\r\n\t\t${terminals}*throughput AS expect_throughput\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tMAX(time) as time,\r\n\t\t\tterminals as metric,\r\n\t\t\tAVG(throughput) as throughput\r\n\t\tFROM (\r\n\t\t\tSELECT DISTINCT ON (terminals, benchmark_type)\r\n\t\t\t\ttime,\r\n\t\t\t\tbenchmark_type,\r\n\t\t\t\tterminals,\r\n\t\t\t\t(metrics->>'throughput')::numeric as throughput\r\n\t\t\tFROM oltpbench_results\r\n\t\t\tWHERE\r\n        $__timeFilter(\"time\") AND\r\n\t\t\t\tbenchmark_type != 'noop' AND\r\n        client_time = 60 AND\r\n        git_branch = 'origin/master' AND\r\n        wal_device = '$wal_device' AND\r\n        max_connection_threads = 32\r\n\t\t\tORDER BY terminals, benchmark_type, time desc\r\n\t\t) AS distinct_table\r\n\t\tGROUP BY terminals\r\n\t) AS avg_table\r\n\tWHERE metric = 1\r\n) AS expect;",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "terminal=${terminals}  in tps",
-      "type": "stat"
     },
     {
       "collapsed": false,
@@ -1666,7 +925,7 @@
     ]
   },
   "time": {
-    "from": "now-60d",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
@@ -1677,5 +936,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "overview",
-  "version": 102
+  "version": 123
 }
