@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# This script is run on daily basis as a cronjob
+# 0 0 * * * /bin/bash /data/scripts/backup_timescale.sh > /dev/null
+
 STR_DATE="$(date '+%Y_%m_%d')"
 DIR_TIMESCALEDB="/data/backup/timescaledb"
 FILE_BACKUP="$DIR_TIMESCALEDB/timescaledb_dump_$STR_DATE.sql"
