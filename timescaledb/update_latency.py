@@ -18,7 +18,7 @@ def find_last_valid_latency(conn, benchmark, terminals, wal_device, client_time)
     FROM oltpbench_results
     WHERE
         git_branch = 'origin/master' AND
-        (metrics->'latency'->>'avg')::numeric != 0.0 AND
+        (metrics->'latency'->>'min')::numeric != 0.0 AND
         time > '{VALID_DATE}' AND
         benchmark_type = '{benchmark}' AND
         terminals = '{terminals}' AND
