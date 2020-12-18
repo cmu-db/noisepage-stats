@@ -52,7 +52,7 @@ def main():
     parser.add_argument('--username', type=str, help='Database username')
     parser.add_argument('--password', type=str, help='Datatbase password')
     parser.add_argument('--host', type=str, default='incrudibles-production.db.pdl.cmu.edu', help='Hostname of the database (i.e. incrudibles-production.db.pdl.cmu.edu')
-    parser.add_argument('--port', type=str, default='30003', help='Port that the DB is running on.')
+    parser.add_argument('--port', type=str, default='32003', help='Port that the DB is running on.')
     args = parser.parse_args()
     username = args.username
     password = args.password
