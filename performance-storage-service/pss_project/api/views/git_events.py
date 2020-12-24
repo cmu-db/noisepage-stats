@@ -67,12 +67,7 @@ def is_valid_github_webhook_hash(hash_header, req_body):
     """ Check that the has passed with the request is valid based on the
     webhook secret and the request body """
     alg, req_hash = hash_header.split('=', 1)
-    logger.debug(WEBHOOK_SECRET)
-    logger.debug(str.encode(WEBHOOK_SECRET))
-    logger.debug(alg)
-    logger.debug(req_hash)
     valid_hash = hmac.new(str.encode(WEBHOOK_SECRET), req_body, alg)
-    logger.debug(valid_hash)
     return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
 
