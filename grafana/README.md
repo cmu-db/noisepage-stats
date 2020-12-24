@@ -33,3 +33,8 @@ To delete the local deployment
 ```
 kubectl delete pods,service,deployment -n performance --all
 ```
+
+### Create a dashboard
+Check the document here: https://grafana.com/docs/grafana/latest/getting-started/getting-started/#step-3-create-a-dashboard
+
+Be sure to **store** the dashboard JSON Model into the folder: [noisepage-stats/grafana/dashboards/](https://github.com/cmu-db/noisepage-stats/tree/master/grafana/dashboards)
