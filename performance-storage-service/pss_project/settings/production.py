@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = [
     'incrudibles-production.db.pdl.cmu.edu',
     get_environ_value('PSS_POD_IP'),
