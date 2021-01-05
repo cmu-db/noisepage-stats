@@ -18,7 +18,7 @@ class OLTPBenchResult(Model):
         db_table = 'oltpbench_results'
 
     # Fields
-    time = DateTimeField(auto_now=False)
+    time = DateTimeField(primary_key=True, auto_now=False)
     query_mode = CharField(max_length=30, choices=QUERY_MODE_CHOICES)
     jenkins_job_id = CharField(max_length=15)
     git_branch = CharField(max_length=255)

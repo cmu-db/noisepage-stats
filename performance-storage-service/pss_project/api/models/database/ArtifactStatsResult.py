@@ -10,7 +10,7 @@ class ArtifactStatsResult(Model):
     class Meta:
         db_table = 'artifact_stats_results'
 
-    time = DateTimeField(auto_now=False)
+    time = DateTimeField(primary_key=True, auto_now=False)
     jenkins_job_id = CharField(max_length=15)
     git_branch = CharField(max_length=255)
     git_commit_id = CharField(max_length=40)
