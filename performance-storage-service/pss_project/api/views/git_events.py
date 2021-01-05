@@ -75,15 +75,13 @@ def handle_pull_request_event(repo_client, payload):
     """ When a pull request event is detected create a new check run for the
     performance cop"""
     # TODO: Not sure if we want some logic for labels
-    # TODO: This if statement is temporary so we can test in the NoisePage repo without affecting everyone
-    if payload['pull_request'].get('user', {}).get('login') == 'bialesdaniel':
-        commit_sha = payload['pull_request'].get('head', {}).get('sha')
-        if should_initialize_check_run(payload.get('action')):
-            logger.debug('pull request reinitialized check')
-            initialize_check_run(repo_client, commit_sha)
-        if payload.get('action') == 'closed':
-            logger.debug('pull request was closed ')
-            # Do nothing. In the future we may want to do cleanup
+    commit_sha = payload['pull_request'].get('head', {}).get('sha')
+    if should_initialize_check_run(payload.get('action')):
+        logger.debug('pull request reinitialized check')
+        initialize_check_run(repo_client, commit_sha)
+    if payload.get('action') == 'closed':
+        logger.debug('pull request was closed ')
+        # Do nothing. In the future we may want to do cleanup
 
 
 def handle_status_event(repo_client, payload):
