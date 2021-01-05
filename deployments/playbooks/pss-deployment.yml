@@ -23,12 +23,12 @@
         state: absent
         definition: "{{ lookup('template', '{{ job_file }}') }}"
     
-    - name: Remove Old Migration Pods #This is experimental
-      k8s:
-        state: absent
-        kind: Pods
-        namespace: performance
-        name: django-migrations-*
+    # - name: Remove Old Migration Pods #This is experimental
+    #   k8s:
+    #     state: absent
+    #     kind: Pods
+    #     namespace: performance
+    #     name: django-migrations-*
         
     - name: Migrate Database
       vars:
