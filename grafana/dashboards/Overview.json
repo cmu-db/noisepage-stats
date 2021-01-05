@@ -43,7 +43,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1609873147202,
+  "iteration": 1609877174249,
   "links": [],
   "panels": [
     {
@@ -265,12 +265,12 @@
       "id": 40,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -307,7 +307,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Change since last 30 days",
+      "title": "Last 30 days",
       "type": "stat"
     },
     {
@@ -315,8 +315,8 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "mappings": [],
           "decimals": 2,
+          "mappings": [],
           "thresholds": {
             "mode": "percentage",
             "steps": [
@@ -347,12 +347,12 @@
       "id": 41,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -389,7 +389,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Change since last 90 days",
+      "title": "Last 90 days",
       "type": "stat"
     },
     {
@@ -429,12 +429,12 @@
       "id": 42,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -471,7 +471,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Change since genesis",
+      "title": "All-Time",
       "type": "stat"
     },
     {
