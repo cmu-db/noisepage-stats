@@ -20,10 +20,10 @@ class BasePRBot():
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, app_id, app_private_key, webhook_secret, name='generic-pr-bot'):
+    def __init__(self, app_id, app_private_key, app_webhook_secret, name='generic-pr-bot'):
         self.app_id = app_id
         self.app_private_key = app_private_key
-        self.webhook_secret = webhook_secret
+        self.app_webhook_secret = app_webhook_secret
         self.name = name
 
         # Properties that instances may need to override
@@ -86,7 +86,7 @@ class BasePRBot():
         """ Check that the has passed with the request is valid based on the
         webhook secret and the request body """
         alg, req_hash = hash_header.split('=', 1)
-        valid_hash = hmac.new(str.encode(self.webhook_secret), req_body, alg)
+        valid_hash = hmac.new(str.encode(self.app_webhook_secret), req_body, alg)
         return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
     def handle_initialize_event(self, payload):

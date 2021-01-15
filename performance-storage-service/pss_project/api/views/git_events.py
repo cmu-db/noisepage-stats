@@ -21,8 +21,8 @@ class GitEventsViewSet(ViewSet):
         will do nothing. """
         try:
             performance_guard = PerformanceGuardBot(app_id=86997,
-                                                    private_key=get_environ_value('PERFORMANCE_GUARD_PRIVATE_KEY'),
-                                                    webhook_secret=get_environ_value(
+                                                    app_private_key=get_environ_value('PERFORMANCE_GUARD_PRIVATE_KEY'),
+                                                    app_webhook_secret=get_environ_value(
                                                         'PERFORMANCE_GUARD_WEBHOOK_SECRET'),
                                                     name='performance-guard')
             performance_guard.connect_to_repo()
