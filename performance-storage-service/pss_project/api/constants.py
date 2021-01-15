@@ -1,7 +1,5 @@
 from datetime import datetime
 
-from pss_project.settings.utils import get_environ_value
-
 service_start_time = datetime.now()
 
 # Query mode validation
@@ -35,16 +33,10 @@ MICROBENCHMARK_STATUS_CHOICES = [
 ]
 
 # Github Integration
-# https://github.com/settings/apps/noisepage-performance-cop
-GITHUB_APP_IDENTIFIER = 86997 
-ALLOWED_EVENTS = ['pull_request', 'status']
-
 # The status context that is sent when the Jenkins pipeline finishes
 CI_STATUS_CONTEXT = 'continuous-integration/jenkins/pr-merge'
-WEBHOOK_SECRET = get_environ_value('WEBHOOK_SECRET')
 GITHUB_WEBHOOK_HASH_HEADER = 'HTTP_X_HUB_SIGNATURE_256'
-GITHUB_PRIVATE_KEY = get_environ_value('GITHUB_PRIVATE_KEY')
-PERFORMANCE_COP_CHECK_NAME = 'performance-cop'
+GITHUB_EVENT_HEADER = 'HTTP_X_GITHUB_EVENT'
 
 # Github NoisePage Client
 REPO_OWNER = 'cmu-db'

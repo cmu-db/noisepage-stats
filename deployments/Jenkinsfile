@@ -121,6 +121,7 @@ pipeline {
         stage('Grafana') {
           steps{
             dir('deployments'){
+              sh "ansible-galaxy collection install community.grafana"
               sh "ansible-playbook -i inventory playbooks/grafana-deployment.yml --key-file=${ANSIBLE_SSH} \
                 --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }

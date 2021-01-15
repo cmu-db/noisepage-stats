@@ -43,7 +43,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1608330897970,
+  "iteration": 1609878693268,
   "links": [],
   "panels": [
     {
@@ -83,6 +83,252 @@
       "type": "row"
     },
     {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '30 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '30 day'::interval)) as \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '30 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last 30 days",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 5
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '90 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '90 day'::interval)) as \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '90 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last 90 days",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": -5
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 5
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - (NOW() - genesis) as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n\t  genesis,\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      genesis.start AS \"genesis\",\n      (DATE(time) - DATE(genesis.start)) AS \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results, (\n\t    SELECT time AS \"start\"\n\t    FROM oltpbench_results \n\t    ORDER BY time ASC \n\t    LIMIT 1\n\t    ) AS \"genesis\"\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day, genesis\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day, genesis\nORDER BY day, genesis",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "All-time",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -117,7 +363,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 1,
@@ -229,264 +475,264 @@
       }
     },
     {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 15
-      },
-      "id": 40,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '30 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '30 day'::interval)) as \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '30 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since last 30 days",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 15
-      },
-      "id": 41,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '90 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '90 day'::interval)) as \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '90 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since last 90 days",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": -5
-              },
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 15
-      },
-      "id": 42,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - (NOW() - genesis) as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n\t  genesis,\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      genesis.start AS \"genesis\",\n      (DATE(time) - DATE(genesis.start)) AS \"day\",\n      ((metrics->>'throughput')::numeric - \n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n      FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results, (\n\t    SELECT time AS \"start\"\n\t    FROM oltpbench_results \n\t    ORDER BY time ASC \n\t    LIMIT 1\n\t    ) AS \"genesis\"\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day, genesis\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day, genesis\nORDER BY day, genesis",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since genesis",
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 19
       },
       "id": 12,
       "panels": [],
       "title": "Latency Summary",
       "type": "row"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      "id": 43,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '30 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg latency change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '30 day'::interval)) as \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '30 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last 30 days",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 20
+      },
+      "id": 44,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '90 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '90 day'::interval)) as \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '90 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last 90 days",
+      "type": "stat"
+    },
+    {
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 20
+      },
+      "id": 45,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - (NOW() - genesis) as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n\t  genesis,\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      genesis.start AS \"genesis\",\n      (DATE(time) - DATE(genesis.start)) AS \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results, (\n\t    SELECT time AS \"start\"\n\t    FROM oltpbench_results \n\t    ORDER BY time ASC \n\t    LIMIT 1\n\t    ) AS \"genesis\"\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day, genesis\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day, genesis\nORDER BY day, genesis",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "All-time",
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -643,259 +889,13 @@
       }
     },
     {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 34
-      },
-      "id": 43,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '30 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg latency change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '30 day'::interval)) as \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '30 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since last 30 days",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 34
-      },
-      "id": 44,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - '90 day'::interval as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      (DATE(time) - DATE(NOW() - '90 day'::interval)) as \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32 AND\n  \t\ttime >= NOW() - '90 day'::interval\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day\nORDER BY day",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since last 90 days",
-      "type": "stat"
-    },
-    {
-      "datasource": "noisepage-db",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 34
-      },
-      "id": 45,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        }
-      },
-      "pluginVersion": "7.0.3",
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \n\tNOW() + CONCAT(day::text,' day')::interval - (NOW() - genesis) as \"time\",\n\tAVG(daily_benchmark_avg.avg_benchmark_change) * 100 AS \"avg throughput change per benchmark type\"\nFROM (\n\tSELECT\n\t  genesis,\n    day AS \"day\",\n    benchmark_type,\n    AVG(benchmark_change.change) AS \"avg_benchmark_change\"\n\tFROM (\n\t  SELECT\n      time,\n      genesis.start AS \"genesis\",\n      (DATE(time) - DATE(genesis.start)) AS \"day\",\n      ((metrics->'latency'->>'avg')::numeric - \n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC)) /\n\t\t    FIRST_VALUE((metrics->'latency'->>'avg')::numeric) OVER(PARTITION BY benchmark_type,terminals order by time ASC) as \"change\",\n      terminals,\n      benchmark_type\n\t  FROM oltpbench_results, (\n\t    SELECT time AS \"start\"\n\t    FROM oltpbench_results \n\t    ORDER BY time ASC \n\t    LIMIT 1\n\t    ) AS \"genesis\"\n\t  WHERE\n \t\tquery_mode = 'extended' AND\n  \t\tclient_time = 60 AND\n  \t\tgit_branch = 'origin/master' AND\n  \t\twal_device = '$wal_device' AND\n  \t\tmax_connection_threads = 32\n\t  ORDER BY time DESC\n\t) AS benchmark_change\n\tGROUP BY benchmark_type, day, genesis\n\tORDER BY day DESC\n) as daily_benchmark_avg\nGROUP BY day, genesis\nORDER BY day, genesis",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Change since genesis",
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 34
       },
       "id": 8,
       "panels": [],
@@ -915,7 +915,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 35
       },
       "id": 38,
       "mode": "markdown",
@@ -943,7 +943,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 38
       },
       "hiddenSeries": false,
       "id": 3,
@@ -1064,7 +1064,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 47
       },
       "id": 21,
       "panels": [],
@@ -1090,7 +1090,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 56
+        "y": 48
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1221,7 +1221,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 56
+        "y": 48
       },
       "hiddenSeries": false,
       "hideTimeOverride": true,
@@ -1346,7 +1346,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 56
       },
       "id": 14,
       "mode": "markdown",

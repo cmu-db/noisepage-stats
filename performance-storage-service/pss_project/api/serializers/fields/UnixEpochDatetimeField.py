@@ -5,6 +5,7 @@ from rest_framework.serializers import DateTimeField
 
 class UnixEpochDateTimeField(DateTimeField):
     """ This is a custom serializer convert between datetime objects and timestamps """
+
     def to_representation(self, value):
         """ Return epoch time for a datetime object or ``None``"""
         try:
