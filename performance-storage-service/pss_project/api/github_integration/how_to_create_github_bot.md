@@ -25,7 +25,7 @@ You must override three methods:
 
 4. Next add an instance of your Bot to `pss_project/api/views/git_events.py`. You will need the App ID, which can be found on Github. Then pick two environment variables for the private key and webhook secret. Pick a name for the bot. Instantiate the object and call `run()` like:
 ```python
-    my_bot = MyBot(app_id=1234,private_key=get_environ_value('MY_BOT_PRIVATE_KEY'), webhook_secret=get_environ_value('MY_BOT_WEBHOOK_SECRET'), name='my-bot')
+    my_bot = MyBot(app_id=1234, app_private_key=get_environ_value('MY_BOT_PRIVATE_KEY'), app_webhook_secret=get_environ_value('MY_BOT_WEBHOOK_SECRET'), name='my-bot')
     my_bot.connect_to_repo()
     my_bot.run(request)
 ```
