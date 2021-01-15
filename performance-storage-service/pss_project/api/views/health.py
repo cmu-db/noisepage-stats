@@ -10,6 +10,7 @@ logger = logging.getLogger()
 
 class HealthViewSet(viewsets.ViewSet):
     """ Check whether the service is up and get how long it has been up """
+
     def list(self, request):
         logger.debug('health request')
         uptime = (datetime.now() - service_start_time).total_seconds()

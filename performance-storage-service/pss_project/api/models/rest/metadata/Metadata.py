@@ -11,6 +11,7 @@ class Metadata(object):
         github - all github related info (i.e. branch, commit sha)
         noisepage - all system specific metadata (i.e. DB version)
         environment - all environment metadata relating to the conditions under which the metrics were gathered """
+
     def __init__(self, jenkins, github, noisepage, environment):
         self.jenkins = JenkinsMetadata(**jenkins)
         self.github = GithubMetadata(**github)

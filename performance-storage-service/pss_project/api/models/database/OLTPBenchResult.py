@@ -11,7 +11,7 @@ PERFORMANCE_CONFIG_FIELDS = ['query_mode', 'benchmark_type', 'scale_factor', 'te
 
 class OLTPBenchResult(Model):
     """ This class is the model for storing OLTPBench test results in the database. For more information about the
-    schema check out the wiki: 
+    schema check out the wiki:
     https://github.com/cmu-db/noisepage-stats/wiki/Timescaledb-Schema#oltpbench_results-table """
 
     class Meta:
