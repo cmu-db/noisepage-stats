@@ -11,14 +11,14 @@ PERFORMANCE_CONFIG_FIELDS = ['query_mode', 'benchmark_type', 'scale_factor', 'te
 
 class OLTPBenchResult(Model):
     """ This class is the model for storing OLTPBench test results in the database. For more information about the
-    schema check out the wiki: 
+    schema check out the wiki:
     https://github.com/cmu-db/noisepage-stats/wiki/Timescaledb-Schema#oltpbench_results-table """
 
     class Meta:
         db_table = 'oltpbench_results'
 
     # Fields
-    time = DateTimeField(auto_now=False)
+    time = DateTimeField(primary_key=True, auto_now=False)
     query_mode = CharField(max_length=30, choices=QUERY_MODE_CHOICES)
     jenkins_job_id = CharField(max_length=15)
     git_branch = CharField(max_length=255)

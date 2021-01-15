@@ -6,6 +6,7 @@ from pss_project.api.models.rest.utils import to_dict
 
 class OLTPBenchRest(BaseRest):
     """ This class is the model of the OLTPBench data as it is communicated through the HTTP API """
+
     def __init__(self, metadata, timestamp, type, parameters, metrics):
         super().__init__(metadata, timestamp)
         self.type = type

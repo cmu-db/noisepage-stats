@@ -9,8 +9,8 @@ from django.urls import include, path
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('performance-results/', include('pss_project.api.urls')),
-    
+
     # Prometheus is used for monitoring
     # https://incrudibles-k8s.db.pdl.cmu.edu/grafana/d/IVRURedMz/monitoring?orgId=1&refresh=30s
-    path("", include("django_prometheus.urls"), name="django-prometheus"), 
+    path("", include("django_prometheus.urls"), name="django-prometheus"),
 ]

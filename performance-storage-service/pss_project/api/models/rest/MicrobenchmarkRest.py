@@ -5,6 +5,7 @@ from pss_project.api.models.rest.metrics.MicrobenchmarkMetrics import Microbench
 
 class MicrobenchmarkRest(BaseRest):
     """ This class is the model of the Microbench data as it is communicated through the HTTP API """
+
     def __init__(self, metadata, timestamp, test_suite, test_name, parameters, metrics):
         super().__init__(metadata, timestamp)
         self.test_suite = test_suite

@@ -77,12 +77,12 @@
         #     - result_secret_gf_admin_password.stdout is defined
 
         - name: Add grafana dashboards
-          grafana_dashboard:
+          community.grafana.grafana_dashboard:
             grafana_url: "https://{{ service_hostname }}/grafana"
             url_username: "admin"
             url_password: "{{ result_secret_gf_admin_password.stdout }}"
             state: present
-            message: Updated by ansible
+            commit_message: Updated by ansible
             overwrite: yes
             path: "{{ item }}"
           with_fileglob: "{{ dir_local_grafana_dashboards }}/*.json"
