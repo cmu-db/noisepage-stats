@@ -87,6 +87,10 @@ class BasePRBot():
         webhook secret and the request body """
         alg, req_hash = hash_header.split('=', 1)
         valid_hash = hmac.new(str.encode(self.app_webhook_secret), req_body, alg)
+        print(self.app_webhook_secret)
+        print(alg)
+        print(valid_hash)
+        print(hash_header)
         return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
     def handle_initialize_event(self, payload):
