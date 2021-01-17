@@ -67,7 +67,7 @@ def main():
 
     conn = psycopg2.connect(f'postgres://{username}:{password}@{host}:{port}/pss_database')
 
-    table = 'microbenchmark_results'
+    table = 'oltpbench_results'
     all_table_records = find_times_with_duplicates(conn, table)
     count = 1
     for time, _ in all_table_records:
