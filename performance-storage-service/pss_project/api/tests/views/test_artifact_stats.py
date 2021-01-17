@@ -41,6 +41,17 @@ class ArtifactStatsViewTest(APITransactionTestCase):
         response = self.client.post(self.url, data=input, format='json')
         self.assertEqual(response.status_code, 201)
 
+    def test_201_response_smudge_time(self):
+        """
+        Ensure that a second request with the time is saved appropriately
+        """
+        ClassDictFactory = generate_dict_factory(ArtifactStatsRestFactory)
+        input = ClassDictFactory()
+        self.client.credentials(HTTP_AUTHORIZATION=self.credentials)
+        self.client.post(self.url, data=input, format='json')
+        response = self.client.post(self.url, data=input, format='json')
+        self.assertEqual(response.status_code, 201)
+
     def test_400_bad_request(self):
         """
         Ensure that an invalid request sends back a 400

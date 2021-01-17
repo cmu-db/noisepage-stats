@@ -95,6 +95,7 @@ class BasePRBot():
         if self.initialize_event not in payload:
             return
 
+        logger.debug(f'{self.name} handling initialization event')
         commit_sha = payload[self.initialize_event].get('head', {}).get('sha')
         if self.should_initialize_check_run(payload.get('action')):
             logger.debug(f'{self.name} initializing check run')
@@ -108,7 +109,7 @@ class BasePRBot():
         """ Create the initial check run. The run starts in the queued state """
         initial_check_body = self.create_initial_check_run(commit_sha)
         self.repo_client.create_check_run(initial_check_body)
-        logger.debug('Initialized check run')
+        logger.debug(f'{self.name} initialized check run')
 
     def create_initial_check_run(self, commit_sha):
         """ Generate the body of the request to create the github check run. """
@@ -128,6 +129,7 @@ class BasePRBot():
         if self.completion_event not in payload:
             return
 
+        logger.debug(f'{self.name} handling completion event')
         if self.should_complete_check_run(payload):
             logger.debug(f'{self.name} completing check run')
             self.complete_check_run(payload)
@@ -141,15 +143,16 @@ class BasePRBot():
         commit_sha = payload.get('commit', {}).get('sha')
         if not commit_sha:
             return False
+
         return self.is_ci_complete(commit_sha)
 
     def is_ci_complete(self, commit_sha):
         """ Check whether a status update indicates that the Jenkins pipeline
         is complete. This is based on the state and the context of the status """
         status_response = self.repo_client.get_commit_status(commit_sha)
-        if status_response.get('state') != 'success':
-            return False
-        return any([status.get('context') == CI_STATUS_CONTEXT for status in status_response.get('statuses', [])])
+        logger.debug(f'status response: {status_response.get("statuses",[])}')
+        return (any([status.get('context') == CI_STATUS_CONTEXT and status.get('state') == 'success' 
+                for status in status_response.get('statuses', [])]))
 
     def complete_check_run(self, payload):
         """ Update the check run with a complete status based on the performance
