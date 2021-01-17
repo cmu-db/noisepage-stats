@@ -78,8 +78,8 @@ class BasePRBot():
             logger.error(f'{self.name} only works with the NoisePage repo')
             return
 
-        self.handle_initialize_event(payload)
-        self.handle_completion_event(payload)
+        self.handle_initialize_event(event, payload)
+        self.handle_completion_event(event, payload)
         return
 
     def is_valid_github_webhook_hash(self, hash_header, req_body):
@@ -89,10 +89,10 @@ class BasePRBot():
         valid_hash = hmac.new(str.encode(self.app_webhook_secret), req_body, alg)
         return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
-    def handle_initialize_event(self, payload):
+    def handle_initialize_event(self, event, payload):
         """ When the initialize event is detected create a new check run for
         the Github bot"""
-        if self.initialize_event not in payload:
+        if event != self.initialize_event:
             return
 
         logger.debug(f'{self.name} handling initialization event')
@@ -123,10 +123,10 @@ class BasePRBot():
             }
         }
 
-    def handle_completion_event(self, payload):
+    def handle_completion_event(self, event, payload):
         """ When a completion event occurs check whether the check run should
         be completed. If it should then complete it."""
-        if self.completion_event not in payload:
+        if event != self.completion_event:
             return
 
         logger.debug(f'{self.name} handling completion event')

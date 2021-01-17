@@ -19,7 +19,7 @@ class TestBasePRBot(SimpleTestCase):
         nothing will happen """
         mock_bot = mock.Mock(wraps=self.bot)
         payload = {}
-        mock_bot.handle_initialize_event(payload)
+        mock_bot.handle_initialize_event('bad-event', payload)
         self.assertEqual(mock_bot.should_initialize_check_run.call_count, 0)
 
     def test_should_initialize_check_run(self):
@@ -61,7 +61,7 @@ class TestBasePRBot(SimpleTestCase):
         nothing will happen """
         mock_bot = mock.Mock(wraps=self.bot)
         payload = {}
-        mock_bot.handle_completion_event(payload)
+        mock_bot.handle_completion_event('bad-event', payload)
         self.assertEqual(mock_bot.should_complete_check_run.call_count, 0)
 
     @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
