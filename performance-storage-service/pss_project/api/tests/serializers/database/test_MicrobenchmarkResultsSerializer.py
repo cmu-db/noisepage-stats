@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.utils.dateparse import parse_datetime
 
 from pss_project.api.tests.factories.database.MicrobenchmarkDBFactory import MicrobenchmarkDBFactory
 from pss_project.api.tests.factories.rest.MicrobenchmarkRestFactory import MicrobenchmarkRestFactory
@@ -21,3 +22,13 @@ class TestMicrobenchmarkResultSerializer(TestCase):
         input = factory.convert_to_db_json()
         serializer = MicrobenchmarkResultSerializer(data=input)
         self.assertTrue(serializer.is_valid(), msg=serializer.errors)
+
+    def test_smudge_timestamp(self):
+        existing_db_entry = MicrobenchmarkDBFactory()
+        existing_db_entry.save()
+        factory = MicrobenchmarkRestFactory()
+        factory.timestamp = parse_datetime(existing_db_entry.time)
+        input = factory.convert_to_db_json()
+        serializer = MicrobenchmarkResultSerializer(data=input)
+        serializer.smudge_timestamp()
+        self.assertNotEqual(serializer.initial_data['time'],parse_datetime(existing_db_entry.time))

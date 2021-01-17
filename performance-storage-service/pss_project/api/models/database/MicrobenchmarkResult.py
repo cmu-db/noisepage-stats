@@ -15,7 +15,7 @@ class MicrobenchmarkResult(Model):
     class Meta:
         db_table = 'microbenchmark_results'
 
-    time = DateTimeField(primary_key=True, auto_now=False)
+    time = DateTimeField(primary_key=True, auto_now=False, validators=[])
     jenkins_job_id = CharField(max_length=15)
     git_branch = CharField(max_length=255)
     git_commit_id = CharField(max_length=40)
@@ -36,9 +36,6 @@ class MicrobenchmarkResult(Model):
         try:
             super().save(*args, **kwargs)
         except IntegrityError as exception:
-            # Only handle the error:
-            #   psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "1_1_farms_sensorreading_pkey"
-            #   DETAIL:  Key ("time")=(2020-10-01 22:33:52.507782+00) already exists.
             if all (k in exception.args[0] for k in ("Key","time", "already exists")):
                 # Increment the timestamp by 1 ms and try again
                 self.time = str(parse_datetime(self.time) + timedelta(milliseconds=1))

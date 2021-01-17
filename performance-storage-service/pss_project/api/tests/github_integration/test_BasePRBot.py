@@ -85,10 +85,10 @@ class TestBasePRBot(SimpleTestCase):
         """ Test that the it can determine if the ci is complete based on the
         commit status"""
         test_cases = [
-            TestIteration({'state': 'success', 'statuses': [{'context': CI_STATUS_CONTEXT}]}, True),
-            TestIteration({'state': 'success', 'statuses': []}, False),
+            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'success'}]}, True),
+            TestIteration({'statuses': []}, False),
             TestIteration({}, False),
-            TestIteration({'state': 'Failed', 'statuses': [{'context': CI_STATUS_CONTEXT}]}, False),
+            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT,'state': 'failed'}]}, False),
         ]
 
         for input, expected in test_cases:

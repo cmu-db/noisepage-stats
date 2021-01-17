@@ -1,11 +1,12 @@
 from django.test import TestCase
+from django.utils.dateparse import parse_datetime
 
 from pss_project.api.tests.factories.database.ArtifactStatsDBFactory import ArtifactStatsDBFactory
 from pss_project.api.tests.factories.rest.ArtifactStatsRestFactory import ArtifactStatsRestFactory
 from pss_project.api.serializers.database.ArtifactStatsResultSerializer import ArtifactStatsResultSerializer
 
 
-class TestMicrobenchmarkResultSerializer(TestCase):
+class TestArtifactStatsResultSerializer(TestCase):
     def test_serialize_model_fields(self):
         input = ArtifactStatsDBFactory()
         serializer = ArtifactStatsResultSerializer(instance=input)
@@ -21,3 +22,13 @@ class TestMicrobenchmarkResultSerializer(TestCase):
         input = factory.convert_to_db_json()
         serializer = ArtifactStatsResultSerializer(data=input)
         self.assertTrue(serializer.is_valid(), msg=serializer.errors)
+
+    def test_smudge_timestamp(self):
+        existing_db_entry = ArtifactStatsDBFactory()
+        existing_db_entry.save()
+        factory = ArtifactStatsRestFactory()
+        factory.timestamp = parse_datetime(existing_db_entry.time)
+        input = factory.convert_to_db_json()
+        serializer = ArtifactStatsResultSerializer(data=input)
+        serializer.smudge_timestamp()
+        self.assertNotEqual(serializer.initial_data['time'],parse_datetime(existing_db_entry.time))
