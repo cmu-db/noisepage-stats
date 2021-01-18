@@ -22,7 +22,7 @@ pipeline {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "testing-team/noisepage-build/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "testing-team/noisepage-stats-build/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
