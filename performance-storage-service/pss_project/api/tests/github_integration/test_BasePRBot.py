@@ -19,7 +19,7 @@ class TestBasePRBot(SimpleTestCase):
         nothing will happen """
         mock_bot = mock.Mock(wraps=self.bot)
         payload = {}
-        mock_bot.handle_initialize_event(payload)
+        mock_bot.handle_initialize_event('bad-event', payload)
         self.assertEqual(mock_bot.should_initialize_check_run.call_count, 0)
 
     def test_should_initialize_check_run(self):
@@ -61,7 +61,7 @@ class TestBasePRBot(SimpleTestCase):
         nothing will happen """
         mock_bot = mock.Mock(wraps=self.bot)
         payload = {}
-        mock_bot.handle_completion_event(payload)
+        mock_bot.handle_completion_event('bad-event', payload)
         self.assertEqual(mock_bot.should_complete_check_run.call_count, 0)
 
     @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
@@ -85,10 +85,10 @@ class TestBasePRBot(SimpleTestCase):
         """ Test that the it can determine if the ci is complete based on the
         commit status"""
         test_cases = [
-            TestIteration({'state': 'success', 'statuses': [{'context': CI_STATUS_CONTEXT}]}, True),
-            TestIteration({'state': 'success', 'statuses': []}, False),
+            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'success'}]}, True),
+            TestIteration({'statuses': []}, False),
             TestIteration({}, False),
-            TestIteration({'state': 'Failed', 'statuses': [{'context': CI_STATUS_CONTEXT}]}, False),
+            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT,'state': 'failed'}]}, False),
         ]
 
         for input, expected in test_cases:

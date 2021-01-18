@@ -29,6 +29,7 @@ class MicrobenchmarkViewSet(viewsets.ViewSet):
 
         api_serializer.save()
         db_serializer = MicrobenchmarkResultSerializer(data=api_serializer.instance.convert_to_db_json())
+        db_serializer.smudge_timestamp()
         if not db_serializer.is_valid():
             logger.error(f'Invalid db_serializer: {db_serializer.errors}')
             return Response(db_serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

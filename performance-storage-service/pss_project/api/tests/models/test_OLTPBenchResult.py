@@ -7,6 +7,21 @@ from pss_project.api.constants import MASTER_BRANCH_NAME
 
 class TestOLTPBenchResult(TestCase):
 
+    def test_save(self):
+        oltpbench_result = OLTPBenchDBFactory()
+        oltpbench_result.save()
+        all_db_objects = OLTPBenchResult.objects.all()
+        self.assertEqual(len(all_db_objects),1)
+
+    def test_smudge_time_save(self):
+        oltpbench_result_1 = OLTPBenchDBFactory()
+        oltpbench_result_1.save()
+        oltpbench_result_2 = OLTPBenchDBFactory()
+        oltpbench_result_2.time = oltpbench_result_1.time
+        oltpbench_result_2.save()
+        all_db_objects = OLTPBenchResult.objects.all()
+        self.assertEqual(len(all_db_objects),2)
+
     def test_get_test_config(self):
         """ Test that the config settings are returned"""
         oltpbench_result = OLTPBenchDBFactory()

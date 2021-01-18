@@ -21,12 +21,20 @@ class GitEventsViewSet(ViewSet):
         will do nothing. """
         try:
             performance_guard = PerformanceGuardBot(app_id=86997,
-                                                    private_key=get_environ_value('PERFORMANCE_GUARD_PRIVATE_KEY'),
-                                                    webhook_secret=get_environ_value(
+                                                    app_private_key=get_environ_value('PERFORMANCE_GUARD_PRIVATE_KEY'),
+                                                    app_webhook_secret=get_environ_value(
                                                         'PERFORMANCE_GUARD_WEBHOOK_SECRET'),
                                                     name='performance-guard')
             performance_guard.connect_to_repo()
             performance_guard.run(request)
+
+            # test_bot = PerformanceGuardBot(app_id=86997,
+            #                             app_private_key=get_environ_value('PERFORMANCE_GUARD_PRIVATE_KEY'),
+            #                             app_webhook_secret=get_environ_value(
+            #                                 'PERFORMANCE_GUARD_WEBHOOK_SECRET'),
+            #                             name='dan-test')
+            # test_bot.connect_to_repo()
+            # test_bot.run(request)
 
         except Exception as err:
             logger.error(f'GitEventsViewSet create failed: {err}')

@@ -20,10 +20,10 @@ class BasePRBot():
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, app_id, app_private_key, webhook_secret, name='generic-pr-bot'):
+    def __init__(self, app_id, app_private_key, app_webhook_secret, name='generic-pr-bot'):
         self.app_id = app_id
         self.app_private_key = app_private_key
-        self.webhook_secret = webhook_secret
+        self.app_webhook_secret = app_webhook_secret.strip()
         self.name = name
 
         # Properties that instances may need to override
@@ -78,23 +78,24 @@ class BasePRBot():
             logger.error(f'{self.name} only works with the NoisePage repo')
             return
 
-        self.handle_initialize_event(payload)
-        self.handle_completion_event(payload)
+        self.handle_initialize_event(event, payload)
+        self.handle_completion_event(event, payload)
         return
 
     def is_valid_github_webhook_hash(self, hash_header, req_body):
         """ Check that the has passed with the request is valid based on the
         webhook secret and the request body """
         alg, req_hash = hash_header.split('=', 1)
-        valid_hash = hmac.new(str.encode(self.webhook_secret), req_body, alg)
+        valid_hash = hmac.new(str.encode(self.app_webhook_secret), req_body, alg)
         return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
-    def handle_initialize_event(self, payload):
+    def handle_initialize_event(self, event, payload):
         """ When the initialize event is detected create a new check run for
         the Github bot"""
-        if self.initialize_event not in payload:
+        if event != self.initialize_event:
             return
 
+        logger.debug(f'{self.name} handling initialization event')
         commit_sha = payload[self.initialize_event].get('head', {}).get('sha')
         if self.should_initialize_check_run(payload.get('action')):
             logger.debug(f'{self.name} initializing check run')
@@ -108,7 +109,7 @@ class BasePRBot():
         """ Create the initial check run. The run starts in the queued state """
         initial_check_body = self.create_initial_check_run(commit_sha)
         self.repo_client.create_check_run(initial_check_body)
-        logger.debug('Initialized check run')
+        logger.debug(f'{self.name} initialized check run')
 
     def create_initial_check_run(self, commit_sha):
         """ Generate the body of the request to create the github check run. """
@@ -122,12 +123,13 @@ class BasePRBot():
             }
         }
 
-    def handle_completion_event(self, payload):
+    def handle_completion_event(self, event, payload):
         """ When a completion event occurs check whether the check run should
         be completed. If it should then complete it."""
-        if self.completion_event not in payload:
+        if event != self.completion_event:
             return
 
+        logger.debug(f'{self.name} handling completion event')
         if self.should_complete_check_run(payload):
             logger.debug(f'{self.name} completing check run')
             self.complete_check_run(payload)
@@ -141,15 +143,16 @@ class BasePRBot():
         commit_sha = payload.get('commit', {}).get('sha')
         if not commit_sha:
             return False
+
         return self.is_ci_complete(commit_sha)
 
     def is_ci_complete(self, commit_sha):
         """ Check whether a status update indicates that the Jenkins pipeline
         is complete. This is based on the state and the context of the status """
         status_response = self.repo_client.get_commit_status(commit_sha)
-        if status_response.get('state') != 'success':
-            return False
-        return any([status.get('context') == CI_STATUS_CONTEXT for status in status_response.get('statuses', [])])
+        logger.debug(f'status response: {status_response.get("statuses",[])}')
+        return (any([status.get('context') == CI_STATUS_CONTEXT and status.get('state') == 'success' 
+                for status in status_response.get('statuses', [])]))
 
     def complete_check_run(self, payload):
         """ Update the check run with a complete status based on the performance
