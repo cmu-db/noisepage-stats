@@ -27,9 +27,7 @@ pipeline {
   stages{
     stage('Checkout'){
       when {
-        anyOf {
-          branch "master"
-        }
+        branch "master"
       }
       steps{
         checkout scm
