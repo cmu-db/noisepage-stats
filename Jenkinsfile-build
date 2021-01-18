@@ -1,0 +1,99 @@
+#!groovy
+
+def dockerImage = ''
+
+pipeline {
+  environment {
+    REGISTRY = "cmudb/performance-storage-service"
+    REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
+    VERSION = "4.0.11"
+    TIMESCALE_IMAGE = 'timescale/timescaledb:latest-pg12'
+  }
+  agent {
+    label 'docker'
+  }
+  stages{
+    stage('Checkout'){
+      steps{
+        checkout scm
+      }
+    }
+
+    stage('Build'){
+      steps{
+        dir('performance-storage-service'){
+          script{
+            dockerImage = docker.build REGISTRY + ":${VERSION}"
+          }
+        }
+      }
+    }
+
+    stage('Test'){
+      steps{
+        script{
+          dir('performance-storage-service'){
+            docker.withRegistry('', REGISTRY_CREDENTIAL) {
+              sh "docker ps"
+              sh "mkdir reports"
+              docker.image(TIMESCALE_IMAGE).withRun("-e POSTGRES_PASSWORD=password -p 5432:5432 ") { ts ->
+                /* Wait until timescale service is up */
+                sh """
+                  sudo apt-get update
+                  sudo apt-get install postgresql-client -y
+                  until pg_isready -d postgres -h 127.0.0.1 -p 5432 -U postgres > 1; do
+                  echo "Waiting for postgres server"
+                  sleep 1
+                done"""
+                dockerImage.inside("--net=host -e SECRET_KEY=shhh -e PSS_CREATOR_USER=jenkins -e PSS_CREATOR_PASSWORD=password --mount type=bind,source=${WORKSPACE}/performance-storage-service/reports,target=/performance-storage-service/reports --entrypoint=''" ){
+                  sh 'python manage.py jenkins --enable-coverage --coverage-rcfile=.coveragerc'
+                }
+              }
+            }
+          }
+        }
+      }
+      post{
+        always{
+          junit "**/reports/junit.xml"
+          cobertura onlyStable: false, coberturaReportFile: '**/reports/coverage.xml'
+          recordIssues enabledForFailure: true, tool: pep8(pattern: 'performance-storage-service/reports/pep8.report'), filters: [excludeFile('.*/usr/local/lib/.*')]
+          recordIssues enabledForFailure: true, tool: flake8(pattern: 'performance-storage-service/reports/flake8.report'), filters: [excludeFile('.*/usr/local/lib/.*')]
+        }
+      }
+    }
+
+    stage('Publish'){
+      when{
+        branch 'test'
+      }
+      steps{
+        script{
+          dir('performance-storage-service'){
+            docker.withRegistry('', REGISTRY_CREDENTIAL) {
+                dockerImage.push("latest")
+                dockerImage.push("${VERSION}")
+            }
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    cleanup{
+      script{
+        if (env.BRANCH_NAME == 'test') {
+          echo "removing docker image"
+          sh "docker rmi ${REGISTRY}:${VERSION}"
+        }
+        echo "stopping timescaledb if it wasn't already stopped"
+        sh "docker stop timescaledb || true"
+        echo "removing timescale image"
+        sh "docker rmi ${TIMESCALE_IMAGE} -f"
+        echo "deleting directory"
+        deleteDir()
+      }
+    }
+  }
+}

@@ -22,14 +22,12 @@ pipeline {
     label 'docker'
   }
   triggers {
-    upstream(upstreamProjects: "testing-team/noisepage-test-performance-storage-service/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+    upstream(upstreamProjects: "testing-team/noisepage-build/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
   }
   stages{
     stage('Checkout'){
       when {
         anyOf {
-          branch "test"
-          branch "staging"
           branch "master"
         }
       }
@@ -39,42 +37,34 @@ pipeline {
     }
     stage('Install Deployment Dependencies') {
       when {
-        anyOf {
-          allOf {
-            anyOf {
-              triggeredBy "UpstreamCause"
-              allOf {
-                changeset "deployments/**"
-                not { changeset "performance-storage-service/**" }
-              }
+        allOf {
+          anyOf {
+            triggeredBy "UpstreamCause"
+            allOf {
+              changeset "deployments/**"
+              not { changeset "performance-storage-service/**" }
             }
-            branch "test"
           }
-          branch "staging"
           branch "master"
         }
       }
       steps {
         sh "echo ${env.ENV}"
         sh "ansible --version"
-        //sh "sudo apt-add-repository ppa:ansible/ansible"
-        //sh "sudo apt-get -y install ansible"  
+        sh "sudo apt-add-repository ppa:ansible/ansible"
+        sh "sudo apt-get -y install ansible"  
       }
     }
     stage('Create Namespaces') {
       when {
-        anyOf {
-          allOf {
-            anyOf {
-              triggeredBy "UpstreamCause"
-              allOf {
-                changeset "deployments/**"
-                not { changeset "performance-storage-service/**" }
-              }
+        allOf {
+          anyOf {
+            triggeredBy "UpstreamCause"
+            allOf {
+              changeset "deployments/**"
+              not { changeset "performance-storage-service/**" }
             }
-            branch "test"
           }
-          branch "staging"
           branch "master"
         }
       }
@@ -89,15 +79,14 @@ pipeline {
     }
     stage ('Deploy Apps'){
       when {
-        anyOf {
-          allOf {
-            anyOf {
-              triggeredBy "UpstreamCause"
+        allOf {
+          anyOf {
+            triggeredBy "UpstreamCause"
+            allOf {
+              changeset "deployments/**"
               not { changeset "performance-storage-service/**" }
             }
-            branch "test"
           }
-          branch "staging"
           branch "master"
         }
       }
