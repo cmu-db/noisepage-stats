@@ -11,7 +11,7 @@ class TestOLTPBenchResult(TestCase):
         oltpbench_result = OLTPBenchDBFactory()
         oltpbench_result.save()
         all_db_objects = OLTPBenchResult.objects.all()
-        self.assertEqual(len(all_db_objects),1)
+        self.assertEqual(len(all_db_objects), 1)
 
     def test_smudge_time_save(self):
         oltpbench_result_1 = OLTPBenchDBFactory()
@@ -20,7 +20,7 @@ class TestOLTPBenchResult(TestCase):
         oltpbench_result_2.time = oltpbench_result_1.time
         oltpbench_result_2.save()
         all_db_objects = OLTPBenchResult.objects.all()
-        self.assertEqual(len(all_db_objects),2)
+        self.assertEqual(len(all_db_objects), 2)
 
     def test_get_test_config(self):
         """ Test that the config settings are returned"""

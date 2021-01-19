@@ -1,4 +1,5 @@
 from datetime import datetime
+from pss_project.settings.utils import get_environ_value
 
 service_start_time = datetime.now()
 
@@ -33,8 +34,13 @@ MICROBENCHMARK_STATUS_CHOICES = [
 ]
 
 # Github Integration
+GITHUB_APP_ID = 86997
+ALLOWED_EVENTS = ['pull_request', 'status']
 # The status context that is sent when the Jenkins pipeline finishes
 CI_STATUS_CONTEXT = 'continuous-integration/jenkins/pr-merge'
+GITHUB_APP_WEBHOOK_SECRET = get_environ_value('GITHUB_APP_WEBHOOK_SECRET')
+GITHUB_APP_PRIVATE_KEY = get_environ_value('GITHUB_APP_PRIVATE_KEY')
+
 GITHUB_WEBHOOK_HASH_HEADER = 'HTTP_X_HUB_SIGNATURE_256'
 GITHUB_EVENT_HEADER = 'HTTP_X_GITHUB_EVENT'
 

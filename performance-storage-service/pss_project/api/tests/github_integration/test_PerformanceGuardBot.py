@@ -15,8 +15,9 @@ TestIteration = namedtuple('TestCase', 'input expected')
 
 class TestPerformanceGuardBot(SimpleTestCase):
 
-    def setUp(self):
-        self.perf_bot = PerformanceGuardBot(1, 'abc', 'secret', 'name')
+    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
+    def setUp(self, mock_repo_client):
+        self.perf_bot = PerformanceGuardBot(mock_repo_client(), 'name')
 
     @mock.patch('pss_project.api.github_integration.PerformanceGuardBot.get_performance_comparisons')
     def test_get_conclusion_data(self, mock_get_performance_comparisons):
@@ -48,6 +49,7 @@ class TestPerformanceGuardBot(SimpleTestCase):
         for input, expected in test_cases:
             with self.subTest(msg=f'a performance comparison with a min_performance_change of {input} should result'
                               f' in a check run conclusion of {expected}'):
+                self.setUp()
                 with mock.patch('pss_project.api.github_integration.PerformanceGuardBot.get_min_performance_change',
                                 return_value=input):
                     result = self.perf_bot.get_conclusion({})
@@ -73,6 +75,7 @@ class TestPerformanceGuardBot(SimpleTestCase):
         for input, expected in test_cases:
             with self.subTest(msg=f'Performance comparisons of {input} should have a min performance change of'
                               f' {expected}'):
+                self.setUp()
                 result = get_min_performance_change(input)
                 self.assertEqual(result, expected)
 

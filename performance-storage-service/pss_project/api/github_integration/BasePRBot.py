@@ -1,11 +1,7 @@
-import hmac
 import logging
 from abc import ABCMeta, abstractmethod, abstractproperty
 
-from rest_framework.parsers import JSONParser
-
-from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
-from pss_project.api.constants import CI_STATUS_CONTEXT, GITHUB_WEBHOOK_HASH_HEADER, GITHUB_EVENT_HEADER
+from pss_project.api.constants import CI_STATUS_CONTEXT, GITHUB_APP_ID
 
 logger = logging.getLogger()
 
@@ -20,11 +16,9 @@ class BasePRBot():
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, app_id, app_private_key, app_webhook_secret, name='generic-pr-bot'):
-        self.app_id = app_id
-        self.app_private_key = app_private_key
-        self.app_webhook_secret = app_webhook_secret.strip()
+    def __init__(self, repo_client, name='generic-pr-bot'):
         self.name = name
+        self.repo_client = repo_client
 
         # Properties that instances may need to override
         self.allowed_events = ['pull_request', 'status']
@@ -44,11 +38,7 @@ class BasePRBot():
         def conclusion_summary_map(self):
             pass
 
-    def connect_to_repo(self):
-        self.repo_client = NoisePageRepoClient(private_key=self.app_private_key, app_id=self.app_id)
-        logger.debug(f'{self.name} Authenticated with Github repo')
-
-    def run(self, request):
+    def run(self, event, payload):
         """First we make sure that the hash in the header is valid. This
         certifies that only someone who knows the WEBHOOK_SECRET can call this
         endpoint. Then we check to make sure the event is one of the events
@@ -58,36 +48,10 @@ class BasePRBot():
         https://github.com/cmu-db/noisepage. Then the Github bot will pass the
         message body to the initialize and complete methods to determine which
         actions to perform."""
-        if not self.is_valid_github_webhook_hash(request.META.get(GITHUB_WEBHOOK_HASH_HEADER), request.body):
-            logger.error(f'{self.name} invalid webhook hash. This request is not authorized for {self.name}.')
-            return
-
-        logger.debug(f'{self.name} valid webhook hash')
-
-        payload = JSONParser().parse(request)
-        event = request.META.get(GITHUB_EVENT_HEADER)
-
-        logger.debug(f'Incoming {event} event')
-        if event not in self.allowed_events:
-            logger.debug(f'{self.name} received a non-allowed event: {event}. Stopping processing.')
-            return
-
-        repo_installation_id = payload.get('installation', {}).get('id')
-        if not self.repo_client.is_valid_installation_id(repo_installation_id):
-            logger.debug('Received event for repo: {repo_installation_id}')
-            logger.error(f'{self.name} only works with the NoisePage repo')
-            return
 
         self.handle_initialize_event(event, payload)
         self.handle_completion_event(event, payload)
         return
-
-    def is_valid_github_webhook_hash(self, hash_header, req_body):
-        """ Check that the has passed with the request is valid based on the
-        webhook secret and the request body """
-        alg, req_hash = hash_header.split('=', 1)
-        valid_hash = hmac.new(str.encode(self.app_webhook_secret), req_body, alg)
-        return hmac.compare_digest(req_hash, valid_hash.hexdigest())
 
     def handle_initialize_event(self, event, payload):
         """ When the initialize event is detected create a new check run for
@@ -151,8 +115,8 @@ class BasePRBot():
         is complete. This is based on the state and the context of the status """
         status_response = self.repo_client.get_commit_status(commit_sha)
         logger.debug(f'status response: {status_response.get("statuses",[])}')
-        return (any([status.get('context') == CI_STATUS_CONTEXT and status.get('state') == 'success' 
-                for status in status_response.get('statuses', [])]))
+        return (any([status.get('context') == CI_STATUS_CONTEXT and status.get('state') == 'success'
+                     for status in status_response.get('statuses', [])]))
 
     def complete_check_run(self, payload):
         """ Update the check run with a complete status based on the performance
@@ -161,7 +125,7 @@ class BasePRBot():
         if not commit_sha:
             return
 
-        check_run = self.repo_client.get_commit_check_run_for_app(commit_sha, self.app_id)
+        check_run = self.repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_ID)
         if check_run:
             complete_check_body = self.create_complete_check_run(payload)
             self.repo_client.update_check_run(check_run.get('id'), complete_check_body)
@@ -252,7 +216,7 @@ class BasePRBot():
         """ Check to see if the check run was already created. If it was not then
         initialize the check run """
         commit_sha = payload.get('commit', {}).get('sha')
-        check_run = self.repo_client.get_commit_check_run_for_app(commit_sha, self.app_id)
-        if not check_run:
+        check_runs = self.repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_ID)
+        if not check_runs or not any([check_run.get('name') == self.name for check_run in check_runs.get('check_runs', [])]):
             logger.debug(f'{self.name} check run does not exist -- initializing.')
             self.initialize_check_run(commit_sha)

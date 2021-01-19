@@ -11,8 +11,9 @@ TestIteration = namedtuple('TestCase', 'input expected')
 
 class TestBasePRBot(SimpleTestCase):
 
-    def setUp(self):
-        self.bot = BasePRBot(1, 'abc', 'secret', 'name')
+    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
+    def setUp(self, mock_repo_client):
+        self.bot = BasePRBot(mock_repo_client(), 'name')
 
     def test_handle_initialize_event_invalid_event(self):
         """ Test that if an event other than the initialize even occurs then
@@ -34,18 +35,16 @@ class TestBasePRBot(SimpleTestCase):
 
         for input, expected in test_cases:
             with self.subTest(msg=f'on {input} pull request should_initialize_check_run should return {expected}'):
+                self.setUp()
                 result = self.bot.should_initialize_check_run(input)
                 self.assertEqual(result, expected)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_initialize_check_run(self, mock_repo_client):
+    def test_initialize_check_run(self):
         """ Test that this calls the repo client to create a check run """
-        repo_client = mock_repo_client()
         commit_sha = '123qwer567'
-        self.bot.repo_client = repo_client
 
         self.bot.initialize_check_run({'commit': {'sha': commit_sha}})
-        repo_client.create_check_run.assert_called_once()
+        self.bot.repo_client.create_check_run.assert_called_once()
 
     def test_create_initial_check_run(self):
         """ Test that this properly uses the class attributes to create the
@@ -64,10 +63,7 @@ class TestBasePRBot(SimpleTestCase):
         mock_bot.handle_completion_event('bad-event', payload)
         self.assertEqual(mock_bot.should_complete_check_run.call_count, 0)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_should_complete_check_run(self, mock_repo_client):
-        repo_client = mock_repo_client()
-        self.bot.repo_client = repo_client
+    def test_should_complete_check_run(self):
         with mock.patch.object(self.bot, 'is_ci_complete'):
             payload = {'commit': {'sha': 'hash'}}
             self.bot.should_complete_check_run(payload)
@@ -80,37 +76,31 @@ class TestBasePRBot(SimpleTestCase):
         result = self.bot.should_complete_check_run(payload)
         self.assertFalse(result)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_is_ci_complete(self, mock_repo_client):
+    def test_is_ci_complete(self):
         """ Test that the it can determine if the ci is complete based on the
         commit status"""
         test_cases = [
             TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'success'}]}, True),
             TestIteration({'statuses': []}, False),
             TestIteration({}, False),
-            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT,'state': 'failed'}]}, False),
+            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'failed'}]}, False),
         ]
 
         for input, expected in test_cases:
             with self.subTest(msg=f'on get_commit_status response of {input} is_ci_complete should return {expected}'):
-                repo_client = mock_repo_client()
-                repo_client.get_commit_status.return_value = input
-                self.bot.repo_client = repo_client
+                self.setUp()
+                self.bot.repo_client.get_commit_status.return_value = input
 
                 result = self.bot.is_ci_complete('hash')
                 self.assertEqual(result, expected)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_complete_check_run_missing_commit(self, mock_repo_client):
-        repo_client = mock_repo_client()
-        self.bot.repo_client = repo_client
+    def test_complete_check_run_missing_commit(self):
         mock.Mock(wraps=self.bot)
         payload = {}
         self.bot.complete_check_run(payload)
         self.bot.repo_client.get_commit_check_run_for_app.assert_not_called()
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_complete_check_run(self, mock_repo_client):
+    def test_complete_check_run(self):
         test_cases = [
             TestIteration({'id': 'hey'}, 1),
             TestIteration(None, 0),
@@ -119,9 +109,8 @@ class TestBasePRBot(SimpleTestCase):
         for input, expected in test_cases:
             with self.subTest(msg=f'on get_commit_check_run_for_app response of {input} then create_complete_check_run'
                               f' is called {expected} times.'):
-                repo_client = mock_repo_client()
-                repo_client.get_commit_check_run_for_app.return_value = input
-                self.bot.repo_client = repo_client
+                self.setUp()
+                self.bot.repo_client.get_commit_check_run_for_app.return_value = input
                 mock.Mock(wraps=self.bot)
                 complete_check_body = {}
                 self.bot.create_complete_check_run = mock.Mock(side_effect=lambda x: complete_check_body)
@@ -156,8 +145,7 @@ class TestBasePRBot(SimpleTestCase):
         self.assertEqual(result.get('output').get('summary'), summary)
         self.assertEqual(result.get('output').get('text'), text)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_should_reinitialize_check_run(self, mock_repo_client):
+    def test_should_reinitialize_check_run(self):
         test_cases = [
             TestIteration(({}, None), False),
             TestIteration(({'status': 'success', 'commit': {'sha': 'hash'}},
@@ -171,28 +159,27 @@ class TestBasePRBot(SimpleTestCase):
             (payload, get_commit_status_response) = input
             with self.subTest(msg=f'on payload of {payload} and get_commit_status_reponse of'
                               f' {get_commit_status_response} return {expected}'):
-                repo_client = mock_repo_client()
-                repo_client.get_commit_status.return_value = get_commit_status_response
-                self.bot.repo_client = repo_client
+                self.setUp()
+                self.bot.repo_client.get_commit_status.return_value = get_commit_status_response
 
                 result = self.bot.should_reinitialize_check_run(payload)
                 self.assertEqual(result, expected)
 
-    @mock.patch('pss_project.api.github_integration.NoisePageRepoClient.NoisePageRepoClient')
-    def test_initialize_check_run_if_missing(self, mock_repo_client):
+    def test_initialize_check_run_if_missing(self):
         """ Test that the check run will be initialized if repo_client reports
         that it is missing. Don't initialize otherwise """
         test_cases = [
-            TestIteration({"check_run": "valid"}, 0),
+            TestIteration({"check_runs": [{"name": self.bot.name}]}, 0),
+            TestIteration({"check_runs": [{"name": "wrong name"}]}, 1),
             TestIteration(None, 1)
         ]
-        for get_commit_check_run_for_app_return_value, create_check_run_call_count in test_cases:
+        for get_commit_check_run_for_app_return_value, expected_create_check_run_call_count in test_cases:
             with self.subTest(msg=(f'If github client returns {get_commit_check_run_for_app_return_value} then'
-                                   f' create_check_run should be called {create_check_run_call_count} times')):
-                repo_client = mock_repo_client()
+                                   f' create_check_run should be called {expected_create_check_run_call_count} times')):
+                self.setUp()
                 commit_sha = '123qwer567'
-                repo_client.get_commit_check_run_for_app.return_value = get_commit_check_run_for_app_return_value
-                self.bot.repo_client = repo_client
+                self.bot.repo_client.get_commit_check_run_for_app.return_value = get_commit_check_run_for_app_return_value
 
                 self.bot.initialize_check_run_if_missing({'commit': {'sha': commit_sha}})
-                self.assertEqual(create_check_run_call_count, repo_client.create_check_run.call_count)
+                self.assertEqual(self.bot.repo_client.create_check_run.call_count,
+                                 expected_create_check_run_call_count)

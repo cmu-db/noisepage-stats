@@ -10,7 +10,7 @@ class TestMicrobenchmarkResults(TestCase):
         microbenchmark_result = MicrobenchmarkDBFactory()
         microbenchmark_result.save()
         all_db_objects = MicrobenchmarkResult.objects.all()
-        self.assertEqual(all_db_objects.count(),1)
+        self.assertEqual(all_db_objects.count(), 1)
 
     def test_smudge_time_save(self):
         microbenchmark_result_1 = MicrobenchmarkDBFactory()
@@ -19,4 +19,4 @@ class TestMicrobenchmarkResults(TestCase):
         microbenchmark_result_2.time = microbenchmark_result_1.time
         microbenchmark_result_2.save()
         all_db_objects = MicrobenchmarkResult.objects.all()
-        self.assertEqual(all_db_objects.count(),2)
+        self.assertEqual(all_db_objects.count(), 2)

@@ -30,13 +30,13 @@ class MicrobenchmarkResult(Model):
 
     def save(self, *args, **kwargs):
         self.save_and_smear_timestamp(*args, **kwargs)
-    
+
     def save_and_smear_timestamp(self, *args, **kwargs):
         """Recursivly try to save by incrementing the timestamp on duplicate error"""
         try:
             super().save(*args, **kwargs)
         except IntegrityError as exception:
-            if all (k in exception.args[0] for k in ("Key","time", "already exists")):
+            if all(k in exception.args[0] for k in ("Key", "time", "already exists")):
                 # Increment the timestamp by 1 ms and try again
                 self.time = str(parse_datetime(self.time) + timedelta(milliseconds=1))
                 self.save_and_smear_timestamp(*args, **kwargs)

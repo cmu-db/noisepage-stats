@@ -10,7 +10,7 @@ class TestArtifactStatsResults(TestCase):
         artifact_stats_result = ArtifactStatsDBFactory()
         artifact_stats_result.save()
         all_db_objects = ArtifactStatsResult.objects.all()
-        self.assertEqual(all_db_objects.count(),1)
+        self.assertEqual(all_db_objects.count(), 1)
 
     def test_smudge_time_save(self):
         artifact_stats_result_1 = ArtifactStatsDBFactory()
@@ -19,4 +19,4 @@ class TestArtifactStatsResults(TestCase):
         artifact_stats_result_2.time = artifact_stats_result_1.time
         artifact_stats_result_2.save()
         all_db_objects = ArtifactStatsResult.objects.all()
-        self.assertEqual(all_db_objects.count(),2)
+        self.assertEqual(all_db_objects.count(), 2)

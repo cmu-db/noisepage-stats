@@ -33,4 +33,4 @@ class TestOLTPBenchResultSerializer(TestCase):
         input = factory.convert_to_db_json()
         serializer = OLTPBenchResultSerializer(data=input)
         serializer.smudge_timestamp()
-        self.assertNotEqual(serializer.initial_data['time'],parse_datetime(existing_db_entry.time))
+        self.assertNotEqual(serializer.initial_data['time'], parse_datetime(existing_db_entry.time))
