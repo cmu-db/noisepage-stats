@@ -27,7 +27,7 @@ pipeline {
   stages{
     stage('Checkout'){
       when {
-        branch "master"
+        triggeredBy "UpstreamCause"
       }
       steps{
         checkout scm
@@ -35,16 +35,7 @@ pipeline {
     }
     stage('Install Deployment Dependencies') {
       when {
-        allOf {
-          anyOf {
-            triggeredBy "UpstreamCause"
-            allOf {
-              changeset "deployments/**"
-              not { changeset "performance-storage-service/**" }
-            }
-          }
-          branch "master"
-        }
+        triggeredBy "UpstreamCause"
       }
       steps {
         sh "echo ${env.ENV}"
@@ -55,16 +46,7 @@ pipeline {
     }
     stage('Create Namespaces') {
       when {
-        allOf {
-          anyOf {
-            triggeredBy "UpstreamCause"
-            allOf {
-              changeset "deployments/**"
-              not { changeset "performance-storage-service/**" }
-            }
-          }
-          branch "master"
-        }
+        triggeredBy "UpstreamCause"
       }
       steps {
         dir('deployments'){
@@ -77,16 +59,7 @@ pipeline {
     }
     stage ('Deploy Apps'){
       when {
-        allOf {
-          anyOf {
-            triggeredBy "UpstreamCause"
-            allOf {
-              changeset "deployments/**"
-              not { changeset "performance-storage-service/**" }
-            }
-          }
-          branch "master"
-        }
+        triggeredBy "UpstreamCause"
       }
       stages {
         stage('TimescaleDB') {

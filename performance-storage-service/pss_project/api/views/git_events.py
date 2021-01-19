@@ -61,7 +61,7 @@ class GitEventsViewSet(ViewSet):
         return Response(status=HTTP_200_OK)
 
 
-def is_valid_github_webhook_hash(self, hash_header, req_body):
+def is_valid_github_webhook_hash(hash_header, req_body):
     """ Check that the has passed with the request is valid based on the
     webhook secret and the request body """
     alg, req_hash = hash_header.split('=', 1)
