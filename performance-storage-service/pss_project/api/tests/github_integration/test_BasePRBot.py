@@ -98,19 +98,19 @@ class TestBasePRBot(SimpleTestCase):
         mock.Mock(wraps=self.bot)
         payload = {}
         self.bot.complete_check_run(payload)
-        self.bot.repo_client.get_commit_check_run_for_app.assert_not_called()
+        self.bot.repo_client.get_commit_check_run_by_name.assert_not_called()
 
     def test_complete_check_run(self):
         test_cases = [
-            TestIteration({'id': 'hey'}, 1),
+            TestIteration({'name': self.bot.name}, 1),
             TestIteration(None, 0),
         ]
 
         for input, expected in test_cases:
-            with self.subTest(msg=f'on get_commit_check_run_for_app response of {input} then create_complete_check_run'
+            with self.subTest(msg=f'on get_commit_check_run_by_name response of {input} then create_complete_check_run'
                               f' is called {expected} times.'):
                 self.setUp()
-                self.bot.repo_client.get_commit_check_run_for_app.return_value = input
+                self.bot.repo_client.get_commit_check_run_by_name.return_value = input
                 mock.Mock(wraps=self.bot)
                 complete_check_body = {}
                 self.bot.create_complete_check_run = mock.Mock(side_effect=lambda x: complete_check_body)
@@ -173,12 +173,12 @@ class TestBasePRBot(SimpleTestCase):
             TestIteration({"check_runs": [{"name": "wrong name"}]}, 1),
             TestIteration(None, 1)
         ]
-        for get_commit_check_run_for_app_return_value, expected_create_check_run_call_count in test_cases:
-            with self.subTest(msg=(f'If github client returns {get_commit_check_run_for_app_return_value} then'
+        for get_commit_check_run_by_name_return_value, expected_create_check_run_call_count in test_cases:
+            with self.subTest(msg=(f'If github client returns {get_commit_check_run_by_name_return_value} then'
                                    f' create_check_run should be called {expected_create_check_run_call_count} times')):
                 self.setUp()
                 commit_sha = '123qwer567'
-                self.bot.repo_client.get_commit_check_run_for_app.return_value = get_commit_check_run_for_app_return_value
+                self.bot.repo_client.get_commit_check_run_by_name.return_value = get_commit_check_run_by_name_return_value
 
                 self.bot.initialize_check_run_if_missing({'commit': {'sha': commit_sha}})
                 self.assertEqual(self.bot.repo_client.create_check_run.call_count,

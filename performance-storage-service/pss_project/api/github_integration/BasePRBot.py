@@ -125,7 +125,7 @@ class BasePRBot():
         if not commit_sha:
             return
 
-        check_run = self.repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_ID)
+        check_run = self.repo_client.get_commit_check_run_by_name(commit_sha, self.name)
         if check_run:
             complete_check_body = self.create_complete_check_run(payload)
             self.repo_client.update_check_run(check_run.get('id'), complete_check_body)
@@ -216,7 +216,7 @@ class BasePRBot():
         """ Check to see if the check run was already created. If it was not then
         initialize the check run """
         commit_sha = payload.get('commit', {}).get('sha')
-        check_runs = self.repo_client.get_commit_check_run_for_app(commit_sha, GITHUB_APP_ID)
+        check_runs = self.repo_client.get_commit_check_run_by_name(commit_sha, self.name)
         if not check_runs or not any([check_run.get('name') == self.name for check_run in check_runs.get('check_runs', [])]):
             logger.debug(f'{self.name} check run does not exist -- initializing.')
             self.initialize_check_run(commit_sha)

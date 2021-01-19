@@ -89,7 +89,7 @@ class NoisePageRepoClient():
         response.raise_for_status()
         return response.json()
 
-    def get_commit_check_run_for_app(self, commit_sha, app_id):
+    def get_commit_check_run_by_name(self, commit_sha, name):
         """ Get the check runs for a commit """
         token = self._get_installation_access_token()
         headers = {
@@ -100,14 +100,13 @@ class NoisePageRepoClient():
         response = requests.get(url=url, headers=headers)
         response.raise_for_status()
         check_runs = response.json()
-        run = find_check_run_by_app_id(check_runs.get('check_runs'), app_id)
-        if run:
-            return run
+        check = find_check_run_by_name(check_runs.get('check_runs'), name)
+        if check:
+            return check
         return {}
 
-
-def find_check_run_by_app_id(check_runs, app_id):
-    for run in check_runs:
-        if run.get('app', {}).get('id') == app_id:
-            return run
+def find_check_run_by_name(check_runs, name):
+    for check in check_runs:
+        if check.get('name') == name:
+            return check
     return None
