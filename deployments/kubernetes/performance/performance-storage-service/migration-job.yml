@@ -43,12 +43,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-            - name: PERFORMANCE_GUARD_WEBHOOK_SECRET
+            - name: GITHUB_APP_WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:
                   name: "secrets-{{ env }}"
                   key: webhook_secret 
-            - name: PERFORMANCE_GUARD_PRIVATE_KEY
+            - name: GITHUB_APP_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
                   name: "secrets-{{ env }}"

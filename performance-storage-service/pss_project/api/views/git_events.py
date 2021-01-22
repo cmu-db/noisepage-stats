@@ -8,7 +8,6 @@ from rest_framework.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR, H
 
 from pss_project.api.github_integration.NoisePageRepoClient import NoisePageRepoClient
 from pss_project.api.github_integration.PerformanceGuardBot import PerformanceGuardBot
-from pss_project.api.github_integration.SimplePRBot import SimplePRBot
 from pss_project.api.constants import (GITHUB_WEBHOOK_HASH_HEADER, GITHUB_EVENT_HEADER, ALLOWED_EVENTS,
                                        GITHUB_APP_WEBHOOK_SECRET, GITHUB_APP_PRIVATE_KEY, GITHUB_APP_ID)
 
@@ -50,8 +49,6 @@ class GitEventsViewSet(ViewSet):
 
             performance_guard = PerformanceGuardBot(repo_client=repo_client, name='performance-guard')
             performance_guard.run(event, payload)
-            simple_bot = SimplePRBot(repo_client=repo_client, name='simple-bot')
-            simple_bot.run(event, payload)
 
         except Exception as err:
             logger.error(f'GitEventsViewSet create failed: {err}')
