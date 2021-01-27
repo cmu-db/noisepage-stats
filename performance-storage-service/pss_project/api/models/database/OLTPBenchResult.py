@@ -46,7 +46,8 @@ class OLTPBenchResult(Model):
             super().save(*args, **kwargs)
         except IntegrityError as exception:
             # Only handle the error:
-            #   psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "1_1_farms_sensorreading_pkey"
+            #   psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint
+            #   "1_1_farms_sensorreading_pkey"
             #   DETAIL:  Key ("time")=(2020-10-01 22:33:52.507782+00) already exists.
             if all(k in exception.args[0] for k in ("Key", "time", "already exists")):
                 # Increment the timestamp by 1 ms and try again

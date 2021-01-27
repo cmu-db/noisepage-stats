@@ -1,7 +1,7 @@
 import logging
 from abc import ABCMeta, abstractmethod, abstractproperty
 
-from pss_project.api.constants import CI_STATUS_CONTEXT, GITHUB_APP_ID
+from pss_project.api.constants import CI_STATUS_CONTEXT
 
 logger = logging.getLogger()
 
@@ -108,15 +108,15 @@ class BasePRBot():
         if not commit_sha:
             return False
 
-        return self.is_ci_complete(commit_sha)
+        return self.is_ci_complete(payload)
 
-    def is_ci_complete(self, commit_sha):
+    def is_ci_complete(self, payload):
         """ Check whether a status update indicates that the Jenkins pipeline
         is complete. This is based on the state and the context of the status """
-        status_response = self.repo_client.get_commit_status(commit_sha)
-        logger.debug(f'status response: {status_response.get("statuses",[])}')
-        return (any([status.get('context') == CI_STATUS_CONTEXT and status.get('state') == 'success'
-                     for status in status_response.get('statuses', [])]))
+        state = payload.get('state')
+        context = payload.get('context')
+        logger.debug(f'status context: {context}, state: {state}')
+        return context == CI_STATUS_CONTEXT and state == 'success'
 
     def complete_check_run(self, payload):
         """ Update the check run with a complete status based on the performance
@@ -217,6 +217,7 @@ class BasePRBot():
         initialize the check run """
         commit_sha = payload.get('commit', {}).get('sha')
         check_runs = self.repo_client.get_commit_check_run_by_name(commit_sha, self.name)
-        if not check_runs or not any([check_run.get('name') == self.name for check_run in check_runs.get('check_runs', [])]):
+        if not check_runs or not any([check_run.get('name') == self.name
+                                      for check_run in check_runs.get('check_runs', [])]):
             logger.debug(f'{self.name} check run does not exist -- initializing.')
             self.initialize_check_run(commit_sha)

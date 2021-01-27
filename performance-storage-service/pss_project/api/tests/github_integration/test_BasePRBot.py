@@ -80,18 +80,16 @@ class TestBasePRBot(SimpleTestCase):
         """ Test that the it can determine if the ci is complete based on the
         commit status"""
         test_cases = [
-            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'success'}]}, True),
-            TestIteration({'statuses': []}, False),
+            TestIteration({'state': 'success', 'context': CI_STATUS_CONTEXT}, True),
+            TestIteration({'context': 'another app'}, False),
             TestIteration({}, False),
-            TestIteration({'statuses': [{'context': CI_STATUS_CONTEXT, 'state': 'failed'}]}, False),
+            TestIteration({'context': CI_STATUS_CONTEXT, 'state': 'failed'}, False),
         ]
 
         for input, expected in test_cases:
             with self.subTest(msg=f'on get_commit_status response of {input} is_ci_complete should return {expected}'):
                 self.setUp()
-                self.bot.repo_client.get_commit_status.return_value = input
-
-                result = self.bot.is_ci_complete('hash')
+                result = self.bot.is_ci_complete(input)
                 self.assertEqual(result, expected)
 
     def test_complete_check_run_missing_commit(self):
@@ -175,10 +173,12 @@ class TestBasePRBot(SimpleTestCase):
         ]
         for get_commit_check_run_by_name_return_value, expected_create_check_run_call_count in test_cases:
             with self.subTest(msg=(f'If github client returns {get_commit_check_run_by_name_return_value} then'
-                                   f' create_check_run should be called {expected_create_check_run_call_count} times')):
+                                   f' create_check_run should be called {expected_create_check_run_call_count} '
+                                   'times')):
                 self.setUp()
                 commit_sha = '123qwer567'
-                self.bot.repo_client.get_commit_check_run_by_name.return_value = get_commit_check_run_by_name_return_value
+                self.bot.repo_client.get_commit_check_run_by_name.return_value = \
+                    get_commit_check_run_by_name_return_value
 
                 self.bot.initialize_check_run_if_missing({'commit': {'sha': commit_sha}})
                 self.assertEqual(self.bot.repo_client.create_check_run.call_count,

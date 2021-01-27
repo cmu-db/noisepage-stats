@@ -105,6 +105,7 @@ class NoisePageRepoClient():
             return check
         return {}
 
+
 def find_check_run_by_name(check_runs, name):
     for check in check_runs:
         if check.get('name') == name:
