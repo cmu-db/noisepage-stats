@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1611948227184,
+  "iteration": 1611948950252,
   "links": [],
   "panels": [
     {
@@ -532,7 +532,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -655,7 +655,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -778,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -901,7 +901,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1024,7 +1024,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1084,7 +1084,7 @@
       "id": 105,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -1149,7 +1149,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1447,7 +1447,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1571,7 +1571,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1695,7 +1695,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1819,7 +1819,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1943,7 +1943,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2067,7 +2067,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2128,7 +2128,7 @@
       "id": 108,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2193,7 +2193,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2491,7 +2491,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2615,7 +2615,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2739,7 +2739,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2863,7 +2863,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2987,7 +2987,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3111,7 +3111,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3172,7 +3172,7 @@
       "id": 111,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -3237,7 +3237,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3535,7 +3535,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3659,7 +3659,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3783,7 +3783,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3907,7 +3907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4031,7 +4031,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4155,7 +4155,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4216,7 +4216,7 @@
       "id": 114,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -4281,7 +4281,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4579,7 +4579,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4703,7 +4703,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4827,7 +4827,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4951,7 +4951,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5075,7 +5075,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5199,7 +5199,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1611948227184,
+      "repeatIteration": 1611948950252,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5259,8 +5259,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "HDD",
-          "value": "HDD"
+          "text": "RAM disk",
+          "value": "RAM disk"
         },
         "datasource": "noisepage-db",
         "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
@@ -5284,7 +5284,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": [
             "$__all"
@@ -5312,7 +5312,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": [
             "$__all"
