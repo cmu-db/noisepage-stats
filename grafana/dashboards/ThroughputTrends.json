@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606967230965,
+  "iteration": 1611948227184,
   "links": [],
   "panels": [
     {
@@ -429,7 +429,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -486,7 +486,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -532,7 +532,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -552,7 +552,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -609,7 +609,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -655,7 +655,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -675,7 +675,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -732,7 +732,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -778,7 +778,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -798,7 +798,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -855,7 +855,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -901,7 +901,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -921,7 +921,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -978,7 +978,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1024,7 +1024,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "scopedVars": {
         "benchmark_type": {
@@ -1044,7 +1044,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -1084,7 +1084,7 @@
       "id": 105,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -1149,7 +1149,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1401,7 +1401,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1447,7 +1447,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1468,7 +1468,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -1525,7 +1525,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1571,7 +1571,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1592,7 +1592,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -1649,7 +1649,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1695,7 +1695,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1716,7 +1716,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -1773,7 +1773,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1819,7 +1819,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1840,7 +1840,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -1897,7 +1897,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -1943,7 +1943,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1964,7 +1964,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2021,7 +2021,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2067,7 +2067,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 107,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2088,7 +2088,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2128,7 +2128,7 @@
       "id": 108,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -2193,7 +2193,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2445,7 +2445,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2491,7 +2491,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2512,7 +2512,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2569,7 +2569,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2615,7 +2615,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2636,7 +2636,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2693,7 +2693,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2739,7 +2739,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2760,7 +2760,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2817,7 +2817,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2863,7 +2863,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2884,7 +2884,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -2941,7 +2941,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -2987,7 +2987,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3008,7 +3008,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3065,7 +3065,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -3111,7 +3111,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 110,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3132,7 +3132,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3172,7 +3172,7 @@
       "id": 111,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -3237,7 +3237,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3489,7 +3489,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -3535,7 +3535,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3556,7 +3556,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3613,7 +3613,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -3659,7 +3659,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3680,7 +3680,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3737,7 +3737,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -3783,7 +3783,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3804,7 +3804,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3861,7 +3861,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -3907,7 +3907,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3928,7 +3928,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -3985,7 +3985,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4031,7 +4031,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4052,7 +4052,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -4109,7 +4109,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4155,7 +4155,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 113,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4176,7 +4176,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -4216,7 +4216,7 @@
       "id": 114,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 2,
       "scopedVars": {
         "benchmark_type": {
@@ -4281,7 +4281,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "v",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4533,7 +4533,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4579,7 +4579,7 @@
       "pluginVersion": "7.0.3",
       "repeat": "terminals",
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 104,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4600,7 +4600,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -4657,7 +4657,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4703,7 +4703,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4724,7 +4724,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -4781,7 +4781,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4827,7 +4827,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4848,7 +4848,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -4905,7 +4905,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -4951,7 +4951,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4972,7 +4972,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -5029,7 +5029,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -5075,7 +5075,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5096,7 +5096,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -5153,7 +5153,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Throughput"
+              "options": "Throughput (tps)"
             },
             "properties": [
               {
@@ -5199,7 +5199,7 @@
       "pluginVersion": "7.0.3",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606967230965,
+      "repeatIteration": 1611948227184,
       "repeatPanelId": 116,
       "repeatedByRow": true,
       "scopedVars": {
@@ -5220,7 +5220,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time asc)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals order by time desc) * 100 as \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
+          "rawSql": "SELECT\n  (metrics->>'throughput')::numeric AS \"Throughput (tps)\",\n  (FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time DESC) -\n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC)) / \n  FIRST_VALUE((metrics->>'throughput')::numeric) OVER(PARTITION BY terminals ORDER BY time ASC) * 100 AS \"Change\"\nFROM oltpbench_results\nWHERE\n  $__timeFilter(\"time\") AND\n  benchmark_type = ${benchmark_type} AND\n  terminals IN (${terminals}) AND\n  client_time = 60 AND\n  git_branch = 'origin/master'  AND\n  wal_device = '$wal_device' AND\n  max_connection_threads = 32",
           "refId": "B",
           "select": [
             [
@@ -5259,8 +5259,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "RAM disk",
-          "value": "RAM disk"
+          "text": "HDD",
+          "value": "HDD"
         },
         "datasource": "noisepage-db",
         "definition": "SELECT DISTINCT wal_device FROM oltpbench_results",
@@ -5284,7 +5284,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": [
             "$__all"
@@ -5312,7 +5312,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": [
             "$__all"
