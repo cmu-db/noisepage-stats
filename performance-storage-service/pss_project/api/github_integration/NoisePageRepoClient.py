@@ -230,7 +230,11 @@ class NoisePageRepoClient():
             The PR numbers that are associated with this commit.
         """
         search_query = f'{commit_sha}+type:pr+repo:{self.owner}/{self.repo}+state:open'
+        logger.debug(f'search_query: {search_query}')
+        logger.debug(self.git_client.search_issues(search_query))
+        logger.debug(self.noisepage_repo_client.search_issues(search_query))
         prs = self.noisepage_repo_client.search_issues(search_query)
+        logger.debug(f'search results: {prs}')
         return [pr.number for pr in prs]
 
     def get_commit_check_run_by_name(self, commit_sha, name):
