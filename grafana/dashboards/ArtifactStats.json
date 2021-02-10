@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1605343846106,
+  "iteration": 1612561190748,
   "links": [],
   "panels": [
     {
@@ -35,7 +35,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 0
       },
@@ -78,7 +78,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time) AND \n  git_branch = 'origin/master'\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time) AND \n  git_branch = 'origin/master'\nORDER BY time\n",
           "refId": "A",
           "select": [
             [
@@ -157,8 +157,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 8,
+        "w": 6,
+        "x": 6,
         "y": 0
       },
       "hiddenSeries": false,
@@ -183,7 +183,7 @@
       "points": false,
       "renderer": "flot",
       "repeat": null,
-      "repeatIteration": 1605343846106,
+      "repeatIteration": 1612561190748,
       "repeatPanelId": 2,
       "scopedVars": {
         "stats": {
@@ -202,7 +202,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time)\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time) AND \n  git_branch = 'origin/master'\nORDER BY time\n",
           "refId": "A",
           "select": [
             [
@@ -281,8 +281,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 16,
+        "w": 6,
+        "x": 12,
         "y": 0
       },
       "hiddenSeries": false,
@@ -307,7 +307,7 @@
       "points": false,
       "renderer": "flot",
       "repeat": null,
-      "repeatIteration": 1605343846106,
+      "repeatIteration": 1612561190748,
       "repeatPanelId": 2,
       "scopedVars": {
         "stats": {
@@ -326,7 +326,131 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time)\n",
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time) AND \n  git_branch = 'origin/master'\nORDER BY time\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "${stats}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "noisepage-db",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 5,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatIteration": 1612561190748,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "stats": {
+          "selected": false,
+          "text": "binary_size",
+          "value": "binary_size"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__time(time),\n  (metrics->>$stats)::numeric as \"${stats}\"\nFROM\n  artifact_stats_results\nWHERE\n  $__timeFilter(time) AND \n  git_branch = 'origin/master'\nORDER BY time\n",
           "refId": "A",
           "select": [
             [
@@ -399,7 +523,8 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
+          "tags": [],
           "text": "All",
           "value": [
             "$__all"
@@ -427,7 +552,7 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-90d",
     "to": "now"
   },
   "timepicker": {

@@ -1,8 +1,6 @@
 # Performance Storage Service
 
-[![Test Build Status][test_build_badge_url]][test_build_url]
-[![Staging Build Status][staging_build_badge_url]][staging_build_url]
-[![Test Build Status][master_build_badge_url]][master_build_url]
+[![Master Build Status][master_build_badge_url]][master_build_url]
 
 This serivce will be used to accept data from the Jenkins pipeline and store it in TimeScaleDB.
 
@@ -84,12 +82,9 @@ Before committing be sure to review and resolve issues in `/reports/pep8.report`
 
 
 <!-- Reference Links -->
-[test_build_badge_url]: http://jenkins.db.cs.cmu.edu:8080/buildStatus/icon?job=testing-team%2Fnoisepage-test-performance-storage-service%2Ftest
-[test_build_url]: http://jenkins.db.cs.cmu.edu:8080/job/testing-team/job/noisepage-test-performance-storage-service/job/test/
 
-[staging_build_badge_url]: http://jenkins.db.cs.cmu.edu:8080/buildStatus/icon?job=testing-team%2Fnoisepage-test-performance-storage-service%2Fstaging
-[staging_build_url]: http://jenkins.db.cs.cmu.edu:8080/job/testing-team/job/noisepage-test-performance-storage-service/job/staging/
+[master_build_badge_url]: http://jenkins.db.cs.cmu.edu:8080/buildStatus/icon?job=testing-team%2Fnoisepage-stats-build%2Fmaster
+[master_build_url]: http://jenkins.db.cs.cmu.edu:8080/job/testing-team/job/noisepage-stats-build/job/master/
 
-[master_build_badge_url]: http://jenkins.db.cs.cmu.edu:8080/buildStatus/icon?job=testing-team%2Fnoisepage-test-performance-storage-service%2Fmaster
-[master_build_url]: http://jenkins.db.cs.cmu.edu:8080/job/testing-team/job/noisepage-test-performance-storage-service/job/master/
+
 

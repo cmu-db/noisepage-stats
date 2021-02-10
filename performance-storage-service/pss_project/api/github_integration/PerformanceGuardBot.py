@@ -10,7 +10,11 @@ logger = logging.getLogger()
 
 
 class PerformanceGuardBot(BasePRBot):
-    """ Add information here"""
+    """ This PR Bot is initialized in a queued stated. It waits for the CI pipeline to
+    complete. When the CI pipeline completes it fetches the latest performance results
+    for the commit. Then it compares the performance results with the most recent
+    nightly performance results. The results are organized into a markdown table. The
+    check is completed based on the results of the performance comparison. """
     # https://github.com/settings/apps/noisepage-performance-guard
 
     @property
@@ -36,7 +40,11 @@ class PerformanceGuardBot(BasePRBot):
             -5: CONCLUSION_NEUTRAL,
         }
 
-    def get_conclusion_data(self, payload):
+    @property
+    def should_add_pr_comment(self):
+        return True
+
+    def _get_conclusion_data(self, payload):
         """ Get the performance comparison data between the master branch and
         the commit """
         data = None
@@ -45,7 +53,7 @@ class PerformanceGuardBot(BasePRBot):
             data = get_performance_comparisons(MASTER_BRANCH_NAME, commit_sha)
         return data
 
-    def get_conclusion(self, data):
+    def _get_conclusion(self, data):
         """ Determine the worst performance difference between the master
         branch and the PR's branch and then determine the corresponding
         conclusion status. """
@@ -55,10 +63,41 @@ class PerformanceGuardBot(BasePRBot):
                 return conclusion
         return CONCLUSION_FAILURE
 
-    def generate_conclusion_markdown(self, data):
+    def _generate_conclusion_markdown(self, data):
         """ Create a markdown string that describes the Github check and
         details the results of the performance check """
         return generate_performance_result_markdown(data)
+
+    def _generate_pr_comment_markdown(self, data):
+        """ Create the markdown string for a PR comment. The comment gives a
+        concise view of the performance results and allows the user to expand
+        for more details about the tests.
+        """
+        conclusion = self._get_conclusion(data)
+
+        description_text = f'''###{self.conclusion_title_map[conclusion]}
+        
+        {self.conclusion_summary_map[conclusion]}
+
+        '''
+
+        table_headers = ['tps (%change)', 'benchmark_type', 'wal_device', 'details']
+        table_content = []
+        for config, percent_diff, master_throughput, commit_throughput in data:
+            tps = round(percent_diff, 2),
+            benchmark_type = config.get('benchmark_type')
+            wal_device = config.get('wal_device')
+
+            details = generate_details_table_cell(config, master_throughput, commit_throughput)
+            row = [tps, benchmark_type, wal_device, details]
+            table_content.append(row)
+
+        if len(table_content):
+            table_text = tabulate(table_content, headers=table_headers, tablefmt='github')
+        else:
+            table_text = '**Could not find any performance results to compare for this commit.**'
+
+        return description_text + table_text
 
 
 def get_performance_comparisons(base_branch, commit_sha):
@@ -120,3 +159,17 @@ def generate_performance_result_markdown(performance_comparisons):
         table_text = '**Could not find any performance results to compare for this commit.**'
 
     return description_text + table_text
+
+
+def generate_details_table_cell(config, master_throughput, commit_throughput):
+    config_details_str = ",\n\n".join(["=".join([key, str(val)]) for key, val in config.items()])
+    return f'''<details>
+    <summary>Details</summary>
+
+    master tps={master_throughput}
+
+    commit tps={commit_throughput}
+
+    {config_details_str}
+    </details>
+    '''
