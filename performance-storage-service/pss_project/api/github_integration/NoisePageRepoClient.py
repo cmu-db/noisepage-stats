@@ -49,9 +49,9 @@ class NoisePageRepoClient():
         logger.debug('step 1')
         self.git_client.login_as_app(private_key_pem=str.encode(private_key), app_id=app_id)
         logger.debug('we got here')
-        self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id, installation_id=installation_id)
-        logger.debug('now we are here')
         self.noisepage_repo_client = self.git_client.app_installation_for_repository(self.owner, self.repo)
+        logger.debug('now we are here')
+        self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id, installation_id=installation_id)
         logger.debug('final step!')
         self.access_token = {"token": None, "exp": 0}
 
