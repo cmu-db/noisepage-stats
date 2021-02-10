@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 
 # create and set working directory
 RUN mkdir "/performance-storage-service"
