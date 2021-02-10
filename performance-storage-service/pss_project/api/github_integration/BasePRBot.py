@@ -305,7 +305,9 @@ class BasePRBot():
         if not check_run:
             self._initialize_check_run(commit_sha)
         elif check_run.get('status') == 'completed':
+            ### TODO: remove one of these after experiment
             self.repo_client.update_check_run(check_run.get('id'), initial_check_body)
+            self.repo_client.create_check_run(initial_check_body)
 
     def _handle_completion_event(self, event, payload):
         """ When the completion event is detected mark the GitHub check run as
