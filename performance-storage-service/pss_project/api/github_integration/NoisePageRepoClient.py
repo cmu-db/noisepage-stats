@@ -40,12 +40,15 @@ class NoisePageRepoClient():
         app_id : int
             The unique id of the Github App.
         """
+        logger.debug('starting RepoClient initialization')
         self.private_key = private_key
         self.owner = REPO_OWNER
         self.repo = REPO_NAME
 
         self.git_client = GitHub()
+        logger.debug('step 1')
         self.git_client.login_as_app(private_key_pem=str.encode(private_key), app_id=app_id)
+        logger.debug('we got here')
         self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id, installation_id=installation_id)
         self.noisepage_repo_client = self.git_client.app_installation_for_repository(self.owner, self.repo)
         self.access_token = {"token": None, "exp": 0}
