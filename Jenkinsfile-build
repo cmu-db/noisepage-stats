@@ -6,7 +6,7 @@ pipeline {
   environment {
     REGISTRY = "cmudb/performance-storage-service"
     REGISTRY_CREDENTIAL = 'cmudb-dockerhub'
-    VERSION = "4.2.16"
+    VERSION = "4.2.17"
     TIMESCALE_IMAGE = 'timescale/timescaledb:latest-pg12'
   }
   agent {
