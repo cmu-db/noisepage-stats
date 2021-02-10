@@ -29,7 +29,7 @@ class NoisePageRepoClient():
         An access_token for authentication.
     """
 
-    def __init__(self, private_key, app_id):
+    def __init__(self, private_key, app_id, installation_id):
         """ Connect to github and create a Github client and a client specific
         to the Github app installation.
 
@@ -45,7 +45,7 @@ class NoisePageRepoClient():
         self.repo = REPO_NAME
 
         self.git_client = GitHub()
-        self.git_client.login_as_app(private_key_pem=str.encode(private_key), app_id=app_id)
+        self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id, installation_id=installation_id)
         self.noisepage_repo_client = self.git_client.app_installation_for_repository(self.owner, self.repo)
         self.access_token = {"token": None, "exp": 0}
 
