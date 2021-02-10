@@ -86,5 +86,3 @@ Before committing be sure to review and resolve issues in `/reports/pep8.report`
 [master_build_badge_url]: http://jenkins.db.cs.cmu.edu:8080/buildStatus/icon?job=testing-team%2Fnoisepage-stats-build%2Fmaster
 [master_build_url]: http://jenkins.db.cs.cmu.edu:8080/job/testing-team/job/noisepage-stats-build/job/master/
 
-
-

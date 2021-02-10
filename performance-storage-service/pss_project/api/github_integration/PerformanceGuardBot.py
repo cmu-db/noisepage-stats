@@ -75,7 +75,7 @@ class PerformanceGuardBot(BasePRBot):
         """
         conclusion = self._get_conclusion(data)
 
-        description_text = f'''###{self.conclusion_title_map[conclusion]}
+        description_text = f'''### {self.conclusion_title_map[conclusion]}
         
         {self.conclusion_summary_map[conclusion]}
 
@@ -84,7 +84,7 @@ class PerformanceGuardBot(BasePRBot):
         table_headers = ['tps (%change)', 'benchmark_type', 'wal_device', 'details']
         table_content = []
         for config, percent_diff, master_throughput, commit_throughput in data:
-            tps = round(percent_diff, 2),
+            tps = f'{round(percent_diff,2)}%',
             benchmark_type = config.get('benchmark_type')
             wal_device = config.get('wal_device')
 
@@ -166,10 +166,11 @@ def generate_details_table_cell(config, master_throughput, commit_throughput):
     return f'''<details>
     <summary>Details</summary>
 
-    master tps={master_throughput}
+    master tps={round(master_throughput,2)},
 
-    commit tps={commit_throughput}
+    commit tps={round(commit_throughput,2)},
 
     {config_details_str}
     </details>
+    
     '''

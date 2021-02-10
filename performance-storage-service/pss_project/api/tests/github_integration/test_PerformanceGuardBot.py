@@ -111,8 +111,8 @@ class TestPerformanceGuardBot(SimpleTestCase):
         result = generate_details_table_cell(config, master_throughput, commit_throughput)
         for key, value in config.items():
             self.assertRegex(result, rf'{key}={value}')
-        self.assertRegex(result, rf'={master_throughput}')
-        self.assertRegex(result, rf'={commit_throughput}')
+        self.assertRegex(result, rf'={round(master_throughput,2)}')
+        self.assertRegex(result, rf'={round(commit_throughput,2)}')
 
 
 class TestPerformanceGuardBotIntegration(TestCase):
