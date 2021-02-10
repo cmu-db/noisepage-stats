@@ -213,7 +213,7 @@ class NoisePageRepoClient():
         """
         pr_numbers = self.find_commit_pr_numbers(commit_sha)
         for pr_number in pr_numbers:
-            pull_request = self.noisepage_repo_client.pull_request(self.owner, self.repo, pr_number)
+            pull_request = self.git_client.pull_request(self.owner, self.repo, pr_number)
             pull_request.create_comment(comment_body)
 
     def find_commit_pr_numbers(self, commit_sha):
@@ -231,7 +231,7 @@ class NoisePageRepoClient():
         """
         search_query = f'{commit_sha}+type:pr+repo:{self.owner}/{self.repo}+state:open'
         prs = self.git_client.search_issues(search_query)
-        logger.debug(f'search results: {prs}')
+        logger.debug(f'search results: {[pr.number for pr in prs]}')
         return [pr.number for pr in prs]
 
     def get_commit_check_run_by_name(self, commit_sha, name):
