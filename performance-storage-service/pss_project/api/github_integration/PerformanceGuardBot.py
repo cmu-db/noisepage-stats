@@ -159,6 +159,6 @@ def generate_performance_result_markdown(performance_comparisons):
 
 
 def generate_details_table_cell(config, master_throughput, commit_throughput):
-    config_details_str = ",\n\n".join(["=".join([key, str(val)]) for key, val in config.items()])
+    config_details_str = ",\n".join(["=".join([key, str(val)]) for key, val in config.items()])
     return f'<details>\n<summary>Details</summary>\n\nmaster tps={round(master_throughput,2)},' \
            f' commit tps={round(commit_throughput,2)}, {config_details_str}</details>\n'
