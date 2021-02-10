@@ -293,6 +293,7 @@ class TestBasePRBot(SimpleTestCase):
         with patch.object(BasePRBot, '_create_complete_check_run', Mock(return_value=complete_check_body)):
             payload = {'sha': 'hash'}
             self.bot._complete_check_run(payload)
+            print(self.bot.repo_client.create_check_run.call_args)
             self.assertTrue('head_sha' in self.bot.repo_client.create_check_run.call_args.args[0])
 
     def test_complete_check_run_add_pr_comment(self):
