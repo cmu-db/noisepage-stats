@@ -81,7 +81,7 @@ class PerformanceGuardBot(BasePRBot):
         table_headers = ['tps (%change)', 'benchmark_type', 'wal_device', 'details']
         table_content = []
         for config, percent_diff, master_throughput, commit_throughput in data:
-            tps = f'{round(percent_diff,2)}%',
+            tps = f'{round(percent_diff,2)}%'
             benchmark_type = config.get('benchmark_type')
             wal_device = config.get('wal_device')
 
