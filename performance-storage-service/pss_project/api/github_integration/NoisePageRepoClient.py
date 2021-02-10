@@ -212,7 +212,8 @@ class NoisePageRepoClient():
             The comment to be added to the PRs. Markdown is accepted.
         """
         for pr in self.find_commit_pr_numbers(commit_sha):
-            pr.create_comment(comment_body)
+            logger.debug(pr)
+            pr.issue.create_comment(comment_body)
         # pr_numbers = self.find_commit_pr_numbers(commit_sha)
         # for pr_number in pr_numbers:
         #     pull_request = self.git_client.pull_request(self.owner, self.repo, pr_number)
