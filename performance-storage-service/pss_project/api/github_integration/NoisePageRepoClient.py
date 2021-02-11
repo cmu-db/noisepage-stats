@@ -29,7 +29,7 @@ class NoisePageRepoClient():
         An access_token for authentication.
     """
 
-    def __init__(self, private_key, app_id, installation_id):
+    def __init__(self, private_key, app_id):
         """ Connect to github and create a Github client and a client specific
         to the Github app installation.
 
@@ -40,7 +40,6 @@ class NoisePageRepoClient():
         app_id : int
             The unique id of the Github App.
         """
-        logger.debug('starting RepoClient initialization')
         self.private_key = private_key
         self.owner = REPO_OWNER
         self.repo = REPO_NAME
@@ -48,26 +47,9 @@ class NoisePageRepoClient():
         self.git_client = GitHub()
         self.git_client.login_as_app(private_key_pem=str.encode(private_key), app_id=app_id)
         self.noisepage_repo_client = self.git_client.app_installation_for_repository(self.owner, self.repo)
-        self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id, installation_id=installation_id)
+        self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id,
+                                                  installation_id=self.noisepage_repo_client.id)
         self.access_token = {"token": None, "exp": 0}
-
-    def is_valid_installation_id(self, id):
-        """ Check whether an installation ID is the NoisePage installation.
-
-        This will prevent other Github users from using the app.
-
-        Parameters
-        ----------
-        id : int
-            The id of the GitHub App installation.
-
-        Returns
-        -------
-        bool
-            True if the id matches an allowed GitHub App installation.
-            False otherwise.
-        """
-        return id == self.noisepage_repo_client.id
 
     def _get_jwt(self):
         """ This creates a JWT that can be used to retrieve an authentication

@@ -286,6 +286,7 @@ class BasePRBot():
 
     def _reinitialize_check_run(self, payload):
         """ Update a check run back to the inital queued state.
+        Create a new check run in 
 
         If a check run does not exist for the commit then create a new one.
         If there is no commit hash for the event then do nothing.
@@ -300,13 +301,9 @@ class BasePRBot():
         if not commit_sha:
             return
 
-        initial_check_body = self._create_initial_check_run(commit_sha)
         check_run = self.repo_client.get_commit_check_run_by_name(commit_sha, self.name)
-        if not check_run:
-            self._initialize_check_run(commit_sha)
-        elif check_run.get('status') == 'completed':
-            ### TODO: remove one of these after experiment
-            self.repo_client.update_check_run(check_run.get('id'), initial_check_body)
+        if not check_run or check_run.get('status') == 'completed':
+            initial_check_body = self._create_initial_check_run(commit_sha)
             self.repo_client.create_check_run(initial_check_body)
 
     def _handle_completion_event(self, event, payload):

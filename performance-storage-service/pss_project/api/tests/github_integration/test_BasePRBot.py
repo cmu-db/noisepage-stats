@@ -164,16 +164,15 @@ class TestBasePRBot(SimpleTestCase):
                 self.assertEqual(result, expected)
 
     def test_reinitialize_check_run(self):
-        """ Test that the check run is updated when _reinitialize_check_run is
+        """ Test that the check run is created when _reinitialize_check_run is
         called and a check run exists. """
         check_details = {'name': self.bot.name, 'id': 123, 'status': 'completed'}
         self.bot.repo_client.get_commit_check_run_by_name.return_value = check_details
 
         payload = {'sha': 'hash'}
         self.bot._reinitialize_check_run(payload)
-        self.bot.repo_client.update_check_run.assert_called_once_with(check_details['id'], ANY)
+        self.bot.repo_client.create_check_run.assert_called_once()
 
-    @patch.object(BasePRBot, '_initialize_check_run', Mock())
     def test_reinitialize_check_run_missing_check_run(self):
         """ Test that if a check run does not exist it will be created
         instead of being updated. """
@@ -182,7 +181,7 @@ class TestBasePRBot(SimpleTestCase):
 
         payload = {'sha': 'hash'}
         self.bot._reinitialize_check_run(payload)
-        self.bot._initialize_check_run.assert_called_once_with(payload['sha'])
+        self.bot.repo_client.create_check_run.assert_called_once()
 
     @patch.object(BasePRBot, '_initialize_check_run', Mock())
     def test_reinitialize_check_run_do_nothing(self):
@@ -193,8 +192,7 @@ class TestBasePRBot(SimpleTestCase):
 
         payload = {'sha': 'hash'}
         self.bot._reinitialize_check_run(payload)
-        self.bot.repo_client.update_check_run.assert_not_called()
-        self.bot._initialize_check_run.assert_not_called()
+        self.bot.repo_client.create_check_run.assert_not_called()
 
     @patch.object(BasePRBot, '_should_complete_check_run', Mock())
     def test_handle_completion_event_invalid_event(self):
