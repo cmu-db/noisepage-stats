@@ -285,8 +285,7 @@ class BasePRBot():
         return payload.get('sha')
 
     def _reinitialize_check_run(self, payload):
-        """ Update a check run back to the inital queued state.
-        Create a new check run in 
+        """ Create a new check run in the queued state.
 
         If a check run does not exist for the commit then create a new one.
         If there is no commit hash for the event then do nothing.

@@ -1,6 +1,6 @@
 from collections import namedtuple
 from django.test import SimpleTestCase
-from unittest.mock import patch, Mock, ANY
+from unittest.mock import patch, Mock
 
 from pss_project.api.github_integration.BasePRBot import BasePRBot
 from pss_project.api.constants import CI_STATUS_CONTEXT

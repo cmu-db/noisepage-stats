@@ -76,7 +76,7 @@ class PerformanceGuardBot(BasePRBot):
         conclusion = self._get_conclusion(data)
 
         description_text = f'### {self.conclusion_title_map[conclusion]}\n\n' \
-                            f'{self.conclusion_summary_map[conclusion]}\n\n'
+            f'{self.conclusion_summary_map[conclusion]}\n\n'
 
         table_headers = ['tps (%change)', 'benchmark_type', 'wal_device', 'details']
         table_content = []

@@ -44,12 +44,33 @@ class NoisePageRepoClient():
         self.owner = REPO_OWNER
         self.repo = REPO_NAME
 
+        # Client for communicating with GitHub API
         self.git_client = GitHub()
         self.git_client.login_as_app(private_key_pem=str.encode(private_key), app_id=app_id)
+        # Information about app installation associated with repo
         self.noisepage_repo_client = self.git_client.app_installation_for_repository(self.owner, self.repo)
+        # Login as installation allows interactions that require repository permissions
         self.git_client.login_as_app_installation(private_key_pem=str.encode(private_key), app_id=app_id,
                                                   installation_id=self.noisepage_repo_client.id)
         self.access_token = {"token": None, "exp": 0}
+
+    def is_valid_installation_id(self, id):
+        """ Check whether an installation ID is the NoisePage installation.
+        This will prevent other GitHub repositories from using the app.
+
+        Parameters
+        ----------
+        id : int
+            The id of the GitHub App installation.
+            
+        Returns
+        -------
+        bool
+            True if the id matches an allowed GitHub App installation.
+            False otherwise.
+        """
+        return id == self.noisepage_repo_client.id
+
 
     def _get_jwt(self):
         """ This creates a JWT that can be used to retrieve an authentication
@@ -195,16 +216,12 @@ class NoisePageRepoClient():
         comment_body : str
             The comment to be added to the PRs. Markdown is accepted.
         """
-        for pr in self.find_commit_pr_numbers(commit_sha):
+        for pr in self.find_commit_prs(commit_sha):
             logger.debug(pr)
             pr.issue.create_comment(comment_body)
-        # pr_numbers = self.find_commit_pr_numbers(commit_sha)
-        # for pr_number in pr_numbers:
-        #     pull_request = self.git_client.pull_request(self.owner, self.repo, pr_number)
-        #     pull_request.create_comment(comment_body)
 
-    def find_commit_pr_numbers(self, commit_sha):
-        """ Get the PR numbers for all open PRs associated with a commit.
+    def find_commit_prs(self, commit_sha):
+        """ Get all open PRs associated with a commit.
 
         Parameters
         ----------
@@ -213,14 +230,11 @@ class NoisePageRepoClient():
 
         Returns
         -------
-        list of int
-            The PR numbers that are associated with this commit.
+        list of IssueSearchResult
+            The PR search results that are associated with this commit.
         """
         search_query = f'{commit_sha}+type:pr+repo:{self.owner}/{self.repo}+state:open'
         return self.git_client.search_issues(search_query)
-        #prs = self.git_client.search_issues(search_query)
-        # logger.debug(f'search results: {[pr.number for pr in prs]}')
-        # return [pr.number for pr in prs]
 
     def get_commit_check_run_by_name(self, commit_sha, name):
         """ Get the check runs for a commit.
