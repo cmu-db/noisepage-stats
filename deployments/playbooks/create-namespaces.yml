@@ -13,7 +13,7 @@
     register: create_namespaces
     vars:
       namespaces_file: "{{ dir_k8s }}/namespaces.yml"
-    k8s:
+    community.kubernetes.k8s:
       state: present
       definition: "{{ lookup('template', '{{ namespaces_file }}') }}"
 

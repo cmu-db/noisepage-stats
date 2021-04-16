@@ -51,6 +51,7 @@ pipeline {
       steps {
         dir('deployments'){
           script{
+            sh "ansible-galaxy collection install community.kubernetes"
             sh "ansible-playbook -i inventory playbooks/create-namespaces.yml --key-file=${ANSIBLE_SSH} \
               --user=${ANSIBLE_SSH_USR} -e \"env=${env.ENV}\""
           }
@@ -65,6 +66,7 @@ pipeline {
         stage('TimescaleDB') {
           steps{
             dir('deployments'){
+              sh "ansible-galaxy collection install community.kubernetes"
               sh "ansible-playbook -i inventory playbooks/timescaledb-deployment.yml \
                 --key-file=${ANSIBLE_SSH} --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }
@@ -73,6 +75,7 @@ pipeline {
         stage('Performance Storage Service') {
           steps{
             dir('deployments'){
+              sh "ansible-galaxy collection install community.kubernetes"
               sh "ansible-playbook -i inventory playbooks/pss-deployment.yml --key-file=${ANSIBLE_SSH} \
                 --user=${ANSIBLE_SSH_USR} -e env=${env.ENV}"
             }

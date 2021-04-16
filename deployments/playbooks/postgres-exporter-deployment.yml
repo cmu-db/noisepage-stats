@@ -15,7 +15,7 @@
     - name: Apply postgres_exporter deployment configs
       vars:
         config: "{{ dir_k8s_postgres_exporter}}/{{ item }}"
-      k8s:
+      community.kubernetes.k8s:
         state: present
         definition: "{{ lookup('template', '{{ config }}') }}"
       loop:
