@@ -19,27 +19,27 @@
     - name: Remove Old Migration
       vars:
         job_file: "{{ dir_k8s_pss }}/migration-job.yml"
-      k8s:
+      community.kubernetes.k8s:
         state: absent
         definition: "{{ lookup('template', '{{ job_file }}') }}"
         
     - name: Migrate Database
       vars:
         job_file: "{{ dir_k8s_pss }}/migration-job.yml"
-      k8s:
+      community.kubernetes.k8s:
         state: present
         definition: "{{ lookup('template', '{{ job_file }}') }}"
 
     - name: Create Performance Storage Service Deployment
       vars:
         deployment_file: "{{ dir_k8s_pss }}/deployment.yml"
-      k8s:
+      community.kubernetes.k8s:
         state: present
         definition: "{{ lookup('template', '{{ deployment_file }}') }}"
 
     - name: Create Performance Service
       vars:
         service_file: "{{ dir_k8s_pss }}/service.yml"
-      k8s:
+      community.kubernetes.k8s:
         state: present
         definition: "{{ lookup('template', '{{ service_file }}') }}" # Trigger

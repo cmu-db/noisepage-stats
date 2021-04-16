@@ -57,7 +57,7 @@
     - name: Apply Swagger OpenAPI Deployment Configs
       vars:
         config: "{{ dir_k8s_openapi }}/{{ item }}"
-      k8s:
+      community.kubernetes.k8s:
         state: present
         definition: "{{ lookup('template', '{{ config }}') }}"
       loop:
